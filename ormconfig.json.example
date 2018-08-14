@@ -1,0 +1,20 @@
+{
+    "name": "default",
+    "type": "mysql",
+    "host": "127.0.0.1",
+    "port": 3306,
+    "username": "root",
+    "password": "",
+    "database": "aionic",
+    "synchronize": true,
+    "logging": false,
+    "entities": [
+      "dist/modules/*/models/*.js"
+    ],
+    "migrations": [
+      "dist/migrations/*.js"
+    ],
+    "cli": {
+      "migrationsDir": "src/migrations"
+    }
+  }

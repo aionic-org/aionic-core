@@ -1,0 +1,18 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "tslint.autoFixOnSave": true,
+    "[json]": {
+      "editor.formatOnPaste": false,
+      "editor.formatOnSave": false,
+      "editor.formatOnType": false
+    }
+  }
+}
