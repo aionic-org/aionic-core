@@ -1,4 +1,5 @@
 import { bind } from 'decko'
+import { v1 as uuidv1 } from 'uuid'
 import { Request, Response, NextFunction } from 'express'
 import { Repository, getManager } from 'typeorm'
 
@@ -78,7 +79,7 @@ export class AuthController {
       }
 
       // hash for account activation url
-      const uuidHash = this.helperService.createUuidHash()
+      const uuidHash: string = uuidv1()
 
       const newUser: User = this.userRepo.create({
         email: req.body.email,
@@ -145,7 +146,7 @@ export class AuthController {
       }
 
       // set new hash for registration
-      const uuidHash = this.helperService.createUuidHash()
+      const uuidHash: string = uuidv1()
       user.registerHash = uuidHash
 
       await this.userRepo.save(user)

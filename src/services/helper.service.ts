@@ -1,6 +1,5 @@
 import * as crypto from 'crypto'
 import { genSalt, hash, compare } from 'bcrypt-nodejs'
-import { v1 as uuidv1 } from 'uuid'
 
 /**
  *
@@ -65,14 +64,5 @@ export class HelperService {
       .createHash('sha256')
       .update(string)
       .digest('hex')
-  }
-
-  /**
-   * hash uuid string with sha256 algorithm
-   *
-   * @returns {string}
-   */
-  public createUuidHash(): string {
-    return this.hashString(uuidv1())
   }
 }
