@@ -2,7 +2,6 @@ import { Repository, getManager } from 'typeorm'
 import { Strategy as Strategy_Jwt } from 'passport-jwt'
 import { BasicStrategy as Strategy_Basic } from 'passport-http'
 
-// models import
 import { User } from '../../user/models/user.model'
 
 import { permissions } from '../../../config/permissions'

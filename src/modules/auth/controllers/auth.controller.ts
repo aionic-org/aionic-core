@@ -5,6 +5,7 @@ import { Repository, getManager } from 'typeorm'
 
 import { User } from '../../user/models/user.model'
 import { UserRole } from '../../user/models/userRole.model'
+import { UserInvitation } from '../../user/models/user.invitations.model'
 
 import { AuthService } from '../../../services/auth.service'
 import { AuthMailService } from '../services/auth.mail.service'
@@ -13,6 +14,9 @@ import { HelperService } from '../../../services/helper.service'
 export class AuthController {
   private readonly userRepo: Repository<User> = getManager().getRepository('User')
   private readonly userRoleRepo: Repository<UserRole> = getManager().getRepository('UserRole')
+  private readonly userInvRepo: Repository<UserInvitation> = getManager().getRepository(
+    'UserInvitation'
+  )
 
   private readonly authService: AuthService = new AuthService()
   private readonly authMailService: AuthMailService = new AuthMailService()
@@ -31,18 +35,8 @@ export class AuthController {
       })
 
       // wrong email or password
-      if (!user || !user.id) {
-        return res.status(401).json({
-          status: 401,
-          error: 'wrong email or password'
-        })
-      }
-
-      if (!(await this.helperService.verifyPassword(req.body.password, user.password))) {
-        return res.status(401).json({
-          status: 401,
-          error: 'wrong email or password'
-        })
+      if (!user || !(await this.helperService.verifyPassword(req.body.password, user.password))) {
+        return res.status(401).json({ status: 401, error: 'wrong email or password' })
       }
 
       // create jwt -> required for further requests
@@ -62,6 +56,21 @@ export class AuthController {
   }
 
   @bind
+  public async validateHash(req: Request, res: Response, next: NextFunction): Promise<any> {
+    try {
+      const invitation = await this.getUserInvitation(req.params.hash)
+      return invitation && invitation.id
+        ? res.status(204).send()
+        : res.json({
+            status: 403,
+            error: 'invalid hash'
+          })
+    } catch (err) {
+      return next(err)
+    }
+  }
+
+  @bind
   public async register(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const user: User = await this.userRepo.findOne({
@@ -72,19 +81,25 @@ export class AuthController {
 
       // email is already taken
       if (user && user.id) {
-        return res.status(400).json({
-          status: 400,
-          error: 'email is already taken'
-        })
+        return res.status(400).json({ status: 400, error: 'email is already taken' })
       }
 
-      // hash for account activation url
-      const uuidHash: string = uuidv1()
+      const invitation: UserInvitation = await this.getUserInvitation(
+        req.params.hash,
+        req.body.email
+      )
 
-      const newUser: User = this.userRepo.create({
+      // invalid registration hash
+      if (!invitation) {
+        return res.status(400).json({ status: 403, error: 'invalid hash' })
+      }
+
+      await this.userRepo.save({
         email: req.body.email,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
         password: await this.helperService.hashPassword(req.body.password),
-        registerHash: uuidHash,
+        active: true,
         userRole: await this.userRoleRepo.findOne({
           where: {
             name: 'User'
@@ -92,10 +107,8 @@ export class AuthController {
         })
       })
 
-      await this.userRepo.save(newUser)
-
-      // send mail for registration
-      await this.authMailService.sendRegisterMail(newUser, uuidHash)
+      // remove user invitation
+      await this.userInvRepo.remove(invitation)
 
       return res.status(204).send()
     } catch (err) {
@@ -104,55 +117,12 @@ export class AuthController {
   }
 
   @bind
-  public async registerActivate(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async createInvitation(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-      const user: User = await this.userRepo.findOne({
-        where: {
-          registerHash: req.params.uuidHash,
-          active: false
-        }
+      await this.userInvRepo.save({
+        email: req.body.email,
+        hash: uuidv1()
       })
-
-      // user not found
-      if (!user || !user.id) {
-        return res.status(404).json({ status: 404, error: 'user not found' })
-      }
-
-      // set user active
-      user.active = true
-      user.registerHash = null
-
-      await this.userRepo.save(user)
-
-      return res.status(204).send()
-    } catch (err) {
-      return next(err)
-    }
-  }
-
-  @bind
-  public async registerResend(req: Request, res: Response, next: NextFunction): Promise<any> {
-    try {
-      const user: User = await this.userRepo.findOne({
-        where: {
-          email: req.params.email,
-          active: false
-        }
-      })
-
-      // user not found
-      if (!user || !user.id) {
-        return res.status(404).json({ status: 404, error: 'user not found' })
-      }
-
-      // set new hash for registration
-      const uuidHash: string = uuidv1()
-      user.registerHash = uuidHash
-
-      await this.userRepo.save(user)
-
-      // resend mail for registration
-      await this.authMailService.sendRegisterMail(user, uuidHash)
 
       return res.status(204).send()
     } catch (err) {
@@ -171,15 +141,33 @@ export class AuthController {
       })
 
       // user not found
-      if (!user || !user.id) {
+      if (!user) {
         return res.status(404).json({ status: 404, error: 'user not found' })
       }
 
-      await this.userRepo.delete(user.id)
+      await this.userRepo.remove(user)
 
       return res.status(204).send()
     } catch (err) {
       return next(err)
+    }
+  }
+
+  @bind
+  private async getUserInvitation(hash: string, email?): Promise<UserInvitation> {
+    try {
+      if (email !== undefined) {
+        return this.userInvRepo.findOne({
+          where: {
+            hash: hash,
+            email: email
+          }
+        })
+      } else {
+        return this.userInvRepo.findOne({ where: { hash: hash } })
+      }
+    } catch (err) {
+      throw err
     }
   }
 }

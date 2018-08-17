@@ -96,7 +96,7 @@ export class JwtStrategy extends BaseStrategy {
         relations: ['userRole']
       })
 
-      if (!user || !user.id) {
+      if (!user) {
         return next(null, null)
       }
 

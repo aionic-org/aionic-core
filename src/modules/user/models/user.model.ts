@@ -27,12 +27,6 @@ export class User {
   public password: string
 
   @Column({
-    unique: true,
-    default: null
-  })
-  public registerHash: string
-
-  @Column({
     type: 'tinyint',
     default: false
   })

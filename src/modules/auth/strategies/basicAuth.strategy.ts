@@ -3,10 +3,8 @@ import { authenticate } from 'passport'
 import { BasicStrategy } from 'passport-http'
 import { Request, Response, NextFunction, Handler } from 'express'
 
-// models import
 import { User } from '../../user/models/user.model'
 
-// services import
 import { HelperService } from '../../../services/helper.service'
 
 import { BaseStrategy } from './base.strategy'
@@ -85,7 +83,7 @@ export class BasicAuthStrategy extends BaseStrategy {
       })
 
       // verify username
-      if (!user || !user.id) {
+      if (!user) {
         return next(null, null)
       }
 

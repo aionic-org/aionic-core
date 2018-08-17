@@ -74,12 +74,12 @@ export class TaskController {
       const article: Task = await this.taskRepo.findOne(req.params.id)
 
       // category not found
-      if (!article || !article.id) {
+      if (!article) {
         return res.status(404).json({ status: 404, error: 'article not found' })
       }
 
       // delete category
-      await this.taskRepo.delete(article.id)
+      await this.taskRepo.remove(article)
 
       return res.status(204).send()
     } catch (err) {

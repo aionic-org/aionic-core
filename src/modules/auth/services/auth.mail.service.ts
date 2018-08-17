@@ -1,7 +1,5 @@
-// models import
 import { User } from '../../user/models/user.model'
 
-// services import
 import { MailService, MailConfig } from '../../../services/mail.service'
 
 import { variables, env, mails } from '../../../config/globals'
