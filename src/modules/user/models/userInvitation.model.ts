@@ -12,7 +12,10 @@ export class UserInvitation {
   })
   public email: string
 
-  @Column()
+  @Column({
+    unique: true,
+    nullable: false
+  })
   public hash: string
 
   @Column({

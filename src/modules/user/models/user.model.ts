@@ -27,17 +27,16 @@ export class User {
   public password: string
 
   @Column({
-    type: 'tinyint',
     default: false
   })
   public active: boolean
 
   /***** relations *****/
   @OneToMany(type => Task, task => task.author)
-  public articlesAuthor: Array<Task>
+  public tasksAuthor: Array<Task>
 
   @OneToMany(type => Task, task => task.author)
-  public articlesAssignee: Array<Task>
+  public tasksAssignee: Array<Task>
 
   @ManyToOne(type => UserRole, userRole => userRole.users)
   public userRole: UserRole

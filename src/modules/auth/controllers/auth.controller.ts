@@ -5,7 +5,7 @@ import { Repository, getManager } from 'typeorm'
 
 import { User } from '../../user/models/user.model'
 import { UserRole } from '../../user/models/userRole.model'
-import { UserInvitation } from '../../user/models/user.invitations.model'
+import { UserInvitation } from '../../user/models/userInvitation.model'
 
 import { AuthService } from '../../../services/auth.service'
 import { AuthMailService } from '../services/auth.mail.service'

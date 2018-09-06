@@ -9,6 +9,8 @@ import {
 } from 'typeorm'
 
 import { User } from '../../user/models/user.model'
+import { TaskStatus } from './taskStatus.model'
+import { TaskPriority } from './taskPriority.model'
 
 @Entity()
 export class Task {
@@ -20,12 +22,10 @@ export class Task {
   public title: string
 
   @Column('text')
-  public text: string
+  public description: string
 
-  @Column({
-    default: false
-  })
-  public published: boolean
+  @Column()
+  public branch: string
 
   @CreateDateColumn()
   public created: Timestamp
@@ -34,9 +34,15 @@ export class Task {
   public updated: Timestamp
 
   /***** relations *****/
-  @ManyToOne(type => User, user => user.articlesAuthor)
+  @ManyToOne(type => User, user => user.tasksAuthor)
   public author: User
 
-  @ManyToOne(type => User, user => user.articlesAuthor)
+  @ManyToOne(type => User, user => user.tasksAssignee)
   public assignee: User
+
+  @ManyToOne(type => TaskStatus, taskStatus => taskStatus.tasks)
+  public status: TaskStatus
+
+  @ManyToOne(type => TaskPriority, taskPriority => taskPriority.tasks)
+  public priority: TaskPriority
 }
