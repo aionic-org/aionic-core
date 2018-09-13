@@ -1,4 +1,5 @@
 import * as crypto from 'crypto'
+import { v1 as uuidv1 } from 'uuid'
 import { genSalt, hash, compare } from 'bcrypt-nodejs'
 
 /**
@@ -59,10 +60,19 @@ export class HelperService {
    * @param {string} string
    * @returns {string}
    */
-  public hashString(string: string) {
+  public hashString(string: string): string {
     return crypto
       .createHash('sha256')
       .update(string)
       .digest('hex')
+  }
+
+  /**
+   * generate uuid
+   *
+   * @returns {string}
+   */
+  public generateUuid(): string {
+    return uuidv1()
   }
 }

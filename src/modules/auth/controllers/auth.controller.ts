@@ -1,5 +1,4 @@
 import { bind } from 'decko'
-import { v1 as uuidv1 } from 'uuid'
 import { Request, Response, NextFunction } from 'express'
 import { Repository, getManager } from 'typeorm'
 
@@ -61,7 +60,7 @@ export class AuthController {
       const invitation = await this.getUserInvitation(req.params.hash)
       return invitation && invitation.id
         ? res.status(204).send()
-        : res.json({
+        : res.status(403).json({
             status: 403,
             error: 'invalid hash'
           })
@@ -100,11 +99,10 @@ export class AuthController {
         lastname: req.body.lastname,
         password: await this.helperService.hashPassword(req.body.password),
         active: true,
-        userRole: await this.userRoleRepo.findOne({
-          where: {
-            name: 'User'
-          }
-        })
+        userRole: {
+          id: 1,
+          name: 'User'
+        }
       })
 
       // remove user invitation
@@ -121,7 +119,7 @@ export class AuthController {
     try {
       await this.userInvRepo.save({
         email: req.body.email,
-        hash: uuidv1()
+        hash: this.helperService.generateUuid()
       })
 
       return res.status(204).send()

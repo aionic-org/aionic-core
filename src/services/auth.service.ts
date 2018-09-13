@@ -33,8 +33,8 @@ export class AuthService {
   private readonly strategyOptions: StrategyOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: 'mysecret-api-key-wau',
-    audience: 'nexapi-client',
-    issuer: 'nexapi-api'
+    audience: 'aionic-client',
+    issuer: 'aionic-api'
   }
 
   // jwt options
