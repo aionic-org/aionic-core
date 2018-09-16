@@ -1,6 +1,6 @@
 {
   "name": "aionic-api",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Aionic - A web application for task management",
   "main": "index.js",
   "author": "Lars Wächter",

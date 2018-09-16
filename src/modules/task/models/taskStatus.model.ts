@@ -11,6 +11,9 @@ export class TaskStatus {
   @Column()
   public title: string
 
+  @Column()
+  public order: number
+
   @Column({
     default: false
   })

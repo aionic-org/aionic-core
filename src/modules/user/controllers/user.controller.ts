@@ -23,7 +23,9 @@ export class UserController {
     try {
       const user: User = await this.userRepo.findOne(req.params.id)
 
-      return res.json({ status: res.statusCode, data: user })
+      const statusCode = user && user.id ? res.statusCode : 404
+
+      return res.status(statusCode).json({ status: statusCode, data: user })
     } catch (err) {
       return next(err)
     }

@@ -2,86 +2,45 @@ import { bind } from 'decko'
 import { Request, Response, NextFunction } from 'express'
 import { Repository, getManager } from 'typeorm'
 
-import { Task } from '../models/task.model'
+import { TaskDetailsController } from './task.details.controller'
 
-export class TaskController {
-  private readonly taskRepo: Repository<Task> = getManager().getRepository('Task')
+import { Task } from '../models/task.model'
+import { TaskStatus } from '../models/taskStatus.model'
+
+export class TaskController extends TaskDetailsController {
+  private readonly statusRepo: Repository<TaskStatus> = getManager().getRepository('TaskStatus')
 
   @bind
-  public async readTasks(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async readTaskStatus(req: Request, res: Response, next: NextFunction): Promise<any> {
+    try {
+      const status: Array<TaskStatus> = await this.statusRepo.find({
+        order: {
+          order: 'ASC'
+        }
+      })
+
+      return res.json({ status: res.statusCode, data: status })
+    } catch (err) {
+      return next(err)
+    }
+  }
+
+  @bind
+  public async readUserTasksByStatus(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
     try {
       const tasks: Array<Task> = await this.taskRepo.find({
-        relations: ['author', 'assignee']
+        where: {
+          user: req.params.userID,
+          status: req.params.statusID
+        },
+        relations: ['author', 'assignee', 'status', 'priority']
       })
 
       return res.json({ status: res.statusCode, data: tasks })
-    } catch (err) {
-      return next(err)
-    }
-  }
-
-  @bind
-  public async readTask(req: Request, res: Response, next: NextFunction): Promise<any> {
-    try {
-      const task: Task = await this.taskRepo.findOne(req.params.id, {
-        relations: ['author', 'assignee']
-      })
-
-      return res.json({ status: res.statusCode, data: task })
-    } catch (err) {
-      return next(err)
-    }
-  }
-
-  @bind
-  public async createTask(req: Request, res: Response, next: NextFunction): Promise<any> {
-    try {
-      // TODO: update columns
-      const newTask: Task = this.taskRepo.create()
-
-      await this.taskRepo.save(newTask)
-
-      return res.status(204).send()
-    } catch (err) {
-      return next(err)
-    }
-  }
-
-  @bind
-  public async updateTask(req: Request, res: Response, next: NextFunction): Promise<any> {
-    try {
-      const task: Task = await this.taskRepo.findOne(req.params.id)
-
-      // task not found
-      if (!task || !task.id) {
-        return res.status(404).json({ status: 404, error: 'task not found' })
-      }
-
-      // TODO: update columns
-
-      // save task
-      await this.taskRepo.save(task)
-
-      return res.status(204).send()
-    } catch (err) {
-      return next(err)
-    }
-  }
-
-  @bind
-  public async deleteTask(req: Request, res: Response, next: NextFunction): Promise<any> {
-    try {
-      const article: Task = await this.taskRepo.findOne(req.params.id)
-
-      // category not found
-      if (!article) {
-        return res.status(404).json({ status: 404, error: 'article not found' })
-      }
-
-      // delete category
-      await this.taskRepo.remove(article)
-
-      return res.status(204).send()
     } catch (err) {
       return next(err)
     }

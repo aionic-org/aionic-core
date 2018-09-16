@@ -45,7 +45,7 @@ export class Server {
     // api endpoints - pass optional passport default strategy
     this._app.use('/api/auth', new AuthRoutes().router)
     this._app.use('/api/user', new UserRoutes().router)
-    this._app.use('/api/article', new TaskRoutes().router)
+    this._app.use('/api/task', new TaskRoutes().router)
 
     // error handler
     this._app.use((err, req, res, next) => {

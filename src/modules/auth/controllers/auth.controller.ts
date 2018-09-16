@@ -25,7 +25,7 @@ export class AuthController {
   public async signin(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const user: User = await this.userRepo.findOne({
-        select: ['id', 'password'],
+        select: ['id', 'email', 'firstname', 'lastname', 'password'],
         where: {
           email: req.body.email,
           active: true
@@ -41,11 +41,13 @@ export class AuthController {
       // create jwt -> required for further requests
       const token: string = this.authService.createToken(user.id)
 
+      // don't send user password in response
+      delete user.password
+
       return res.json({
         status: res.statusCode,
         data: {
-          userID: user.id,
-          userRole: user.userRole.name,
+          user: user,
           token: token
         }
       })
