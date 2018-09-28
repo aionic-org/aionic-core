@@ -2,12 +2,12 @@ import { bind } from 'decko'
 import { Request, Response, NextFunction } from 'express'
 import { Repository, getManager } from 'typeorm'
 
-import { TaskDetailsController } from './task.details.controller'
+import { TaskBaseController } from './task.base.controller'
 
 import { Task } from '../models/task.model'
 import { TaskStatus } from '../models/taskStatus.model'
 
-export class TaskController extends TaskDetailsController {
+export class TaskController extends TaskBaseController {
   private readonly statusRepo: Repository<TaskStatus> = getManager().getRepository('TaskStatus')
 
   @bind

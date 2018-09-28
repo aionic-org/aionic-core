@@ -3,7 +3,7 @@ import { Router } from 'express'
 import { AuthService } from '../../../services/auth.service'
 import { TaskController } from '../controllers/task.controller'
 
-export class TaskDetailsRoutes {
+export class TaskBaseRoutes {
   protected readonly controller: TaskController = new TaskController()
   protected authSerivce: AuthService
   private _router: Router = new Router()
@@ -19,35 +19,35 @@ export class TaskDetailsRoutes {
 
   private initDetailsRoutes(): void {
     this.router.get(
-      '/details',
+      '/base',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('task', 'read'),
       this.controller.readTasks
     )
 
     this.router.get(
-      '/details/:id',
+      '/base/:id',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('task', 'read'),
       this.controller.readTask
     )
 
     this.router.post(
-      '/details/',
+      '/base/',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('task', 'create'),
       this.controller.createTask
     )
 
     this.router.put(
-      '/details/:id',
+      '/base/:id',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('task', 'update'),
       this.controller.updateTask
     )
 
     this.router.delete(
-      '/details/:id',
+      '/base/:id',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('task', 'delete'),
       this.controller.deleteTask

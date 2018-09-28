@@ -32,14 +32,14 @@ export class AuthService {
 
   private readonly strategyOptions: StrategyOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'mysecret-api-key-wau',
+    secretOrKey: 'aionic-secret-api-key',
     audience: 'aionic-client',
     issuer: 'aionic-api'
   }
 
   // jwt options
   private readonly signOptions: SignOptions = {
-    expiresIn: '6h',
+    expiresIn: '8h',
     audience: this.strategyOptions.audience,
     issuer: this.strategyOptions.issuer
   }
@@ -98,8 +98,8 @@ export class AuthService {
    * @returns {void}
    */
   public initStrategies(): void {
-    use('jwt', new JwtStrategy(this.strategyOptions).strategy)
-    use('basic', new BasicAuthStrategy().strategy)
+    use('jwt', this.jwtStrategy.strategy)
+    use('basic', this.basicStrategy.strategy)
   }
 
   /**
@@ -114,7 +114,7 @@ export class AuthService {
       try {
         // if no strategy is provided use default strategy
         const tempStrategy = strategy || this.defaultStrategy
-        return this.execAuth(req, res, next, tempStrategy)
+        return this.doAuthentication(req, res, next, tempStrategy)
       } catch (err) {
         return next(err)
       }
@@ -131,18 +131,15 @@ export class AuthService {
    * @returns {any}
    */
   @bind
-  private execAuth(req: Request, res: Response, next: NextFunction, strategy: string): any {
+  private doAuthentication(req: Request, res: Response, next: NextFunction, strategy: string): any {
     try {
       switch (strategy) {
         case 'jwt':
           return this.jwtStrategy.isAuthorized(req, res, next)
-          break
         case 'basic':
           return this.basicStrategy.isAuthorized(req, res, next)
-          break
         default:
           throw new Error(`Unknown passport strategy: ${this.defaultStrategy}`)
-          break
       }
     } catch (err) {
       return next(err)

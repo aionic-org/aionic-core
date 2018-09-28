@@ -1,6 +1,6 @@
-import { TaskDetailsRoutes } from './task.details.routes'
+import { TaskBaseRoutes } from './task.base.routes'
 
-export class TaskRoutes extends TaskDetailsRoutes {
+export class TaskRoutes extends TaskBaseRoutes {
   public constructor(defaultStrategy?: string) {
     super(defaultStrategy)
     this.initRoutes()

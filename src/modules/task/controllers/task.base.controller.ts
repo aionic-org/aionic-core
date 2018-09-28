@@ -4,7 +4,7 @@ import { Repository, getManager } from 'typeorm'
 
 import { Task } from '../models/task.model'
 
-export class TaskDetailsController {
+export class TaskBaseController {
   protected readonly taskRepo: Repository<Task> = getManager().getRepository('Task')
 
   @bind

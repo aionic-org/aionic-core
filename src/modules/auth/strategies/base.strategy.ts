@@ -23,16 +23,13 @@ export abstract class BaseStrategy {
   }
 
   /**
-   * sets user permission from acl
+   * sets acl user permission
    *
    * @param {User} user
    * @returns {Promise<void>}
    */
   protected async setPermissions(user: User): Promise<void> {
-    // remove all roles
-    await permissions.removeUserRoles(user.id, await permissions.userRoles(user.id))
-
     // add role from db
-    await permissions.addUserRoles(user.id, user.userRole.name || 'User')
+    await permissions.addUserRoles(user.id, user.userRole.name)
   }
 }
