@@ -39,7 +39,7 @@ export class TaskBaseRoutes {
       this.controller.createTask
     )
 
-    this.router.put(
+    this.router.post(
       '/base/:id',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('task', 'update'),

@@ -10,8 +10,15 @@ export class TaskRoutes extends TaskBaseRoutes {
     this.router.get(
       '/status',
       this.authSerivce.isAuthorized(),
-      this.authSerivce.hasPermission('taskStatus', 'read'),
+      this.authSerivce.hasPermission('task', 'read'),
       this.controller.readTaskStatus
+    )
+
+    this.router.get(
+      '/priority',
+      this.authSerivce.isAuthorized(),
+      this.authSerivce.hasPermission('task', 'read'),
+      this.controller.readTaskPriorities
     )
 
     this.router.get(

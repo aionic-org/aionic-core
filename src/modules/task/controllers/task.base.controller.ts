@@ -56,10 +56,10 @@ export class TaskBaseController {
         return res.status(404).json({ status: 404, error: 'task not found' })
       }
 
-      // TODO: update columns
+      console.log(req.body.task)
 
-      // save task
-      await this.taskRepo.save(task)
+      // update task
+      await this.taskRepo.save(req.body.task)
 
       return res.status(204).send()
     } catch (err) {

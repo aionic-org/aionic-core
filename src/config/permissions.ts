@@ -7,7 +7,7 @@ permissions.allow([
     roles: ['Admin'],
     allows: [
       {
-        resources: ['user', 'task', 'taskStatus'],
+        resources: ['user', 'task'],
         permissions: '*'
       }
     ]
@@ -22,10 +22,6 @@ permissions.allow([
       {
         resources: 'task',
         permissions: ['read', 'update']
-      },
-      {
-        resources: 'taskStatus',
-        permissions: ['read']
       }
     ]
   }
