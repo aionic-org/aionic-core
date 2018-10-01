@@ -21,7 +21,7 @@ permissions.allow([
       },
       {
         resources: 'task',
-        permissions: ['read', 'update']
+        permissions: ['create', 'read', 'update']
       }
     ]
   }

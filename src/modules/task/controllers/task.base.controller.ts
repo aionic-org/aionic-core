@@ -38,9 +38,9 @@ export class TaskBaseController {
   @bind
   public async createTask(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-      await this.taskRepo.save({ ...req.body.task })
+      const task: Task = await this.taskRepo.save(req.body.task)
 
-      return res.status(204).send()
+      return res.json({ status: res.statusCode, data: task })
     } catch (err) {
       return next(err)
     }
@@ -55,8 +55,6 @@ export class TaskBaseController {
       if (!task || !task.id) {
         return res.status(404).json({ status: 404, error: 'task not found' })
       }
-
-      console.log(req.body.task)
 
       // update task
       await this.taskRepo.save(req.body.task)
