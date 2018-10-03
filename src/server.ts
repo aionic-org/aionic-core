@@ -19,14 +19,10 @@ import { TaskPriorityRoutes } from './modules/task/taskPriority/taskPriority.rou
 import { TaskStatusRoutes } from './modules/task/taskStatus/taskStatus.routes'
 
 export class Server {
-  private _app: express.Application
-  private authService: AuthService
+  private readonly _app: express.Application = express()
+  private readonly authService: AuthService = new AuthService()
 
   public constructor() {
-    this._app = express()
-
-    this.authService = new AuthService()
-
     this.initConfig()
     this.initRoutes()
   }
@@ -37,11 +33,7 @@ export class Server {
 
   private initConfig(): void {
     this._app.use(helmet())
-    this._app.use(
-      cors({
-        origin: 'http://localhost:4200'
-      })
-    )
+    this._app.use(cors({ origin: 'http://localhost:4200' }))
     this._app.use(bodyParser.json())
     this._app.use(bodyParser.urlencoded({ extended: true }))
 
