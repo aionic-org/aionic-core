@@ -5,10 +5,18 @@ import * as cors from 'cors'
 
 import { AuthService } from './services/auth.service'
 
-// import routes
-import { AuthRoutes } from './modules/auth/routes/auth.routes'
-import { UserRoutes } from './modules/user/routes/user.routes'
-import { TaskRoutes } from './modules/task/routes/task.routes'
+// auth routes
+import { AuthRoutes } from './modules/auth/auth.routes'
+
+// user routes
+import { UserRoutes } from './modules/user/user.routes'
+import { UserInvitationRoutes } from './modules/user/userInvitation/userInvitation.routes'
+import { UserRoleRoutes } from './modules/user/userRole/userRole.routes'
+
+// task routes
+import { TaskRoutes } from './modules/task/task.routes'
+import { TaskPriorityRoutes } from './modules/task/taskPriority/taskPriority.routes'
+import { TaskStatusRoutes } from './modules/task/taskStatus/taskStatus.routes'
 
 export class Server {
   private _app: express.Application
@@ -44,8 +52,16 @@ export class Server {
   private initRoutes(): any {
     // api endpoints - pass optional passport default strategy
     this._app.use('/api/auth', new AuthRoutes().router)
+
+    // user
     this._app.use('/api/user', new UserRoutes().router)
+    this._app.use('/api/userInvitation', new UserInvitationRoutes().router)
+    this._app.use('/api/userRole', new UserRoleRoutes().router)
+
+    // task
     this._app.use('/api/task', new TaskRoutes().router)
+    this._app.use('/api/taskPriority', new TaskPriorityRoutes().router)
+    this._app.use('/api/taskStatus', new TaskStatusRoutes().router)
 
     // error handler
     this._app.use((err, req, res, next) => {

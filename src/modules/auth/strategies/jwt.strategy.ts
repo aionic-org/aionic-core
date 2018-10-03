@@ -3,8 +3,6 @@ import { authenticate } from 'passport'
 import { Strategy, StrategyOptions } from 'passport-jwt'
 import { Request, Response, NextFunction, Handler } from 'express'
 
-import { User } from '../../user/models/user.model'
-
 import { BaseStrategy } from './base.strategy'
 
 /**
@@ -88,7 +86,7 @@ export class JwtStrategy extends BaseStrategy {
     try {
       // pass error == null on error otherwise we get a 500 error instead of 401
       console.log('Incoming payload: ', payload)
-      const user: User = await this.userRepo.findOne({
+      const user = await this.userRepo.findOne({
         where: {
           id: payload.userID,
           active: true

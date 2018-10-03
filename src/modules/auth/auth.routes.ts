@@ -1,9 +1,9 @@
 import { Router } from 'express'
 
 // services import
-import { AuthService } from '../../../services/auth.service'
+import { AuthService } from '../../services/auth.service'
 
-import { AuthController } from '../controllers/auth.controller'
+import { AuthController } from './auth.controller'
 
 export class AuthRoutes {
   private authSerivce: AuthService

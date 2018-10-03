@@ -5,12 +5,14 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Timestamp,
-  ManyToOne
+  ManyToOne,
+  OneToMany
 } from 'typeorm'
 
-import { User } from '../../user/models/user.model'
-import { TaskStatus } from './taskStatus.model'
-import { TaskPriority } from './taskPriority.model'
+import { User } from '../user/user.model'
+import { TaskStatus } from './taskStatus/taskStatus.model'
+import { TaskPriority } from './taskPriority/taskPriority.model'
+import { TaskComment } from './subs/comment/taskComment.model'
 
 @Entity()
 export class Task {
@@ -34,10 +36,10 @@ export class Task {
   public updated: Timestamp
 
   /***** relations *****/
-  @ManyToOne(type => User, user => user.tasksAuthor)
+  @ManyToOne(type => User, user => user.author)
   public author: User
 
-  @ManyToOne(type => User, user => user.tasksAssignee)
+  @ManyToOne(type => User, user => user.assignee)
   public assignee: User
 
   @ManyToOne(type => TaskStatus, taskStatus => taskStatus.tasks)
@@ -45,4 +47,7 @@ export class Task {
 
   @ManyToOne(type => TaskPriority, taskPriority => taskPriority.tasks)
   public priority: TaskPriority
+
+  @OneToMany(type => TaskComment, taskComment => taskComment.task)
+  public comments: Array<TaskComment>
 }

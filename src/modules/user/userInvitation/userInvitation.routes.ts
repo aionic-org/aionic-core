@@ -1,12 +1,12 @@
 import { Router } from 'express'
 
 import { AuthService } from '../../../services/auth.service'
-import { UserController } from '../controllers/user.controller'
+import { UserInvitationController } from './userInvitation.controller'
 
-export class UserRoutes {
+export class UserInvitationRoutes {
   private authSerivce: AuthService
   private readonly _router: Router = new Router()
-  private readonly controller: UserController = new UserController()
+  private readonly controller: UserInvitationController = new UserInvitationController()
 
   public constructor(defaultStrategy?: string) {
     this.authSerivce = new AuthService(defaultStrategy)
@@ -21,15 +21,8 @@ export class UserRoutes {
     this._router.get(
       '/',
       this.authSerivce.isAuthorized(),
-      this.authSerivce.hasPermission('user', 'read'),
-      this.controller.readUsers
-    )
-
-    this._router.get(
-      '/:id',
-      this.authSerivce.isAuthorized(),
-      this.authSerivce.hasPermission('user', 'read'),
-      this.controller.readUser
+      this.authSerivce.hasPermission('userInvitation', 'read'),
+      this.controller.readUserInvitations
     )
   }
 }

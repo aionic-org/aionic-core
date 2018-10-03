@@ -1,4 +1,4 @@
-import { User } from '../../user/models/user.model'
+import { User } from '../../user/user.model'
 
 import { MailService, MailConfig } from '../../../services/mail.service'
 

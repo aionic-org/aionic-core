@@ -1,7 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm'
 
-import { UserRole } from './userRole.model'
-import { Task } from '../../task/models/task.model'
+import { UserRole } from './userRole/userRole.model'
+import { Task } from '../task/task.model'
+import { TaskComment } from '../task/subs/comment/taskComment.model'
 
 @Entity()
 export class User {
@@ -33,10 +34,13 @@ export class User {
 
   /***** relations *****/
   @OneToMany(type => Task, task => task.author)
-  public tasksAuthor: Array<Task>
+  public author: Array<Task>
 
   @OneToMany(type => Task, task => task.author)
-  public tasksAssignee: Array<Task>
+  public assignee: Array<Task>
+
+  @OneToMany(type => TaskComment, taskComment => taskComment.author)
+  public comments: Array<TaskComment>
 
   @ManyToOne(type => UserRole, userRole => userRole.users)
   public userRole: UserRole

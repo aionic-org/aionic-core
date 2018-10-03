@@ -9,7 +9,9 @@
     "synchronize": true,
     "logging": false,
     "entities": [
-      "dist/modules/*/models/*.js"
+      "dist/modules/*/*.js",
+      "dist/modules/*/*/*.js",
+      "dist/modules/*/*/*/*.js"
     ],
     "migrations": [
       "dist/migrations/*.js"

@@ -2,10 +2,10 @@ import { bind } from 'decko'
 import { Request, Response, NextFunction } from 'express'
 import { Repository, getManager } from 'typeorm'
 
-import { Task } from '../models/task.model'
+import { Task } from './task.model'
 
-export class TaskBaseController {
-  protected readonly taskRepo: Repository<Task> = getManager().getRepository('Task')
+export class TaskController {
+  private readonly taskRepo: Repository<Task> = getManager().getRepository('Task')
 
   @bind
   public async readTasks(req: Request, res: Response, next: NextFunction): Promise<any> {
@@ -68,15 +68,15 @@ export class TaskBaseController {
   @bind
   public async deleteTask(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-      const article: Task = await this.taskRepo.findOne(req.params.id)
+      const task: Task = await this.taskRepo.findOne(req.params.id)
 
       // category not found
-      if (!article) {
-        return res.status(404).json({ status: 404, error: 'article not found' })
+      if (!task) {
+        return res.status(404).json({ status: 404, error: 'task not found' })
       }
 
       // delete category
-      await this.taskRepo.remove(article)
+      await this.taskRepo.remove(task)
 
       return res.status(204).send()
     } catch (err) {

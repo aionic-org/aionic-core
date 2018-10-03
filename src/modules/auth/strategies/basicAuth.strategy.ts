@@ -3,7 +3,7 @@ import { authenticate } from 'passport'
 import { BasicStrategy } from 'passport-http'
 import { Request, Response, NextFunction, Handler } from 'express'
 
-import { User } from '../../user/models/user.model'
+import { User } from '../../user/user.model'
 
 import { HelperService } from '../../../services/helper.service'
 
