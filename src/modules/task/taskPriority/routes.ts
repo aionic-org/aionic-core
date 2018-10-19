@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
-import { AuthService } from '../../../services/auth.service'
-import { TaskPriorityController } from './taskPriority.controller'
+import { AuthService } from '../../../services/auth'
+import { TaskPriorityController } from './controller'
 
 export class TaskPriorityRoutes {
   private readonly controller: TaskPriorityController = new TaskPriorityController()

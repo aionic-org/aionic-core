@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
-import { AuthService } from '../../../../services/auth.service'
-import { TaskCommentController } from './taskComment.controller'
+import { AuthService } from '../../../../services/auth'
+import { TaskCommentController } from './controller'
 
 export class TaskCommentRoutes {
   protected readonly controller: TaskCommentController = new TaskCommentController()
@@ -23,6 +23,13 @@ export class TaskCommentRoutes {
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('taskComment', 'read'),
       this.controller.readTaskComments
+    )
+
+    this.router.post(
+      '/:id/comments',
+      this.authSerivce.isAuthorized(),
+      this.authSerivce.hasPermission('taskComment', 'create'),
+      this.controller.createTaskComment
     )
   }
 }

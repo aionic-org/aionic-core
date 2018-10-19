@@ -2,7 +2,7 @@ import { bind } from 'decko'
 import { Request, Response, NextFunction } from 'express'
 import { Repository, getManager } from 'typeorm'
 
-import { UserRole } from './userRole.model'
+import { UserRole } from './model'
 
 export class UserRoleController {
   private readonly userRoleRepo: Repository<UserRole> = getManager().getRepository('User')

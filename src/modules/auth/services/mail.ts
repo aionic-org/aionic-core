@@ -1,6 +1,6 @@
-import { User } from '../../user/user.model'
+import { User } from '../../user/model'
 
-import { MailService, MailConfig } from '../../../services/mail.service'
+import { MailService, MailConfig } from '../../../services/mail'
 
 import { variables, env, mails } from '../../../config/globals'
 

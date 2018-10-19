@@ -3,11 +3,11 @@ import { authenticate } from 'passport'
 import { BasicStrategy } from 'passport-http'
 import { Request, Response, NextFunction, Handler } from 'express'
 
-import { User } from '../../user/user.model'
+import { User } from '../../user/model'
 
-import { HelperService } from '../../../services/helper.service'
+import { HelperService } from '../../../services/helper'
 
-import { BaseStrategy } from './base.strategy'
+import { BaseStrategy } from './base'
 
 /**
  *

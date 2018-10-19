@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm'
 
-import { UserRole } from './userRole/userRole.model'
-import { Task } from '../task/task.model'
-import { TaskComment } from '../task/subs/comment/taskComment.model'
+import { UserRole } from './userRole/model'
+import { Task } from '../task/model'
+import { TaskComment } from '../task/subs/comment/model'
 
 @Entity()
 export class User {
@@ -28,7 +28,7 @@ export class User {
   public password: string
 
   @Column({
-    default: false
+    default: true
   })
   public active: boolean
 

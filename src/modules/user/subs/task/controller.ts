@@ -2,8 +2,8 @@ import { bind } from 'decko'
 import { Request, Response, NextFunction } from 'express'
 import { Repository, getManager } from 'typeorm'
 
-import { User } from '../../user.model'
-import { Task } from '../../../task/task.model'
+import { User } from '../../model'
+import { Task } from '../../../task/model'
 
 export class UserTaskController {
   private readonly userRepo: Repository<User> = getManager().getRepository('User')

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
-import { AuthService } from '../../../services/auth.service'
-import { UserInvitationController } from './userInvitation.controller'
+import { AuthService } from '../../../services/auth'
+import { UserInvitationController } from './controller'
 
 export class UserInvitationRoutes {
   private authSerivce: AuthService

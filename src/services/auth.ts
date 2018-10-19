@@ -4,8 +4,8 @@ import { sign, SignOptions } from 'jsonwebtoken'
 import { Request, Response, NextFunction, Handler } from 'express'
 import { StrategyOptions, ExtractJwt } from 'passport-jwt'
 
-import { JwtStrategy } from '../modules/auth/strategies/jwt.strategy'
-import { BasicAuthStrategy } from '../modules/auth/strategies/basicAuth.strategy'
+import { JwtStrategy } from '../modules/auth/strategies/jwt'
+import { BasicAuthStrategy } from '../modules/auth/strategies/basicAuth'
 
 import { permissions } from '../config/permissions'
 

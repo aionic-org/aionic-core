@@ -3,20 +3,20 @@ import * as helmet from 'helmet'
 import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
 
-import { AuthService } from './services/auth.service'
+import { AuthService } from './services/auth'
 
 // auth routes
-import { AuthRoutes } from './modules/auth/auth.routes'
+import { AuthRoutes } from './modules/auth/routes'
 
 // user routes
-import { UserRoutes } from './modules/user/user.routes'
-import { UserInvitationRoutes } from './modules/user/userInvitation/userInvitation.routes'
-import { UserRoleRoutes } from './modules/user/userRole/userRole.routes'
+import { UserRoutes } from './modules/user/routes'
+import { UserInvitationRoutes } from './modules/user/userInvitation/routes'
+import { UserRoleRoutes } from './modules/user/userRole/routes'
 
 // task routes
-import { TaskRoutes } from './modules/task/task.routes'
-import { TaskPriorityRoutes } from './modules/task/taskPriority/taskPriority.routes'
-import { TaskStatusRoutes } from './modules/task/taskStatus/taskStatus.routes'
+import { TaskRoutes } from './modules/task/routes'
+import { TaskPriorityRoutes } from './modules/task/taskPriority/routes'
+import { TaskStatusRoutes } from './modules/task/taskStatus/routes'
 
 export class Server {
   private readonly _app: express.Application = express()

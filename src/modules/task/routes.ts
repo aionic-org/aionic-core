@@ -1,8 +1,8 @@
 import { Router } from 'express'
 
-import { AuthService } from '../../services/auth.service'
-import { TaskController } from './task.controller'
-import { TaskCommentRoutes } from './subs/comment/taskComment.routes'
+import { AuthService } from '../../services/auth'
+import { TaskController } from './controller'
+import { TaskCommentRoutes } from './subs/comment/routes'
 
 export class TaskRoutes {
   private readonly controller: TaskController = new TaskController()

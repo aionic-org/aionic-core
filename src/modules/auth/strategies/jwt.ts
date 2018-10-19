@@ -3,7 +3,7 @@ import { authenticate } from 'passport'
 import { Strategy, StrategyOptions } from 'passport-jwt'
 import { Request, Response, NextFunction, Handler } from 'express'
 
-import { BaseStrategy } from './base.strategy'
+import { BaseStrategy } from './base'
 
 /**
  *

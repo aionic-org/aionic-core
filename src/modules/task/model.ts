@@ -9,10 +9,10 @@ import {
   OneToMany
 } from 'typeorm'
 
-import { User } from '../user/user.model'
-import { TaskStatus } from './taskStatus/taskStatus.model'
-import { TaskPriority } from './taskPriority/taskPriority.model'
-import { TaskComment } from './subs/comment/taskComment.model'
+import { User } from '../user/model'
+import { TaskStatus } from './taskStatus/model'
+import { TaskPriority } from './taskPriority/model'
+import { TaskComment } from './subs/comment/model'
 
 @Entity()
 export class Task {

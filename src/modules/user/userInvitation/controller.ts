@@ -2,7 +2,7 @@ import { bind } from 'decko'
 import { Request, Response, NextFunction } from 'express'
 import { Repository, getManager } from 'typeorm'
 
-import { UserInvitation } from './userInvitation.model'
+import { UserInvitation } from './model'
 
 export class UserInvitationController {
   private readonly userInvitationRepo: Repository<UserInvitation> = getManager().getRepository(

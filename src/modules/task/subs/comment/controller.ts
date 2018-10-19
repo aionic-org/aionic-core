@@ -2,7 +2,7 @@ import { bind } from 'decko'
 import { Request, Response, NextFunction } from 'express'
 import { Repository, getManager } from 'typeorm'
 
-import { TaskComment } from './taskComment.model'
+import { TaskComment } from './model'
 
 export class TaskCommentController {
   private readonly taskCommentRepo: Repository<TaskComment> = getManager().getRepository(
@@ -22,6 +22,21 @@ export class TaskCommentController {
       })
 
       return res.json({ status: res.statusCode, data: comments })
+    } catch (err) {
+      return next(err)
+    }
+  }
+
+  @bind
+  public async createTaskComment(req: Request, res: Response, next: NextFunction): Promise<any> {
+    try {
+      const comment: TaskComment = await this.taskCommentRepo.save({
+        ...req.body.comment,
+        task: { id: req.params.id },
+        author: req.user
+      })
+
+      return res.json({ status: res.statusCode, data: comment })
     } catch (err) {
       return next(err)
     }

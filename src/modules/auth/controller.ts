@@ -2,13 +2,13 @@ import { bind } from 'decko'
 import { Request, Response, NextFunction } from 'express'
 import { Repository, getManager } from 'typeorm'
 
-import { User } from '../user/user.model'
-import { UserRole } from '../user/userRole/userRole.model'
-import { UserInvitation } from '../user/userInvitation/userInvitation.model'
+import { User } from '../user/model'
+import { UserRole } from '../user/userRole/model'
+import { UserInvitation } from '../user/userInvitation/model'
 
-import { AuthService } from '../../services/auth.service'
-import { AuthMailService } from './services/auth.mail.service'
-import { HelperService } from '../../services/helper.service'
+import { AuthService } from '../../services/auth'
+import { AuthMailService } from './services/mail'
+import { HelperService } from '../../services/helper'
 
 export class AuthController {
   private readonly userRepo: Repository<User> = getManager().getRepository('User')
@@ -27,14 +27,14 @@ export class AuthController {
       const user: User = await this.userRepo.findOne({
         select: ['id', 'email', 'firstname', 'lastname', 'password'],
         where: {
-          email: req.body.email,
+          email: req.body.user.email,
           active: true
         },
         relations: ['userRole']
       })
 
       // wrong email or password
-      if (!user || !(await this.helperService.verifyPassword(req.body.password, user.password))) {
+      if (!user || !(await this.helperService.verifyPassword(req.body.user.password, user.password))) {
         return res.status(401).json({ status: 401, error: 'wrong email or password' })
       }
 
@@ -63,9 +63,9 @@ export class AuthController {
       return invitation && invitation.id
         ? res.status(204).send()
         : res.status(403).json({
-            status: 403,
-            error: 'invalid hash'
-          })
+          status: 403,
+          error: 'invalid hash'
+        })
     } catch (err) {
       return next(err)
     }
@@ -76,7 +76,7 @@ export class AuthController {
     try {
       const user: User = await this.userRepo.findOne({
         where: {
-          email: req.body.email
+          email: req.body.user.email
         }
       })
 
@@ -87,28 +87,26 @@ export class AuthController {
 
       const invitation: UserInvitation = await this.getUserInvitation(
         req.params.hash,
-        req.body.email
+        req.body.user.email
       )
 
       // invalid registration hash
       if (!invitation) {
-        return res.status(400).json({ status: 403, error: 'invalid hash' })
+        return res.status(403).json({ status: 403, error: 'invalid hash' })
       }
 
-      await this.userRepo.save({
-        email: req.body.email,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        password: await this.helperService.hashPassword(req.body.password),
-        active: true,
-        userRole: {
+      const newUser: User = await this.userRepo.save({
+        ...req.body.user, password: await this.helperService.hashPassword(req.body.user.password), userRole: {
           id: 1,
           name: 'User'
         }
       })
 
+      // don't send user password in response
+      delete newUser.password
+
       // remove user invitation
-      await this.userInvRepo.remove(invitation)
+      // await this.userInvRepo.remove(invitation)
 
       return res.status(204).send()
     } catch (err) {

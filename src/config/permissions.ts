@@ -2,15 +2,15 @@ import * as Acl from 'acl'
 
 const permissions = new Acl(new Acl.memoryBackend())
 
-import { taskPermissions } from '../modules/task/task.config'
-import { taskPriorityPermissions } from '../modules/task/taskPriority/taskPriority.config'
-import { taskStatusPermissions } from '../modules/task/taskStatus/taskStatus.config'
-import { taskCommentPermissions } from '../modules/task/subs/comment/taskComment.config'
+import { taskPermissions } from '../modules/task/config'
+import { taskPriorityPermissions } from '../modules/task/taskPriority/config'
+import { taskStatusPermissions } from '../modules/task/taskStatus/config'
+import { taskCommentPermissions } from '../modules/task/subs/comment/config'
 
-import { userPermissions } from '../modules/user/user.config'
-import { userInvitationPermissions } from '../modules/user/userInvitation/userInvitation.config'
-import { userRolePermissions } from '../modules/user/userRole/userRole.config'
-import { userTaskPermissions } from '../modules/user/subs/task/userTask.config'
+import { userPermissions } from '../modules/user/config'
+import { userInvitationPermissions } from '../modules/user/userInvitation/config'
+import { userRolePermissions } from '../modules/user/userRole/config'
+import { userTaskPermissions } from '../modules/user/subs/task/config'
 
 permissions.allow([
   {

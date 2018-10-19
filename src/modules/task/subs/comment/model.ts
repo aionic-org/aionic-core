@@ -7,8 +7,8 @@ import {
   Timestamp
 } from 'typeorm'
 
-import { Task } from '../../task.model'
-import { User } from '../../../user/user.model'
+import { Task } from '../../model'
+import { User } from '../../../user/model'
 
 @Entity()
 export class TaskComment {
@@ -17,7 +17,7 @@ export class TaskComment {
   public id: number
 
   @Column('text')
-  public text: string
+  public comment: string
 
   @Column({
     default: true

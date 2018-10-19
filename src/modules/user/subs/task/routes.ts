@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
-import { AuthService } from '../../../../services/auth.service'
-import { UserTaskController } from './userTask.controller'
+import { AuthService } from '../../../../services/auth'
+import { UserTaskController } from './controller'
 
 export class UserTaskRoutes {
   private authSerivce: AuthService

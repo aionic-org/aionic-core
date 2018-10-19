@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
-import { AuthService } from '../../../services/auth.service'
-import { TaskStatusController } from './taskStatus.controller'
+import { AuthService } from '../../../services/auth'
+import { TaskStatusController } from './controller'
 
 export class TaskStatusRoutes {
   private readonly controller: TaskStatusController = new TaskStatusController()

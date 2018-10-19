@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
 
-import { Task } from '../task.model'
+import { Task } from '../model'
 
 @Entity()
 export class TaskStatus {
