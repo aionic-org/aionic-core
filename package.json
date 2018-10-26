@@ -1,0 +1,46 @@
+{
+  "name": "aionic-api",
+  "version": "0.0.1",
+  "description": "Aionic - A web application for task management",
+  "main": "index.js",
+  "author": "Lars Wächter",
+  "repository": {
+    "url": "https://github.com/AionicApp/aionic-api"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start:dev": "NODE_ENV=development node dist/index.js",
+    "start:prod": "NODE_ENV=production node dist/index.js",
+    "build": "rm -rf dist && tsc -p tsconfig.json && gulp copy",
+    "watch": "nodemon --exec \"npm run build && npm run start:dev\" --watch src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^10.5.2",
+    "gulp": "^3.9.1",
+    "nodemon": "^1.18.1",
+    "prettier": "^1.13.7",
+    "reflect-metadata": "^0.1.12",
+    "tslint": "^5.10.0",
+    "tslint-config-prettier": "^1.13.0",
+    "typescript": "^2.9.2"
+  },
+  "dependencies": {
+    "acl": "^0.4.11",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.3",
+    "copyfiles": "^2.0.0",
+    "cors": "^2.8.4",
+    "decko": "^1.2.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1",
+    "jsonwebtoken": "^8.3.0",
+    "mysql": "^2.15.0",
+    "nodemailer": "^4.6.7",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0",
+    "passport-jwt": "^4.0.0",
+    "typeorm": "^0.2.7",
+    "uuid": "^3.3.2"
+  }
+}

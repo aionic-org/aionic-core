@@ -1,0 +1,6 @@
+// smtp coonfig for mail service
+export const smtp = {
+  host: '',
+  port: 0,
+  auth: { user: '', pass: '' }
+}
