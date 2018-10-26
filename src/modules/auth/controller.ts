@@ -22,7 +22,7 @@ export class AuthController {
   private readonly helperService: HelperService = new HelperService()
 
   @bind
-  public async signin(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async signinUser(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const user: User = await this.userRepo.findOne({
         select: ['id', 'email', 'firstname', 'lastname', 'password'],
@@ -34,7 +34,10 @@ export class AuthController {
       })
 
       // wrong email or password
-      if (!user || !(await this.helperService.verifyPassword(req.body.user.password, user.password))) {
+      if (
+        !user ||
+        !(await this.helperService.verifyPassword(req.body.user.password, user.password))
+      ) {
         return res.status(401).json({ status: 401, error: 'wrong email or password' })
       }
 
@@ -63,16 +66,16 @@ export class AuthController {
       return invitation && invitation.id
         ? res.status(204).send()
         : res.status(403).json({
-          status: 403,
-          error: 'invalid hash'
-        })
+            status: 403,
+            error: 'invalid hash'
+          })
     } catch (err) {
       return next(err)
     }
   }
 
   @bind
-  public async register(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async registerUser(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const user: User = await this.userRepo.findOne({
         where: {
@@ -96,7 +99,9 @@ export class AuthController {
       }
 
       const newUser: User = await this.userRepo.save({
-        ...req.body.user, password: await this.helperService.hashPassword(req.body.user.password), userRole: {
+        ...req.body.user,
+        password: await this.helperService.hashPassword(req.body.user.password),
+        userRole: {
           id: 1,
           name: 'User'
         }
@@ -106,7 +111,7 @@ export class AuthController {
       delete newUser.password
 
       // remove user invitation
-      // await this.userInvRepo.remove(invitation)
+      await this.userInvRepo.remove(invitation)
 
       return res.status(204).send()
     } catch (err) {
@@ -115,13 +120,17 @@ export class AuthController {
   }
 
   @bind
-  public async createInvitation(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async createUserInvitation(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-      await this.userInvRepo.save({
+      const uuid = this.helperService.generateUuid()
+
+      const invitation = await this.userInvRepo.save({
         email: req.body.email,
-        hash: this.helperService.generateUuid()
+        hash: uuid
       })
 
+      await this.authMailService.sendUserInvitation(req.body.email, req.body.name, uuid)
+
       return res.status(204).send()
     } catch (err) {
       return next(err)
@@ -129,7 +138,7 @@ export class AuthController {
   }
 
   @bind
-  public async unregister(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async unregisterUser(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const user: User = await this.userRepo.findOne({
         where: {
@@ -154,16 +163,14 @@ export class AuthController {
   @bind
   private async getUserInvitation(hash: string, email?): Promise<UserInvitation> {
     try {
-      if (email !== undefined) {
-        return this.userInvRepo.findOne({
-          where: {
-            hash: hash,
-            email: email
-          }
-        })
-      } else {
-        return this.userInvRepo.findOne({ where: { hash: hash } })
-      }
+      return email === undefined
+        ? this.userInvRepo.findOne({ where: { hash: hash } })
+        : this.userInvRepo.findOne({
+            where: {
+              hash: hash,
+              email: email
+            }
+          })
     } catch (err) {
       throw err
     }
