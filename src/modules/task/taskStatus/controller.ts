@@ -12,7 +12,7 @@ export class TaskStatusController {
     try {
       const status: Array<TaskStatus> = await this.taskStatusRepo.find({
         order: {
-          order: 'ASC'
+          sort: 'ASC'
         }
       })
 

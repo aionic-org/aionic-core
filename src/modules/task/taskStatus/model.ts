@@ -12,7 +12,7 @@ export class TaskStatus {
   public title: string
 
   @Column()
-  public order: number
+  public sort: number
 
   @Column({
     default: false
