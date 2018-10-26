@@ -31,5 +31,12 @@ export class TaskCommentRoutes {
       this.authSerivce.hasPermission('taskComment', 'create'),
       this.controller.createTaskComment
     )
+
+    this.router.delete(
+      '/comments/:id',
+      this.authSerivce.isAuthorized(),
+      this.authSerivce.hasPermission('taskComment', 'delete'),
+      this.controller.deleteTaskComment
+    )
   }
 }

@@ -20,13 +20,20 @@ export class Task {
   @PrimaryGeneratedColumn()
   public id: number
 
-  @Column()
+  @Column({
+    default: null
+  })
   public title: string
 
-  @Column('text')
+  @Column({
+    type: 'text',
+    default: null
+  })
   public description: string
 
-  @Column()
+  @Column({
+    default: null
+  })
   public branch: string
 
   @CreateDateColumn()

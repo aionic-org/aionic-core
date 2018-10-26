@@ -11,9 +11,6 @@ export class TaskPriority {
   @Column()
   public title: string
 
-  @Column('text')
-  public description: string
-
   @Column()
   public value: number
 

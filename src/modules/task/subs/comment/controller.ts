@@ -41,4 +41,21 @@ export class TaskCommentController {
       return next(err)
     }
   }
+
+  @bind
+  public async deleteTaskComment(req: Request, res: Response, next: NextFunction): Promise<any> {
+    try {
+      const taskComment: TaskComment = await this.taskCommentRepo.findOne(req.params.id)
+
+      if (!taskComment) {
+        return res.status(404).json({ status: 404, error: 'comment not found' })
+      }
+
+      await this.taskCommentRepo.remove(taskComment)
+
+      return res.status(204).send()
+    } catch (err) {
+      return next(err)
+    }
+  }
 }
