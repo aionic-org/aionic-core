@@ -15,13 +15,13 @@
     "watch": "nodemon --exec \"npm run build && npm run start:dev\" --watch src --ext ts"
   },
   "devDependencies": {
-    "@types/node": "^10.5.2",
+    "@types/node": "^10.12.18",
     "gulp": "^3.9.1",
-    "nodemon": "^1.18.1",
-    "prettier": "^1.13.7",
+    "nodemon": "^1.18.9",
+    "prettier": "^1.15.3",
     "reflect-metadata": "^0.1.12",
-    "tslint": "^5.10.0",
-    "tslint-config-prettier": "^1.13.0",
+    "tslint": "^5.12.0",
+    "tslint-config-prettier": "^1.17.0",
     "typescript": "^2.9.2"
   },
   "dependencies": {
@@ -29,18 +29,18 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "copyfiles": "^2.0.0",
-    "cors": "^2.8.4",
+    "cors": "^2.8.5",
     "decko": "^1.2.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "helmet": "^3.12.1",
-    "jsonwebtoken": "^8.3.0",
+    "helmet": "^3.15.0",
+    "jsonwebtoken": "^8.4.0",
     "mysql": "^2.15.0",
-    "nodemailer": "^4.6.7",
+    "nodemailer": "^4.7.0",
     "passport": "^0.4.0",
     "passport-http": "^0.3.0",
     "passport-jwt": "^4.0.0",
-    "typeorm": "^0.2.7",
+    "typeorm": "^0.2.9",
     "uuid": "^3.3.2"
   }
 }
