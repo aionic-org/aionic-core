@@ -11,11 +11,14 @@ import { userPermissions } from '../modules/user/config'
 import { userInvitationPermissions } from '../modules/user/userInvitation/config'
 import { userRolePermissions } from '../modules/user/userRole/config'
 import { userTaskPermissions } from '../modules/user/subs/task/config'
+import { configPermissions } from '../modules/config/config'
 
 permissions.allow([
   {
     roles: ['Admin'],
     allows: [
+      configPermissions.admin,
+
       taskPermissions.admin,
       taskPriorityPermissions.admin,
       taskStatusPermissions.admin,
@@ -30,6 +33,8 @@ permissions.allow([
   {
     roles: ['User'],
     allows: [
+      configPermissions.user,
+
       taskPermissions.user,
       taskPriorityPermissions.user,
       taskStatusPermissions.user,

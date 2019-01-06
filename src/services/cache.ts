@@ -1,44 +1,40 @@
 import * as NodeCache from 'node-cache'
-import { bind } from 'decko'
+
+import { env } from '../config/globals'
 
 export class CacheService {
-  private cache: NodeCache
+  private static cache: NodeCache = new NodeCache({ stdTTL: env.cacheTTL })
 
-  public constructor() {
-    this.cache = new NodeCache({ stdTTL: 100, checkperiod: 120 })
-  }
-
-  @bind
   public get(key, storeController, options?: Array<any>) {
-    const value = this.cache.get(key)
+    const value = CacheService.cache.get(key)
 
     if (value) {
       return Promise.resolve(value)
     }
 
     return storeController.getCachedContent(...options).then(res => {
-      this.cache.set(key, res)
+      CacheService.cache.set(key, res)
       return res
     })
   }
 
   public set(key, data) {
-    this.cache.set(key, data)
+    CacheService.cache.set(key, data)
   }
 
-  public del(keys) {
-    this.cache.del(keys)
+  public delete(keys) {
+    CacheService.cache.del(keys)
   }
 
   public getStats() {
-    return this.cache.getStats()
+    return CacheService.cache.getStats()
   }
 
   public getKeys() {
-    return this.cache.keys()
+    return CacheService.cache.keys()
   }
 
   public flush() {
-    this.cache.flushAll()
+    CacheService.cache.flushAll()
   }
 }

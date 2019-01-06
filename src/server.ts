@@ -4,11 +4,13 @@ import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
 
 // services
-import { CacheService } from './services/cache'
 import { AuthService } from './services/auth'
 
 // auth routes
 import { AuthRoutes } from './modules/auth/routes'
+
+// config routes
+import { ConfigRoutes } from './modules/config/routes'
 
 // user routes
 import { UserRoutes } from './modules/user/routes'
@@ -39,9 +41,6 @@ export class Server {
     this._app.use(bodyParser.json())
     this._app.use(bodyParser.urlencoded({ extended: true }))
 
-    // store cacheService in app to make them accessible from controllers
-    this._app.cacheService = new CacheService()
-
     // setup passport strategies
     this.authService.initStrategies()
   }
@@ -49,6 +48,9 @@ export class Server {
   private initRoutes(): any {
     // api endpoints - pass optional passport default strategy
     this._app.use('/api/auth', new AuthRoutes().router)
+
+    // config
+    this._app.use('/api/config', new ConfigRoutes().router)
 
     // user
     this._app.use('/api/user', new UserRoutes().router)

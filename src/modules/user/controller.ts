@@ -2,15 +2,18 @@ import { bind } from 'decko'
 import { Request, Response, NextFunction } from 'express'
 import { Repository, getManager } from 'typeorm'
 
+import { CacheService } from '../../services/cache'
+
 import { User } from './model'
 
 export class UserController {
+  private readonly cacheService: CacheService = new CacheService()
   private readonly userRepo: Repository<User> = getManager().getRepository('User')
 
   @bind
   public async readUsers(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
-      const users: Array<User> = await this.userRepo.find()
+      const users: Array<User> = await this.cacheService.get('user', this)
 
       return res.json({ status: res.statusCode, data: users })
     } catch (err) {
@@ -29,5 +32,15 @@ export class UserController {
     } catch (err) {
       return next(err)
     }
+  }
+
+  /**
+   * get target content for cache service
+   *
+   * @returns {Promise<Array<User>>}
+   */
+  @bind
+  private getCachedContent(): Promise<Array<User>> {
+    return this.userRepo.find()
   }
 }

@@ -7,17 +7,14 @@ export const variables = {
   port: process.env.PORT || 3000
 }
 
-// environment variables
-export const env = {
-  production: {
-    url: 'https://www.aionic.app',
-    port: variables.port
-  },
-  development: {
-    url: 'https://test.aionic.app',
-    port: variables.port
-  }
+// global environment variables
+export const env_global = {
+  production: { url: 'https://www.aionic.app', port: variables.port, cacheTTL: 3600 },
+  development: { url: 'https://test.aionic.app', port: variables.port, cacheTTL: 120 }
 }
+
+// variables of current environment
+export const env = env_global[variables.env]
 
 // mail addresses
 export const mails = {

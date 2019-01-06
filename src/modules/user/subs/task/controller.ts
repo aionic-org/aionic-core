@@ -37,6 +37,9 @@ export class UserTaskController {
           assignee: { id: req.params.userID },
           status: { id: req.params.statusID }
         },
+        order: {
+          priority: 'DESC'
+        },
         relations: ['author', 'assignee', 'status', 'priority']
       })
 

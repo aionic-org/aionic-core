@@ -2,24 +2,28 @@ import { bind } from 'decko'
 import { Request, Response, NextFunction } from 'express'
 import { Repository, getManager } from 'typeorm'
 
+// services
+import { AuthService } from '../../services/auth'
+import { AuthMailService } from './services/mail'
+import { HelperService } from '../../services/helper'
+import { CacheService } from '../../services/cache'
+
+// models
 import { User } from '../user/model'
 import { UserRole } from '../user/userRole/model'
 import { UserInvitation } from '../user/userInvitation/model'
 
-import { AuthService } from '../../services/auth'
-import { AuthMailService } from './services/mail'
-import { HelperService } from '../../services/helper'
-
 export class AuthController {
+  private readonly authService: AuthService = new AuthService()
+  private readonly authMailService: AuthMailService = new AuthMailService()
+  private readonly helperService: HelperService = new HelperService()
+  private readonly cacheService: CacheService = new CacheService()
+
   private readonly userRepo: Repository<User> = getManager().getRepository('User')
   private readonly userRoleRepo: Repository<UserRole> = getManager().getRepository('UserRole')
   private readonly userInvRepo: Repository<UserInvitation> = getManager().getRepository(
     'UserInvitation'
   )
-
-  private readonly authService: AuthService = new AuthService()
-  private readonly authMailService: AuthMailService = new AuthMailService()
-  private readonly helperService: HelperService = new HelperService()
 
   @bind
   public async signinUser(req: Request, res: Response, next: NextFunction): Promise<any> {
@@ -47,13 +51,7 @@ export class AuthController {
       // don't send user password in response
       delete user.password
 
-      return res.json({
-        status: res.statusCode,
-        data: {
-          user: user,
-          token: token
-        }
-      })
+      return res.json({ status: res.statusCode, data: { user: user, token: token } })
     } catch (err) {
       return next(err)
     }
@@ -65,10 +63,7 @@ export class AuthController {
       const invitation = await this.getUserInvitation(req.params.hash)
       return invitation && invitation.id
         ? res.status(204).send()
-        : res.status(403).json({
-            status: 403,
-            error: 'invalid hash'
-          })
+        : res.status(403).json({ status: 403, error: 'invalid hash' })
     } catch (err) {
       return next(err)
     }
@@ -106,6 +101,9 @@ export class AuthController {
           name: 'User'
         }
       })
+
+      // clear user cache
+      this.cacheService.delete('user')
 
       // don't send user password in response
       delete newUser.password
@@ -154,6 +152,9 @@ export class AuthController {
 
       await this.userRepo.remove(user)
 
+      // clear user cache
+      this.cacheService.delete('user')
+
       return res.status(204).send()
     } catch (err) {
       return next(err)
@@ -164,13 +165,10 @@ export class AuthController {
   private async getUserInvitation(hash: string, email?): Promise<UserInvitation> {
     try {
       return email === undefined
-        ? this.userInvRepo.findOne({ where: { hash: hash } })
-        : this.userInvRepo.findOne({
-            where: {
-              hash: hash,
-              email: email
-            }
+        ? this.userInvRepo.findOne({
+            where: { hash: hash }
           })
+        : this.userInvRepo.findOne({ where: { hash: hash, email: email } })
     } catch (err) {
       throw err
     }
