@@ -3,6 +3,8 @@ import * as helmet from 'helmet'
 import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
 
+// services
+import { CacheService } from './services/cache'
 import { AuthService } from './services/auth'
 
 // auth routes
@@ -36,6 +38,9 @@ export class Server {
     this._app.use(cors({ origin: 'http://localhost:4200' }))
     this._app.use(bodyParser.json())
     this._app.use(bodyParser.urlencoded({ extended: true }))
+
+    // store cacheService in app to make them accessible from controllers
+    this._app.cacheService = new CacheService()
 
     // setup passport strategies
     this.authService.initStrategies()
