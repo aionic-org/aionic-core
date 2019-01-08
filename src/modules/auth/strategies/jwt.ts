@@ -34,8 +34,6 @@ export class JwtStrategy extends BaseStrategy {
   public isAuthorized(req: Request, res: Response, next: NextFunction): Handler {
     try {
       authenticate('jwt', { session: false }, (error, user, info) => {
-        console.log('JWT Authorization: ', error, user, info)
-
         // internal error
         if (error) {
           return next(error)
@@ -85,7 +83,7 @@ export class JwtStrategy extends BaseStrategy {
   private async verify(payload, next): Handler {
     try {
       // pass error == null on error otherwise we get a 500 error instead of 401
-      console.log('Incoming payload: ', payload)
+
       const user = await this.userRepo.findOne({
         where: {
           id: payload.userID,

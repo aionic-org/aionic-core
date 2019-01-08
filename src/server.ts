@@ -2,6 +2,7 @@ import * as express from 'express'
 import * as helmet from 'helmet'
 import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
+import * as compression from 'compression'
 
 // services
 import { AuthService } from './services/auth'
@@ -21,6 +22,7 @@ import { UserRoleRoutes } from './modules/user/userRole/routes'
 import { TaskRoutes } from './modules/task/routes'
 import { TaskPriorityRoutes } from './modules/task/taskPriority/routes'
 import { TaskStatusRoutes } from './modules/task/taskStatus/routes'
+import { SearchRoutes } from './modules/search/routes'
 
 export class Server {
   private readonly _app: express.Application = express()
@@ -40,6 +42,7 @@ export class Server {
     this._app.use(cors({ origin: 'http://localhost:4200' }))
     this._app.use(bodyParser.json())
     this._app.use(bodyParser.urlencoded({ extended: true }))
+    this._app.use(compression())
 
     // setup passport strategies
     this.authService.initStrategies()
@@ -61,6 +64,9 @@ export class Server {
     this._app.use('/api/task', new TaskRoutes().router)
     this._app.use('/api/taskPriority', new TaskPriorityRoutes().router)
     this._app.use('/api/taskStatus', new TaskStatusRoutes().router)
+
+    // search
+    this._app.use('/api/search', new SearchRoutes().router)
 
     // error handler
     this._app.use((err, req, res, next) => {

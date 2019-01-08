@@ -71,7 +71,6 @@ export class BasicAuthStrategy extends BaseStrategy {
   private async verify(username, password, next): Handler {
     try {
       // pass error == null on error otherwise we get a 500 error instead of 401
-      console.log('Incoming basic auth header: ', username, password)
 
       const user: User = await this.userRepo.findOne({
         select: ['id', 'password'],

@@ -5,14 +5,22 @@ import { env } from '../config/globals'
 export class CacheService {
   private static cache: NodeCache = new NodeCache({ stdTTL: env.cacheTTL })
 
-  public get(key, storeController, options?: Array<any>) {
+  /**
+   * compares plain password with hashed password
+   *
+   * @param {string} key
+   * @param {object} storeController
+   * @param {object} params
+   * @returns {Promise<any>}
+   */
+  public get(key, storeController, params?: Array<any>): Promise<any> {
     const value = CacheService.cache.get(key)
 
     if (value) {
       return Promise.resolve(value)
     }
 
-    return storeController.getCachedContent(...options).then(res => {
+    return storeController.getCachedContent(...params).then(res => {
       CacheService.cache.set(key, res)
       return res
     })
