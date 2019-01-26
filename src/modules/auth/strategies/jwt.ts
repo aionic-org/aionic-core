@@ -1,18 +1,16 @@
 import { bind } from 'decko'
+import { NextFunction, Request, Response } from 'express'
 import { authenticate } from 'passport'
 import { Strategy, StrategyOptions } from 'passport-jwt'
-import { Request, Response, NextFunction, Handler } from 'express'
 
 import { BaseStrategy } from './base'
 
 /**
- *
- * - Passport JWT Authentication -
+ * Passport JWT Authentication
  *
  * The client signs in via /signin endpoint
  * If the signin is successfull a JWT is returned
  * This JWT is used inside the request header for later requests
- *
  */
 export class JwtStrategy extends BaseStrategy {
   private strategyOptions: StrategyOptions
@@ -24,41 +22,40 @@ export class JwtStrategy extends BaseStrategy {
   }
 
   /**
-   * middleware for checking if a user is authorized to access the endpoint
+   * Middleware for checking if a user is authorized to access the endpoint
    *
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
    * @returns {Handler}
    */
-  public isAuthorized(req: Request, res: Response, next: NextFunction): Handler {
+  public isAuthorized(req: Request, res: Response, next: NextFunction): void {
     try {
-      authenticate('jwt', { session: false }, (error, user, info) => {
+      authenticate('jwt', { session: false }, (err, user, info) => {
         // internal error
-        if (error) {
-          return next(error)
+        if (err) {
+          return next(err)
         }
-
         if (info) {
           switch (info.message) {
             case 'No auth token':
               return res.status(401).json({
-                status: 401,
-                error: 'No jwt provided.'
+                error: 'No jwt provided.',
+                status: 401
               })
 
             case 'jwt expired':
-              return res.status(403).json({
-                status: 403,
-                error: 'jwt expired.'
+              return res.status(401).json({
+                error: 'jwt expired.',
+                status: 401
               })
           }
         }
 
         if (!user) {
           return res.status(401).json({
-            status: 401,
-            data: 'user is not authorized'
+            data: 'user is not authorized',
+            status: 401
           })
         }
 
@@ -73,23 +70,23 @@ export class JwtStrategy extends BaseStrategy {
   }
 
   /**
-   * verify incoming payloads from request -> validation in isAuthorized()
+   * Verify incoming payloads from request -> validation in isAuthorized()
    *
    * @param {any} payload
    * @param {any} next
    * @returns {Handler}
    */
   @bind
-  private async verify(payload, next): Handler {
+  private async verify(payload: any, next: any): Promise<void> {
     try {
       // pass error == null on error otherwise we get a 500 error instead of 401
 
       const user = await this.userRepo.findOne({
+        relations: ['userRole'],
         where: {
-          id: payload.userID,
-          active: true
-        },
-        relations: ['userRole']
+          active: true,
+          id: payload.userID
+        }
       })
 
       if (!user) {

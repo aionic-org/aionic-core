@@ -1,6 +1,6 @@
 import { bind } from 'decko'
-import { Request, Response, NextFunction } from 'express'
-import { Repository, getManager } from 'typeorm'
+import { NextFunction, Request, Response } from 'express'
+import { getManager, Repository } from 'typeorm'
 
 import { UserInvitation } from './model'
 
@@ -10,9 +10,13 @@ export class UserInvitationController {
   )
 
   @bind
-  public async readUserInvitations(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async readUserInvitations(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
-      const userInvitations: Array<UserInvitation> = await this.userInvitationRepo.find()
+      const userInvitations: UserInvitation[] = await this.userInvitationRepo.find()
 
       return res.json({ status: res.statusCode, data: userInvitations })
     } catch (err) {

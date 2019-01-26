@@ -5,7 +5,7 @@ import { UserInvitationController } from './controller'
 
 export class UserInvitationRoutes {
   private authSerivce: AuthService
-  private readonly _router: Router = new Router()
+  private readonly _router: Router = Router()
   private readonly controller: UserInvitationController = new UserInvitationController()
 
   public constructor(defaultStrategy?: string) {

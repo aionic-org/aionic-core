@@ -1,14 +1,14 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
   CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
   Timestamp
 } from 'typeorm'
 
-import { Task } from '../../model'
 import { User } from '../../../user/model'
+import { Task } from '../../model'
 
 @Entity()
 export class TaskComment {

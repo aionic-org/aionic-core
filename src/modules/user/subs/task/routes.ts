@@ -5,7 +5,7 @@ import { UserTaskController } from './controller'
 
 export class UserTaskRoutes {
   private authSerivce: AuthService
-  private readonly _router: Router = new Router()
+  private readonly _router: Router = Router()
   private readonly controller: UserTaskController = new UserTaskController()
 
   public constructor(defaultStrategy?: string) {

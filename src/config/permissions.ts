@@ -1,50 +1,19 @@
-import * as Acl from 'acl'
+import Acl from 'acl'
+import { readFileSync } from 'fs'
 
 const permissions = new Acl(new Acl.memoryBackend())
 
-import { taskPermissions } from '../modules/task/config'
-import { taskPriorityPermissions } from '../modules/task/taskPriority/config'
-import { taskStatusPermissions } from '../modules/task/taskStatus/config'
-import { taskCommentPermissions } from '../modules/task/subs/comment/config'
-
-import { userPermissions } from '../modules/user/config'
-import { userInvitationPermissions } from '../modules/user/userInvitation/config'
-import { userRolePermissions } from '../modules/user/userRole/config'
-import { userTaskPermissions } from '../modules/user/subs/task/config'
-import { configPermissions } from '../modules/config/config'
+// Read permissions from combined policies
+const policies = JSON.parse(readFileSync('./dist/output/policies.combined.json', 'utf-8'))
 
 permissions.allow([
   {
-    roles: ['Admin'],
-    allows: [
-      configPermissions.admin,
-
-      taskPermissions.admin,
-      taskPriorityPermissions.admin,
-      taskStatusPermissions.admin,
-      taskCommentPermissions.admin,
-
-      userPermissions.admin,
-      userInvitationPermissions.admin,
-      userRolePermissions.admin,
-      userTaskPermissions.admin
-    ]
+    allows: policies.Admin,
+    roles: ['Admin']
   },
   {
-    roles: ['User'],
-    allows: [
-      configPermissions.user,
-
-      taskPermissions.user,
-      taskPriorityPermissions.user,
-      taskStatusPermissions.user,
-      taskCommentPermissions.user,
-
-      userPermissions.user,
-      userInvitationPermissions.user,
-      userRolePermissions.user,
-      userTaskPermissions.user
-    ]
+    allows: policies.User,
+    roles: ['User']
   }
 ])
 

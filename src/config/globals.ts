@@ -1,22 +1,20 @@
-// sensitive data
-export { smtp } from './private/smtp'
-
-// global variable
-export const variables = {
-  env: process.env.NODE_ENV || 'development',
-  port: process.env.PORT || 3000
+// Environment variables imported from .env file
+export const env = {
+  CACHE_TTL: 3600,
+  HP: {
+    DOMAIN: process.env.HP_DOMAIN
+  },
+  NODE_ENV: process.env.NODE_ENV || 'development',
+  NODE_PORT: process.env.NODE_PORT || 3000,
+  SMTP: {
+    host: process.env.SMTP_HOST || '',
+    password: process.env.SMTP_PASSWORD || '',
+    port: process.env.SMTP_PORT || '',
+    username: process.env.SMTP_USERNAME || ''
+  }
 }
 
-// global environment variables
-export const env_global = {
-  production: { url: 'https://www.aionic.app', port: variables.port, cacheTTL: 3600 },
-  development: { url: 'https://test.aionic.app', port: variables.port, cacheTTL: 120 }
-}
-
-// variables of current environment
-export const env = env_global[variables.env]
-
-// mail addresses
+// Mail addresses
 export const mails = {
   service: 'service@aionic.com'
 }

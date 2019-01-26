@@ -21,6 +21,11 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Log files
+/logs
+
+# Environment files
+.env
+
 #Custom
 ormconfig.json
-src/config/private/*.ts

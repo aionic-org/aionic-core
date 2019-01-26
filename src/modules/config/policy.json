@@ -1,0 +1,4 @@
+{
+  "Admin": [{"resources": "config", "permissions": "*"}],
+  "User": [{"resources": "config", "permissions": []}]
+}

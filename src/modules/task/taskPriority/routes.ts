@@ -6,7 +6,7 @@ import { TaskPriorityController } from './controller'
 export class TaskPriorityRoutes {
   private readonly controller: TaskPriorityController = new TaskPriorityController()
   private authSerivce: AuthService
-  private _router: Router = new Router()
+  private _router: Router = Router()
 
   public constructor(defaultStrategy?: string) {
     this.authSerivce = new AuthService(defaultStrategy)

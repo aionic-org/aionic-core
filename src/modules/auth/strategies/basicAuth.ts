@@ -1,7 +1,7 @@
 import { bind } from 'decko'
+import { NextFunction, Request, Response } from 'express'
 import { authenticate } from 'passport'
 import { BasicStrategy } from 'passport-http'
-import { Request, Response, NextFunction, Handler } from 'express'
 
 import { User } from '../../user/model'
 
@@ -10,8 +10,7 @@ import { HelperService } from '../../../services/helper'
 import { BaseStrategy } from './base'
 
 /**
- *
- * - Passport Basic Http Authentication -
+ * Passport Basic Http Authentication
  *
  * The client sends a base64 encoded string, including username:password, inside the request header
  *
@@ -27,26 +26,24 @@ export class BasicAuthStrategy extends BaseStrategy {
   }
 
   /**
-   * middleware for checking if a user is authorized to access the endpoint
+   * Middleware for checking if a user is authorized to access the endpoint
    *
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Handler}
+   * @returns {void}
    */
-  public isAuthorized(req: Request, res: Response, next: NextFunction): Handler {
+  public isAuthorized(req: Request, res: Response, next: NextFunction): void {
     try {
       return authenticate('basic', { session: false }, (error, user, info) => {
-        console.log('BASIC-AUTH Authorization: ', error, user, info)
-
         if (error) {
           return next(error)
         }
 
         if (!user) {
           return res.status(401).json({
-            status: 401,
-            data: 'user is not authorized'
+            data: 'user is not authorized',
+            status: 401
           })
         }
 
@@ -61,32 +58,31 @@ export class BasicAuthStrategy extends BaseStrategy {
   }
 
   /**
-   * verify incoming userID / password from request -> validation in isAuthorized()
+   * Verify incoming userID / password from request -> validation in isAuthorized()
    *
    * @param {any} payload
    * @param {any} next
    * @returns {Handler}
    */
   @bind
-  private async verify(username, password, next): Handler {
+  private async verify(username: string, password: string, next: any): Promise<void> {
     try {
       // pass error == null on error otherwise we get a 500 error instead of 401
 
-      const user: User = await this.userRepo.findOne({
+      const user: User | undefined = await this.userRepo.findOne({
+        relations: ['userRole'],
         select: ['id', 'password'],
         where: {
-          username: username,
-          active: true
-        },
-        relations: ['userRole']
+          active: true,
+          username
+        }
       })
 
-      // verify username
       if (!user) {
         return next(null, null)
       }
 
-      // verify password
+      // Verify password
       if (!(await this.helperService.verifyPassword(password, user.password))) {
         return next(null, null)
       }

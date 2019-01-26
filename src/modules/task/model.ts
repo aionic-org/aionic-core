@@ -1,18 +1,18 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn,
-  Timestamp,
+  Entity,
   ManyToOne,
-  OneToMany
+  OneToMany,
+  PrimaryGeneratedColumn,
+  Timestamp,
+  UpdateDateColumn
 } from 'typeorm'
 
 import { User } from '../user/model'
-import { TaskStatus } from './taskStatus/model'
-import { TaskPriority } from './taskPriority/model'
 import { TaskComment } from './subs/comment/model'
+import { TaskPriority } from './taskPriority/model'
+import { TaskStatus } from './taskStatus/model'
 
 @Entity()
 export class Task {
@@ -26,8 +26,8 @@ export class Task {
   public title: string
 
   @Column({
-    type: 'text',
-    default: null
+    default: null,
+    type: 'text'
   })
   public description: string
 
@@ -56,5 +56,5 @@ export class Task {
   public priority: TaskPriority
 
   @OneToMany(type => TaskComment, taskComment => taskComment.task)
-  public comments: Array<TaskComment>
+  public comments: TaskComment[]
 }

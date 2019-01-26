@@ -1,6 +1,6 @@
 import { bind } from 'decko'
-import { Request, Response, NextFunction } from 'express'
-import { Repository, getManager, Like } from 'typeorm'
+import { NextFunction, Request, Response } from 'express'
+import { getManager, Like, Repository } from 'typeorm'
 
 import { Task } from '../task/model'
 
@@ -12,13 +12,13 @@ export class SearchController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<any> {
+  ): Promise<Response | void> {
     try {
-      const tasks: Array<Task> = await this.taskRepo.find({
+      const tasks: Task[] = await this.taskRepo.find({
+        relations: ['author', 'assignee', 'status', 'priority'],
         where: {
           description: Like(`%${req.params.searchTerm}%`)
-        },
-        relations: ['author', 'assignee', 'status', 'priority']
+        }
       })
 
       return res.json({ status: res.statusCode, data: tasks })

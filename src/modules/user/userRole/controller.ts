@@ -1,6 +1,6 @@
 import { bind } from 'decko'
-import { Request, Response, NextFunction } from 'express'
-import { Repository, getManager } from 'typeorm'
+import { NextFunction, Request, Response } from 'express'
+import { getManager, Repository } from 'typeorm'
 
 import { CacheService } from '../../../services/cache'
 
@@ -11,9 +11,13 @@ export class UserRoleController {
   private readonly userRoleRepo: Repository<UserRole> = getManager().getRepository('User')
 
   @bind
-  public async readUserRoles(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async readUserRoles(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
-      const userRoles: Array<UserRole> = await this.cacheService.get('userRole', this)
+      const userRoles: UserRole[] = await this.cacheService.get('userRole', this)
 
       return res.json({ status: res.statusCode, data: userRoles })
     } catch (err) {
@@ -27,7 +31,7 @@ export class UserRoleController {
    * @returns {Promise<Array<UserRole>>}
    */
   @bind
-  private getCachedContent(): Promise<Array<UserRole>> {
+  private getCachedContent(): Promise<UserRole[]> {
     return this.userRoleRepo.find()
   }
 }

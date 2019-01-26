@@ -9,7 +9,7 @@ import { TaskCommentRoutes } from './subs/comment/routes'
 export class TaskRoutes {
   private readonly controller: TaskController = new TaskController()
   private authSerivce: AuthService
-  private _router: Router = new Router()
+  private _router: Router = Router()
 
   public constructor(defaultStrategy?: string) {
     this.authSerivce = new AuthService(defaultStrategy)

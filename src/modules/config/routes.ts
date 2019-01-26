@@ -6,7 +6,7 @@ import { ConfigController } from './controller'
 
 export class ConfigRoutes {
   private authSerivce: AuthService
-  private readonly _router: Router = new Router()
+  private readonly _router: Router = Router()
   private readonly controller: ConfigController = new ConfigController()
 
   public constructor(defaultStrategy?: string) {

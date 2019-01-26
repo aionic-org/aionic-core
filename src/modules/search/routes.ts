@@ -7,7 +7,7 @@ import { SearchController } from './controller'
 export class SearchRoutes {
   protected readonly controller: SearchController = new SearchController()
   protected authSerivce: AuthService
-  private _router: Router = new Router()
+  private _router: Router = Router()
 
   public constructor(defaultStrategy?: string) {
     this.authSerivce = new AuthService(defaultStrategy)
@@ -21,7 +21,8 @@ export class SearchRoutes {
   private initRoutes(): void {
     this.router.get(
       '/task/:searchTerm',
-      this.authSerivce.isAuthorized(), // this.authSerivce.hasPermission('search', 'read'),
+      this.authSerivce.isAuthorized(),
+      this.authSerivce.hasPermission('search', 'read'),
       this.controller.searchTaskByDescription
     )
   }

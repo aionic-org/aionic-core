@@ -5,7 +5,7 @@ import { UserRoleController } from './controller'
 
 export class UserRoleRoutes {
   private authSerivce: AuthService
-  private readonly _router: Router = new Router()
+  private readonly _router: Router = Router()
   private readonly controller: UserRoleController = new UserRoleController()
 
   public constructor(defaultStrategy?: string) {

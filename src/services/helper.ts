@@ -1,49 +1,54 @@
+import { compare, genSalt, hash } from 'bcrypt-nodejs'
 import * as crypto from 'crypto'
 import { v1 as uuidv1 } from 'uuid'
-import { genSalt, hash, compare } from 'bcrypt-nodejs'
 
 /**
- *
  * - HelperService -
  *
- *Service for helper functions
- *
+ * Service for helper functions
  */
 export class HelperService {
   private readonly saltRounds: number = 10
 
   /**
-   * hash plain password
+   * Hash plain password
    *
    * @param {string} plainPassword
    * @returns {Promise<string>}
    */
-  public hashPassword(plainPassword): Promise<string> {
+  public hashPassword(plainPassword: string): Promise<string> {
     return new Promise((resolve, reject) => {
       genSalt(this.saltRounds, (err, salt) => {
         if (err) {
           reject(err)
         }
 
-        hash(plainPassword, salt, null, (error, hashedVal) => {
-          if (error) {
-            reject(error)
-          }
+        hash(
+          plainPassword,
+          salt,
+          () => {
+            // just leave this empty
+          },
+          (error, hashedVal) => {
+            if (error) {
+              reject(error)
+            }
 
-          resolve(hashedVal)
-        })
+            resolve(hashedVal)
+          }
+        )
       })
     })
   }
 
   /**
-   * compares plain password with hashed password
+   * Compares plain password with hashed password
    *
    * @param {string} plainPassword
    * @param {string} hashedPassword
    * @returns {Promise<boolean>}
    */
-  public verifyPassword(plainPassword, hashedPassword): Promise<boolean> {
+  public verifyPassword(plainPassword: string, hashedPassword: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       compare(plainPassword, hashedPassword, (err, res) => {
         if (err) {
@@ -55,7 +60,7 @@ export class HelperService {
   }
 
   /**
-   * hash string with sha256 algorithm - don't use for passwords
+   * Hash string with sha256 algorithm - don't use for passwords
    *
    * @param {string} string
    * @returns {string}
@@ -68,7 +73,7 @@ export class HelperService {
   }
 
   /**
-   * generate uuid
+   * Generate uuid
    *
    * @returns {string}
    */

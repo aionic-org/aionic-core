@@ -1,16 +1,13 @@
 import { bind } from 'decko'
-import { Request, Response, NextFunction } from 'express'
-import { Repository, getManager } from 'typeorm'
+import { NextFunction, Request, Response } from 'express'
+import { getManager, Repository } from 'typeorm'
 
-// services
 import { AuthService } from '../../services/auth'
-import { AuthMailService } from './services/mail'
-import { HelperService } from '../../services/helper'
 import { CacheService } from '../../services/cache'
+import { HelperService } from '../../services/helper'
+import { AuthMailService } from './services/mail'
 
-// models
 import { User } from '../user/model'
-import { UserRole } from '../user/userRole/model'
 import { UserInvitation } from '../user/userInvitation/model'
 
 export class AuthController {
@@ -20,24 +17,27 @@ export class AuthController {
   private readonly cacheService: CacheService = new CacheService()
 
   private readonly userRepo: Repository<User> = getManager().getRepository('User')
-  private readonly userRoleRepo: Repository<UserRole> = getManager().getRepository('UserRole')
   private readonly userInvRepo: Repository<UserInvitation> = getManager().getRepository(
     'UserInvitation'
   )
 
   @bind
-  public async signinUser(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async signinUser(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
-      const user: User = await this.userRepo.findOne({
+      const user: User | undefined = await this.userRepo.findOne({
+        relations: ['userRole'],
         select: ['id', 'email', 'firstname', 'lastname', 'password'],
         where: {
-          email: req.body.user.email,
-          active: true
-        },
-        relations: ['userRole']
+          active: true,
+          email: req.body.user.email
+        }
       })
 
-      // wrong email or password
+      // Wrong email or password
       if (
         !user ||
         !(await this.helperService.verifyPassword(req.body.user.password, user.password))
@@ -45,20 +45,24 @@ export class AuthController {
         return res.status(401).json({ status: 401, error: 'wrong email or password' })
       }
 
-      // create jwt -> required for further requests
+      // Create jwt -> required for further requests
       const token: string = this.authService.createToken(user.id)
 
-      // don't send user password in response
+      // Don't send user password in response
       delete user.password
 
-      return res.json({ status: res.statusCode, data: { user: user, token: token } })
+      return res.json({ status: res.statusCode, data: { user, token } })
     } catch (err) {
       return next(err)
     }
   }
 
   @bind
-  public async validateHash(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async validateHash(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
       const invitation = await this.getUserInvitation(req.params.hash)
       return invitation && invitation.id
@@ -70,25 +74,29 @@ export class AuthController {
   }
 
   @bind
-  public async registerUser(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async registerUser(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
-      const user: User = await this.userRepo.findOne({
+      const user: User | undefined = await this.userRepo.findOne({
         where: {
           email: req.body.user.email
         }
       })
 
-      // email is already taken
-      if (user && user.id) {
+      // Email is already taken
+      if (user) {
         return res.status(400).json({ status: 400, error: 'email is already taken' })
       }
 
-      const invitation: UserInvitation = await this.getUserInvitation(
+      const invitation: UserInvitation | undefined = await this.getUserInvitation(
         req.params.hash,
         req.body.user.email
       )
 
-      // invalid registration hash
+      // Invalid registration hash
       if (!invitation) {
         return res.status(403).json({ status: 403, error: 'invalid hash' })
       }
@@ -102,13 +110,13 @@ export class AuthController {
         }
       })
 
-      // clear user cache
+      // Clear user cache
       this.cacheService.delete('user')
 
-      // don't send user password in response
+      // Don't send user password in response
       delete newUser.password
 
-      // remove user invitation
+      // Remove user invitation
       await this.userInvRepo.remove(invitation)
 
       return res.status(204).send()
@@ -118,16 +126,20 @@ export class AuthController {
   }
 
   @bind
-  public async createUserInvitation(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async createUserInvitation(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
       const uuid = this.helperService.generateUuid()
 
-      const invitation = await this.userInvRepo.save({
+      await this.userInvRepo.save({
         email: req.body.email,
         hash: uuid
       })
 
-      await this.authMailService.sendUserInvitation(req.body.email, req.body.name, uuid)
+      await this.authMailService.sendUserInvitation(req.body.email, uuid)
 
       return res.status(204).send()
     } catch (err) {
@@ -136,23 +148,27 @@ export class AuthController {
   }
 
   @bind
-  public async unregisterUser(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async unregisterUser(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
-      const user: User = await this.userRepo.findOne({
+      const user: User | undefined = await this.userRepo.findOne({
         where: {
-          email: req.user.email,
-          active: true
+          active: true,
+          email: req.user.email
         }
       })
 
-      // user not found
+      // User not found
       if (!user) {
         return res.status(404).json({ status: 404, error: 'user not found' })
       }
 
       await this.userRepo.remove(user)
 
-      // clear user cache
+      // Clear user cache
       this.cacheService.delete('user')
 
       return res.status(204).send()
@@ -162,13 +178,16 @@ export class AuthController {
   }
 
   @bind
-  private async getUserInvitation(hash: string, email?): Promise<UserInvitation> {
+  private async getUserInvitation(
+    hash: string,
+    email?: string
+  ): Promise<UserInvitation | undefined> {
     try {
       return email === undefined
         ? this.userInvRepo.findOne({
-            where: { hash: hash }
+            where: { hash }
           })
-        : this.userInvRepo.findOne({ where: { hash: hash, email: email } })
+        : this.userInvRepo.findOne({ where: { hash, email } })
     } catch (err) {
       throw err
     }

@@ -6,7 +6,7 @@ import { AuthController } from './controller'
 
 export class AuthRoutes {
   private authSerivce: AuthService
-  private readonly _router: Router = new Router()
+  private readonly _router: Router = Router()
   private readonly controller: AuthController = new AuthController()
 
   public constructor(defaultStrategy?: string) {

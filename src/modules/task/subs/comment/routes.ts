@@ -7,7 +7,7 @@ import { TaskCommentController } from './controller'
 export class TaskCommentRoutes {
   protected readonly controller: TaskCommentController = new TaskCommentController()
   protected authSerivce: AuthService
-  private _router: Router = new Router()
+  private _router: Router = Router()
 
   public constructor(defaultStrategy?: string) {
     this.authSerivce = new AuthService(defaultStrategy)

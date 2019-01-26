@@ -1,6 +1,6 @@
 import { bind } from 'decko'
-import { Request, Response, NextFunction } from 'express'
-import { Repository, getManager } from 'typeorm'
+import { NextFunction, Request, Response } from 'express'
+import { getManager, Repository } from 'typeorm'
 
 import { CacheService } from '../../../services/cache'
 
@@ -11,9 +11,13 @@ export class TaskStatusController {
   private readonly taskStatusRepo: Repository<TaskStatus> = getManager().getRepository('TaskStatus')
 
   @bind
-  public async readTaskStatus(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async readTaskStatus(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
-      const status: Array<TaskStatus> = await this.cacheService.get('taskStatus', this, ['ASC'])
+      const status: TaskStatus[] = await this.cacheService.get('taskStatus', this, ['ASC'])
 
       return res.json({ status: res.statusCode, data: status })
     } catch (err) {
@@ -28,7 +32,7 @@ export class TaskStatusController {
    * @returns {Promise<Array<TaskStatus>>}
    */
   @bind
-  private getCachedContent(sortOrder: any): Promise<Array<TaskStatus>> {
+  private getCachedContent(sortOrder: any): Promise<TaskStatus[]> {
     return this.taskStatusRepo.find({ order: { sort: sortOrder } })
   }
 }
