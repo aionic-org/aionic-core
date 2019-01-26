@@ -1,18 +1,20 @@
 {
   "name": "aionic-api",
   "version": "0.0.1",
-  "description": "Aionic - A web application for task management",
-  "main": "index.js",
+  "description": "Aionic API - Software products for project management",
+  "main": "./dist/index.js",
   "author": "Lars Wächter",
   "repository": {
     "url": "https://github.com/AionicApp/aionic-api"
   },
   "license": "MIT",
   "scripts": {
+    "start": "npm run start:prod",
     "start:dev": "NODE_ENV=development node dist/index.js",
     "start:prod": "NODE_ENV=production node dist/index.js",
     "build": "rm -rf dist && tsc -p tsconfig.json && gulp copy && gulp merge",
-    "watch": "nodemon --exec \"npm run build && npm run start:dev\" --watch src --ext ts"
+    "watch": "nodemon --exec \"npm run build && npm run start:dev\" --watch src --ext ts",
+    "lint": "tslint -p tsconfig.json"
   },
   "devDependencies": {
     "@types/acl": "^0.4.35",
@@ -41,7 +43,6 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
-    "copyfiles": "^2.0.0",
     "cors": "^2.8.5",
     "decko": "^1.2.0",
     "dotenv": "^6.2.0",

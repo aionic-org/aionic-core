@@ -128,7 +128,12 @@ export class AuthService {
    * @returns {any}
    */
   @bind
-  private doAuthentication(req: Request, res: Response, next: NextFunction, strategy: string): any {
+  private doAuthentication(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+    strategy: string
+  ): void {
     try {
       switch (strategy) {
         case 'jwt':

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 import { Task } from '../model'
 
@@ -21,5 +21,5 @@ export class TaskStatus {
 
   /***** relations *****/
   @OneToMany(type => Task, task => task.status)
-  public tasks: Array<Task>
+  public tasks: Task[]
 }
