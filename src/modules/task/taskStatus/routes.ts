@@ -6,7 +6,7 @@ import { TaskStatusController } from './controller'
 export class TaskStatusRoutes {
   private readonly controller: TaskStatusController = new TaskStatusController()
   private authSerivce: AuthService
-  private _router: Router = new Router()
+  private _router: Router = Router()
 
   public constructor(defaultStrategy?: string) {
     this.authSerivce = new AuthService(defaultStrategy)

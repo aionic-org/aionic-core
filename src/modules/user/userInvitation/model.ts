@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class UserInvitation {
@@ -7,14 +7,14 @@ export class UserInvitation {
   public id: number
 
   @Column({
-    unique: true,
-    nullable: false
+    nullable: false,
+    unique: true
   })
   public email: string
 
   @Column({
-    unique: true,
-    nullable: false
+    nullable: false,
+    unique: true
   })
   public hash: string
 

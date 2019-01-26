@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 import { Task } from '../model'
 
@@ -16,5 +16,5 @@ export class TaskPriority {
 
   /***** relations *****/
   @OneToMany(type => Task, task => task.priority)
-  public tasks: Array<Task>
+  public tasks: Task[]
 }

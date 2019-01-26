@@ -1,28 +1,26 @@
-import { User } from '../../user/model'
+import { IMailConfig, MailService } from '../../../services/mail'
 
-import { MailService, MailConfig } from '../../../services/mail'
-
-import { variables, env, mails } from '../../../config/globals'
+import { env, mails } from '../../../config/globals'
 
 export class AuthMailService extends MailService {
-  public async sendRegisterMail(user: User, uuidHash: string) {
+  public async sendUserInvitation(email: string, uuid: string) {
     const templateParams = {
-      confirmUrl: `${env[variables.env].url}/auth/register/activate/${uuidHash}`
+      confirmUrl: `${env.HP.DOMAIN}/api/auth/register/${uuid}`
     }
 
     const mailTemplate = await this.renderMailTemplate(
-      './dist/modules/auth/templates/auth.register.html',
+      './dist/modules/auth/templates/userInvitation.html',
       templateParams
     )
 
-    const mail: MailConfig = {
+    const mail: IMailConfig = {
       from: mails.service,
-      to: user.email,
-      subject: 'Your registration at aionic.app',
-      html: mailTemplate
+      html: mailTemplate,
+      subject: 'You were invited to join Aionic',
+      to: email
     }
 
-    // send final mail
+    // Send final mail
     return this.sendMail(mail)
   }
 }

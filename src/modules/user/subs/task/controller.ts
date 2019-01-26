@@ -1,18 +1,21 @@
 import { bind } from 'decko'
-import { Request, Response, NextFunction } from 'express'
-import { Repository, getManager } from 'typeorm'
+import { NextFunction, Request, Response } from 'express'
+import { getManager, Repository } from 'typeorm'
 
-import { User } from '../../model'
 import { Task } from '../../../task/model'
+import { User } from '../../model'
 
 export class UserTaskController {
-  private readonly userRepo: Repository<User> = getManager().getRepository('User')
   private readonly taskRepo: Repository<Task> = getManager().getRepository('Task')
 
   @bind
-  public async readUserTasks(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async readUserTasks(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
-      const tasks: Array<Task> = await this.taskRepo.find({
+      const tasks: Task[] = await this.taskRepo.find({
         where: {
           assignee: { id: req.params.id },
           relations: ['author', 'status', 'priority']
@@ -30,14 +33,17 @@ export class UserTaskController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<any> {
+  ): Promise<Response | void> {
     try {
-      const tasks: Array<Task> = await this.taskRepo.find({
+      const tasks: Task[] = await this.taskRepo.find({
+        order: {
+          priority: 'DESC'
+        },
+        relations: ['author', 'assignee', 'status', 'priority'],
         where: {
           assignee: { id: req.params.userID },
           status: { id: req.params.statusID }
-        },
-        relations: ['author', 'assignee', 'status', 'priority']
+        }
       })
 
       return res.json({ status: res.statusCode, data: tasks })

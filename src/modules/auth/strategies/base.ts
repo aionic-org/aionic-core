@@ -1,18 +1,16 @@
-import { Repository, getManager } from 'typeorm'
-import { Strategy as Strategy_Jwt } from 'passport-jwt'
 import { BasicStrategy as Strategy_Basic } from 'passport-http'
+import { Strategy as Strategy_Jwt } from 'passport-jwt'
+import { getManager, Repository } from 'typeorm'
 
 import { User } from '../../user/model'
 
 import { permissions } from '../../../config/permissions'
 
 /**
- *
- * - BaseStrategy -
+ * BaseStrategy
  *
  * Abstract strategy class
  * Other strategies inherits from this one
- *
  */
 export abstract class BaseStrategy {
   protected readonly userRepo: Repository<User> = getManager().getRepository('User')
@@ -23,7 +21,7 @@ export abstract class BaseStrategy {
   }
 
   /**
-   * sets acl user permission
+   * Sets acl user permission
    *
    * @param {User} user
    * @returns {Promise<void>}

@@ -1,16 +1,15 @@
 import { bind } from 'decko'
-import { use } from 'passport'
+import { Handler, NextFunction, Request, Response } from 'express'
 import { sign, SignOptions } from 'jsonwebtoken'
-import { Request, Response, NextFunction, Handler } from 'express'
-import { StrategyOptions, ExtractJwt } from 'passport-jwt'
-
-import { JwtStrategy } from '../modules/auth/strategies/jwt'
-import { BasicAuthStrategy } from '../modules/auth/strategies/basicAuth'
+import { use } from 'passport'
+import { ExtractJwt, StrategyOptions } from 'passport-jwt'
 
 import { permissions } from '../config/permissions'
 
+import { BasicAuthStrategy } from '../modules/auth/strategies/basicAuth'
+import { JwtStrategy } from '../modules/auth/strategies/jwt'
+
 /**
- *
  * - AuthService -
  *
  * Available passport strategies for authentication:
@@ -23,7 +22,6 @@ import { permissions } from '../config/permissions'
  *
  * To setup a strategy for individual endpoints in a module pass the strategy on isAuthorized call
  * Example: isAuthorized('basic')
- *
  */
 export class AuthService {
   private defaultStrategy: string
@@ -31,21 +29,21 @@ export class AuthService {
   private basicStrategy: BasicAuthStrategy
 
   private readonly strategyOptions: StrategyOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'aionic-secret-api-key',
     audience: 'aionic-client',
-    issuer: 'aionic-api'
+    issuer: 'aionic-api',
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: 'aionic-secret-api-key'
   }
 
-  // jwt options
+  // JWT options
   private readonly signOptions: SignOptions = {
-    expiresIn: '8h',
     audience: this.strategyOptions.audience,
+    expiresIn: '8h',
     issuer: this.strategyOptions.issuer
   }
 
   public constructor(defaultStrategy: string = 'jwt') {
-    // setup default strategy -> use jwt if none is provided
+    // Setup default strategy -> use jwt if none is provided
     this.defaultStrategy = defaultStrategy
 
     this.jwtStrategy = new JwtStrategy(this.strategyOptions)
@@ -53,15 +51,15 @@ export class AuthService {
   }
 
   /**
-   * create JWT
+   * Create JWT
    *
    * @param {number} userID
    * @returns {string}
    */
   public createToken(userID: number): string {
-    const payload = { userID: userID }
+    const payload = { userID }
 
-    return sign(payload, this.strategyOptions.secretOrKey, this.signOptions)
+    return sign(payload, this.strategyOptions.secretOrKey as string, this.signOptions)
   }
 
   /**
@@ -69,7 +67,6 @@ export class AuthService {
    *
    * @param {string} resource
    * @param {string} permission
-   *
    * @returns {Handler}
    */
   public hasPermission(resource: string, permission: string): Handler {
@@ -79,9 +76,9 @@ export class AuthService {
         const access: boolean = await permissions.isAllowed(uid, resource, permission)
 
         if (!access) {
-          return res.status(401).json({
-            status: 401,
-            error: 'missing user rights'
+          return res.status(403).json({
+            error: 'missing user rights',
+            status: 403
           })
         }
 
@@ -93,7 +90,7 @@ export class AuthService {
   }
 
   /**
-   * init passport strategies
+   * Init passport strategies
    *
    * @returns {void}
    */
@@ -103,7 +100,7 @@ export class AuthService {
   }
 
   /**
-   * setup target passport authorization
+   * Setup target passport authorization
    *
    * @param {string} strategy
    * @returns {Handler}
@@ -122,7 +119,7 @@ export class AuthService {
   }
 
   /**
-   * executes the target passport authorization
+   * Executes the target passport authorization
    *
    * @param {Request} req
    * @param {Response} res
@@ -131,7 +128,12 @@ export class AuthService {
    * @returns {any}
    */
   @bind
-  private doAuthentication(req: Request, res: Response, next: NextFunction, strategy: string): any {
+  private doAuthentication(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+    strategy: string
+  ): void {
     try {
       switch (strategy) {
         case 'jwt':

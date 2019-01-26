@@ -1,0 +1,4 @@
+{
+  "Admin": [{"resources": "taskComment", "permissions": "*"}],
+  "User": [{"resources": "taskComment", "permissions": "*"}]
+}

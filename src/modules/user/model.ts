@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm'
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
-import { UserRole } from './userRole/model'
 import { Task } from '../task/model'
 import { TaskComment } from '../task/subs/comment/model'
+import { UserRole } from './userRole/model'
 
 @Entity()
 export class User {
@@ -11,8 +11,8 @@ export class User {
   public id: number
 
   @Column({
-    unique: true,
-    nullable: false
+    nullable: false,
+    unique: true
   })
   public email: string
 
@@ -34,13 +34,13 @@ export class User {
 
   /***** relations *****/
   @OneToMany(type => Task, task => task.author)
-  public author: Array<Task>
+  public author: Task[]
 
   @OneToMany(type => Task, task => task.author)
-  public assignee: Array<Task>
+  public assignee: Task[]
 
   @OneToMany(type => TaskComment, taskComment => taskComment.author)
-  public comments: Array<TaskComment>
+  public comments: TaskComment[]
 
   @ManyToOne(type => UserRole, userRole => userRole.users)
   public userRole: UserRole

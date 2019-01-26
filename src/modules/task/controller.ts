@@ -1,6 +1,6 @@
 import { bind } from 'decko'
-import { Request, Response, NextFunction } from 'express'
-import { Repository, getManager } from 'typeorm'
+import { NextFunction, Request, Response } from 'express'
+import { getManager, Repository } from 'typeorm'
 
 import { Task } from './model'
 
@@ -8,9 +8,13 @@ export class TaskController {
   private readonly taskRepo: Repository<Task> = getManager().getRepository('Task')
 
   @bind
-  public async readTasks(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async readTasks(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
-      const tasks: Array<Task> = await this.taskRepo.find({
+      const tasks: Task[] = await this.taskRepo.find({
         relations: ['author', 'assignee', 'status', 'priority']
       })
 
@@ -21,9 +25,9 @@ export class TaskController {
   }
 
   @bind
-  public async readTask(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async readTask(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
-      const task: Task = await this.taskRepo.findOne(req.params.id, {
+      const task: Task | undefined = await this.taskRepo.findOne(req.params.id, {
         relations: ['author', 'assignee', 'status', 'priority']
       })
 
@@ -36,7 +40,11 @@ export class TaskController {
   }
 
   @bind
-  public async createTask(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async createTask(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
       const task: Task = await this.taskRepo.save(req.body.task)
 
@@ -47,9 +55,13 @@ export class TaskController {
   }
 
   @bind
-  public async updateTask(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async updateTask(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
-      const task: Task = await this.taskRepo.findOne(req.params.id)
+      const task: Task | undefined = await this.taskRepo.findOne(req.params.id)
 
       // task not found
       if (!task || !task.id) {
@@ -66,9 +78,13 @@ export class TaskController {
   }
 
   @bind
-  public async deleteTask(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async deleteTask(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
-      const task: Task = await this.taskRepo.findOne(req.params.id)
+      const task: Task | undefined = await this.taskRepo.findOne(req.params.id)
 
       if (!task) {
         return res.status(404).json({ status: 404, error: 'task not found' })

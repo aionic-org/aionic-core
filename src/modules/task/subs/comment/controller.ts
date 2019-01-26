@@ -1,6 +1,6 @@
 import { bind } from 'decko'
-import { Request, Response, NextFunction } from 'express'
-import { Repository, getManager } from 'typeorm'
+import { NextFunction, Request, Response } from 'express'
+import { getManager, Repository } from 'typeorm'
 
 import { TaskComment } from './model'
 
@@ -10,15 +10,19 @@ export class TaskCommentController {
   )
 
   @bind
-  public async readTaskComments(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async readTaskComments(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
-      const comments: Array<TaskComment> = await this.taskCommentRepo.find({
+      const comments: TaskComment[] = await this.taskCommentRepo.find({
+        relations: ['author'],
         where: {
           task: {
             id: req.params.id
           }
-        },
-        relations: ['author']
+        }
       })
 
       return res.json({ status: res.statusCode, data: comments })
@@ -28,12 +32,16 @@ export class TaskCommentController {
   }
 
   @bind
-  public async createTaskComment(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async createTaskComment(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
       const comment: TaskComment = await this.taskCommentRepo.save({
+        author: req.user,
         ...req.body.comment,
-        task: { id: req.params.id },
-        author: req.user
+        task: { id: req.params.id }
       })
 
       return res.json({ status: res.statusCode, data: comment })
@@ -43,15 +51,19 @@ export class TaskCommentController {
   }
 
   @bind
-  public async deleteTaskComment(req: Request, res: Response, next: NextFunction): Promise<any> {
+  public async deleteTaskComment(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     try {
-      const taskComment: TaskComment = await this.taskCommentRepo.findOne(req.params.id)
+      const comment: TaskComment | undefined = await this.taskCommentRepo.findOne(req.params.id)
 
-      if (!taskComment) {
+      if (!comment) {
         return res.status(404).json({ status: 404, error: 'comment not found' })
       }
 
-      await this.taskCommentRepo.remove(taskComment)
+      await this.taskCommentRepo.remove(comment)
 
       return res.status(204).send()
     } catch (err) {

@@ -6,7 +6,7 @@ import { UserTaskRoutes } from './subs/task/routes'
 
 export class UserRoutes {
   private authSerivce: AuthService
-  private readonly _router: Router = new Router()
+  private readonly _router: Router = Router()
   private readonly controller: UserController = new UserController()
 
   public constructor(defaultStrategy?: string) {
