@@ -4,18 +4,18 @@ const merge = require('gulp-merge-json')
 const bases = {
   src: 'src/',
   dist: 'dist/',
-  modules: 'modules/',
+  components: 'components/',
   output: 'output/'
 }
 
 const paths = {
-  policy: 'modules/**/policy.json',
-  html: 'modules/**/templates/*.html'
+  policy: 'rest/components/**/policy.json',
+  html: 'rest/components/**/templates/*.html'
 }
 
 // Task for copying html templates
 gulp.task('copy', function() {
-  gulp.src(paths.html, { cwd: bases.src }).pipe(gulp.dest(bases.modules, { cwd: bases.dist }))
+  gulp.src(paths.html, { cwd: bases.src }).pipe(gulp.dest(bases.components, { cwd: bases.dist }))
 })
 
 // Task for merging policies

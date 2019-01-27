@@ -1,21 +1,20 @@
 import { Data, renderFile } from 'ejs'
-import { createTransport, Transporter, TransportOptions } from 'nodemailer'
+import {
+  createTransport,
+  SendMailOptions,
+  SentMessageInfo,
+  Transporter,
+  TransportOptions
+} from 'nodemailer'
 import { resolve } from 'path'
 
 import { env } from '../config/globals'
-
-export interface IMailConfig {
-  from: string
-  to: string
-  subject: string
-  html: string
-}
 
 /**
  * MailService
  *
  * Service for sending email
- * Module mail services inherits from this one
+ * Mail services in modules inherits from this one
  */
 export abstract class MailService {
   private transporter: Transporter = createTransport(env.SMTP as TransportOptions)
@@ -24,13 +23,14 @@ export abstract class MailService {
    * Send email
    *
    * @param {IMailConfig} config
+   * @returns {Promise<SentMessageInfo> } Returns info of sent mail
    */
-  protected sendMail(config: IMailConfig) {
+  protected sendMail(config: SendMailOptions): Promise<SentMessageInfo> {
     return this.transporter.sendMail(config)
   }
 
   /**
-   * Render mail EJS template
+   * Render EJS template for Email
    *
    * @param {string} path
    * @param {Data} data

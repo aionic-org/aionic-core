@@ -14,8 +14,9 @@ export class UtilityService {
    * Error handler
    *
    * @param {Error} err
+   * @returns {void}
    */
-  public static handleError(err: Error) {
+  public static handleError(err: Error): void {
     logger.error(err)
   }
 
@@ -55,7 +56,7 @@ export class UtilityService {
    *
    * @param {string} plainPassword
    * @param {string} hashedPassword
-   * @returns {Promise<boolean>}
+   * @returns {Promise<boolean>} Returns if passwords match
    */
   public static verifyPassword(plainPassword: string, hashedPassword: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
@@ -72,7 +73,7 @@ export class UtilityService {
    * Hash string with sha256 algorithm - don't use for passwords
    *
    * @param {string} string
-   * @returns {string}
+   * @returns {string} Returns hashed string
    */
   public static hashString(string: string): string {
     return crypto
@@ -84,7 +85,7 @@ export class UtilityService {
   /**
    * Generate uuid
    *
-   * @returns {string}
+   * @returns {string} Returns UUID
    */
   public static generateUuid(): string {
     return uuidv1()

@@ -6,8 +6,8 @@ import { ExtractJwt, StrategyOptions } from 'passport-jwt'
 
 import { permissions } from '../config/permissions'
 
-import { BasicAuthStrategy } from '../modules/auth/strategies/basicAuth'
-import { JwtStrategy } from '../modules/auth/strategies/jwt'
+import { BasicAuthStrategy } from '../rest/components/auth/strategies/basicAuth'
+import { JwtStrategy } from '../rest/components/auth/strategies/jwt'
 
 export type PassportStrategy = 'jwt' | 'basic'
 
@@ -15,12 +15,10 @@ export type PassportStrategy = 'jwt' | 'basic'
  * AuthService
  *
  * Available passport strategies for authentication:
- *  -> JWT (default)
- *  -> Basic Auth
+ *  - JWT (default)
+ *  - Basic Auth
  *
- * Pass a strategy when initializing module routes to setup this strategy for the complete module
- * Each router's endpoint from the module will be protected
- * Example: new UserRoutes('jwt')
+ * Pass a strategy when initializing module routes to setup this strategy for the complete module: Example: new UserRoutes('jwt')
  *
  * To setup a strategy for individual endpoints in a module pass the strategy on isAuthorized call
  * Example: isAuthorized('basic')
@@ -56,6 +54,7 @@ export class AuthService {
    * Create JWT
    *
    * @param {number} userID
+   * @returns {string} Returns JWT
    */
   public createToken(userID: number): string {
     const payload = { userID }
@@ -126,7 +125,7 @@ export class AuthService {
    * @param {Response} res
    * @param {NextFunction} next
    * @param {string} strategy
-   * @returns {any}
+   * @returns {Handler | void}
    */
   @bind
   private doAuthentication(
@@ -134,7 +133,7 @@ export class AuthService {
     res: Response,
     next: NextFunction,
     strategy: PassportStrategy
-  ): void {
+  ): Handler | void {
     try {
       switch (strategy) {
         case 'jwt':

@@ -3,7 +3,11 @@
   "version": "0.0.1",
   "description": "Aionic Core - Software products for project management",
   "main": "./dist/index.js",
-  "author": "Lars Wächter",
+  "author": {
+    "name": "Lars Wächter",
+    "email": "lars97.waechter@gmail.com"
+  },
+  "private": true,
   "repository": {
     "url": "https://github.com/AionicApp/aionic-core"
   },
@@ -14,7 +18,8 @@
     "start:prod": "NODE_ENV=production node dist/index.js",
     "build": "rm -rf dist && tsc -p tsconfig.json && gulp copy && gulp merge",
     "watch": "nodemon --exec \"npm run build && npm run start:dev\" --watch src --ext ts",
-    "lint": "tslint -p tsconfig.json"
+    "lint": "tslint -p tsconfig.json",
+    "docs": "typedoc --mode file --out docs --readme README.md --module commonjs"
   },
   "devDependencies": {
     "@types/acl": "^0.4.35",
@@ -36,6 +41,7 @@
     "reflect-metadata": "^0.1.13",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",
+    "typedoc": "^0.14.2",
     "typescript": "^2.9.2"
   },
   "dependencies": {
