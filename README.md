@@ -1,4 +1,4 @@
-# Aionic (API)
+# Aionic (Core)
 
 ![alt text](https://avatars0.githubusercontent.com/u/42389304?s=100&v=4 'Aionic Logo')
 
@@ -31,7 +31,7 @@ This app offers the following features:
 - Permission control via ACL
 - Authentication via JWT or BasicAuth
 
-## Philosopy
+## Philosophy
 
 > Our focus is on simplifying the project management process for agile teams in an open way.
 
