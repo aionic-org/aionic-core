@@ -21,7 +21,7 @@ export abstract class MailService {
   private transporter: Transporter = createTransport(env.SMTP as TransportOptions)
 
   /**
-   * Set email
+   * Send email
    *
    * @param {IMailConfig} config
    */

@@ -10,9 +10,9 @@ import {
 } from 'typeorm'
 
 import { User } from '../user/model'
-import { TaskComment } from './subs/comment/model'
-import { TaskPriority } from './taskPriority/model'
-import { TaskStatus } from './taskStatus/model'
+import { TaskComment } from './_child/comment/model'
+import { TaskPriority } from './priority/model'
+import { TaskStatus } from './status/model'
 
 @Entity()
 export class Task {

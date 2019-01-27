@@ -6,6 +6,14 @@ import { CacheService } from '../../services/cache'
 export class ConfigController {
   private readonly cacheService: CacheService = new CacheService()
 
+  /**
+   * Get cache keys and stats
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async getCache(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
@@ -18,6 +26,14 @@ export class ConfigController {
     }
   }
 
+  /**
+   * Delete complete cache
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async deleteCache(
     req: Request,

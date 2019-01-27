@@ -1,27 +1,23 @@
 import { Router } from 'express'
 
-import { AuthService } from '../../services/auth'
+import { AuthService, PassportStrategy } from '../../services/auth'
+import { UserTaskRoutes } from './_child/task/routes'
 import { UserController } from './controller'
-import { UserTaskRoutes } from './subs/task/routes'
 
 export class UserRoutes {
   private authSerivce: AuthService
   private readonly _router: Router = Router()
   private readonly controller: UserController = new UserController()
 
-  public constructor(defaultStrategy?: string) {
+  public constructor(defaultStrategy?: PassportStrategy) {
     this.authSerivce = new AuthService(defaultStrategy)
 
-    this.initSubRoutes(defaultStrategy)
+    this.initChildRoutes(defaultStrategy)
     this.initRoutes()
   }
 
   public get router(): Router {
     return this._router
-  }
-
-  private initSubRoutes(defaultStrategy?: string): void {
-    this.router.use(new UserTaskRoutes(defaultStrategy).router)
   }
 
   private initRoutes() {
@@ -33,10 +29,14 @@ export class UserRoutes {
     )
 
     this._router.get(
-      '/:id',
+      '/:userId',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('user', 'read'),
       this.controller.readUser
     )
+  }
+
+  private initChildRoutes(defaultStrategy?: PassportStrategy): void {
+    this.router.use('/:userId', new UserTaskRoutes(defaultStrategy).router)
   }
 }

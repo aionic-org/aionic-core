@@ -4,16 +4,15 @@ import { getManager, Repository } from 'typeorm'
 
 import { AuthService } from '../../services/auth'
 import { CacheService } from '../../services/cache'
-import { HelperService } from '../../services/helper'
+import { UtilityService } from '../../services/helper/utility'
 import { AuthMailService } from './services/mail'
 
+import { UserInvitation } from '../user/invitation/model'
 import { User } from '../user/model'
-import { UserInvitation } from '../user/userInvitation/model'
 
 export class AuthController {
   private readonly authService: AuthService = new AuthService()
   private readonly authMailService: AuthMailService = new AuthMailService()
-  private readonly helperService: HelperService = new HelperService()
   private readonly cacheService: CacheService = new CacheService()
 
   private readonly userRepo: Repository<User> = getManager().getRepository('User')
@@ -21,6 +20,14 @@ export class AuthController {
     'UserInvitation'
   )
 
+  /**
+   * Signin user
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async signinUser(
     req: Request,
@@ -28,20 +35,23 @@ export class AuthController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
+      const { email, password } = req.body.user
+
+      if (!email || !password) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
       const user: User | undefined = await this.userRepo.findOne({
         relations: ['userRole'],
         select: ['id', 'email', 'firstname', 'lastname', 'password'],
         where: {
           active: true,
-          email: req.body.user.email
+          email
         }
       })
 
       // Wrong email or password
-      if (
-        !user ||
-        !(await this.helperService.verifyPassword(req.body.user.password, user.password))
-      ) {
+      if (!user || !(await UtilityService.verifyPassword(password, user.password))) {
         return res.status(401).json({ status: 401, error: 'wrong email or password' })
       }
 
@@ -57,6 +67,14 @@ export class AuthController {
     }
   }
 
+  /**
+   * Validate hash required for registration
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async validateHash(
     req: Request,
@@ -64,8 +82,14 @@ export class AuthController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const invitation = await this.getUserInvitation(req.params.hash)
-      return invitation && invitation.id
+      const { hash } = req.params
+
+      if (!hash) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
+      const invitation = await this.getUserInvitation(hash)
+      return invitation
         ? res.status(204).send()
         : res.status(403).json({ status: 403, error: 'invalid hash' })
     } catch (err) {
@@ -73,6 +97,14 @@ export class AuthController {
     }
   }
 
+  /**
+   * Register new user
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async registerUser(
     req: Request,
@@ -80,9 +112,16 @@ export class AuthController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
+      const { hash } = req.params
+      const { email, password } = req.body.user
+
+      if (!email || !req.body.user) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
       const user: User | undefined = await this.userRepo.findOne({
         where: {
-          email: req.body.user.email
+          email
         }
       })
 
@@ -91,10 +130,7 @@ export class AuthController {
         return res.status(400).json({ status: 400, error: 'email is already taken' })
       }
 
-      const invitation: UserInvitation | undefined = await this.getUserInvitation(
-        req.params.hash,
-        req.body.user.email
-      )
+      const invitation: UserInvitation | undefined = await this.getUserInvitation(hash, email)
 
       // Invalid registration hash
       if (!invitation) {
@@ -103,7 +139,7 @@ export class AuthController {
 
       const newUser: User = await this.userRepo.save({
         ...req.body.user,
-        password: await this.helperService.hashPassword(req.body.user.password),
+        password: await UtilityService.hashPassword(password),
         userRole: {
           id: 1,
           name: 'User'
@@ -125,6 +161,14 @@ export class AuthController {
     }
   }
 
+  /**
+   * Create user invitation that is required for registration
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async createUserInvitation(
     req: Request,
@@ -132,14 +176,20 @@ export class AuthController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const uuid = this.helperService.generateUuid()
+      const { email } = req.body
+
+      if (!email) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
+      const hash = UtilityService.generateUuid()
 
       await this.userInvRepo.save({
-        email: req.body.email,
-        hash: uuid
+        email,
+        hash
       })
 
-      await this.authMailService.sendUserInvitation(req.body.email, uuid)
+      await this.authMailService.sendUserInvitation(req.body.email, hash)
 
       return res.status(204).send()
     } catch (err) {
@@ -147,6 +197,14 @@ export class AuthController {
     }
   }
 
+  /**
+   * Unregister user
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async unregisterUser(
     req: Request,
@@ -154,10 +212,15 @@ export class AuthController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
+      const { email } = req.user
+
+      if (!email) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
       const user: User | undefined = await this.userRepo.findOne({
         where: {
-          active: true,
-          email: req.user.email
+          email
         }
       })
 
@@ -177,6 +240,12 @@ export class AuthController {
     }
   }
 
+  /**
+   *
+   * @param {string} hash
+   * @param {string} [email]
+   * @returns {Promise<UserInvitation | undefined>} Returns user invitation
+   */
   @bind
   private async getUserInvitation(
     hash: string,

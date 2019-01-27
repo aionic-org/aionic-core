@@ -1,15 +1,15 @@
 import { Router } from 'express'
 
-import { AuthService } from '../../../../services/auth'
+import { AuthService, PassportStrategy } from '../../../../services/auth'
 
 import { TaskCommentController } from './controller'
 
 export class TaskCommentRoutes {
   protected readonly controller: TaskCommentController = new TaskCommentController()
   protected authSerivce: AuthService
-  private _router: Router = Router()
+  private _router: Router = Router({ mergeParams: true })
 
-  public constructor(defaultStrategy?: string) {
+  public constructor(defaultStrategy?: PassportStrategy) {
     this.authSerivce = new AuthService(defaultStrategy)
     this.initRoutes()
   }
@@ -20,21 +20,21 @@ export class TaskCommentRoutes {
 
   private initRoutes(): void {
     this.router.get(
-      '/:id/comments',
+      '/comments',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('taskComment', 'read'),
       this.controller.readTaskComments
     )
 
     this.router.post(
-      '/:id/comments',
+      '/comments',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('taskComment', 'create'),
       this.controller.createTaskComment
     )
 
     this.router.delete(
-      '/comments/:id',
+      '/comments/:commentId',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('taskComment', 'delete'),
       this.controller.deleteTaskComment

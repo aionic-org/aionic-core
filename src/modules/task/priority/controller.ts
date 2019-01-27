@@ -12,6 +12,14 @@ export class TaskPriorityController {
     'TaskPriority'
   )
 
+  /**
+   * Read all task priorities from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async readTaskPriorities(
     req: Request,
@@ -28,7 +36,7 @@ export class TaskPriorityController {
   }
 
   /**
-   * get target content for cache service
+   * Get target content for cache service
    *
    * @returns {Promise<Array<TaskPriority>>}
    */

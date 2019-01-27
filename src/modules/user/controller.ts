@@ -10,6 +10,14 @@ export class UserController {
   private readonly cacheService: CacheService = new CacheService()
   private readonly userRepo: Repository<User> = getManager().getRepository('User')
 
+  /**
+   * Read all users from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async readUsers(
     req: Request,
@@ -25,21 +33,33 @@ export class UserController {
     }
   }
 
+  /**
+   * Read a certain user from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async readUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
-      const user: User | undefined = await this.userRepo.findOne(req.params.id)
+      const { userId } = req.params
 
-      const statusCode = user && user.id ? res.statusCode : 404
+      if (!userId) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
 
-      return res.status(statusCode).json({ status: statusCode, data: user })
+      const user: User | undefined = await this.userRepo.findOne(userId)
+
+      return res.json({ status: res.statusCode, data: user })
     } catch (err) {
       return next(err)
     }
   }
 
   /**
-   * get target content for cache service
+   * Get target content for cache service
    *
    * @returns {Promise<Array<User>>}
    */

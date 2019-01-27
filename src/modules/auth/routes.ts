@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { AuthService } from '../../services/auth'
+import { AuthService, PassportStrategy } from '../../services/auth'
 
 import { AuthController } from './controller'
 
@@ -9,7 +9,7 @@ export class AuthRoutes {
   private readonly _router: Router = Router()
   private readonly controller: AuthController = new AuthController()
 
-  public constructor(defaultStrategy?: string) {
+  public constructor(defaultStrategy?: PassportStrategy) {
     this.authSerivce = new AuthService(defaultStrategy)
     this.initRoutes()
   }

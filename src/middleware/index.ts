@@ -5,10 +5,11 @@ import helmet from 'helmet'
 import { json, NextFunction, Request, Response, Router } from 'express'
 
 import { AuthService } from '../services/auth'
-import { UtilityService } from '../services/utility'
+import { UtilityService } from '../services/helper/utility'
 
 /**
  * Init Express middleware
+ *
  * @param {Router} router
  */
 export function initMiddleware(router: Router): void {
@@ -23,6 +24,7 @@ export function initMiddleware(router: Router): void {
 
 /**
  * Init Express error handler
+ *
  * @param {Router} router
  */
 export function initErrorHandler(router: Router): Response | void {

@@ -7,6 +7,14 @@ import { Task } from './model'
 export class TaskController {
   private readonly taskRepo: Repository<Task> = getManager().getRepository('Task')
 
+  /**
+   * Read all tasks from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async readTasks(
     req: Request,
@@ -24,29 +32,26 @@ export class TaskController {
     }
   }
 
+  /**
+   * Read a certain task from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async readTask(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
-      const task: Task | undefined = await this.taskRepo.findOne(req.params.id, {
+      const { taskId } = req.params
+
+      if (!taskId) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
+      const task: Task | undefined = await this.taskRepo.findOne(taskId, {
         relations: ['author', 'assignee', 'status', 'priority']
       })
-
-      const statusCode = task && task.id ? res.statusCode : 404
-
-      return res.status(statusCode).json({ status: statusCode, data: task })
-    } catch (err) {
-      return next(err)
-    }
-  }
-
-  @bind
-  public async createTask(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response | void> {
-    try {
-      const task: Task = await this.taskRepo.save(req.body.task)
 
       return res.json({ status: res.statusCode, data: task })
     } catch (err) {
@@ -54,6 +59,41 @@ export class TaskController {
     }
   }
 
+  /**
+   * Save new task to db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
+  @bind
+  public async createTask(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
+    try {
+      if (!req.body.task) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
+      const newTask: Task = await this.taskRepo.save(req.body.task)
+
+      return res.json({ status: res.statusCode, data: newTask })
+    } catch (err) {
+      return next(err)
+    }
+  }
+
+  /**
+   * Update task in db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async updateTask(
     req: Request,
@@ -61,14 +101,18 @@ export class TaskController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const task: Task | undefined = await this.taskRepo.findOne(req.params.id)
+      const { taskId } = req.params
 
-      // task not found
-      if (!task || !task.id) {
+      if (!taskId || !req.body.task) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
+      const task: Task | undefined = await this.taskRepo.findOne(taskId)
+
+      if (!task) {
         return res.status(404).json({ status: 404, error: 'task not found' })
       }
 
-      // update task
       await this.taskRepo.save(req.body.task)
 
       return res.status(204).send()
@@ -77,6 +121,14 @@ export class TaskController {
     }
   }
 
+  /**
+   * Delete task from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async deleteTask(
     req: Request,
@@ -84,7 +136,13 @@ export class TaskController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const task: Task | undefined = await this.taskRepo.findOne(req.params.id)
+      const { taskId } = req.params
+
+      if (!taskId) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
+      const task: Task | undefined = await this.taskRepo.findOne(taskId)
 
       if (!task) {
         return res.status(404).json({ status: 404, error: 'task not found' })
