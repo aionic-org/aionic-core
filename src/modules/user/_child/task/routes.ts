@@ -1,14 +1,14 @@
 import { Router } from 'express'
 
-import { AuthService } from '../../../../services/auth'
+import { AuthService, PassportStrategy } from '../../../../services/auth'
 import { UserTaskController } from './controller'
 
 export class UserTaskRoutes {
   private authSerivce: AuthService
-  private readonly _router: Router = Router()
+  private readonly _router: Router = Router({ mergeParams: true })
   private readonly controller: UserTaskController = new UserTaskController()
 
-  public constructor(defaultStrategy?: string) {
+  public constructor(defaultStrategy?: PassportStrategy) {
     this.authSerivce = new AuthService(defaultStrategy)
     this.initRoutes()
   }
@@ -19,14 +19,14 @@ export class UserTaskRoutes {
 
   private initRoutes() {
     this._router.get(
-      '/:id/tasks',
+      '/tasks',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('userTask', 'read'),
       this.controller.readUserTasks
     )
 
     this._router.get(
-      '/:userId/tasks/status/:statusId',
+      '/tasks/status/:statusId',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('userTask', 'read'),
       this.controller.readUserTasksByStatus

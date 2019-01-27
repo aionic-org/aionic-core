@@ -9,12 +9,14 @@ import { permissions } from '../config/permissions'
 import { BasicAuthStrategy } from '../modules/auth/strategies/basicAuth'
 import { JwtStrategy } from '../modules/auth/strategies/jwt'
 
+export type PassportStrategy = 'jwt' | 'basic'
+
 /**
- * - AuthService -
+ * AuthService
  *
  * Available passport strategies for authentication:
- *  - JWT (default)
- *  - Basic Auth
+ *  -> JWT (default)
+ *  -> Basic Auth
  *
  * Pass a strategy when initializing module routes to setup this strategy for the complete module
  * Each router's endpoint from the module will be protected
@@ -24,7 +26,7 @@ import { JwtStrategy } from '../modules/auth/strategies/jwt'
  * Example: isAuthorized('basic')
  */
 export class AuthService {
-  private defaultStrategy: string
+  private defaultStrategy: PassportStrategy
   private jwtStrategy: JwtStrategy
   private basicStrategy: BasicAuthStrategy
 
@@ -42,7 +44,7 @@ export class AuthService {
     issuer: this.strategyOptions.issuer
   }
 
-  public constructor(defaultStrategy: string = 'jwt') {
+  public constructor(defaultStrategy: PassportStrategy = 'jwt') {
     // Setup default strategy -> use jwt if none is provided
     this.defaultStrategy = defaultStrategy
 
@@ -54,7 +56,6 @@ export class AuthService {
    * Create JWT
    *
    * @param {number} userID
-   * @returns {string}
    */
   public createToken(userID: number): string {
     const payload = { userID }
@@ -106,11 +107,11 @@ export class AuthService {
    * @returns {Handler}
    */
   @bind
-  public isAuthorized(strategy?: string): Handler {
+  public isAuthorized(strategy?: PassportStrategy): Handler {
     return (req: Request, res: Response, next: NextFunction) => {
       try {
         // if no strategy is provided use default strategy
-        const tempStrategy = strategy || this.defaultStrategy
+        const tempStrategy: PassportStrategy = strategy || this.defaultStrategy
         return this.doAuthentication(req, res, next, tempStrategy)
       } catch (err) {
         return next(err)
@@ -132,7 +133,7 @@ export class AuthService {
     req: Request,
     res: Response,
     next: NextFunction,
-    strategy: string
+    strategy: PassportStrategy
   ): void {
     try {
       switch (strategy) {

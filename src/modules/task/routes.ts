@@ -1,29 +1,25 @@
 import { Router } from 'express'
 
-import { AuthService } from '../../services/auth'
+import { AuthService, PassportStrategy } from '../../services/auth'
 
 import { TaskController } from './controller'
 
-import { TaskCommentRoutes } from './subs/comment/routes'
+import { TaskCommentRoutes } from './_child/comment/routes'
 
 export class TaskRoutes {
   private readonly controller: TaskController = new TaskController()
   private authSerivce: AuthService
   private _router: Router = Router()
 
-  public constructor(defaultStrategy?: string) {
+  public constructor(defaultStrategy?: PassportStrategy) {
     this.authSerivce = new AuthService(defaultStrategy)
 
-    this.initSubRoutes(defaultStrategy)
     this.initRoutes()
+    this.initChildRoutes(defaultStrategy)
   }
 
   public get router(): Router {
     return this._router
-  }
-
-  private initSubRoutes(defaultStrategy?: string): void {
-    this.router.use(new TaskCommentRoutes(defaultStrategy).router)
   }
 
   private initRoutes(): void {
@@ -35,7 +31,7 @@ export class TaskRoutes {
     )
 
     this.router.get(
-      '/:id',
+      '/:taskId',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('task', 'read'),
       this.controller.readTask
@@ -49,17 +45,21 @@ export class TaskRoutes {
     )
 
     this.router.post(
-      '/:id',
+      '/:taskId',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('task', 'update'),
       this.controller.updateTask
     )
 
     this.router.delete(
-      '/:id',
+      '/:taskId',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('task', 'delete'),
       this.controller.deleteTask
     )
+  }
+
+  private initChildRoutes(defaultStrategy?: PassportStrategy): void {
+    this.router.use('/:taskId', new TaskCommentRoutes(defaultStrategy).router)
   }
 }

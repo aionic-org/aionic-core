@@ -9,6 +9,14 @@ export class TaskCommentController {
     'TaskComment'
   )
 
+  /**
+   * Read all comments from a certain task from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async readTaskComments(
     req: Request,
@@ -16,9 +24,9 @@ export class TaskCommentController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { id } = req.params
+      const { taskId } = req.params
 
-      if (!id) {
+      if (!taskId) {
         return res.status(400).json({ status: 400, error: 'invalid request' })
       }
 
@@ -26,7 +34,7 @@ export class TaskCommentController {
         relations: ['author'],
         where: {
           task: {
-            id
+            id: taskId
           }
         }
       })
@@ -37,6 +45,14 @@ export class TaskCommentController {
     }
   }
 
+  /**
+   * Save new task comment to db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async createTaskComment(
     req: Request,
@@ -44,16 +60,16 @@ export class TaskCommentController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { id } = req.params
+      const { taskId } = req.params
 
-      if (!id || !req.body.comment) {
+      if (!taskId || !req.body.comment) {
         return res.status(400).json({ status: 400, error: 'invalid request' })
       }
 
       const newComment: TaskComment = await this.taskCommentRepo.save({
         ...req.body.comment,
         author: req.user,
-        task: { id }
+        task: { id: taskId }
       })
 
       return res.json({ status: res.statusCode, data: newComment })
@@ -62,6 +78,14 @@ export class TaskCommentController {
     }
   }
 
+  /**
+   * Delete task comment from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async deleteTaskComment(
     req: Request,
@@ -69,13 +93,20 @@ export class TaskCommentController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { id } = req.params
+      const { taskId, commentId } = req.params
 
-      if (!id) {
+      if (!taskId || !commentId) {
         return res.status(400).json({ status: 400, error: 'invalid request' })
       }
 
-      const comment: TaskComment | undefined = await this.taskCommentRepo.findOne(id)
+      const comment: TaskComment | undefined = await this.taskCommentRepo.findOne({
+        where: {
+          id: commentId,
+          task: {
+            id: taskId
+          }
+        }
+      })
 
       if (!comment) {
         return res.status(404).json({ status: 404, error: 'comment not found' })

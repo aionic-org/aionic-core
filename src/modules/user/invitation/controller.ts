@@ -9,6 +9,14 @@ export class UserInvitationController {
     'UserInvitation'
   )
 
+  /**
+   * Read user invitations from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async readUserInvitations(
     req: Request,

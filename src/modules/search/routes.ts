@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { AuthService } from '../../services/auth'
+import { AuthService, PassportStrategy } from '../../services/auth'
 
 import { SearchController } from './controller'
 
@@ -9,7 +9,7 @@ export class SearchRoutes {
   protected authSerivce: AuthService
   private _router: Router = Router()
 
-  public constructor(defaultStrategy?: string) {
+  public constructor(defaultStrategy?: PassportStrategy) {
     this.authSerivce = new AuthService(defaultStrategy)
     this.initRoutes()
   }

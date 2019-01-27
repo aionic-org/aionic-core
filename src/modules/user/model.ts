@@ -1,8 +1,8 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
+import { TaskComment } from '../task/_child/comment/model'
 import { Task } from '../task/model'
-import { TaskComment } from '../task/subs/comment/model'
-import { UserRole } from './userRole/model'
+import { UserRole } from './role/model'
 
 @Entity()
 export class User {

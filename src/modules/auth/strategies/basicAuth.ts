@@ -5,7 +5,7 @@ import { BasicStrategy } from 'passport-http'
 
 import { User } from '../../user/model'
 
-import { HelperService } from '../../../services/helper'
+import { UtilityService } from '../../../services/helper/utility'
 
 import { BaseStrategy } from './base'
 
@@ -18,8 +18,6 @@ import { BaseStrategy } from './base'
  * *
  */
 export class BasicAuthStrategy extends BaseStrategy {
-  private readonly helperService: HelperService = new HelperService()
-
   public constructor() {
     super()
     this._strategy = new BasicStrategy(this.verify)
@@ -83,7 +81,7 @@ export class BasicAuthStrategy extends BaseStrategy {
       }
 
       // Verify password
-      if (!(await this.helperService.verifyPassword(password, user.password))) {
+      if (!(await UtilityService.verifyPassword(password, user.password))) {
         return next(null, null)
       }
 

@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { AuthService } from '../../../services/auth'
+import { AuthService, PassportStrategy } from '../../../services/auth'
 import { TaskStatusController } from './controller'
 
 export class TaskStatusRoutes {
@@ -8,7 +8,7 @@ export class TaskStatusRoutes {
   private authSerivce: AuthService
   private _router: Router = Router()
 
-  public constructor(defaultStrategy?: string) {
+  public constructor(defaultStrategy?: PassportStrategy) {
     this.authSerivce = new AuthService(defaultStrategy)
     this.initRoutes()
   }

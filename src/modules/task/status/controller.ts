@@ -10,6 +10,14 @@ export class TaskStatusController {
   private readonly cacheService: CacheService = new CacheService()
   private readonly taskStatusRepo: Repository<TaskStatus> = getManager().getRepository('TaskStatus')
 
+  /**
+   * Read all task status
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async readTaskStatus(
     req: Request,
@@ -26,7 +34,7 @@ export class TaskStatusController {
   }
 
   /**
-   * get target content for cache service
+   * Get target content for cache service
    *
    * @param {any} sortOrder
    * @returns {Promise<Array<TaskStatus>>}

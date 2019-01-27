@@ -4,16 +4,15 @@ import { getManager, Repository } from 'typeorm'
 
 import { AuthService } from '../../services/auth'
 import { CacheService } from '../../services/cache'
-import { HelperService } from '../../services/helper'
+import { UtilityService } from '../../services/helper/utility'
 import { AuthMailService } from './services/mail'
 
+import { UserInvitation } from '../user/invitation/model'
 import { User } from '../user/model'
-import { UserInvitation } from '../user/userInvitation/model'
 
 export class AuthController {
   private readonly authService: AuthService = new AuthService()
   private readonly authMailService: AuthMailService = new AuthMailService()
-  private readonly helperService: HelperService = new HelperService()
   private readonly cacheService: CacheService = new CacheService()
 
   private readonly userRepo: Repository<User> = getManager().getRepository('User')
@@ -21,6 +20,14 @@ export class AuthController {
     'UserInvitation'
   )
 
+  /**
+   * Signin user
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async signinUser(
     req: Request,
@@ -44,7 +51,7 @@ export class AuthController {
       })
 
       // Wrong email or password
-      if (!user || !(await this.helperService.verifyPassword(password, user.password))) {
+      if (!user || !(await UtilityService.verifyPassword(password, user.password))) {
         return res.status(401).json({ status: 401, error: 'wrong email or password' })
       }
 
@@ -60,6 +67,14 @@ export class AuthController {
     }
   }
 
+  /**
+   * Validate hash required for registration
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async validateHash(
     req: Request,
@@ -74,7 +89,7 @@ export class AuthController {
       }
 
       const invitation = await this.getUserInvitation(hash)
-      return invitation && invitation.id
+      return invitation
         ? res.status(204).send()
         : res.status(403).json({ status: 403, error: 'invalid hash' })
     } catch (err) {
@@ -82,6 +97,14 @@ export class AuthController {
     }
   }
 
+  /**
+   * Register new user
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async registerUser(
     req: Request,
@@ -116,7 +139,7 @@ export class AuthController {
 
       const newUser: User = await this.userRepo.save({
         ...req.body.user,
-        password: await this.helperService.hashPassword(password),
+        password: await UtilityService.hashPassword(password),
         userRole: {
           id: 1,
           name: 'User'
@@ -138,6 +161,14 @@ export class AuthController {
     }
   }
 
+  /**
+   * Create user invitation that is required for registration
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async createUserInvitation(
     req: Request,
@@ -151,7 +182,7 @@ export class AuthController {
         return res.status(400).json({ status: 400, error: 'invalid request' })
       }
 
-      const hash = this.helperService.generateUuid()
+      const hash = UtilityService.generateUuid()
 
       await this.userInvRepo.save({
         email,
@@ -166,6 +197,14 @@ export class AuthController {
     }
   }
 
+  /**
+   * Unregister user
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async unregisterUser(
     req: Request,
@@ -201,6 +240,12 @@ export class AuthController {
     }
   }
 
+  /**
+   *
+   * @param {string} hash
+   * @param {string} [email]
+   * @returns {Promise<UserInvitation | undefined>} Returns user invitation
+   */
   @bind
   private async getUserInvitation(
     hash: string,

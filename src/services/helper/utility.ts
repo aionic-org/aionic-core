@@ -2,13 +2,22 @@ import { compare, genSalt, hash } from 'bcrypt-nodejs'
 import * as crypto from 'crypto'
 import { v1 as uuidv1 } from 'uuid'
 
+import { logger } from '../../config/logger'
+
 /**
- * - HelperService -
+ * UtilityService
  *
- * Service for helper functions
+ * Service for utility functions
  */
-export class HelperService {
-  private readonly saltRounds: number = 10
+export class UtilityService {
+  /**
+   * Error handler
+   *
+   * @param {Error} err
+   */
+  public static handleError(err: Error) {
+    logger.error(err)
+  }
 
   /**
    * Hash plain password
@@ -16,9 +25,9 @@ export class HelperService {
    * @param {string} plainPassword
    * @returns {Promise<string>}
    */
-  public hashPassword(plainPassword: string): Promise<string> {
+  public static hashPassword(plainPassword: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      genSalt(this.saltRounds, (err, salt) => {
+      genSalt(10, (err, salt) => {
         if (err) {
           reject(err)
         }
@@ -48,7 +57,7 @@ export class HelperService {
    * @param {string} hashedPassword
    * @returns {Promise<boolean>}
    */
-  public verifyPassword(plainPassword: string, hashedPassword: string): Promise<boolean> {
+  public static verifyPassword(plainPassword: string, hashedPassword: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       compare(plainPassword, hashedPassword, (err, res) => {
         if (err) {
@@ -65,7 +74,7 @@ export class HelperService {
    * @param {string} string
    * @returns {string}
    */
-  public hashString(string: string): string {
+  public static hashString(string: string): string {
     return crypto
       .createHash('sha256')
       .update(string)
@@ -77,7 +86,7 @@ export class HelperService {
    *
    * @returns {string}
    */
-  public generateUuid(): string {
+  public static generateUuid(): string {
     return uuidv1()
   }
 }

@@ -7,6 +7,14 @@ import { Task } from './model'
 export class TaskController {
   private readonly taskRepo: Repository<Task> = getManager().getRepository('Task')
 
+  /**
+   * Read all tasks from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async readTasks(
     req: Request,
@@ -24,16 +32,24 @@ export class TaskController {
     }
   }
 
+  /**
+   * Read a certain task from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async readTask(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
-      const { id } = req.params
+      const { taskId } = req.params
 
-      if (!id) {
+      if (!taskId) {
         return res.status(400).json({ status: 400, error: 'invalid request' })
       }
 
-      const task: Task | undefined = await this.taskRepo.findOne(id, {
+      const task: Task | undefined = await this.taskRepo.findOne(taskId, {
         relations: ['author', 'assignee', 'status', 'priority']
       })
 
@@ -43,6 +59,14 @@ export class TaskController {
     }
   }
 
+  /**
+   * Save new task to db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async createTask(
     req: Request,
@@ -62,6 +86,14 @@ export class TaskController {
     }
   }
 
+  /**
+   * Update task in db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async updateTask(
     req: Request,
@@ -69,13 +101,13 @@ export class TaskController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { id } = req.params
+      const { taskId } = req.params
 
-      if (!id || !req.body.task) {
+      if (!taskId || !req.body.task) {
         return res.status(400).json({ status: 400, error: 'invalid request' })
       }
 
-      const task: Task | undefined = await this.taskRepo.findOne(id)
+      const task: Task | undefined = await this.taskRepo.findOne(taskId)
 
       if (!task) {
         return res.status(404).json({ status: 404, error: 'task not found' })
@@ -89,6 +121,14 @@ export class TaskController {
     }
   }
 
+  /**
+   * Delete task from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async deleteTask(
     req: Request,
@@ -96,13 +136,13 @@ export class TaskController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { id } = req.params
+      const { taskId } = req.params
 
-      if (!id) {
+      if (!taskId) {
         return res.status(400).json({ status: 400, error: 'invalid request' })
       }
 
-      const task: Task | undefined = await this.taskRepo.findOne(id)
+      const task: Task | undefined = await this.taskRepo.findOne(taskId)
 
       if (!task) {
         return res.status(404).json({ status: 404, error: 'task not found' })

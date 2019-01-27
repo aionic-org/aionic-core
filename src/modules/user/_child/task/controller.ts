@@ -7,6 +7,14 @@ import { Task } from '../../../task/model'
 export class UserTaskController {
   private readonly taskRepo: Repository<Task> = getManager().getRepository('Task')
 
+  /**
+   * Read tasks from a certain user from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async readUserTasks(
     req: Request,
@@ -14,15 +22,15 @@ export class UserTaskController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { id } = req.params
+      const { userId } = req.params
 
-      if (!id) {
+      if (!userId) {
         return res.status(400).json({ status: 400, error: 'invalid request' })
       }
 
       const tasks: Task[] = await this.taskRepo.find({
         where: {
-          assignee: { id },
+          assignee: { userId },
           relations: ['author', 'status', 'priority']
         }
       })
@@ -33,6 +41,14 @@ export class UserTaskController {
     }
   }
 
+  /**
+   * Read tasks from a certain user by a certain task status from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>}  Returns HTTP response
+   */
   @bind
   public async readUserTasksByStatus(
     req: Request,
