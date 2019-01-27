@@ -3,7 +3,11 @@
   "version": "0.0.1",
   "description": "Aionic Core - Software products for project management",
   "main": "./dist/index.js",
-  "author": "Lars Wächter",
+  "author": {
+    "name": "Lars Wächter",
+    "email": "lars97.waechter@gmail.com"
+  },
+  "private": true,
   "repository": {
     "url": "https://github.com/AionicApp/aionic-core"
   },
