@@ -26,7 +26,7 @@ export class UserTaskRoutes {
     )
 
     this._router.get(
-      '/:userID/tasks/status/:statusID',
+      '/:userId/tasks/status/:statusId',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('userTask', 'read'),
       this.controller.readUserTasksByStatus

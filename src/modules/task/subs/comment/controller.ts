@@ -16,11 +16,17 @@ export class TaskCommentController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
+      const { id } = req.params
+
+      if (!id) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
       const comments: TaskComment[] = await this.taskCommentRepo.find({
         relations: ['author'],
         where: {
           task: {
-            id: req.params.id
+            id
           }
         }
       })
@@ -38,13 +44,19 @@ export class TaskCommentController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const comment: TaskComment = await this.taskCommentRepo.save({
-        author: req.user,
+      const { id } = req.params
+
+      if (!id || !req.body.comment) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
+      const newComment: TaskComment = await this.taskCommentRepo.save({
         ...req.body.comment,
-        task: { id: req.params.id }
+        author: req.user,
+        task: { id }
       })
 
-      return res.json({ status: res.statusCode, data: comment })
+      return res.json({ status: res.statusCode, data: newComment })
     } catch (err) {
       return next(err)
     }
@@ -57,7 +69,13 @@ export class TaskCommentController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const comment: TaskComment | undefined = await this.taskCommentRepo.findOne(req.params.id)
+      const { id } = req.params
+
+      if (!id) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
+      const comment: TaskComment | undefined = await this.taskCommentRepo.findOne(id)
 
       if (!comment) {
         return res.status(404).json({ status: 404, error: 'comment not found' })

@@ -28,11 +28,15 @@ export class UserController {
   @bind
   public async readUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
-      const user: User | undefined = await this.userRepo.findOne(req.params.id)
+      const { id } = req.params
 
-      const statusCode = user && user.id ? res.statusCode : 404
+      if (!id) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
 
-      return res.status(statusCode).json({ status: statusCode, data: user })
+      const user: User | undefined = await this.userRepo.findOne(id)
+
+      return res.json({ status: res.statusCode, data: user })
     } catch (err) {
       return next(err)
     }

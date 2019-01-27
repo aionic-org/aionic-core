@@ -14,10 +14,16 @@ export class SearchController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
+      const { searchTerm } = req.params
+
+      if (!searchTerm) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
       const tasks: Task[] = await this.taskRepo.find({
         relations: ['author', 'assignee', 'status', 'priority'],
         where: {
-          description: Like(`%${req.params.searchTerm}%`)
+          description: Like(`%${searchTerm}%`)
         }
       })
 

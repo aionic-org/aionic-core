@@ -9,6 +9,7 @@ import { UtilityService } from '../services/utility'
 
 /**
  * Init Express middleware
+ *
  * @param {Router} router
  */
 export function initMiddleware(router: Router): void {
@@ -23,6 +24,7 @@ export function initMiddleware(router: Router): void {
 
 /**
  * Init Express error handler
+ *
  * @param {Router} router
  */
 export function initErrorHandler(router: Router): Response | void {

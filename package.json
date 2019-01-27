@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "author": "Lars Wächter",
   "repository": {
-    "url": "https://github.com/AionicApp/aionic-api"
+    "url": "https://github.com/AionicApp/aionic-core"
   },
   "license": "MIT",
   "scripts": {

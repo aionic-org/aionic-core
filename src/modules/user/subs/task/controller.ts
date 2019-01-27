@@ -3,7 +3,6 @@ import { NextFunction, Request, Response } from 'express'
 import { getManager, Repository } from 'typeorm'
 
 import { Task } from '../../../task/model'
-import { User } from '../../model'
 
 export class UserTaskController {
   private readonly taskRepo: Repository<Task> = getManager().getRepository('Task')
@@ -15,9 +14,15 @@ export class UserTaskController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
+      const { id } = req.params
+
+      if (!id) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
       const tasks: Task[] = await this.taskRepo.find({
         where: {
-          assignee: { id: req.params.id },
+          assignee: { id },
           relations: ['author', 'status', 'priority']
         }
       })
@@ -35,14 +40,20 @@ export class UserTaskController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
+      const { userId, statusId } = req.params
+
+      if (!userId || !statusId) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
       const tasks: Task[] = await this.taskRepo.find({
         order: {
           priority: 'DESC'
         },
         relations: ['author', 'assignee', 'status', 'priority'],
         where: {
-          assignee: { id: req.params.userID },
-          status: { id: req.params.statusID }
+          assignee: { id: userId },
+          status: { id: statusId }
         }
       })
 

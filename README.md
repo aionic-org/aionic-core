@@ -25,8 +25,8 @@ This app offers the following features:
 - REST API
 - Task Service
 - Mail Service
-- MySQL integration
-- GitHub integration
+- MySQL ORM
+- GitHub API integration
 - Caching
 - Permission control via ACL
 - Authentication via JWT or BasicAuth
@@ -42,3 +42,4 @@ Some of the technologies we trust: _NodeJS, ReactJS, MySQL_
 ## Community
 
 - [Website](https://aionic.app)
+- [GitHub](https://github.com/Aionic-App)
