@@ -15,7 +15,7 @@ export class TaskCommentController {
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Promise<Response | void>}  Returns HTTP response
+   * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
   public async readTaskComments(
@@ -51,7 +51,7 @@ export class TaskCommentController {
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Promise<Response | void>}  Returns HTTP response
+   * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
   public async createTaskComment(
@@ -84,7 +84,7 @@ export class TaskCommentController {
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Promise<Response | void>}  Returns HTTP response
+   * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
   public async deleteTaskComment(

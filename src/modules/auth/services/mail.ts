@@ -1,9 +1,18 @@
-import { IMailConfig, MailService } from '../../../services/mail'
+import { SendMailOptions, SentMessageInfo } from 'nodemailer'
 
 import { env, mails } from '../../../config/globals'
 
+import { MailService } from '../../../services/mail'
+
 export class AuthMailService extends MailService {
-  public async sendUserInvitation(email: string, uuid: string) {
+  /**
+   * Send user invitation email
+   *
+   * @param {string} email
+   * @param {string} uuid
+   * @returns {Promise<SentMessageInfo>} Returns info of sent mail
+   */
+  public async sendUserInvitation(email: string, uuid: string): Promise<SentMessageInfo> {
     const templateParams = {
       confirmUrl: `${env.HP.DOMAIN}/api/auth/register/${uuid}`
     }
@@ -13,7 +22,7 @@ export class AuthMailService extends MailService {
       templateParams
     )
 
-    const mail: IMailConfig = {
+    const mail: SendMailOptions = {
       from: mails.service,
       html: mailTemplate,
       subject: 'You were invited to join Aionic',

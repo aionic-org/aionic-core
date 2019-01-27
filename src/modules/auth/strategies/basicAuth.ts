@@ -1,5 +1,5 @@
 import { bind } from 'decko'
-import { NextFunction, Request, Response } from 'express'
+import { Handler, NextFunction, Request, Response } from 'express'
 import { authenticate } from 'passport'
 import { BasicStrategy } from 'passport-http'
 
@@ -13,9 +13,6 @@ import { BaseStrategy } from './base'
  * Passport Basic Http Authentication
  *
  * The client sends a base64 encoded string, including username:password, inside the request header
- *
- * NOTE: No signin is needed
- * *
  */
 export class BasicAuthStrategy extends BaseStrategy {
   public constructor() {
@@ -29,9 +26,9 @@ export class BasicAuthStrategy extends BaseStrategy {
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {void}
+   * @returns {Handler | void}
    */
-  public isAuthorized(req: Request, res: Response, next: NextFunction): void {
+  public isAuthorized(req: Request, res: Response, next: NextFunction): Handler | void {
     try {
       return authenticate('basic', { session: false }, (error, user, info) => {
         if (error) {
@@ -56,7 +53,9 @@ export class BasicAuthStrategy extends BaseStrategy {
   }
 
   /**
-   * Verify incoming userID / password from request -> validation in isAuthorized()
+   * Verify incoming userID / password from request
+   *
+   * Validation in isAuthorized()
    *
    * @param {any} payload
    * @param {any} next

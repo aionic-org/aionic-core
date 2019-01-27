@@ -12,6 +12,11 @@ export class Server {
     initErrorHandler(this._app)
   }
 
+  /**
+   * Get app
+   *
+   * @returns {express.Application} Returns Express app
+   */
   public get app(): express.Application {
     return this._app
   }

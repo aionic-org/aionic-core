@@ -13,7 +13,7 @@ export class TaskController {
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Promise<Response | void>}  Returns HTTP response
+   * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
   public async readTasks(
@@ -38,7 +38,7 @@ export class TaskController {
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Promise<Response | void>}  Returns HTTP response
+   * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
   public async readTask(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -65,7 +65,7 @@ export class TaskController {
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Promise<Response | void>}  Returns HTTP response
+   * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
   public async createTask(
@@ -92,7 +92,7 @@ export class TaskController {
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Promise<Response | void>}  Returns HTTP response
+   * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
   public async updateTask(
@@ -127,7 +127,7 @@ export class TaskController {
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Promise<Response | void>}  Returns HTTP response
+   * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
   public async deleteTask(

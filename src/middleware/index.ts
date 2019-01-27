@@ -11,6 +11,7 @@ import { UtilityService } from '../services/helper/utility'
  * Init Express middleware
  *
  * @param {Router} router
+ * @returns {void}
  */
 export function initMiddleware(router: Router): void {
   router.use(helmet())
@@ -26,6 +27,7 @@ export function initMiddleware(router: Router): void {
  * Init Express error handler
  *
  * @param {Router} router
+ * @returns {void}
  */
 export function initErrorHandler(router: Router): Response | void {
   router.use((err: Error, req: Request, res: Response, next: NextFunction) => {

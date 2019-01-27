@@ -7,15 +7,19 @@ import { User } from '../../user/model'
 import { permissions } from '../../../config/permissions'
 
 /**
- * BaseStrategy
+ * Abstract BaseStrategy
  *
- * Abstract strategy class
  * Other strategies inherits from this one
  */
 export abstract class BaseStrategy {
   protected readonly userRepo: Repository<User> = getManager().getRepository('User')
   protected _strategy: Strategy_Jwt | Strategy_Basic
 
+  /**
+   * Get strategy
+   *
+   * @returns {Strategy_Jwt | Strategy_Basic} Returns Passport strategy
+   */
   public get strategy(): Strategy_Jwt | Strategy_Basic {
     return this._strategy
   }

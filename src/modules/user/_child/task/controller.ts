@@ -13,7 +13,7 @@ export class UserTaskController {
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Promise<Response | void>}  Returns HTTP response
+   * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
   public async readUserTasks(
@@ -47,7 +47,7 @@ export class UserTaskController {
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Promise<Response | void>}  Returns HTTP response
+   * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
   public async readUserTasksByStatus(

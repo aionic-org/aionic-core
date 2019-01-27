@@ -11,12 +11,12 @@ export class TaskStatusController {
   private readonly taskStatusRepo: Repository<TaskStatus> = getManager().getRepository('TaskStatus')
 
   /**
-   * Read all task status
+   * Read all task status from db
    *
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Promise<Response | void>}  Returns HTTP response
+   * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
   public async readTaskStatus(

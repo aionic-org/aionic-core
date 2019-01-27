@@ -16,7 +16,7 @@ export class UserController {
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Promise<Response | void>}  Returns HTTP response
+   * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
   public async readUsers(
@@ -39,7 +39,7 @@ export class UserController {
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Promise<Response | void>}  Returns HTTP response
+   * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
   public async readUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {

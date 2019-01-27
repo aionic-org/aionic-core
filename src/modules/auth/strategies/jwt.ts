@@ -1,5 +1,5 @@
 import { bind } from 'decko'
-import { NextFunction, Request, Response } from 'express'
+import { Handler, NextFunction, Request, Response } from 'express'
 import { authenticate } from 'passport'
 import { Strategy, StrategyOptions } from 'passport-jwt'
 
@@ -8,9 +8,9 @@ import { BaseStrategy } from './base'
 /**
  * Passport JWT Authentication
  *
- * The client signs in via /signin endpoint
- * If the signin is successfull a JWT is returned
- * This JWT is used inside the request header for later requests
+ * - The client signs in via /signin endpoint
+ * - If the signin is successfull a JWT is returned
+ * - This JWT is used inside the request header for later requests
  */
 export class JwtStrategy extends BaseStrategy {
   private strategyOptions: StrategyOptions
@@ -27,9 +27,9 @@ export class JwtStrategy extends BaseStrategy {
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Handler}
+   * @returns {Handler | void}
    */
-  public isAuthorized(req: Request, res: Response, next: NextFunction): void {
+  public isAuthorized(req: Request, res: Response, next: NextFunction): Handler | void {
     try {
       authenticate('jwt', { session: false }, (err, user, info) => {
         // internal error

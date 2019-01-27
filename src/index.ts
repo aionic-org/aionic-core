@@ -1,5 +1,6 @@
 import 'reflect-metadata'
 
+// Set env variables from .env file
 import { config } from 'dotenv'
 config()
 
@@ -15,15 +16,17 @@ createConnection()
   .then(() => {
     logger.info('Initializing ORM connection...')
 
-    // init express server
+    // Init express server
     const app = new Server().app
     const server = createServer(app)
-    const port = env.NODE_PORT
 
-    server.listen(port)
+    // Start express server
+    server.listen(env.NODE_PORT)
 
     server.on('listening', () => {
-      logger.info(`Server is listening on port ${port} in ${env.NODE_ENV} mode`)
+      logger.info(
+        `Aionic (Core) server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode`
+      )
     })
 
     server.on('close', () => {

@@ -8,12 +8,12 @@ export class SearchController {
   private readonly taskRepo: Repository<Task> = getManager().getRepository('Task')
 
   /**
-   * Search task by description key term
+   * Search task by description search term
    *
    * @param {Request} req
    * @param {Response} res
    * @param {NextFunction} next
-   * @returns {Promise<Response | void>}  Returns HTTP response
+   * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
   public async searchTaskByDescription(

@@ -21,6 +21,7 @@ import { TaskStatusRoutes } from './task/status/routes'
  * Init Express API routes
  *
  * @param {Router} router
+ * @returns {void}
  */
 export function initModuleRoutes(router: Router): void {
   router.use('/api/auth', new AuthRoutes().router)
