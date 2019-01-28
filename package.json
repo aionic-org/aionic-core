@@ -21,6 +21,11 @@
     "lint": "tslint -p tsconfig.json",
     "docs": "typedoc --mode file --out docs --readme README.md --module commonjs"
   },
+  "_moduleAliases": {
+    "@components": "dist/rest/components",
+    "@config": "dist/config",
+    "@services": "dist/services"
+  },
   "devDependencies": {
     "@types/acl": "^0.4.35",
     "@types/bcrypt-nodejs": "0.0.30",
@@ -57,6 +62,7 @@
     "express": "^4.16.4",
     "helmet": "^3.15.0",
     "jsonwebtoken": "^8.4.0",
+    "module-alias": "^2.1.0",
     "mysql": "^2.15.0",
     "node-cache": "^4.2.0",
     "nodemailer": "^4.7.0",

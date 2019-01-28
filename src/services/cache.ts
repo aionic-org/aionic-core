@@ -1,6 +1,6 @@
 import NodeCache from 'node-cache'
 
-import { env } from '../config/globals'
+import { env } from '@config/globals'
 
 export class CacheService {
   private static cache: NodeCache = new NodeCache({ stdTTL: env.CACHE_TTL })

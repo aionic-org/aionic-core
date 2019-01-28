@@ -7,8 +7,8 @@ import {
   Timestamp
 } from 'typeorm'
 
-import { User } from '../../../user/model'
-import { Task } from '../../model'
+import { Task } from '@components/task/model'
+import { User } from '@components/user/model'
 
 @Entity()
 export class TaskComment {

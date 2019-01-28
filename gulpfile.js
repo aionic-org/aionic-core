@@ -4,7 +4,7 @@ const merge = require('gulp-merge-json')
 const bases = {
   src: 'src/',
   dist: 'dist/',
-  components: 'components/',
+  components: 'rest/components/',
   output: 'output/'
 }
 

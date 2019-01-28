@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { AuthService, PassportStrategy } from '../../../../services/auth'
+import { AuthService, PassportStrategy } from '@services/auth'
 import { TaskPriorityController } from './controller'
 
 export class TaskPriorityRoutes {

@@ -1,8 +1,10 @@
 import { Router } from 'express'
 
-import { AuthService, PassportStrategy } from '../../../services/auth'
-import { UserTaskRoutes } from './_child/task/routes'
+import { AuthService, PassportStrategy } from '@services/auth'
+
 import { UserController } from './controller'
+
+import { UserTaskRoutes } from './_child/task/routes'
 
 export class UserRoutes {
   private authSerivce: AuthService

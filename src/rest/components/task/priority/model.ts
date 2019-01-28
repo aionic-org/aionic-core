@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
-import { Task } from '../model'
+import { Task } from '@components/task/model'
 
 @Entity()
 export class TaskPriority {

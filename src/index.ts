@@ -1,5 +1,7 @@
 import 'reflect-metadata'
 
+import 'module-alias/register'
+
 // Set env variables from .env file
 import { config } from 'dotenv'
 config()
@@ -7,8 +9,8 @@ config()
 import { createServer } from 'http'
 import { createConnection } from 'typeorm'
 
-import { env } from './config/globals'
-import { logger } from './config/logger'
+import { env } from '@config/globals'
+import { logger } from '@config/logger'
 
 import { Server } from './server'
 

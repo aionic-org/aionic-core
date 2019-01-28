@@ -2,9 +2,9 @@ import { BasicStrategy as Strategy_Basic } from 'passport-http'
 import { Strategy as Strategy_Jwt } from 'passport-jwt'
 import { getManager, Repository } from 'typeorm'
 
-import { User } from '../../user/model'
+import { permissions } from '@config/permissions'
 
-import { permissions } from '../../../../config/permissions'
+import { User } from '@components/user/model'
 
 /**
  * Abstract BaseStrategy
