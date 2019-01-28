@@ -1,7 +1,7 @@
 import { bind } from 'decko'
 import { NextFunction, Request, Response } from 'express'
 
-import { CacheService } from '../../../services/cache'
+import { CacheService } from '@services/cache'
 
 export class ConfigController {
   private readonly cacheService: CacheService = new CacheService()

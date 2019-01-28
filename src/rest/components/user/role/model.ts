@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
-import { User } from '../model'
+import { User } from '@components/user/model'
 
 @Entity()
 export class UserRole {

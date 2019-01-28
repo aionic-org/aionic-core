@@ -1,8 +1,8 @@
 import { SendMailOptions, SentMessageInfo } from 'nodemailer'
 
-import { env, mails } from '../../../../config/globals'
+import { env, mails } from '@config/globals'
 
-import { MailService } from '../../../../services/mail'
+import { MailService } from '@services/mail'
 
 export class AuthMailService extends MailService {
   /**

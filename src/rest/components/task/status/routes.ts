@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { AuthService, PassportStrategy } from '../../../../services/auth'
+import { AuthService, PassportStrategy } from '@services/auth'
 import { TaskStatusController } from './controller'
 
 export class TaskStatusRoutes {

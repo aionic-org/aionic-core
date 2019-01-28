@@ -3,11 +3,11 @@ import { Handler, NextFunction, Request, Response } from 'express'
 import { authenticate } from 'passport'
 import { BasicStrategy } from 'passport-http'
 
-import { User } from '../../user/model'
-
-import { UtilityService } from '../../../../services/helper/utility'
+import { UtilityService } from '@services/helper/utility'
 
 import { BaseStrategy } from './base'
+
+import { User } from '@components/user/model'
 
 /**
  * Passport Basic Http Authentication

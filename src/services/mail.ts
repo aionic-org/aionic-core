@@ -8,7 +8,7 @@ import {
 } from 'nodemailer'
 import { resolve } from 'path'
 
-import { env } from '../config/globals'
+import { env } from '@config/globals'
 
 /**
  * MailService

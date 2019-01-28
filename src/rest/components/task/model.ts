@@ -9,7 +9,7 @@ import {
   UpdateDateColumn
 } from 'typeorm'
 
-import { User } from '../user/model'
+import { User } from '@components/user/model'
 import { TaskComment } from './_child/comment/model'
 import { TaskPriority } from './priority/model'
 import { TaskStatus } from './status/model'

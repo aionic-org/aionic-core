@@ -2,13 +2,14 @@ import { bind } from 'decko'
 import { NextFunction, Request, Response } from 'express'
 import { getManager, Repository } from 'typeorm'
 
-import { AuthService } from '../../../services/auth'
-import { CacheService } from '../../../services/cache'
-import { UtilityService } from '../../../services/helper/utility'
+import { AuthService } from '@services/auth'
+import { CacheService } from '@services/cache'
+import { UtilityService } from '@services/helper/utility'
+
 import { AuthMailService } from './services/mail'
 
-import { UserInvitation } from '../user/invitation/model'
-import { User } from '../user/model'
+import { UserInvitation } from '@components/user/invitation/model'
+import { User } from '@components/user/model'
 
 export class AuthController {
   private readonly authService: AuthService = new AuthService()

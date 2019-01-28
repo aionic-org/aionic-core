@@ -4,8 +4,8 @@ import helmet from 'helmet'
 
 import { json, NextFunction, Request, Response, Router } from 'express'
 
-import { AuthService } from '../../services/auth'
-import { UtilityService } from '../../services/helper/utility'
+import { AuthService } from '@services/auth'
+import { UtilityService } from '@services/helper/utility'
 
 /**
  * Init Express middleware

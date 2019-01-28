@@ -2,7 +2,7 @@ import { bind } from 'decko'
 import { NextFunction, Request, Response } from 'express'
 import { getManager, Repository } from 'typeorm'
 
-import { CacheService } from '../../../services/cache'
+import { CacheService } from '@services/cache'
 
 import { User } from './model'
 
