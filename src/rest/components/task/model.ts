@@ -36,6 +36,11 @@ export class Task {
   })
   public branch: string
 
+  @Column({
+    default: false
+  })
+  public closed: boolean
+
   @CreateDateColumn()
   public created: Timestamp
 
