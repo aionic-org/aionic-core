@@ -29,6 +29,9 @@ export class SearchController {
       }
 
       const tasks: Task[] = await this.taskRepo.find({
+        order: {
+          updated: 'DESC'
+        },
         relations: ['author', 'assignee', 'status', 'priority'],
         where: {
           description: Like(`%${searchTerm}%`)
