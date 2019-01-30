@@ -29,9 +29,12 @@ export class UserTaskController {
       }
 
       const tasks: Task[] = await this.taskRepo.find({
+        order: {
+          priority: 'DESC'
+        },
+        relations: ['author', 'assignee', 'status', 'priority'],
         where: {
-          assignee: { userId },
-          relations: ['author', 'status', 'priority']
+          assignee: { id: userId }
         }
       })
 

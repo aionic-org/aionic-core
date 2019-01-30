@@ -12,9 +12,12 @@ import { UserRoleRoutes } from './user/role/routes'
 import { UserRoutes } from './user/routes'
 
 // Task routes
+import { ProjectRoutes } from './project/routes'
 import { SearchRoutes } from './search/routes'
 import { TaskPriorityRoutes } from './task/priority/routes'
 import { TaskRoutes } from './task/routes'
+
+// Project routes
 import { TaskStatusRoutes } from './task/status/routes'
 
 /**
@@ -43,4 +46,7 @@ export function initComponentRoutes(router: Router, prefix: string = ''): void {
 
   // Search
   router.use(`${prefix}/search`, new SearchRoutes().router)
+
+  // Project
+  router.use(`${prefix}/project`, new ProjectRoutes().router)
 }

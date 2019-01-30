@@ -2,6 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -9,6 +11,7 @@ import {
   UpdateDateColumn
 } from 'typeorm'
 
+import { Project } from '@components/project/model'
 import { User } from '@components/user/model'
 import { TaskComment } from './_child/comment/model'
 import { TaskPriority } from './priority/model'
@@ -36,6 +39,11 @@ export class Task {
   })
   public branch: string
 
+  @Column({
+    default: false
+  })
+  public closed: boolean
+
   @CreateDateColumn()
   public created: Timestamp
 
@@ -54,6 +62,9 @@ export class Task {
 
   @ManyToOne(type => TaskPriority, taskPriority => taskPriority.tasks)
   public priority: TaskPriority
+
+  @ManyToOne(type => Project, project => project.tasks)
+  public project: Project
 
   @OneToMany(type => TaskComment, taskComment => taskComment.task)
   public comments: TaskComment[]
