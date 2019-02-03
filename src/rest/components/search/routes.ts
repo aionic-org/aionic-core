@@ -20,7 +20,7 @@ export class SearchRoutes {
 
   private initRoutes(): void {
     this.router.get(
-      '/task/:searchTerm',
+      '/task',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('search', 'read'),
       this.controller.searchTaskByDescription
