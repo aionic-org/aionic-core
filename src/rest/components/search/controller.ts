@@ -1,6 +1,6 @@
 import { bind } from 'decko'
 import { NextFunction, Request, Response } from 'express'
-import { getManager, Like, Repository } from 'typeorm'
+import { FindManyOptions, getManager, Like, Repository } from 'typeorm'
 
 import { Task } from '@components/task/model'
 
@@ -8,7 +8,7 @@ export class SearchController {
   private readonly taskRepo: Repository<Task> = getManager().getRepository('Task')
 
   /**
-   * Search task by description search term
+   * Search task by search params
    *
    * @param {Request} req
    * @param {Response} res
@@ -22,10 +22,28 @@ export class SearchController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { searchTerm } = req.params
+      const { searchTerm, status, assignee, author, branch, closed } = req.query
 
-      if (!searchTerm) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+      let where = {}
+
+      if (searchTerm && searchTerm.length) {
+        where = { ...where, description: Like(`%${searchTerm}%`) }
+      }
+
+      if (status) {
+        where = { ...where, status: { id: status } }
+      }
+
+      if (assignee) {
+        where = { ...where, assignee: { id: assignee } }
+      }
+
+      if (author) {
+        where = { ...where, author: { id: author } }
+      }
+
+      if (branch && branch.length) {
+        where = { ...where, branch }
       }
 
       const tasks: Task[] = await this.taskRepo.find({
@@ -33,9 +51,7 @@ export class SearchController {
           updated: 'DESC'
         },
         relations: ['author', 'assignee', 'status', 'priority'],
-        where: {
-          description: Like(`%${searchTerm}%`)
-        }
+        where
       })
 
       return res.json({ status: res.statusCode, data: tasks })
