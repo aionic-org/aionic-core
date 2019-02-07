@@ -35,7 +35,7 @@ export class UserTaskController {
         relations: ['author', 'assignee', 'status', 'priority'],
         where: {
           assignee: { id: userId },
-          open: true
+          closed: false
         }
       })
 
