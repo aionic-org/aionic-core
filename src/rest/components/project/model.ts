@@ -2,8 +2,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   Timestamp,
   UpdateDateColumn
@@ -44,6 +45,7 @@ export class Project {
   @ManyToOne(type => User, user => user.author)
   public author: User
 
-  @OneToMany(type => Task, task => task.project)
+  @ManyToMany(type => Task)
+  @JoinTable()
   public tasks: Task[]
 }

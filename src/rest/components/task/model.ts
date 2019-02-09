@@ -63,9 +63,6 @@ export class Task {
   @ManyToOne(type => TaskPriority, taskPriority => taskPriority.tasks)
   public priority: TaskPriority
 
-  @ManyToOne(type => Project, project => project.tasks)
-  public project: Project
-
   @OneToMany(type => TaskComment, taskComment => taskComment.task)
   public comments: TaskComment[]
 }

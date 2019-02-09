@@ -22,9 +22,13 @@ export class SearchController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { searchTerm, status, assignee, author, branch, closed } = req.query
+      const { title, searchTerm, status, assignee, author, branch, closed } = req.query
 
       let where = {}
+
+      if (title && title.length) {
+        where = { ...where, title: Like(`%${title}%`) }
+      }
 
       if (searchTerm && searchTerm.length) {
         where = { ...where, description: Like(`%${searchTerm}%`) }
