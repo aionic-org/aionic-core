@@ -117,9 +117,9 @@ export class ProjectController {
         return res.status(404).json({ status: 404, error: 'project not found' })
       }
 
-      await this.projectRepo.save(req.body.project)
+      const projectUpdated: Project = await this.projectRepo.save(req.body.project)
 
-      return res.status(204).send()
+      return res.json({ status: res.statusCode, data: projectUpdated })
     } catch (err) {
       return next(err)
     }
