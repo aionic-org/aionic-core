@@ -30,7 +30,7 @@ export class AuthService {
 
   private readonly strategyOptions: StrategyOptions = {
     audience: 'aionic-client',
-    issuer: 'aionic-api',
+    issuer: 'aionic-core',
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: 'aionic-secret-api-key'
   }

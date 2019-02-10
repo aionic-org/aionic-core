@@ -50,7 +50,9 @@ export class UserController {
         return res.status(400).json({ status: 400, error: 'invalid request' })
       }
 
-      const user: User | undefined = await this.userRepo.findOne(userId)
+      const user: User | undefined = await this.userRepo.findOne(userId, {
+        relations: ['userRole', 'assignee']
+      })
 
       return res.json({ status: res.statusCode, data: user })
     } catch (err) {

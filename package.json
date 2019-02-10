@@ -3,14 +3,9 @@
   "version": "0.0.1",
   "description": "Aionic Core - Software products for project management",
   "main": "./dist/index.js",
-  "author": {
-    "name": "Lars Wächter",
-    "email": "lars97.waechter@gmail.com"
-  },
+  "author": "Lars Wächter <lars97.waechter@gmail.com>",
   "private": true,
-  "repository": {
-    "url": "https://github.com/AionicApp/aionic-core"
-  },
+  "repository": "https://github.com/AionicApp/aionic-core",
   "license": "MIT",
   "scripts": {
     "start": "npm run start:prod",
