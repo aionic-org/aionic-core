@@ -113,9 +113,9 @@ export class TaskController {
         return res.status(404).json({ status: 404, error: 'task not found' })
       }
 
-      await this.taskRepo.save(req.body.task)
+      const updatedTask: Task = await this.taskRepo.save(req.body.task)
 
-      return res.status(204).send()
+      return res.json({ status: res.statusCode, data: updatedTask })
     } catch (err) {
       return next(err)
     }
