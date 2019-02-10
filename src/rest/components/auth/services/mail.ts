@@ -14,11 +14,11 @@ export class AuthMailService extends MailService {
    */
   public async sendUserInvitation(email: string, uuid: string): Promise<SentMessageInfo> {
     const templateParams = {
-      confirmUrl: `${env.HP.DOMAIN}/api/auth/register/${uuid}`
+      confirmUrl: `${env.HP.DOMAIN}/api/v1/auth/register/${uuid}`
     }
 
     const mailTemplate = await this.renderMailTemplate(
-      './dist/modules/auth/templates/userInvitation.html',
+      './dist/rest/components/auth/templates/userInvitation.html',
       templateParams
     )
 

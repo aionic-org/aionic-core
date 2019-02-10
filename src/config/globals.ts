@@ -7,14 +7,19 @@ export const env = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   NODE_PORT: process.env.NODE_PORT || 3000,
   SMTP: {
+    auth: {
+      pass: process.env.SMTP_PASSWORD || '',
+      user: process.env.SMTP_USERNAME || ''
+    },
     host: process.env.SMTP_HOST || '',
-    password: process.env.SMTP_PASSWORD || '',
     port: process.env.SMTP_PORT || '',
-    username: process.env.SMTP_USERNAME || ''
+    tls: {
+      rejectUnauthorized: false
+    }
   }
 }
 
 // Mail addresses
 export const mails = {
-  service: 'service@aionic.com'
+  service: 'service@aionic.app'
 }
