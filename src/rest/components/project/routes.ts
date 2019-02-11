@@ -41,7 +41,7 @@ export class ProjectRoutes {
       this.controller.createProject
     )
 
-    this.router.post(
+    this.router.put(
       '/:projectId',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('project', 'update'),

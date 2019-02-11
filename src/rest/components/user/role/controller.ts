@@ -8,7 +8,7 @@ import { UserRole } from './model'
 
 export class UserRoleController {
   private readonly cacheService: CacheService = new CacheService()
-  private readonly userRoleRepo: Repository<UserRole> = getManager().getRepository('User')
+  private readonly userRoleRepo: Repository<UserRole> = getManager().getRepository('UserRole')
 
   /**
    * Read user roles from db

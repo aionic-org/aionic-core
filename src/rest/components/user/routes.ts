@@ -36,6 +36,13 @@ export class UserRoutes {
       this.authSerivce.hasPermission('user', 'read'),
       this.controller.readUser
     )
+
+    this._router.put(
+      '/:userId',
+      this.authSerivce.isAuthorized(),
+      this.authSerivce.hasPermission('user', 'update'),
+      this.controller.updateUser
+    )
   }
 
   private initChildRoutes(defaultStrategy?: PassportStrategy): void {
