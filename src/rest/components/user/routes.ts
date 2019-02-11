@@ -37,7 +37,7 @@ export class UserRoutes {
       this.controller.readUser
     )
 
-    this._router.post(
+    this._router.put(
       '/:userId',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('user', 'update'),
