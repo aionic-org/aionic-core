@@ -51,10 +51,10 @@ export class Task {
   public updated: Timestamp
 
   /***** relations *****/
-  @ManyToOne(type => User, user => user.author)
+  @ManyToOne(type => User, user => user.author, { onDelete: 'SET NULL' })
   public author: User
 
-  @ManyToOne(type => User, user => user.assignee)
+  @ManyToOne(type => User, user => user.assignee, { onDelete: 'SET NULL' })
   public assignee: User
 
   @ManyToOne(type => TaskStatus, taskStatus => taskStatus.tasks)
@@ -65,4 +65,8 @@ export class Task {
 
   @OneToMany(type => TaskComment, taskComment => taskComment.task)
   public comments: TaskComment[]
+
+  @ManyToMany(type => Project, project => project.tasks)
+  @JoinTable()
+  public projects: Project[]
 }

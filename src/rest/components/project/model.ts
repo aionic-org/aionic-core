@@ -33,7 +33,7 @@ export class Project {
   @Column({
     default: false
   })
-  public finished: boolean
+  public done: boolean
 
   @CreateDateColumn()
   public created: Timestamp
@@ -45,7 +45,7 @@ export class Project {
   @ManyToOne(type => User, user => user.author)
   public author: User
 
-  @ManyToMany(type => Task)
+  @ManyToMany(type => Task, task => task.projects)
   @JoinTable()
   public tasks: Task[]
 }

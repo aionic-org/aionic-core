@@ -1,4 +1,4 @@
 {
   "Admin": [{"resources": "user", "permissions": "*"}],
-  "User": [{"resources": "user", "permissions": ["read", "create", "update"]}]
+  "User": [{"resources": "user", "permissions": ["read"]}]
 }

@@ -96,6 +96,41 @@ export class UserController {
   }
 
   /**
+   * Delete user from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>} Returns HTTP response
+   */
+  @bind
+  public async deleteUser(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
+    try {
+      const { userId } = req.params
+
+      if (!userId) {
+        return res.status(400).json({ status: 400, error: 'invalid request' })
+      }
+
+      const user: User | undefined = await this.userRepo.findOne(userId)
+
+      if (!user) {
+        return res.status(404).json({ status: 404, error: 'user not found' })
+      }
+
+      await this.userRepo.remove(user)
+
+      return res.status(204).send()
+    } catch (err) {
+      return next(err)
+    }
+  }
+
+  /**
    * Get target content for cache service
    *
    * @returns {Promise<Array<User>>}

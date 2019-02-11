@@ -15,7 +15,7 @@ import { UtilityService } from '@services/helper/utility'
  */
 export function initMiddleware(router: Router): void {
   router.use(helmet())
-  router.use(cors({ origin: 'http://localhost:4200' }))
+  router.use(cors({ origin: ['http://localhost:4200'] }))
   router.use(json())
   router.use(compression())
 
