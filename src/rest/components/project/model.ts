@@ -33,7 +33,7 @@ export class Project {
   @Column({
     default: false
   })
-  public finished: boolean
+  public done: boolean
 
   @CreateDateColumn()
   public created: Timestamp
