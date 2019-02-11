@@ -45,7 +45,7 @@ export class Project {
   @ManyToOne(type => User, user => user.author)
   public author: User
 
-  @ManyToMany(type => Task)
+  @ManyToMany(type => Task, task => task.projects)
   @JoinTable()
   public tasks: Task[]
 }

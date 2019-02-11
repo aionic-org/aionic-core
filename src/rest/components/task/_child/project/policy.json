@@ -1,0 +1,4 @@
+{
+  "Admin": [{"resources": "taskProject", "permissions": "*"}],
+  "User": [{"resources": "taskProject", "permissions": "read"}]
+}

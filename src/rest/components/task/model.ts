@@ -65,4 +65,8 @@ export class Task {
 
   @OneToMany(type => TaskComment, taskComment => taskComment.task)
   public comments: TaskComment[]
+
+  @ManyToMany(type => Project, project => project.tasks)
+  @JoinTable()
+  public projects: Project[]
 }
