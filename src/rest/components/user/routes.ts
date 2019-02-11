@@ -43,6 +43,13 @@ export class UserRoutes {
       this.authSerivce.hasPermission('user', 'update'),
       this.controller.updateUser
     )
+
+    this._router.delete(
+      '/:userId',
+      this.authSerivce.isAuthorized(),
+      this.authSerivce.hasPermission('user', 'delete'),
+      this.controller.deleteUser
+    )
   }
 
   private initChildRoutes(defaultStrategy?: PassportStrategy): void {

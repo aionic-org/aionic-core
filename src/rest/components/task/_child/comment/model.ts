@@ -28,7 +28,7 @@ export class TaskComment {
   public created: Timestamp
 
   /***** relations *****/
-  @ManyToOne(type => User, user => user.comments)
+  @ManyToOne(type => User, user => user.comments, { onDelete: 'CASCADE' })
   public author: User
 
   @ManyToOne(type => Task, task => task.comments)
