@@ -12,7 +12,7 @@ import { createConnection } from 'typeorm'
 import { env } from '@config/globals'
 import { logger } from '@config/logger'
 
-import { Server } from './server'
+import { Server } from './rest/server'
 
 createConnection()
   .then(() => {
