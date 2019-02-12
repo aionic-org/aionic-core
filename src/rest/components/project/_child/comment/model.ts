@@ -17,7 +17,7 @@ export class ProjectComment {
   public id: number
 
   @Column('text')
-  public comment: string
+  public text: string
 
   @Column({
     default: true
