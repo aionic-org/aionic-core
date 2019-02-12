@@ -7,11 +7,11 @@ import {
   Timestamp
 } from 'typeorm'
 
-import { Task } from '@components/task/model'
+import { Project } from '@components/project/model'
 import { User } from '@components/user/model'
 
 @Entity()
-export class TaskComment {
+export class ProjectComment {
   /***** columns *****/
   @PrimaryGeneratedColumn()
   public id: number
@@ -28,9 +28,9 @@ export class TaskComment {
   public created: Timestamp
 
   /***** relations *****/
-  @ManyToOne(type => User, user => user.taskComments, { onDelete: 'CASCADE' })
+  @ManyToOne(type => User, user => user.projectComments, { onDelete: 'CASCADE' })
   public author: User
 
-  @ManyToOne(type => Task, task => task.comments)
-  public task: Task
+  @ManyToOne(type => Project, project => project.comments)
+  public project: Project
 }
