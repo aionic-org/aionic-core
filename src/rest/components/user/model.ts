@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
+import { ProjectComment } from '@components/project/_child/comment/model'
 import { TaskComment } from '@components/task/_child/comment/model'
 import { Task } from '@components/task/model'
 import { UserRole } from './role/model'
@@ -40,7 +41,10 @@ export class User {
   public assignee: Task[]
 
   @OneToMany(type => TaskComment, taskComment => taskComment.author)
-  public comments: TaskComment[]
+  public taskComments: TaskComment[]
+
+  @OneToMany(type => ProjectComment, projectComment => projectComment.author)
+  public projectComments: ProjectComment[]
 
   @ManyToOne(type => UserRole, userRole => userRole.users)
   public userRole: UserRole

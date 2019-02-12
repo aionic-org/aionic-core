@@ -5,6 +5,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   Timestamp,
   UpdateDateColumn
@@ -12,6 +13,7 @@ import {
 
 import { Task } from '@components/task/model'
 import { User } from '@components/user/model'
+import { ProjectComment } from './_child/comment/model'
 
 @Entity()
 export class Project {
@@ -44,6 +46,9 @@ export class Project {
   /***** relations *****/
   @ManyToOne(type => User, user => user.author)
   public author: User
+
+  @OneToMany(type => ProjectComment, projectComment => projectComment.project)
+  public comments: ProjectComment[]
 
   @ManyToMany(type => Task, task => task.projects)
   @JoinTable()
