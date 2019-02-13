@@ -25,7 +25,7 @@ export class TaskProjectController {
       const { taskId } = req.params
 
       if (!taskId) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const projects: Project[] = await this.taskProjectRepo

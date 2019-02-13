@@ -46,7 +46,7 @@ export class TaskController {
       const { taskId } = req.params
 
       if (!taskId) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const task: Task | undefined = await this.taskRepo.findOne(taskId, {
@@ -75,7 +75,7 @@ export class TaskController {
   ): Promise<Response | void> {
     try {
       if (!req.body.task) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const newTask: Task = await this.taskRepo.save(req.body.task)
@@ -104,13 +104,13 @@ export class TaskController {
       const { taskId } = req.params
 
       if (!taskId || !req.body.task) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const task: Task | undefined = await this.taskRepo.findOne(taskId)
 
       if (!task) {
-        return res.status(404).json({ status: 404, error: 'task not found' })
+        return res.status(404).json({ status: 404, error: 'Task not found' })
       }
 
       const updatedTask: Task = await this.taskRepo.save(req.body.task)
@@ -139,13 +139,13 @@ export class TaskController {
       const { taskId } = req.params
 
       if (!taskId) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const task: Task | undefined = await this.taskRepo.findOne(taskId)
 
       if (!task) {
-        return res.status(404).json({ status: 404, error: 'task not found' })
+        return res.status(404).json({ status: 404, error: 'Task not found' })
       }
 
       await this.taskRepo.remove(task)

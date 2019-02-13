@@ -50,7 +50,7 @@ export class ProjectController {
       const { projectId } = req.params
 
       if (!projectId) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const project: Project | undefined = await this.projectRepo.findOne(projectId, {
@@ -79,7 +79,7 @@ export class ProjectController {
   ): Promise<Response | void> {
     try {
       if (!req.body.project) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const newProject: Project = await this.projectRepo.save(req.body.project)
@@ -108,7 +108,7 @@ export class ProjectController {
       const { projectId } = req.params
 
       if (!projectId || !req.body.project) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const project: Project | undefined = await this.projectRepo.findOne(projectId)
@@ -143,13 +143,13 @@ export class ProjectController {
       const { projectId } = req.params
 
       if (!projectId) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const project: Project | undefined = await this.projectRepo.findOne(projectId)
 
       if (!project) {
-        return res.status(404).json({ status: 404, error: 'project not found' })
+        return res.status(404).json({ status: 404, error: 'Project not found' })
       }
 
       await this.projectRepo.remove(project)

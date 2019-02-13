@@ -1,6 +1,7 @@
 import { bind } from 'decko'
 import { NextFunction, Request, Response } from 'express'
 import { getManager, Repository } from 'typeorm'
+import { isEmail } from 'validator'
 
 import { AuthService } from '@services/auth'
 import { CacheService } from '@services/cache'
@@ -39,7 +40,7 @@ export class AuthController {
       const { email, password } = req.body.user
 
       if (!email || !password) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const user: User | undefined = await this.userRepo.findOne({
@@ -53,7 +54,7 @@ export class AuthController {
 
       // Wrong email or password
       if (!user || !(await UtilityService.verifyPassword(password, user.password))) {
-        return res.status(401).json({ status: 401, error: 'wrong email or password' })
+        return res.status(401).json({ status: 401, error: 'Wrong email or password' })
       }
 
       // Create jwt -> required for further requests
@@ -77,7 +78,7 @@ export class AuthController {
    * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
-  public async validateHash(
+  public async validateRegistrationHash(
     req: Request,
     res: Response,
     next: NextFunction
@@ -86,13 +87,13 @@ export class AuthController {
       const { hash } = req.params
 
       if (!hash) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const invitation = await this.getUserInvitation(hash)
       return invitation
         ? res.status(204).send()
-        : res.status(403).json({ status: 403, error: 'invalid hash' })
+        : res.status(403).json({ status: 403, error: 'Invalid hash' })
     } catch (err) {
       return next(err)
     }
@@ -117,7 +118,7 @@ export class AuthController {
       const { email, password } = req.body.user
 
       if (!email || !req.body.user) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const user: User | undefined = await this.userRepo.findOne({
@@ -128,14 +129,14 @@ export class AuthController {
 
       // Email is already taken
       if (user) {
-        return res.status(400).json({ status: 400, error: 'email is already taken' })
+        return res.status(400).json({ status: 400, error: 'Email is already taken' })
       }
 
       const invitation: UserInvitation | undefined = await this.getUserInvitation(hash, email)
 
       // Invalid registration hash
       if (!invitation) {
-        return res.status(403).json({ status: 403, error: 'invalid hash' })
+        return res.status(403).json({ status: 403, error: 'Invalid hash' })
       }
 
       const newUser: User = await this.userRepo.save({
@@ -179,8 +180,19 @@ export class AuthController {
     try {
       const { email } = req.body
 
-      if (!email) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+      if (!email || !isEmail(email)) {
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
+      }
+
+      const user: User | undefined = await this.userRepo.findOne({
+        where: {
+          email
+        }
+      })
+
+      // User is already registered
+      if (user) {
+        return res.status(400).json({ status: 400, error: 'Email is already taken' })
       }
 
       const hash = UtilityService.generateUuid()
@@ -216,7 +228,7 @@ export class AuthController {
       const { email } = req.user
 
       if (!email) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const user: User | undefined = await this.userRepo.findOne({
@@ -227,7 +239,7 @@ export class AuthController {
 
       // User not found
       if (!user) {
-        return res.status(404).json({ status: 404, error: 'user not found' })
+        return res.status(404).json({ status: 404, error: 'User not found' })
       }
 
       await this.userRepo.remove(user)

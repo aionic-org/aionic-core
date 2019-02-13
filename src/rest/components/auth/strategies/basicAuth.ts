@@ -37,7 +37,7 @@ export class BasicAuthStrategy extends BaseStrategy {
 
         if (!user) {
           return res.status(401).json({
-            data: 'user is not authorized',
+            data: 'User is not authorized',
             status: 401
           })
         }

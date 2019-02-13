@@ -46,7 +46,7 @@ export class JwtStrategy extends BaseStrategy {
 
             case 'jwt expired':
               return res.status(401).json({
-                error: 'jwt expired.',
+                error: 'Jwt expired.',
                 status: 401
               })
           }
@@ -54,7 +54,7 @@ export class JwtStrategy extends BaseStrategy {
 
         if (!user) {
           return res.status(401).json({
-            data: 'user is not authorized',
+            data: 'User is not authorized',
             status: 401
           })
         }

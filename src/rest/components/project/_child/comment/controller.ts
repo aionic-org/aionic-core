@@ -27,7 +27,7 @@ export class ProjectCommentController {
       const { projectId } = req.params
 
       if (!projectId) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const comments: ProjectComment[] = await this.projectCommentRepo.find({
@@ -63,7 +63,7 @@ export class ProjectCommentController {
       const { projectId } = req.params
 
       if (!projectId || !req.body.comment) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const newComment: ProjectComment = await this.projectCommentRepo.save({
@@ -96,7 +96,7 @@ export class ProjectCommentController {
       const { projectId, commentId } = req.params
 
       if (!projectId || !commentId) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const comment: ProjectComment | undefined = await this.projectCommentRepo.findOne({
@@ -109,7 +109,7 @@ export class ProjectCommentController {
       })
 
       if (!comment) {
-        return res.status(404).json({ status: 404, error: 'comment not found' })
+        return res.status(404).json({ status: 404, error: 'Comment not found' })
       }
 
       await this.projectCommentRepo.remove(comment)

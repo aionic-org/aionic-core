@@ -20,7 +20,7 @@ export class AuthRoutes {
 
   private initRoutes() {
     this._router.post('/signin', this.controller.signinUser)
-    this._router.get('/register/:hash', this.controller.validateHash)
+    this._router.get('/register/:hash', this.controller.validateRegistrationHash)
     this._router.post('/register/:hash', this.controller.registerUser)
     this._router.post('/invitation', this.controller.createUserInvitation)
     this._router.post(

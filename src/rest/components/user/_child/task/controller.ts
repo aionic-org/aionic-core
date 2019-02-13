@@ -25,7 +25,7 @@ export class UserTaskController {
       const { userId } = req.params
 
       if (!userId) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const tasks: Task[] = await this.taskRepo.find({
@@ -63,7 +63,7 @@ export class UserTaskController {
       const { userId, statusId } = req.params
 
       if (!userId || !statusId) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const tasks: Task[] = await this.taskRepo.find({
