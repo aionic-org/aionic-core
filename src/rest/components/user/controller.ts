@@ -47,7 +47,7 @@ export class UserController {
       const { userId } = req.params
 
       if (!userId) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const user: User | undefined = await this.userRepo.findOne(userId, {
@@ -78,13 +78,13 @@ export class UserController {
       const { userId } = req.params
 
       if (!userId || !req.body.user) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const user: User | undefined = await this.userRepo.findOne(userId)
 
       if (!user) {
-        return res.status(404).json({ status: 404, error: 'user not found' })
+        return res.status(404).json({ status: 404, error: 'User not found' })
       }
 
       const updatedUser: User = await this.userRepo.save(req.body.user)
@@ -113,13 +113,13 @@ export class UserController {
       const { userId } = req.params
 
       if (!userId) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const user: User | undefined = await this.userRepo.findOne(userId)
 
       if (!user) {
-        return res.status(404).json({ status: 404, error: 'user not found' })
+        return res.status(404).json({ status: 404, error: 'User not found' })
       }
 
       await this.userRepo.remove(user)

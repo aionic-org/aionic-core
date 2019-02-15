@@ -27,7 +27,7 @@ export class TaskCommentController {
       const { taskId } = req.params
 
       if (!taskId) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const comments: TaskComment[] = await this.taskCommentRepo.find({
@@ -63,7 +63,7 @@ export class TaskCommentController {
       const { taskId } = req.params
 
       if (!taskId || !req.body.comment) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const newComment: TaskComment = await this.taskCommentRepo.save({
@@ -96,7 +96,7 @@ export class TaskCommentController {
       const { taskId, commentId } = req.params
 
       if (!taskId || !commentId) {
-        return res.status(400).json({ status: 400, error: 'invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
       const comment: TaskComment | undefined = await this.taskCommentRepo.findOne({
@@ -109,7 +109,7 @@ export class TaskCommentController {
       })
 
       if (!comment) {
-        return res.status(404).json({ status: 404, error: 'comment not found' })
+        return res.status(404).json({ status: 404, error: 'Comment not found' })
       }
 
       await this.taskCommentRepo.remove(comment)

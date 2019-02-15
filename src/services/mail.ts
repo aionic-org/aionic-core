@@ -9,12 +9,13 @@ import {
 import { resolve } from 'path'
 
 import { env } from '@config/globals'
+import { logger } from '@config/logger'
 
 /**
  * MailService
  *
  * Service for sending email
- * Mail services in modules inherits from this one
+ * Mail services in components inherits from this one
  */
 export abstract class MailService {
   private transporter: Transporter = createTransport(env.SMTP as TransportOptions)
@@ -23,10 +24,18 @@ export abstract class MailService {
    * Send email
    *
    * @param {IMailConfig} config
+   * @param {boolean} forceSend
    * @returns {Promise<SentMessageInfo> } Returns info of sent mail
    */
-  protected sendMail(config: SendMailOptions): Promise<SentMessageInfo> {
-    return this.transporter.sendMail(config)
+  protected sendMail(
+    config: SendMailOptions,
+    forceSend: boolean = false
+  ): Promise<SentMessageInfo> | void {
+    if (env.NODE_ENV === 'production' || forceSend) {
+      return this.transporter.sendMail(config)
+    } else {
+      logger.info('Email are only sent in production mode!')
+    }
   }
 
   /**
