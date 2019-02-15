@@ -27,19 +27,38 @@ Some of the features this service offers:
 - Permission control via ACL
 - Authentication via JWT or BasicAuth
 
+## Prerequisites
+
+- Hosting server (incl. SMTP for sending mails)
+- MySQL database
+
 ## Installation
 
-First of all, rename the following files and enter your credentials / infos:
+First of all, create a new database on your MySQL server:
+
+```sql
+CREATE DATABASE aionic;
+```
+
+Afterwards, rename the following files and enter your credentials / infos:
 
 - .env.example -> .env
 - .ormconfig.json.example -> .ormconfig.json
 
-Afterward, run the following commands to start the application in producation mode
+Now, run the following commands to start the application in production mode
 
 ```
-npm install
-npm start
+yarn install
+yarn start
 ```
+
+Last but not least run the following command for SQL data seeding:
+
+```
+yarn run seed
+```
+
+NOTE: You can also use [npm](https://www.npmjs.com/).
 
 ## Philosophy
 
