@@ -14,7 +14,7 @@ export class AuthMailService extends MailService {
    */
   public async sendUserInvitation(email: string, uuid: string): Promise<SentMessageInfo> {
     const templateParams = {
-      confirmUrl: `${env.HP.DOMAIN}/register/${uuid}/${email}`
+      confirmUrl: `${env.HP.DOMAIN}/register/${uuid}?email=${email}`
     }
 
     const mailTemplate = await this.renderMailTemplate(
