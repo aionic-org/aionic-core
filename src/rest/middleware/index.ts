@@ -34,7 +34,7 @@ export function initErrorHandler(router: Router): Response | void {
     UtilityService.handleError(err)
 
     return res.status(500).json({
-      error: err.stack || err,
+      error: err.message || err,
       status: 500
     })
   })

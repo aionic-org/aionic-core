@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "author": "Lars Wächter <lars97.waechter@gmail.com>",
   "private": true,
-  "repository": "https://github.com/AionicApp/aionic-core",
+  "repository": "https://github.com/Aionic-Apps/aionic-core",
   "license": "MIT",
   "scripts": {
     "start": "npm run start:prod",
@@ -41,6 +41,7 @@
     "nodemon": "^1.18.9",
     "prettier": "^1.16.1",
     "reflect-metadata": "^0.1.13",
+    "source-map-support": "^0.5.10",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",
     "typedoc": "^0.14.2",

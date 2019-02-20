@@ -11,10 +11,11 @@ const config = JSON.parse(
 )
 
 // Read SQL seed
-const seedSQL = fs.readFileSync('db/seeds.sql', {
+const seedQuery = fs.readFileSync('db/seeds.sql', {
   encoding: 'utf-8'
 })
 
+// Connect to database
 const connection = mysql.createConnection({
   host: config.host,
   user: config.username,
@@ -25,7 +26,8 @@ const connection = mysql.createConnection({
 
 connection.connect()
 
-connection.query(seedSQL, (err, res) => {
+// Run seed query
+connection.query(seedQuery, (err, res) => {
   if (err) {
     throw err
   }

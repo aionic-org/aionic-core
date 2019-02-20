@@ -44,9 +44,9 @@ export class HttpService {
    * Fetch data from resource
    *
    * @param {string} url
-   * @param {object} params
+   * @param {object} [params]
    */
-  public fetchData(url: string, params: object): Promise<any> {
+  public fetchData(url: string, params?: object): Promise<any> {
     return new Promise((resolve, reject) => {
       this.axiosInstance
         .get(url, { ...this._reqConfig, params })

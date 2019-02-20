@@ -29,6 +29,11 @@ export class User {
   public password: string
 
   @Column({
+    type: 'text'
+  })
+  public status: string
+
+  @Column({
     default: true
   })
   public active: boolean

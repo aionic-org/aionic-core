@@ -23,7 +23,7 @@ export class TaskController {
   ): Promise<Response | void> {
     try {
       const tasks: Task[] = await this.taskRepo.find({
-        relations: ['author', 'assignee', 'status', 'priority']
+        relations: ['author', 'assignee', 'status', 'priority', 'repository']
       })
 
       return res.json({ status: res.statusCode, data: tasks })
@@ -50,7 +50,7 @@ export class TaskController {
       }
 
       const task: Task | undefined = await this.taskRepo.findOne(taskId, {
-        relations: ['author', 'assignee', 'status', 'priority']
+        relations: ['author', 'assignee', 'status', 'priority', 'repository']
       })
 
       return res.json({ status: res.statusCode, data: task })
