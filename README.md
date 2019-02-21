@@ -8,7 +8,7 @@ Aionic offers open source applications for project management. Our focus is on s
 
 Aionic offers a range of **open source products** for the management of projects of any size. We offer the software but you have to host it on your own servers or cloud. Our products are open source, so everybody can customize them as desired and contribute to them.
 
-All services are built on top of the **Aionic Core** application, since this is the place where all the data is managed. So for the usage of any other service, you have to use at least [Aionice Core](https://github.com/Aionic-App/aionic-core/).
+All services are built on top of the **Aionic Core** application, since this is the place where all the data is managed. So for the usage of any other service, you have to use at least [Aionice Core](https://github.com/Aionic-Apps/aionic-core/).
 
 Some of the technologies we trust: _NodeJS, ReactJS, MySQL_
 
