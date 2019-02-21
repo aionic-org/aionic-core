@@ -54,7 +54,7 @@ export class ProjectController {
       }
 
       const project: Project | undefined = await this.projectRepo.findOne(projectId, {
-        relations: ['author', 'tasks', 'tasks.priority', 'tasks.author']
+        relations: ['author', 'tasks', 'tasks.priority', 'tasks.assignee']
       })
 
       return res.json({ status: res.statusCode, data: project })

@@ -18,6 +18,7 @@ import { TaskPriorityRoutes } from './task/priority/routes'
 import { TaskRoutes } from './task/routes'
 
 // Project routes
+import { GitRoutes } from './git/routes'
 import { TaskStatusRoutes } from './task/status/routes'
 
 /**
@@ -49,4 +50,7 @@ export function initComponentRoutes(router: Router, prefix: string = ''): void {
 
   // Project
   router.use(`${prefix}/project`, new ProjectRoutes().router)
+
+  // Git
+  router.use(`${prefix}/git`, new GitRoutes().router)
 }

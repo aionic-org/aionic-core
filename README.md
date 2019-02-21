@@ -8,7 +8,7 @@ Aionic offers open source applications for project management. Our focus is on s
 
 Aionic offers a range of **open source products** for the management of projects of any size. We offer the software but you have to host it on your own servers or cloud. Our products are open source, so everybody can customize them as desired and contribute to them.
 
-All services are built on top of the **Aionic Core** application, since this is the place where all the data is managed. So for the usage of any other service, you have to use at least [Aionice Core](https://github.com/Aionic-App/aionic-core/).
+All services are built on top of the **Aionic Core** application, since this is the place where all the data is managed. So for the usage of any other service, you have to use at least [Aionice Core](https://github.com/Aionic-Apps/aionic-core/).
 
 Some of the technologies we trust: _NodeJS, ReactJS, MySQL_
 
@@ -27,19 +27,38 @@ Some of the features this service offers:
 - Permission control via ACL
 - Authentication via JWT or BasicAuth
 
+## Prerequisites
+
+- Hosting server (incl. SMTP for sending mails)
+- MySQL database
+
 ## Installation
 
-First of all, rename the following files and enter your credentials / infos:
+First of all, create a new database on your MySQL server:
+
+```sql
+CREATE DATABASE aionic;
+```
+
+Afterwards, rename the following files and enter your credentials / infos:
 
 - .env.example -> .env
 - .ormconfig.json.example -> .ormconfig.json
 
-Afterward, run the following commands to start the application in producation mode
+Now, run the following commands to start the application in production mode
 
 ```
-npm install
-npm start
+yarn install
+yarn start
 ```
+
+Last but not least run the following command for SQL data seeding:
+
+```
+yarn run seed
+```
+
+NOTE: You can also use [npm](https://www.npmjs.com/).
 
 ## Philosophy
 

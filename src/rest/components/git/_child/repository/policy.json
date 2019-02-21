@@ -1,0 +1,4 @@
+{
+  "Admin": [{"resources": "gitOrgRepos", "permissions": "*"}],
+  "User": [{"resources": "gitOrgRepos", "permissions": ["read"]}]
+}

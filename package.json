@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "author": "Lars Wächter <lars97.waechter@gmail.com>",
   "private": true,
-  "repository": "https://github.com/AionicApp/aionic-core",
+  "repository": "https://github.com/Aionic-Apps/aionic-core",
   "license": "MIT",
   "scripts": {
     "start": "npm run start:prod",
@@ -13,6 +13,7 @@
     "start:prod": "NODE_ENV=production node dist/index.js",
     "build": "rm -rf dist && tsc -p tsconfig.json && gulp copy && gulp merge",
     "watch": "nodemon --exec \"npm run build && npm run start:dev\" --watch src --ext ts",
+    "seed": "node db/index.js",
     "lint": "tslint -p tsconfig.json",
     "docs": "typedoc --mode file --out docs --readme README.md --module commonjs"
   },
@@ -40,6 +41,7 @@
     "nodemon": "^1.18.9",
     "prettier": "^1.16.1",
     "reflect-metadata": "^0.1.13",
+    "source-map-support": "^0.5.10",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",
     "typedoc": "^0.14.2",

@@ -16,8 +16,8 @@ export class UtilityService {
    * @param {Error} err
    * @returns {void}
    */
-  public static handleError(err: Error): void {
-    logger.error(err)
+  public static handleError(err: any): void {
+    logger.error(err.stack || err)
   }
 
   /**

@@ -3,7 +3,14 @@
   "rules": {
     "variable-name": [true, "allow-leading-underscore"],
     "no-console": false,
-    "no-submodule-imports": [true, "module-alias", "@components", "@config", "@services"],
+    "no-submodule-imports": [
+      true,
+      "source-map-support",
+      "module-alias",
+      "@components",
+      "@config",
+      "@services"
+    ],
     "no-implicit-dependencies": [true, "dev", ["@components", "@config", "@services"]]
   }
 }
