@@ -29,7 +29,7 @@ createConnection()
 
     server.on('listening', () => {
       logger.info(
-        `Aionic (Core) server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode`
+        `aionic-core server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode`
       )
     })
 

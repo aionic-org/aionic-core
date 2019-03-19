@@ -11,6 +11,7 @@ import {
   UpdateDateColumn
 } from 'typeorm'
 
+import { GitOrganization } from '@components/git/_child/organization/model'
 import { GitRepository } from '@components/git/_child/repository/model'
 import { Project } from '@components/project/model'
 import { User } from '@components/user/model'
@@ -66,6 +67,11 @@ export class Task {
 
   @OneToMany(type => TaskComment, taskComment => taskComment.task)
   public comments: TaskComment[]
+
+  @ManyToOne(type => GitOrganization, gitOrganization => gitOrganization.tasks, {
+    onDelete: 'SET NULL'
+  })
+  public organization: GitOrganization
 
   @ManyToOne(type => GitRepository, gitRepository => gitRepository.tasks, { onDelete: 'SET NULL' })
   public repository: GitRepository
