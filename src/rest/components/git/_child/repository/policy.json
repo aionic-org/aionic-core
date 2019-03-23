@@ -1,4 +1,4 @@
 {
-  "Admin": [{"resources": "gitOrgRepos", "permissions": "*"}],
-  "User": [{"resources": "gitOrgRepos", "permissions": ["read"]}]
+  "Admin": [{"resources": "gitOrgRepo", "permissions": "*"}],
+  "User": [{"resources": "gitOrgRepo", "permissions": ["read"]}]
 }

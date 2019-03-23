@@ -9,8 +9,8 @@ export class HttpService {
   private axiosInstance: AxiosInstance
   private _reqConfig: AxiosRequestConfig
 
-  public constructor(reqConfig: AxiosRequestConfig) {
-    this._reqConfig = reqConfig
+  public constructor(reqConfig?: AxiosRequestConfig) {
+    this._reqConfig = reqConfig || {}
     this.axiosInstance = axios.create(this._reqConfig)
   }
 
