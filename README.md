@@ -2,7 +2,7 @@
 
 ![alt text](https://avatars0.githubusercontent.com/u/42389304?s=100&v=4 'Aionic Logo')
 
-Aionic offers open source applications for project management. Our focus is on simplifying the project management process for agile teams in an open way.
+Aionic offers open source applications for project management and collaboration. Our focus is on simplifying the workflow for agile teams in an open way.
 
 ## Description
 
@@ -49,6 +49,7 @@ Now, run the following commands to start the application in production mode
 
 ```
 yarn install
+yarn build
 yarn start
 ```
 
@@ -62,7 +63,7 @@ NOTE: You can also use [npm](https://www.npmjs.com/).
 
 ## Philosophy
 
-> Our focus is on simplifying the project management process for agile teams in an open way.
+> Our focus is on simplifying the workflow for agile teams in an open way.
 
 We try to help other people / companies realizing their ideas by offering highly maintainable project management softwares that everybody can **adjust as desired**.
 

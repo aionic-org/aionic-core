@@ -21,10 +21,17 @@ export class GitRepositoryRoutes {
 
   private initRoutes(): void {
     this.router.get(
-      '/repositories',
+      '/repository',
       this.authSerivce.isAuthorized(),
-      this.authSerivce.hasPermission('gitOrgRepos', 'read'),
+      this.authSerivce.hasPermission('gitOrgRepo', 'read'),
       this.controller.readGitOrgRepos
+    )
+
+    this.router.get(
+      '/repository/:repoId/:branch/commits',
+      this.authSerivce.isAuthorized(),
+      this.authSerivce.hasPermission('gitOrgRepo', 'read'),
+      this.controller.readGitOrgRepoCommits
     )
   }
 }

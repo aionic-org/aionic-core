@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
+import { Task } from '@components/task/model'
 import { GitRepository } from '../repository/model'
 
 @Entity()
@@ -29,6 +30,9 @@ export class GitOrganization {
 
   @Column()
   public htmlUrl: string
+
+  @OneToMany(type => Task, task => task.repository)
+  public tasks: Task[]
 
   @OneToMany(type => GitRepository, gitRepository => gitRepository.organization)
   public repositories: GitRepository[]
