@@ -1,0 +1,4 @@
+{
+  "Admin": [{"resources": "announcement", "permissions": "*"}],
+  "User": [{"resources": "announcement", "permissions": ["read"]}]
+}

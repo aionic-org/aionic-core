@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
+import { Announcement } from '@components/announcement/model'
 import { ProjectComment } from '@components/project/_child/comment/model'
 import { TaskComment } from '@components/task/_child/comment/model'
 import { Task } from '@components/task/model'
@@ -33,6 +34,9 @@ export class User {
   })
   public status: string
 
+  @Column()
+  public gitHubToken: string
+
   @Column({
     default: true
   })
@@ -50,6 +54,9 @@ export class User {
 
   @OneToMany(type => ProjectComment, projectComment => projectComment.author)
   public projectComments: ProjectComment[]
+
+  @OneToMany(type => Announcement, announcement => announcement.author)
+  public announcements: Announcement[]
 
   @ManyToOne(type => UserRole, userRole => userRole.users)
   public userRole: UserRole

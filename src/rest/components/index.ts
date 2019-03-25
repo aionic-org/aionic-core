@@ -18,6 +18,7 @@ import { TaskPriorityRoutes } from './task/priority/routes'
 import { TaskRoutes } from './task/routes'
 
 // Project routes
+import { AnnouncementRoutes } from './announcement/routes'
 import { GitRoutes } from './git/routes'
 import { TaskStatusRoutes } from './task/status/routes'
 
@@ -53,4 +54,7 @@ export function initComponentRoutes(router: Router, prefix: string = ''): void {
 
   // Git
   router.use(`${prefix}/git`, new GitRoutes().router)
+
+  // Announcement
+  router.use(`${prefix}/announcement`, new AnnouncementRoutes().router)
 }

@@ -22,7 +22,16 @@ export class SearchController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { title, searchTerm, status, assignee, author, branch, closed } = req.query
+      const {
+        title,
+        searchTerm,
+        status,
+        assignee,
+        author,
+        organization,
+        branch,
+        closed
+      } = req.query
 
       let where = {}
 
@@ -46,10 +55,13 @@ export class SearchController {
         where = { ...where, author: { id: author } }
       }
 
+      if (organization) {
+        where = { ...where, organization: { id: organization } }
+      }
+
       if (branch && branch.length) {
         where = { ...where, branch }
       }
-
       const tasks: Task[] = await this.taskRepo.find({
         order: {
           updated: 'DESC'
