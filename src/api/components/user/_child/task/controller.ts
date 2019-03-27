@@ -44,42 +44,4 @@ export class UserTaskController {
       return next(err)
     }
   }
-
-  /**
-   * Read tasks from a certain user by a certain task status from db
-   *
-   * @param {Request} req
-   * @param {Response} res
-   * @param {NextFunction} next
-   * @returns {Promise<Response | void>} Returns HTTP response
-   */
-  @bind
-  public async readUserTasksByStatus(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response | void> {
-    try {
-      const { userId, statusId } = req.params
-
-      if (!userId || !statusId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
-      }
-
-      const tasks: Task[] = await this.taskRepo.find({
-        order: {
-          priority: 'DESC'
-        },
-        relations: ['author', 'assignee', 'status', 'priority'],
-        where: {
-          assignee: { id: userId },
-          status: { id: statusId }
-        }
-      })
-
-      return res.json({ status: res.statusCode, data: tasks })
-    } catch (err) {
-      return next(err)
-    }
-  }
 }

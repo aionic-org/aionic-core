@@ -2,7 +2,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -14,10 +13,10 @@ import {
 import { GitOrganization } from '@components/git/_child/organization/model'
 import { GitRepository } from '@components/git/_child/repository/model'
 import { Project } from '@components/project/model'
+import { TaskPriority } from '@components/task-priority/model'
+import { TaskStatus } from '@components/task-status/model'
 import { User } from '@components/user/model'
 import { TaskComment } from './_child/comment/model'
-import { TaskPriority } from './priority/model'
-import { TaskStatus } from './status/model'
 
 @Entity()
 export class Task {

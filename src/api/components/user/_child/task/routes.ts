@@ -25,12 +25,5 @@ export class UserTaskRoutes {
       this.authSerivce.hasPermission('userTask', 'read'),
       this.controller.readUserTasks
     )
-
-    this._router.get(
-      '/tasks/status/:statusId',
-      this.authSerivce.isAuthorized(),
-      this.authSerivce.hasPermission('userTask', 'read'),
-      this.controller.readUserTasksByStatus
-    )
   }
 }

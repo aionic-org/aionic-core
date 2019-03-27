@@ -4,13 +4,13 @@ const merge = require('gulp-merge-json')
 const bases = {
   src: 'src/',
   dist: 'dist/',
-  components: 'rest/components/',
+  components: 'api/components/',
   output: 'output/'
 }
 
 const paths = {
-  policy: 'rest/components/**/policy.json',
-  html: 'rest/components/**/templates/*.html'
+  policy: 'api/components/**/policy.json',
+  html: 'api/components/**/templates/*.html'
 }
 
 // Task for copying html templates

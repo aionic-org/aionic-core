@@ -1,6 +1,6 @@
 import { bind } from 'decko'
 import { NextFunction, Request, Response } from 'express'
-import { getManager, Repository } from 'typeorm'
+import { getManager, Like, Repository } from 'typeorm'
 
 import { Task } from './model'
 
@@ -22,8 +22,44 @@ export class TaskController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
+      const { title, searchTerm, status, assignee, author, organization, branch } = req.query
+
+      let where: object = {}
+
+      if (title && title.length) {
+        where = { ...where, title: Like(`%${title}%`) }
+      }
+
+      if (searchTerm && searchTerm.length) {
+        where = { ...where, description: Like(`%${searchTerm}%`) }
+      }
+
+      if (status) {
+        where = { ...where, status: { id: status } }
+      }
+
+      if (assignee) {
+        where = { ...where, assignee: { id: assignee } }
+      }
+
+      if (author) {
+        where = { ...where, author: { id: author } }
+      }
+
+      if (organization) {
+        where = { ...where, organization: { id: organization } }
+      }
+
+      if (branch && branch.length) {
+        where = { ...where, branch }
+      }
+
       const tasks: Task[] = await this.taskRepo.find({
-        relations: ['author', 'assignee', 'status', 'priority', 'repository']
+        order: {
+          updated: 'DESC'
+        },
+        relations: ['author', 'assignee', 'status', 'priority', 'repository'],
+        where
       })
 
       return res.json({ status: res.statusCode, data: tasks })

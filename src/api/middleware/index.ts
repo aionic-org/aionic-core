@@ -13,7 +13,7 @@ import { UtilityService } from '@services/helper/utility'
  * @param {Router} router
  * @returns {void}
  */
-export function initMiddleware(router: Router): void {
+export function registerMiddleware(router: Router): void {
   router.use(helmet())
   router.use(cors({ origin: ['http://localhost:4200'] }))
   router.use(json())
@@ -29,7 +29,7 @@ export function initMiddleware(router: Router): void {
  * @param {Router} router
  * @returns {void}
  */
-export function initErrorHandler(router: Router): Response | void {
+export function registerErrorHandler(router: Router): Response | void {
   router.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     UtilityService.handleError(err)
 

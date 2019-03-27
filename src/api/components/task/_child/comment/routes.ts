@@ -20,21 +20,21 @@ export class TaskCommentRoutes {
 
   private initRoutes(): void {
     this.router.get(
-      '/comment',
+      '/comments',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('taskComment', 'read'),
       this.controller.readTaskComments
     )
 
     this.router.post(
-      '/comment',
+      '/comments',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('taskComment', 'create'),
       this.controller.createTaskComment
     )
 
     this.router.delete(
-      '/comment/:commentId',
+      '/comments/:commentId',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('taskComment', 'delete'),
       this.controller.deleteTaskComment

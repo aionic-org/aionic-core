@@ -18,7 +18,7 @@
     "docs": "typedoc --mode file --out docs --readme README.md --module commonjs"
   },
   "_moduleAliases": {
-    "@components": "dist/rest/components",
+    "@components": "dist/api/components",
     "@config": "dist/config",
     "@services": "dist/services"
   },

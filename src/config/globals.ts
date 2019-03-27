@@ -1,6 +1,10 @@
 // Environment variables imported from .env file
 export const env = {
   CACHE_TTL: 3600,
+  GITHUB: {
+    id: process.env.GH_CLIENT_ID,
+    secret: process.env.GH_CLIENT_SECRET
+  },
   HP: {
     DOMAIN: process.env.HP_DOMAIN
   },

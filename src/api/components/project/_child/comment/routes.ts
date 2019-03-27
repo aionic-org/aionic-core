@@ -20,21 +20,21 @@ export class ProjectCommentRoutes {
 
   private initRoutes(): void {
     this.router.get(
-      '/comment',
+      '/comments',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('projectComment', 'read'),
       this.controller.readProjectComments
     )
 
     this.router.post(
-      '/comment',
+      '/comments',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('projectComment', 'create'),
       this.controller.createProjectComment
     )
 
     this.router.delete(
-      '/comment/:commentId',
+      '/comments/:commentId',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('projectComment', 'delete'),
       this.controller.deleteProjectComment

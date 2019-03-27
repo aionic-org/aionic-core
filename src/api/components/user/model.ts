@@ -4,7 +4,7 @@ import { Announcement } from '@components/announcement/model'
 import { ProjectComment } from '@components/project/_child/comment/model'
 import { TaskComment } from '@components/task/_child/comment/model'
 import { Task } from '@components/task/model'
-import { UserRole } from './role/model'
+import { UserRole } from '@components/user-role/model'
 
 @Entity()
 export class User {

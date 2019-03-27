@@ -1,21 +1,26 @@
 import { bind } from 'decko'
 import { NextFunction, Request, Response } from 'express'
+import { parse, stringify } from 'querystring'
 import { getManager, Repository } from 'typeorm'
 import { isEmail } from 'validator'
 
+import { env } from '@config/globals'
+
 import { AuthService } from '@services/auth'
 import { CacheService } from '@services/cache'
+import { HttpService } from '@services/helper/http'
 import { UtilityService } from '@services/helper/utility'
 
 import { AuthMailService } from './services/mail'
 
-import { UserInvitation } from '@components/user/invitation/model'
+import { UserInvitation } from '@components/user-invitation/model'
 import { User } from '@components/user/model'
 
 export class AuthController {
   private readonly authService: AuthService = new AuthService()
   private readonly authMailService: AuthMailService = new AuthMailService()
   private readonly cacheService: CacheService = new CacheService()
+  private readonly httpService: HttpService = new HttpService()
 
   private readonly userRepo: Repository<User> = getManager().getRepository('User')
   private readonly userInvRepo: Repository<UserInvitation> = getManager().getRepository(
@@ -248,6 +253,75 @@ export class AuthController {
       this.cacheService.delete('user')
 
       return res.status(204).send()
+    } catch (err) {
+      return next(err)
+    }
+  }
+
+  /**
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>} Returns HTTP response
+   */
+  @bind
+  public async handleGitHubAuth(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
+    try {
+      const url = `https://github.com/login/oauth/authorize?${stringify({
+        client_id: env.GITHUB.id,
+        scope: 'user:email'
+      })}`
+
+      return res.json({
+        data: url,
+        status: res.statusCode
+      })
+    } catch (err) {
+      return next(err)
+    }
+  }
+
+  /**
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>} Returns HTTP response
+   */
+  @bind
+  public async handleGitHubAuthCallback(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
+    try {
+      const { code } = req.query
+
+      const result = await this.httpService.request({
+        method: 'post',
+        params: {
+          accept: 'json',
+          client_id: env.GITHUB.id,
+          client_secret: env.GITHUB.secret,
+          code
+        },
+        url: `https://github.com/login/oauth/access_token`
+      })
+
+      const access_token = parse(result.data).access_token
+
+      /*const user = await this.httpService.fetchData('https://api.github.com/user', {
+        access_token
+      })*/
+
+      console.log(access_token)
+
+      return res.send(access_token)
     } catch (err) {
       return next(err)
     }
