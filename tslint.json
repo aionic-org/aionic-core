@@ -7,10 +7,11 @@
       true,
       "source-map-support",
       "module-alias",
-      "@components",
+      "@global",
+      "@milestone",
       "@config",
       "@services"
     ],
-    "no-implicit-dependencies": [true, "dev", ["@components", "@config", "@services"]]
+    "no-implicit-dependencies": [true, "dev", ["@global", "@milestone", "@config", "@services"]]
   }
 }

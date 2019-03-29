@@ -84,6 +84,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="authcontroller.html#authmailservice" class="tsd-kind-icon">auth<wbr>Mail<wbr>Service</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="authcontroller.html#authservice" class="tsd-kind-icon">auth<wbr>Service</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="authcontroller.html#cacheservice" class="tsd-kind-icon">cache<wbr>Service</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="authcontroller.html#httpservice" class="tsd-kind-icon">http<wbr>Service</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="authcontroller.html#userinvrepo" class="tsd-kind-icon">user<wbr>Inv<wbr>Repo</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="authcontroller.html#userrepo" class="tsd-kind-icon">user<wbr>Repo</a></li>
 							</ul>
@@ -93,10 +94,12 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="authcontroller.html#createuserinvitation" class="tsd-kind-icon">create<wbr>User<wbr>Invitation</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="authcontroller.html#getuserinvitation" class="tsd-kind-icon">get<wbr>User<wbr>Invitation</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="authcontroller.html#handlegithubauth" class="tsd-kind-icon">handle<wbr>Git<wbr>Hub<wbr>Auth</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="authcontroller.html#handlegithubauthcallback" class="tsd-kind-icon">handle<wbr>Git<wbr>Hub<wbr>Auth<wbr>Callback</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="authcontroller.html#registeruser" class="tsd-kind-icon">register<wbr>User</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="authcontroller.html#signinuser" class="tsd-kind-icon">signin<wbr>User</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="authcontroller.html#unregisteruser" class="tsd-kind-icon">unregister<wbr>User</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="authcontroller.html#validatehash" class="tsd-kind-icon">validate<wbr>Hash</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="authcontroller.html#validateregistrationhash" class="tsd-kind-icon">validate<wbr>Registration<wbr>Hash</a></li>
 							</ul>
 						</section>
 					</div>
@@ -110,7 +113,7 @@
 					<div class="tsd-signature tsd-kind-icon">auth<wbr>Mail<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="authmailservice.html" class="tsd-signature-type">AuthMailService</a><span class="tsd-signature-symbol"> =&nbsp;new AuthMailService()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/c099f43/src/rest/components/auth/controller.ts#L16">rest/components/auth/controller.ts:16</a></li>
+							<li>Defined in api/components/global/auth/controller.ts:21</li>
 						</ul>
 					</aside>
 				</section>
@@ -120,7 +123,7 @@
 					<div class="tsd-signature tsd-kind-icon">auth<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="authservice.html" class="tsd-signature-type">AuthService</a><span class="tsd-signature-symbol"> =&nbsp;new AuthService()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/c099f43/src/rest/components/auth/controller.ts#L15">rest/components/auth/controller.ts:15</a></li>
+							<li>Defined in api/components/global/auth/controller.ts:20</li>
 						</ul>
 					</aside>
 				</section>
@@ -130,7 +133,17 @@
 					<div class="tsd-signature tsd-kind-icon">cache<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="cacheservice.html" class="tsd-signature-type">CacheService</a><span class="tsd-signature-symbol"> =&nbsp;new CacheService()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/c099f43/src/rest/components/auth/controller.ts#L17">rest/components/auth/controller.ts:17</a></li>
+							<li>Defined in api/components/global/auth/controller.ts:22</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="httpservice" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> http<wbr>Service</h3>
+					<div class="tsd-signature tsd-kind-icon">http<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="httpservice.html" class="tsd-signature-type">HttpService</a><span class="tsd-signature-symbol"> =&nbsp;new HttpService()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in api/components/global/auth/controller.ts:23</li>
 						</ul>
 					</aside>
 				</section>
@@ -140,7 +153,7 @@
 					<div class="tsd-signature tsd-kind-icon">user<wbr>Inv<wbr>Repo<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Repository</span><span class="tsd-signature-symbol">&lt;</span><a href="userinvitation.html" class="tsd-signature-type">UserInvitation</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;getManager().getRepository(&#x27;UserInvitation&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/c099f43/src/rest/components/auth/controller.ts#L20">rest/components/auth/controller.ts:20</a></li>
+							<li>Defined in api/components/global/auth/controller.ts:26</li>
 						</ul>
 					</aside>
 				</section>
@@ -150,7 +163,7 @@
 					<div class="tsd-signature tsd-kind-icon">user<wbr>Repo<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Repository</span><span class="tsd-signature-symbol">&lt;</span><a href="user.html" class="tsd-signature-type">User</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;getManager().getRepository(&#x27;User&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/c099f43/src/rest/components/auth/controller.ts#L19">rest/components/auth/controller.ts:19</a></li>
+							<li>Defined in api/components/global/auth/controller.ts:25</li>
 						</ul>
 					</aside>
 				</section>
@@ -167,7 +180,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/c099f43/src/rest/components/auth/controller.ts#L174">rest/components/auth/controller.ts:174</a></li>
+									<li>Defined in api/components/global/auth/controller.ts:180</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -202,7 +215,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/c099f43/src/rest/components/auth/controller.ts#L251">rest/components/auth/controller.ts:251</a></li>
+									<li>Defined in api/components/global/auth/controller.ts:337</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -222,6 +235,70 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="handlegithubauth" class="tsd-anchor"></a>
+					<h3>handle<wbr>Git<wbr>Hub<wbr>Auth</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">handle<wbr>Git<wbr>Hub<wbr>Auth<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Request</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NextFunction</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in api/components/global/auth/controller.ts:269</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>req: <span class="tsd-signature-type">Request</span></h5>
+								</li>
+								<li>
+									<h5>res: <span class="tsd-signature-type">Response</span></h5>
+								</li>
+								<li>
+									<h5>next: <span class="tsd-signature-type">NextFunction</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Returns HTTP response</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="handlegithubauthcallback" class="tsd-anchor"></a>
+					<h3>handle<wbr>Git<wbr>Hub<wbr>Auth<wbr>Callback</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">handle<wbr>Git<wbr>Hub<wbr>Auth<wbr>Callback<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Request</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NextFunction</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in api/components/global/auth/controller.ts:297</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>req: <span class="tsd-signature-type">Request</span></h5>
+								</li>
+								<li>
+									<h5>res: <span class="tsd-signature-type">Response</span></h5>
+								</li>
+								<li>
+									<h5>next: <span class="tsd-signature-type">NextFunction</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Returns HTTP response</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="registeruser" class="tsd-anchor"></a>
 					<h3>register<wbr>User</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -231,7 +308,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/c099f43/src/rest/components/auth/controller.ts#L110">rest/components/auth/controller.ts:110</a></li>
+									<li>Defined in api/components/global/auth/controller.ts:116</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -266,7 +343,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/c099f43/src/rest/components/auth/controller.ts#L33">rest/components/auth/controller.ts:33</a></li>
+									<li>Defined in api/components/global/auth/controller.ts:39</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -301,7 +378,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/c099f43/src/rest/components/auth/controller.ts#L210">rest/components/auth/controller.ts:210</a></li>
+									<li>Defined in api/components/global/auth/controller.ts:227</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -327,16 +404,16 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="validatehash" class="tsd-anchor"></a>
-					<h3>validate<wbr>Hash</h3>
+					<a name="validateregistrationhash" class="tsd-anchor"></a>
+					<h3>validate<wbr>Registration<wbr>Hash</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">validate<wbr>Hash<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Request</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NextFunction</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">validate<wbr>Registration<wbr>Hash<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Request</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NextFunction</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/c099f43/src/rest/components/auth/controller.ts#L80">rest/components/auth/controller.ts:80</a></li>
+									<li>Defined in api/components/global/auth/controller.ts:86</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -388,6 +465,9 @@
 								<a href="authcontroller.html#cacheservice" class="tsd-kind-icon">cache<wbr>Service</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="authcontroller.html#httpservice" class="tsd-kind-icon">http<wbr>Service</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="authcontroller.html#userinvrepo" class="tsd-kind-icon">user<wbr>Inv<wbr>Repo</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
@@ -400,6 +480,12 @@
 								<a href="authcontroller.html#getuserinvitation" class="tsd-kind-icon">get<wbr>User<wbr>Invitation</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="authcontroller.html#handlegithubauth" class="tsd-kind-icon">handle<wbr>Git<wbr>Hub<wbr>Auth</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="authcontroller.html#handlegithubauthcallback" class="tsd-kind-icon">handle<wbr>Git<wbr>Hub<wbr>Auth<wbr>Callback</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="authcontroller.html#registeruser" class="tsd-kind-icon">register<wbr>User</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -409,7 +495,7 @@
 								<a href="authcontroller.html#unregisteruser" class="tsd-kind-icon">unregister<wbr>User</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="authcontroller.html#validatehash" class="tsd-kind-icon">validate<wbr>Hash</a>
+								<a href="authcontroller.html#validateregistrationhash" class="tsd-kind-icon">validate<wbr>Registration<wbr>Hash</a>
 							</li>
 						</ul>
 					</li>

@@ -6,8 +6,8 @@ import { ExtractJwt, StrategyOptions } from 'passport-jwt'
 
 import { permissions } from '@config/permissions'
 
-import { BasicAuthStrategy } from '@components/auth/strategies/basicAuth'
-import { JwtStrategy } from '@components/auth/strategies/jwt'
+import { BasicAuthStrategy } from '@global/auth/strategies/basicAuth'
+import { JwtStrategy } from '@global/auth/strategies/jwt'
 
 export type PassportStrategy = 'jwt' | 'basic'
 

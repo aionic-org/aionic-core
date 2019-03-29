@@ -1,4 +1,0 @@
-{
-  "Admin": [{"resources": "search", "permissions": "*"}],
-  "User": [{"resources": "search", "permissions": ["read"]}]
-}
