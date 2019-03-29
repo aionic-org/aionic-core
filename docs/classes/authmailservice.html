@@ -107,7 +107,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="mailservice.html">MailService</a>.<a href="mailservice.html#rendermailtemplate">renderMailTemplate</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/c099f43/src/services/mail.ts#L38">services/mail.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/ea09076/src/services/mail.ts#L47">services/mail.ts:47</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -134,14 +134,14 @@
 					<a name="sendmail" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> send<wbr>Mail</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">send<wbr>Mail<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SendMailOptions</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SentMessageInfo</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">send<wbr>Mail<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SendMailOptions</span>, forceSend<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SentMessageInfo</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="mailservice.html">MailService</a>.<a href="mailservice.html#sendmail">sendMail</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/c099f43/src/services/mail.ts#L28">services/mail.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/ea09076/src/services/mail.ts#L30">services/mail.ts:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -154,8 +154,14 @@
 								<li>
 									<h5>config: <span class="tsd-signature-type">SendMailOptions</span></h5>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> forceSend: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
+								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SentMessageInfo</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SentMessageInfo</span><span class="tsd-signature-symbol">&gt;</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">void</span>
+							</h4>
 							<p>Returns info of sent mail</p>
 						</li>
 					</ul>
@@ -170,7 +176,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/AionicApp/aionic-api/blob/c099f43/src/rest/components/auth/services/mail.ts#L15">rest/components/auth/services/mail.ts:15</a></li>
+									<li>Defined in api/components/global/auth/services/mail.ts:15</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

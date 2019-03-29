@@ -66,10 +66,10 @@
 			<div class="tsd-panel tsd-typography">
 				<h1 id="aionic-core-">Aionic (Core)</h1>
 				<p><img src="https://avatars0.githubusercontent.com/u/42389304?s=100&v=4" alt="alt text" title="Aionic Logo"></p>
-				<p>Aionic offers open source applications for project management. Our focus is on simplifying the project management process for agile teams in an open way.</p>
+				<p>Aionic offers open source applications for project management and collaboration. Our focus is on simplifying the workflow for agile teams in an open way.</p>
 				<h2 id="description">Description</h2>
 				<p>Aionic offers a range of <strong>open source products</strong> for the management of projects of any size. We offer the software but you have to host it on your own servers or cloud. Our products are open source, so everybody can customize them as desired and contribute to them.</p>
-				<p>All services are built on top of the <strong>Aionic Core</strong> application, since this is the place where all the data is managed. So for the usage of any other service, you have to use at least <a href="https://github.com/Aionic-App/aionic-core/">Aionice Core</a>.</p>
+				<p>All services are built on top of the <strong>Aionic Core</strong> application, since this is the place where all the data is managed. So for the usage of any other service, you have to use at least <a href="https://github.com/Aionic-Apps/aionic-core/">Aionice Core</a>.</p>
 				<p>Some of the technologies we trust: <em>NodeJS, ReactJS, MySQL</em></p>
 				<h2 id="features">Features</h2>
 				<p><strong>Aionic Core</strong> is the foundation for any other of our services. It&#39;s the place to store and manage all the data you create. The application is written in Typescript and is based on an ExpressJS HTTP server.</p>
@@ -84,17 +84,27 @@
 					<li>Permission control via ACL</li>
 					<li>Authentication via JWT or BasicAuth</li>
 				</ul>
+				<h2 id="prerequisites">Prerequisites</h2>
+				<ul>
+					<li>Hosting server (incl. SMTP for sending mails)</li>
+					<li>MySQL database</li>
+				</ul>
 				<h2 id="installation">Installation</h2>
-				<p>First of all, rename the following files and enter your credentials / infos:</p>
+				<p>First of all, create a new database on your MySQL server:</p>
+				<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">DATABASE</span> aionic;</code></pre>
+				<p>Afterwards, rename the following files and enter your credentials / infos:</p>
 				<ul>
 					<li>.env.example -&gt; .env</li>
 					<li>.ormconfig.json.example -&gt; .ormconfig.json</li>
 				</ul>
-				<p>Afterward, run the following commands to start the application in producation mode</p>
-				<pre><code><span class="hljs-built_in">npm</span> install
-<span class="hljs-built_in">npm</span> start</code></pre><h2 id="philosophy">Philosophy</h2>
+				<p>Now, run the following commands to start the application in production mode</p>
+				<pre><code><span class="hljs-attr">yarn</span> <span class="hljs-string">install</span>
+<span class="hljs-attr">yarn</span> <span class="hljs-string">build</span>
+<span class="hljs-attr">yarn</span> <span class="hljs-string">start</span></code></pre><p>Last but not least run the following command for SQL data seeding:</p>
+				<pre><code>yarn <span class="hljs-keyword">run</span><span class="bash"> seed</span></code></pre><p>NOTE: You can also use <a href="https://www.npmjs.com/">npm</a>.</p>
+				<h2 id="philosophy">Philosophy</h2>
 				<blockquote>
-					<p>Our focus is on simplifying the project management process for agile teams in an open way.</p>
+					<p>Our focus is on simplifying the workflow for agile teams in an open way.</p>
 				</blockquote>
 				<p>We try to help other people / companies realizing their ideas by offering highly maintainable project management softwares that everybody can <strong>adjust as desired</strong>.</p>
 				<h2 id="community">Community</h2>
@@ -116,6 +126,15 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/announcement.html" class="tsd-kind-icon">Announcement</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/announcementcontroller.html" class="tsd-kind-icon">Announcement<wbr>Controller</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/announcementroutes.html" class="tsd-kind-icon">Announcement<wbr>Routes</a>
+					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/authcontroller.html" class="tsd-kind-icon">Auth<wbr>Controller</a>
 					</li>
@@ -144,7 +163,28 @@
 						<a href="classes/configroutes.html" class="tsd-kind-icon">Config<wbr>Routes</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/githubapi.html" class="tsd-kind-icon">Git<wbr>Hub<wbr>Api</a>
+						<a href="classes/githubservice.html" class="tsd-kind-icon">Git<wbr>Hub<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/gitoranizationroutes.html" class="tsd-kind-icon">Git<wbr>Oranization<wbr>Routes</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/gitorganization.html" class="tsd-kind-icon">Git<wbr>Organization</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/gitorganizationcontroller.html" class="tsd-kind-icon">Git<wbr>Organization<wbr>Controller</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/gitrepository.html" class="tsd-kind-icon">Git<wbr>Repository</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/gitrepositorycontroller.html" class="tsd-kind-icon">Git<wbr>Repository<wbr>Controller</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/gitrepositoryroutes.html" class="tsd-kind-icon">Git<wbr>Repository<wbr>Routes</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/gitroutes.html" class="tsd-kind-icon">Git<wbr>Routes</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/httpservice.html" class="tsd-kind-icon">Http<wbr>Service</a>
@@ -159,16 +199,19 @@
 						<a href="classes/project.html" class="tsd-kind-icon">Project</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/projectcomment.html" class="tsd-kind-icon">Project<wbr>Comment</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/projectcommentcontroller.html" class="tsd-kind-icon">Project<wbr>Comment<wbr>Controller</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/projectcommentroutes.html" class="tsd-kind-icon">Project<wbr>Comment<wbr>Routes</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/projectcontroller.html" class="tsd-kind-icon">Project<wbr>Controller</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/projectroutes.html" class="tsd-kind-icon">Project<wbr>Routes</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/searchcontroller.html" class="tsd-kind-icon">Search<wbr>Controller</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/searchroutes.html" class="tsd-kind-icon">Search<wbr>Routes</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/server.html" class="tsd-kind-icon">Server</a>
@@ -251,6 +294,9 @@
 					<li class=" tsd-kind-class">
 						<a href="classes/utilityservice.html" class="tsd-kind-icon">Utility<wbr>Service</a>
 					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/icommit.html" class="tsd-kind-icon">ICommit</a>
+					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#passportstrategy" class="tsd-kind-icon">Passport<wbr>Strategy</a>
 					</li>
@@ -270,16 +316,22 @@
 						<a href="globals.html#policies" class="tsd-kind-icon">policies</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="globals.html#initcomponentroutes" class="tsd-kind-icon">init<wbr>Component<wbr>Routes</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#initerrorhandler" class="tsd-kind-icon">init<wbr>Error<wbr>Handler</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#initmiddleware" class="tsd-kind-icon">init<wbr>Middleware</a>
-					</li>
-					<li class=" tsd-kind-function">
 						<a href="globals.html#initrestroutes" class="tsd-kind-icon">init<wbr>Rest<wbr>Routes</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#registerapiroutes" class="tsd-kind-icon">register<wbr>Api<wbr>Routes</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#registererrorhandler" class="tsd-kind-icon">register<wbr>Error<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#registerglobalroutes" class="tsd-kind-icon">register<wbr>Global<wbr>Routes</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#registermiddleware" class="tsd-kind-icon">register<wbr>Middleware</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#registermilestoneroutes" class="tsd-kind-icon">register<wbr>Milestone<wbr>Routes</a>
 					</li>
 					<li class=" tsd-kind-object-literal">
 						<a href="globals.html#env" class="tsd-kind-icon">env</a>

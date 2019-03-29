@@ -18,7 +18,8 @@
     "docs": "typedoc --mode file --out docs --readme README.md --module commonjs"
   },
   "_moduleAliases": {
-    "@components": "dist/api/components",
+    "@global": "dist/api/components/global",
+    "@milestone": "dist/api/components/milestone",
     "@config": "dist/config",
     "@services": "dist/services"
   },
