@@ -26,4 +26,4 @@ VALUES  ('Open', 1, 1),
 INSERT INTO task_priority (title, value)
 VALUES  ('Low', 1),
         ('Medium', 2),
-        ('Hight', 3);
+        ('High', 3);
