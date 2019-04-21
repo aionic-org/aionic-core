@@ -30,11 +30,14 @@ export class User {
   public password: string
 
   @Column({
+    nullable: true,
     type: 'text'
   })
   public status: string
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   public gitHubToken: string
 
   @Column({

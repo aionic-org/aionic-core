@@ -126,6 +126,13 @@ export class AuthController {
         return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
+      const invitation: UserInvitation | undefined = await this.getUserInvitation(hash, email)
+
+      // Invalid registration hash
+      if (!invitation) {
+        return res.status(403).json({ status: 403, error: 'Invalid hash' })
+      }
+
       const user: User | undefined = await this.userRepo.findOne({
         where: {
           email
@@ -135,13 +142,6 @@ export class AuthController {
       // Email is already taken
       if (user) {
         return res.status(400).json({ status: 400, error: 'Email is already taken' })
-      }
-
-      const invitation: UserInvitation | undefined = await this.getUserInvitation(hash, email)
-
-      // Invalid registration hash
-      if (!invitation) {
-        return res.status(403).json({ status: 403, error: 'Invalid hash' })
       }
 
       const newUser: User = await this.userRepo.save({
