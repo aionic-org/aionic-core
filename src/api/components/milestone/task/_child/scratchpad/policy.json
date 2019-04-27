@@ -1,0 +1,4 @@
+{
+  "Admin": [{"resources": "taskScratchpad", "permissions": "*"}],
+  "User": [{"resources": "taskScratchpad", "permissions": "*"}]
+}

@@ -46,7 +46,7 @@
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",
     "typedoc": "^0.14.2",
-    "typescript": "^2.9.2"
+    "typescript": "^3.4.5"
   },
   "dependencies": {
     "acl": "^0.4.11",

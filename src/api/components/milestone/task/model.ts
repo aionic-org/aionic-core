@@ -18,6 +18,7 @@ import { Project } from '@milestone/project/model'
 import { TaskPriority } from '@milestone/task-priority/model'
 import { TaskStatus } from '@milestone/task-status/model'
 import { TaskComment } from './_child/comment/model'
+import { TaskScratchpad } from './_child/scratchpad/model'
 
 @Entity()
 export class Task {
@@ -67,6 +68,9 @@ export class Task {
 
   @OneToMany(type => TaskComment, taskComment => taskComment.task)
   public comments: TaskComment[]
+
+  @OneToMany(type => TaskScratchpad, taskScratchpad => taskScratchpad.task)
+  public scratchpads: TaskScratchpad[]
 
   @ManyToOne(type => GitOrganization, gitOrganization => gitOrganization.tasks, {
     onDelete: 'SET NULL'

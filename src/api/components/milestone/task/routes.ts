@@ -6,6 +6,7 @@ import { TaskController } from './controller'
 
 import { TaskCommentRoutes } from './_child/comment/routes'
 import { TaskProjectRoutes } from './_child/project/routes'
+import { TaskScratchpadRoutes } from './_child/scratchpad/routes'
 
 export class TaskRoutes {
   private readonly controller: TaskController = new TaskController()
@@ -63,5 +64,6 @@ export class TaskRoutes {
   private initChildRoutes(defaultStrategy?: PassportStrategy): void {
     this.router.use('/:taskId', new TaskCommentRoutes(defaultStrategy).router)
     this.router.use('/:taskId', new TaskProjectRoutes(defaultStrategy).router)
+    this.router.use('/:taskId', new TaskScratchpadRoutes(defaultStrategy).router)
   }
 }
