@@ -21,6 +21,11 @@ export class Announcement {
   })
   public description: string
 
+  @Column({
+    default: false
+  })
+  public important: boolean
+
   @CreateDateColumn()
   public created: Timestamp
 
