@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -82,4 +83,8 @@ export class Task {
 
   @ManyToMany(type => Project, project => project.tasks)
   public projects: Project[]
+
+  @ManyToMany(type => Task)
+  @JoinTable()
+  public links: Task[]
 }
