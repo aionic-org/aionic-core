@@ -93,7 +93,8 @@ export class TaskController {
           'priority',
           'repository',
           'organization',
-          'links'
+          'links',
+          'links.author'
         ]
       })
 

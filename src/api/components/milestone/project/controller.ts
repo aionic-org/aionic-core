@@ -23,7 +23,7 @@ export class ProjectController {
   ): Promise<Response | void> {
     try {
       const projects: Project[] = await this.projectRepo.find({
-        relations: ['author', 'tasks']
+        relations: ['author', 'tasks', 'tasks.status']
       })
 
       return res.json({ status: res.statusCode, data: projects })
@@ -54,7 +54,14 @@ export class ProjectController {
       }
 
       const project: Project | undefined = await this.projectRepo.findOne(projectId, {
-        relations: ['author', 'tasks', 'tasks.priority', 'tasks.assignee', 'tasks.author']
+        relations: [
+          'author',
+          'tasks',
+          'tasks.priority',
+          'tasks.assignee',
+          'tasks.author',
+          'tasks.status'
+        ]
       })
 
       return res.json({ status: res.statusCode, data: project })
