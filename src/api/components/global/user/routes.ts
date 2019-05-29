@@ -31,6 +31,13 @@ export class UserRoutes {
     )
 
     this._router.get(
+      '/search',
+      this.authSerivce.isAuthorized(),
+      this.authSerivce.hasPermission('user', 'read'),
+      this.controller.searchUsers
+    )
+
+    this._router.get(
       '/:userId',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('user', 'read'),

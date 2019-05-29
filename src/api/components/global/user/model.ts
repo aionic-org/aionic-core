@@ -1,7 +1,8 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 import { UserRole } from '@global/user-role/model'
 import { Announcement } from '@milestone/announcement/model'
+import { Board } from '@milestone/board/model'
 import { ProjectComment } from '@milestone/project/_child/comment/model'
 import { TaskComment } from '@milestone/task/_child/comment/model'
 import { TaskScratchpad } from '@milestone/task/_child/scratchpad/model'
@@ -67,4 +68,7 @@ export class User {
 
   @ManyToOne(type => UserRole, userRole => userRole.users)
   public userRole: UserRole
+
+  @ManyToMany(type => Board, board => board.users)
+  public boards: Board[]
 }

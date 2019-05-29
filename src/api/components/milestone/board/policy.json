@@ -1,0 +1,4 @@
+{
+    "Admin": [{"resources": "board", "permissions": "*"}],
+    "User": [{"resources": "board", "permissions": ["read"]}]
+  }

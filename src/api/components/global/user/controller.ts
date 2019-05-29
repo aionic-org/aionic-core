@@ -1,6 +1,6 @@
 import { bind } from 'decko'
 import { NextFunction, Request, Response } from 'express'
-import { getManager, Repository } from 'typeorm'
+import { getManager, Like, Repository } from 'typeorm'
 
 import { CacheService } from '@services/cache'
 
@@ -11,7 +11,7 @@ export class UserController {
   private readonly userRepo: Repository<User> = getManager().getRepository('User')
 
   /**
-   * Read all users from db
+   * Read all users from db (cached)
    *
    * @param {Request} req
    * @param {Response} res
@@ -26,6 +26,48 @@ export class UserController {
   ): Promise<Response | void> {
     try {
       const users: User[] = await this.cacheService.get('user', this)
+
+      return res.json({ status: res.statusCode, data: users })
+    } catch (err) {
+      return next(err)
+    }
+  }
+
+  /**
+   * Search users from db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>} Returns HTTP response
+   */
+  @bind
+  public async searchUsers(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
+    try {
+      const { username } = req.query
+
+      let where: object = {}
+
+      if (username) {
+        const [firstname, lastname] = username.split(' ')
+
+        if (firstname) {
+          where = { ...where, firstname: Like(`%${firstname}%`) }
+        }
+
+        if (lastname) {
+          where = { ...where, lastname: Like(`%${lastname}%`) }
+        }
+      }
+
+      const users: User[] = await this.userRepo.find({
+        relations: ['userRole'],
+        where
+      })
 
       return res.json({ status: res.statusCode, data: users })
     } catch (err) {
