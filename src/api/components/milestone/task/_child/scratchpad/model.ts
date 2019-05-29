@@ -9,27 +9,24 @@ import {
 
 import { User } from '@global/user/model'
 
+import { Task } from '@milestone/task/model'
+
 @Entity()
-export class Announcement {
+export class TaskScratchpad {
   /***** columns *****/
   @PrimaryGeneratedColumn()
   public id: number
 
-  @Column({
-    default: null,
-    type: 'text'
-  })
-  public description: string
-
-  @Column({
-    default: false
-  })
-  public important: boolean
+  @Column('text')
+  public text: string
 
   @CreateDateColumn()
   public created: Timestamp
 
   /***** relations *****/
-  @ManyToOne(type => User, user => user.author)
+  @ManyToOne(type => User, user => user.taskScratchpads, { onDelete: 'CASCADE' })
   public author: User
+
+  @ManyToOne(type => Task, task => task.comments)
+  public task: Task
 }

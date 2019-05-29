@@ -2,13 +2,13 @@ import { bind } from 'decko'
 import { NextFunction, Request, Response } from 'express'
 import { getManager, Repository } from 'typeorm'
 
-import { Project } from './model'
+import { Board } from './model'
 
-export class ProjectController {
-  private readonly projectRepo: Repository<Project> = getManager().getRepository('Project')
+export class BoardController {
+  private readonly boardRepo: Repository<Board> = getManager().getRepository('Board')
 
   /**
-   * Read all projects from db
+   * Read all boards from db
    *
    * @param {Request} req
    * @param {Response} res
@@ -16,24 +16,24 @@ export class ProjectController {
    * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
-  public async readProjects(
+  public async readBoards(
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const projects: Project[] = await this.projectRepo.find({
-        relations: ['author', 'tasks', 'tasks.status']
+      const boards: Board[] = await this.boardRepo.find({
+        relations: ['author', 'users']
       })
 
-      return res.json({ status: res.statusCode, data: projects })
+      return res.json({ status: res.statusCode, data: boards })
     } catch (err) {
       return next(err)
     }
   }
 
   /**
-   * Read a certain project from db
+   * Read a certain board from db
    *
    * @param {Request} req
    * @param {Response} res
@@ -41,37 +41,30 @@ export class ProjectController {
    * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
-  public async readProject(
+  public async readBoard(
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { projectId } = req.params
+      const { boardId } = req.params
 
-      if (!projectId) {
+      if (!boardId) {
         return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
-      const project: Project | undefined = await this.projectRepo.findOne(projectId, {
-        relations: [
-          'author',
-          'tasks',
-          'tasks.priority',
-          'tasks.assignee',
-          'tasks.author',
-          'tasks.status'
-        ]
+      const board: Board | undefined = await this.boardRepo.findOne(boardId, {
+        relations: ['author', 'users']
       })
 
-      return res.json({ status: res.statusCode, data: project })
+      return res.json({ status: res.statusCode, data: board })
     } catch (err) {
       return next(err)
     }
   }
 
   /**
-   * Save new project to db
+   * Save new board to db
    *
    * @param {Request} req
    * @param {Response} res
@@ -79,26 +72,26 @@ export class ProjectController {
    * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
-  public async createProject(
+  public async createBoard(
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      if (!req.body.project) {
+      if (!req.body.board) {
         return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
-      const newProject: Project = await this.projectRepo.save(req.body.project)
+      const newBoard: Board = await this.boardRepo.save(req.body.board)
 
-      return res.json({ status: res.statusCode, data: newProject })
+      return res.json({ status: res.statusCode, data: newBoard })
     } catch (err) {
       return next(err)
     }
   }
 
   /**
-   * Update project in db
+   * Update board in db
    *
    * @param {Request} req
    * @param {Response} res
@@ -106,34 +99,34 @@ export class ProjectController {
    * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
-  public async updateProject(
+  public async updateBoard(
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { projectId } = req.params
+      const { boardId } = req.params
 
-      if (!projectId || !req.body.project) {
+      if (!boardId || !req.body.board) {
         return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
-      const project: Project | undefined = await this.projectRepo.findOne(projectId)
+      const board: Board | undefined = await this.boardRepo.findOne(boardId)
 
-      if (!project) {
-        return res.status(404).json({ status: 404, error: 'project not found' })
+      if (!board) {
+        return res.status(404).json({ status: 404, error: 'Board not found' })
       }
 
-      const updatedProject: Project = await this.projectRepo.save(req.body.project)
+      const updatedBoard: Board = await this.boardRepo.save(req.body.board)
 
-      return res.json({ status: res.statusCode, data: updatedProject })
+      return res.json({ status: res.statusCode, data: updatedBoard })
     } catch (err) {
       return next(err)
     }
   }
 
   /**
-   * Delete project from db
+   * Delete board from db
    *
    * @param {Request} req
    * @param {Response} res
@@ -141,25 +134,25 @@ export class ProjectController {
    * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
-  public async deleteProject(
+  public async deleteBoard(
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { projectId } = req.params
+      const { boardId } = req.params
 
-      if (!projectId) {
+      if (!boardId) {
         return res.status(400).json({ status: 400, error: 'Invalid request' })
       }
 
-      const project: Project | undefined = await this.projectRepo.findOne(projectId)
+      const board: Board | undefined = await this.boardRepo.findOne(boardId)
 
-      if (!project) {
-        return res.status(404).json({ status: 404, error: 'Project not found' })
+      if (!board) {
+        return res.status(404).json({ status: 404, error: 'Board not found' })
       }
 
-      await this.projectRepo.remove(project)
+      await this.boardRepo.remove(board)
 
       return res.status(204).send()
     } catch (err) {

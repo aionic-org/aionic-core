@@ -86,7 +86,16 @@ export class TaskController {
       }
 
       const task: Task | undefined = await this.taskRepo.findOne(taskId, {
-        relations: ['author', 'assignee', 'status', 'priority', 'repository', 'organization']
+        relations: [
+          'author',
+          'assignee',
+          'status',
+          'priority',
+          'repository',
+          'organization',
+          'links',
+          'links.author'
+        ]
       })
 
       return res.json({ status: res.statusCode, data: task })
