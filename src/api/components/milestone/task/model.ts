@@ -18,6 +18,7 @@ import { GitRepository } from '@milestone/git/_child/repository/model'
 import { Project } from '@milestone/project/model'
 import { TaskPriority } from '@milestone/task-priority/model'
 import { TaskStatus } from '@milestone/task-status/model'
+import { TaskType } from '@milestone/task-type/model'
 import { TaskComment } from './_child/comment/model'
 import { TaskScratchpad } from './_child/scratchpad/model'
 
@@ -44,9 +45,26 @@ export class Task {
   public branch: string
 
   @Column({
+    default: null
+  })
+  public label: string
+
+  @Column({
+    default: null,
+    type: 'text'
+  })
+  public tags: string
+
+  @Column({
     default: false
   })
-  public closed: boolean
+  public completed: boolean
+
+  @Column({
+    default: null,
+    type: 'datetime'
+  })
+  public deadline: Timestamp
 
   @CreateDateColumn()
   public created: Timestamp
@@ -66,6 +84,9 @@ export class Task {
 
   @ManyToOne(type => TaskPriority, taskPriority => taskPriority.tasks)
   public priority: TaskPriority
+
+  @ManyToOne(type => TaskType, taskType => taskType.tasks)
+  public type: TaskType
 
   @OneToMany(type => TaskComment, taskComment => taskComment.task)
   public comments: TaskComment[]

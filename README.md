@@ -69,8 +69,9 @@ We try to help other people / companies realizing their ideas by offering highly
 
 ## Community
 
-- [Website](https://aionic.app)
+- [Website](https://aionic-apps.com)
 - [GitHub](https://github.com/Aionic-Apps)
+- [Twitter](https://twitter.com/AionicApps)
 
 ## License
 

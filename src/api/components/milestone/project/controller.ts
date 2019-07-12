@@ -22,8 +22,23 @@ export class ProjectController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
+      const { orderby, orderdir, limit } = req.query
+
+      let order = {}
+      let take: object = {}
+
+      if (orderby || orderdir) {
+        order = { order: { [orderby || 'id']: orderdir || 'ASC' } }
+      }
+
+      if (limit) {
+        take = { take: limit }
+      }
+
       const projects: Project[] = await this.projectRepo.find({
-        relations: ['author', 'tasks', 'tasks.status']
+        relations: ['author', 'tasks', 'tasks.status'],
+        ...order,
+        ...take
       })
 
       return res.json({ status: res.statusCode, data: projects })
