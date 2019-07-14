@@ -1,4 +1,13 @@
-import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  Timestamp
+} from 'typeorm'
 
 import { UserRole } from '@global/user-role/model'
 import { Announcement } from '@milestone/announcement/model'
@@ -46,6 +55,9 @@ export class User {
     default: true
   })
   public active: boolean
+
+  @CreateDateColumn()
+  public created: Timestamp
 
   /***** relations *****/
   @OneToMany(type => Task, task => task.author)

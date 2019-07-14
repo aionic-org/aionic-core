@@ -22,7 +22,7 @@ export class TaskController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { title, term, status, assignee, author, tag, organization, branch } = req.query
+      const { title, term, type, status, assignee, author, tag, organization, branch } = req.query
 
       let where: object = {}
 
@@ -32,6 +32,10 @@ export class TaskController {
 
       if (term && term.length) {
         where = { ...where, description: Like(`%${term}%`) }
+      }
+
+      if (type) {
+        where = { ...where, type: { id: type } }
       }
 
       if (status) {
@@ -62,7 +66,7 @@ export class TaskController {
         order: {
           updated: 'DESC'
         },
-        relations: ['author', 'assignee', 'status', 'priority', 'repository'],
+        relations: ['author', 'assignee', 'status', 'priority', 'type', 'repository'],
         where
       })
 

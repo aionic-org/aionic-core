@@ -32,7 +32,7 @@ export class UserTaskController {
         order: {
           priority: 'DESC'
         },
-        relations: ['author', 'assignee', 'status', 'priority'],
+        relations: ['author', 'assignee', 'status', 'priority', 'type'],
         where: {
           assignee: { id: userId },
           closed: false

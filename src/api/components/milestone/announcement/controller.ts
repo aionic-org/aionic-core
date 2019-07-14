@@ -25,9 +25,6 @@ export class AnnouncementController {
   ): Promise<Response | void> {
     try {
       const announcements: Announcement[] = await this.announcementRepo.find({
-        order: {
-          created: 'DESC'
-        },
         relations: ['author']
       })
 

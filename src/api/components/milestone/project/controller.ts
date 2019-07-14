@@ -75,7 +75,8 @@ export class ProjectController {
           'tasks.priority',
           'tasks.assignee',
           'tasks.author',
-          'tasks.status'
+          'tasks.status',
+          'tasks.type'
         ]
       })
 
