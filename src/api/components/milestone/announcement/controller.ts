@@ -1,13 +1,13 @@
-import { bind } from 'decko'
-import { NextFunction, Request, Response } from 'express'
-import { getManager, Repository } from 'typeorm'
+import { bind } from 'decko';
+import { NextFunction, Request, Response } from 'express';
+import { getManager, Repository } from 'typeorm';
 
-import { Announcement } from './model'
+import { Announcement } from './model';
 
 export class AnnouncementController {
   private readonly announcementRepo: Repository<Announcement> = getManager().getRepository(
     'Announcement'
-  )
+  );
 
   /**
    * Read all announcements from db
@@ -26,11 +26,11 @@ export class AnnouncementController {
     try {
       const announcements: Announcement[] = await this.announcementRepo.find({
         relations: ['author']
-      })
+      });
 
-      return res.json({ status: res.statusCode, data: announcements })
+      return res.json({ status: res.statusCode, data: announcements });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -49,10 +49,10 @@ export class AnnouncementController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { announcementId } = req.params
+      const { announcementId } = req.params;
 
       if (!announcementId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
       const announcement: Announcement | undefined = await this.announcementRepo.findOne(
@@ -60,11 +60,11 @@ export class AnnouncementController {
         {
           relations: ['author']
         }
-      )
+      );
 
-      return res.json({ status: res.statusCode, data: announcement })
+      return res.json({ status: res.statusCode, data: announcement });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -84,14 +84,14 @@ export class AnnouncementController {
   ): Promise<Response | void> {
     try {
       if (!req.body.announcement) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
-      const newAnnouncement: Announcement = await this.announcementRepo.save(req.body.announcement)
+      const newAnnouncement: Announcement = await this.announcementRepo.save(req.body.announcement);
 
-      return res.json({ status: res.statusCode, data: newAnnouncement })
+      return res.json({ status: res.statusCode, data: newAnnouncement });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -110,25 +110,25 @@ export class AnnouncementController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { announcementId } = req.params
+      const { announcementId } = req.params;
 
       if (!announcementId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
       const announcement: Announcement | undefined = await this.announcementRepo.findOne(
         announcementId
-      )
+      );
 
       if (!announcement) {
-        return res.status(404).json({ status: 404, error: 'Announcement not found' })
+        return res.status(404).json({ status: 404, error: 'Announcement not found' });
       }
 
-      await this.announcementRepo.remove(announcement)
+      await this.announcementRepo.remove(announcement);
 
-      return res.status(204).send()
+      return res.status(204).send();
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 }

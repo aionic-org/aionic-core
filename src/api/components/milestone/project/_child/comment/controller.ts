@@ -1,13 +1,13 @@
-import { bind } from 'decko'
-import { NextFunction, Request, Response } from 'express'
-import { getManager, Repository } from 'typeorm'
+import { bind } from 'decko';
+import { NextFunction, Request, Response } from 'express';
+import { getManager, Repository } from 'typeorm';
 
-import { ProjectComment } from './model'
+import { ProjectComment } from './model';
 
 export class ProjectCommentController {
   private readonly projectCommentRepo: Repository<ProjectComment> = getManager().getRepository(
     'ProjectComment'
-  )
+  );
 
   /**
    * Read all comments from a certain project from db
@@ -24,10 +24,10 @@ export class ProjectCommentController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { projectId } = req.params
+      const { projectId } = req.params;
 
       if (!projectId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
       const comments: ProjectComment[] = await this.projectCommentRepo.find({
@@ -37,11 +37,11 @@ export class ProjectCommentController {
             id: projectId
           }
         }
-      })
+      });
 
-      return res.json({ status: res.statusCode, data: comments })
+      return res.json({ status: res.statusCode, data: comments });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -60,21 +60,21 @@ export class ProjectCommentController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { projectId } = req.params
+      const { projectId } = req.params;
 
       if (!projectId || !req.body.comment) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
       const newComment: ProjectComment = await this.projectCommentRepo.save({
         ...req.body.comment,
         author: req.user,
         project: { id: projectId }
-      })
+      });
 
-      return res.json({ status: res.statusCode, data: newComment })
+      return res.json({ status: res.statusCode, data: newComment });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -93,10 +93,10 @@ export class ProjectCommentController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { projectId, commentId } = req.params
+      const { projectId, commentId } = req.params;
 
       if (!projectId || !commentId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
       const comment: ProjectComment | undefined = await this.projectCommentRepo.findOne({
@@ -106,17 +106,17 @@ export class ProjectCommentController {
             id: projectId
           }
         }
-      })
+      });
 
       if (!comment) {
-        return res.status(404).json({ status: 404, error: 'Comment not found' })
+        return res.status(404).json({ status: 404, error: 'Comment not found' });
       }
 
-      await this.projectCommentRepo.remove(comment)
+      await this.projectCommentRepo.remove(comment);
 
-      return res.status(204).send()
+      return res.status(204).send();
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 }

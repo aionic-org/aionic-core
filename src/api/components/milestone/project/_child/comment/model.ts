@@ -5,33 +5,33 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   Timestamp
-} from 'typeorm'
+} from 'typeorm';
 
-import { User } from '@global/user/model'
+import { User } from '@global/user/model';
 
-import { Project } from '@milestone/project/model'
+import { Project } from '@milestone/project/model';
 
 @Entity()
 export class ProjectComment {
   /***** columns *****/
   @PrimaryGeneratedColumn()
-  public id: number
+  public id: number;
 
   @Column('text')
-  public text: string
+  public text: string;
 
   @Column({
     default: true
   })
-  public active: boolean
+  public active: boolean;
 
   @CreateDateColumn()
-  public created: Timestamp
+  public created: Timestamp;
 
   /***** relations *****/
-  @ManyToOne(type => User, user => user.projectComments, { onDelete: 'CASCADE' })
-  public author: User
+  @ManyToOne((type) => User, (user) => user.projectComments, { onDelete: 'CASCADE' })
+  public author: User;
 
-  @ManyToOne(type => Project, project => project.comments)
-  public project: Project
+  @ManyToOne((type) => Project, (project) => project.comments)
+  public project: Project;
 }

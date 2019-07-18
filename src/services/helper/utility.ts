@@ -1,8 +1,8 @@
-import { compare, genSalt, hash } from 'bcrypt-nodejs'
-import * as crypto from 'crypto'
-import { v1 as uuidv1 } from 'uuid'
+import { compare, genSalt, hash } from 'bcrypt-nodejs';
+import * as crypto from 'crypto';
+import { v1 as uuidv1 } from 'uuid';
 
-import { logger } from '@config/logger'
+import { logger } from '@config/logger';
 
 /**
  * UtilityService
@@ -17,7 +17,7 @@ export class UtilityService {
    * @returns {void}
    */
   public static handleError(err: any): void {
-    logger.error(err.stack || err)
+    logger.error(err.stack || err);
   }
 
   /**
@@ -30,7 +30,7 @@ export class UtilityService {
     return new Promise((resolve, reject) => {
       genSalt(10, (err, salt) => {
         if (err) {
-          reject(err)
+          reject(err);
         }
 
         hash(
@@ -41,14 +41,14 @@ export class UtilityService {
           },
           (error, hashedVal) => {
             if (error) {
-              reject(error)
+              reject(error);
             }
 
-            resolve(hashedVal)
+            resolve(hashedVal);
           }
-        )
-      })
-    })
+        );
+      });
+    });
   }
 
   /**
@@ -62,11 +62,11 @@ export class UtilityService {
     return new Promise((resolve, reject) => {
       compare(plainPassword, hashedPassword, (err, res) => {
         if (err) {
-          reject(err)
+          reject(err);
         }
-        resolve(res)
-      })
-    })
+        resolve(res);
+      });
+    });
   }
 
   /**
@@ -79,7 +79,7 @@ export class UtilityService {
     return crypto
       .createHash('sha256')
       .update(string)
-      .digest('hex')
+      .digest('hex');
   }
 
   /**
@@ -88,6 +88,6 @@ export class UtilityService {
    * @returns {string} Returns UUID
    */
   public static generateUuid(): string {
-    return uuidv1()
+    return uuidv1();
   }
 }

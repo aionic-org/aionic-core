@@ -1,39 +1,39 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Task } from '@milestone/task/model'
-import { GitRepository } from '../repository/model'
+import { Task } from '@milestone/task/model';
+import { GitRepository } from '../repository/model';
 
 @Entity()
 export class GitOrganization {
   /***** columns *****/
   @PrimaryGeneratedColumn()
-  public id: number
+  public id: number;
 
   @Column({
     unique: true
   })
-  public name: string
+  public name: string;
 
   @Column({
     type: 'text'
   })
-  public description: string
+  public description: string;
 
   @Column()
-  public url: string
+  public url: string;
 
   @Column()
-  public avatarUrl: string
+  public avatarUrl: string;
 
   @Column()
-  public reposUrl: string
+  public reposUrl: string;
 
   @Column()
-  public htmlUrl: string
+  public htmlUrl: string;
 
-  @OneToMany(type => Task, task => task.repository)
-  public tasks: Task[]
+  @OneToMany((type) => Task, (task) => task.repository)
+  public tasks: Task[];
 
-  @OneToMany(type => GitRepository, gitRepository => gitRepository.organization)
-  public repositories: GitRepository[]
+  @OneToMany((type) => GitRepository, (gitRepository) => gitRepository.organization)
+  public repositories: GitRepository[];
 }

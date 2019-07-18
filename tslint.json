@@ -1,5 +1,5 @@
 {
-  "extends": ["tslint:latest", "tslint-config-prettier"],
+  "extends": ["tslint-config-airbnb", "tslint-config-prettier"],
   "rules": {
     "variable-name": [true, "allow-leading-underscore"],
     "no-console": false,
@@ -12,6 +12,7 @@
       "@config",
       "@services"
     ],
-    "no-implicit-dependencies": [true, "dev", ["@global", "@milestone", "@config", "@services"]]
+    "no-implicit-dependencies": [true, "dev", ["@global", "@milestone", "@config", "@services"]],
+    "no-boolean-literal-compare": false
   }
 }

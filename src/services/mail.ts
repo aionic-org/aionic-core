@@ -1,15 +1,15 @@
-import { Data, renderFile } from 'ejs'
+import { Data, renderFile } from 'ejs';
 import {
   createTransport,
   SendMailOptions,
   SentMessageInfo,
   Transporter,
   TransportOptions
-} from 'nodemailer'
-import { resolve } from 'path'
+} from 'nodemailer';
+import { resolve } from 'path';
 
-import { env } from '@config/globals'
-import { logger } from '@config/logger'
+import { env } from '@config/globals';
+import { logger } from '@config/logger';
 
 /**
  * MailService
@@ -18,7 +18,7 @@ import { logger } from '@config/logger'
  * Mail services in components inherits from this one
  */
 export abstract class MailService {
-  private transporter: Transporter = createTransport(env.SMTP as TransportOptions)
+  private transporter: Transporter = createTransport(env.SMTP as TransportOptions);
 
   /**
    * Send email
@@ -32,10 +32,10 @@ export abstract class MailService {
     forceSend: boolean = false
   ): Promise<SentMessageInfo> | void {
     if (env.NODE_ENV === 'production' || forceSend) {
-      return this.transporter.sendMail(config)
-    } else {
-      logger.info('Email are only sent in production mode!')
-    }
+      return this.transporter.sendMail(config);
+    } 
+      logger.info('Email are only sent in production mode!');
+    
   }
 
   /**
@@ -45,6 +45,6 @@ export abstract class MailService {
    * @param {Data} data
    */
   protected renderMailTemplate(path: string, data: Data): Promise<string> {
-    return renderFile(resolve(path), data)
+    return renderFile(resolve(path), data);
   }
 }

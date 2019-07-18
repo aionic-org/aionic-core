@@ -1,21 +1,21 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-import { AuthService, PassportStrategy } from '@services/auth'
+import { AuthService, PassportStrategy } from '@services/auth';
 
-import { ConfigController } from './controller'
+import { ConfigController } from './controller';
 
 export class ConfigRoutes {
-  private authSerivce: AuthService
-  private readonly _router: Router = Router()
-  private readonly controller: ConfigController = new ConfigController()
+  private authSerivce: AuthService;
+  private readonly _router: Router = Router();
+  private readonly controller: ConfigController = new ConfigController();
 
   public constructor(defaultStrategy?: PassportStrategy) {
-    this.authSerivce = new AuthService(defaultStrategy)
-    this.initRoutes()
+    this.authSerivce = new AuthService(defaultStrategy);
+    this.initRoutes();
   }
 
   public get router(): Router {
-    return this._router
+    return this._router;
   }
 
   private initRoutes() {
@@ -24,12 +24,12 @@ export class ConfigRoutes {
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('config', 'getCache'),
       this.controller.getCache
-    )
+    );
     this._router.delete(
       '/cache',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('config', 'deleteCache'),
       this.controller.deleteCache
-    )
+    );
   }
 }

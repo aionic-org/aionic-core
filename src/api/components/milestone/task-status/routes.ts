@@ -1,20 +1,20 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-import { AuthService, PassportStrategy } from '@services/auth'
-import { TaskStatusController } from './controller'
+import { AuthService, PassportStrategy } from '@services/auth';
+import { TaskStatusController } from './controller';
 
 export class TaskStatusRoutes {
-  private readonly controller: TaskStatusController = new TaskStatusController()
-  private authSerivce: AuthService
-  private _router: Router = Router()
+  private readonly controller: TaskStatusController = new TaskStatusController();
+  private authSerivce: AuthService;
+  private _router: Router = Router();
 
   public constructor(defaultStrategy?: PassportStrategy) {
-    this.authSerivce = new AuthService(defaultStrategy)
-    this.initRoutes()
+    this.authSerivce = new AuthService(defaultStrategy);
+    this.initRoutes();
   }
 
   public get router(): Router {
-    return this._router
+    return this._router;
   }
 
   private initRoutes(): void {
@@ -23,6 +23,6 @@ export class TaskStatusRoutes {
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('taskStatus', 'read'),
       this.controller.readTaskStatus
-    )
+    );
   }
 }

@@ -1,42 +1,42 @@
-import 'reflect-metadata'
+import 'reflect-metadata';
 
-import 'source-map-support/register'
+import 'source-map-support/register';
 
-import 'module-alias/register'
+import 'module-alias/register';
 
 // Set env variables from .env file
-import { config } from 'dotenv'
-config()
+import { config } from 'dotenv';
+config();
 
-import { createServer } from 'http'
-import { createConnection } from 'typeorm'
+import { createServer } from 'http';
+import { createConnection } from 'typeorm';
 
-import { env } from '@config/globals'
-import { logger } from '@config/logger'
+import { env } from '@config/globals';
+import { logger } from '@config/logger';
 
-import { Server } from './api/server'
+import { Server } from './api/server';
 
 createConnection()
   .then(() => {
-    logger.info('Initializing ORM connection...')
+    logger.info('Initializing ORM connection...');
 
     // Init express server
-    const app = new Server().app
-    const server = createServer(app)
+    const app = new Server().app;
+    const server = createServer(app);
 
     // Start express server
-    server.listen(env.NODE_PORT)
+    server.listen(env.NODE_PORT);
 
     server.on('listening', () => {
       logger.info(
         `aionic-core server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode`
-      )
-    })
+      );
+    });
 
     server.on('close', () => {
-      logger.info('Server closed')
-    })
+      logger.info('Server closed');
+    });
   })
-  .catch(err => {
-    logger.error(err)
-  })
+  .catch((err) => {
+    logger.error(err);
+  });

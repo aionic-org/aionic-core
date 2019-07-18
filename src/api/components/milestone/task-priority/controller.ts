@@ -1,16 +1,16 @@
-import { bind } from 'decko'
-import { NextFunction, Request, Response } from 'express'
-import { getManager, Repository } from 'typeorm'
+import { bind } from 'decko';
+import { NextFunction, Request, Response } from 'express';
+import { getManager, Repository } from 'typeorm';
 
-import { CacheService } from '@services/cache'
+import { CacheService } from '@services/cache';
 
-import { TaskPriority } from './model'
+import { TaskPriority } from './model';
 
 export class TaskPriorityController {
-  private readonly cacheService: CacheService = new CacheService()
+  private readonly cacheService: CacheService = new CacheService();
   private readonly taskPriorityRepo: Repository<TaskPriority> = getManager().getRepository(
     'TaskPriority'
-  )
+  );
 
   /**
    * Read all task priorities from db
@@ -27,11 +27,11 @@ export class TaskPriorityController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const taskPriorities: TaskPriority[] = await this.cacheService.get('taskPriority', this)
+      const taskPriorities: TaskPriority[] = await this.cacheService.get('taskPriority', this);
 
-      return res.json({ status: res.statusCode, data: taskPriorities })
+      return res.json({ status: res.statusCode, data: taskPriorities });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -42,6 +42,6 @@ export class TaskPriorityController {
    */
   @bind
   private getCachedContent(): Promise<TaskPriority[]> {
-    return this.taskPriorityRepo.find()
+    return this.taskPriorityRepo.find();
   }
 }

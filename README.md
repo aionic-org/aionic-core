@@ -5,7 +5,7 @@
 Aionic offers open source applications for project management and collaboration. Our focus is on simplifying the workflow for agile teams in an open way.
 
 ## Description
-Aionic offers a set of **open source products** for project management of any size. All our products are released under the [MIT](https://opensource.org/licenses/MIT) license, so feel free to customize it and share it with others!.
+Aionic offers a set of **open source products** for project management of any size. All our products are released under the [MIT](https://opensource.org/licenses/MIT) license, so feel free to customize it and share it with others!
 
 Please note that we just develop the software and don't host the applications anywhere for public usage. That means you have to take care of the hosting for yourself.
 
@@ -74,4 +74,4 @@ We try to help other people / companies realizing their ideas by offering highly
 - [Twitter](https://twitter.com/AionicApps)
 
 ## License
-Aionic-Core is released under [MIT](https://github.com/Aionic-Apps/aionic-core/blob/master/LICENSE) license.
+Aionic Core is released under [MIT](https://github.com/Aionic-Apps/aionic-core/blob/master/LICENSE) license.

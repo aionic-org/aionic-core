@@ -1,9 +1,9 @@
-import { bind } from 'decko'
-import { Handler, NextFunction, Request, Response } from 'express'
-import { authenticate } from 'passport'
-import { Strategy, StrategyOptions } from 'passport-jwt'
+import { bind } from 'decko';
+import { Handler, NextFunction, Request, Response } from 'express';
+import { authenticate } from 'passport';
+import { Strategy, StrategyOptions } from 'passport-jwt';
 
-import { BaseStrategy } from './base'
+import { BaseStrategy } from './base';
 
 /**
  * Passport JWT Authentication
@@ -13,12 +13,12 @@ import { BaseStrategy } from './base'
  * - This JWT is used inside the request header for later requests
  */
 export class JwtStrategy extends BaseStrategy {
-  private strategyOptions: StrategyOptions
+  private strategyOptions: StrategyOptions;
 
   public constructor(strategyOptions: StrategyOptions) {
-    super()
-    this.strategyOptions = strategyOptions
-    this._strategy = new Strategy(this.strategyOptions, this.verify)
+    super();
+    this.strategyOptions = strategyOptions;
+    this._strategy = new Strategy(this.strategyOptions, this.verify);
   }
 
   /**
@@ -34,7 +34,7 @@ export class JwtStrategy extends BaseStrategy {
       authenticate('jwt', { session: false }, (err, user, info) => {
         // internal error
         if (err) {
-          return next(err)
+          return next(err);
         }
         if (info) {
           switch (info.message) {
@@ -42,13 +42,13 @@ export class JwtStrategy extends BaseStrategy {
               return res.status(401).json({
                 error: 'No jwt provided.',
                 status: 401
-              })
+              });
 
             case 'jwt expired':
               return res.status(401).json({
                 error: 'Jwt expired.',
                 status: 401
-              })
+              });
           }
         }
 
@@ -56,16 +56,16 @@ export class JwtStrategy extends BaseStrategy {
           return res.status(401).json({
             data: 'User is not authorized',
             status: 401
-          })
+          });
         }
 
         // success - store user in req scope
-        req.user = user
+        req.user = user;
 
-        return next()
-      })(req, res, next)
+        return next();
+      })(req, res, next);
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -87,17 +87,17 @@ export class JwtStrategy extends BaseStrategy {
           active: true,
           id: payload.userID
         }
-      })
+      });
 
       if (!user) {
-        return next(null, null)
+        return next(null, null);
       }
 
-      await this.setPermissions(user)
+      await this.setPermissions(user);
 
-      return next(null, user)
+      return next(null, user);
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 }

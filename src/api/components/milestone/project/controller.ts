@@ -1,11 +1,11 @@
-import { bind } from 'decko'
-import { NextFunction, Request, Response } from 'express'
-import { getManager, Repository } from 'typeorm'
+import { bind } from 'decko';
+import { NextFunction, Request, Response } from 'express';
+import { getManager, Repository } from 'typeorm';
 
-import { Project } from './model'
+import { Project } from './model';
 
 export class ProjectController {
-  private readonly projectRepo: Repository<Project> = getManager().getRepository('Project')
+  private readonly projectRepo: Repository<Project> = getManager().getRepository('Project');
 
   /**
    * Read all projects from db
@@ -22,28 +22,28 @@ export class ProjectController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { orderby, orderdir, limit } = req.query
+      const { orderby, orderdir, limit } = req.query;
 
-      let order = {}
-      let take: object = {}
+      let order = {};
+      let take: object = {};
 
       if (orderby || orderdir) {
-        order = { order: { [orderby || 'id']: orderdir || 'ASC' } }
+        order = { order: { [orderby || 'id']: orderdir || 'ASC' } };
       }
 
       if (limit) {
-        take = { take: limit }
+        take = { take: limit };
       }
 
       const projects: Project[] = await this.projectRepo.find({
         relations: ['author', 'tasks', 'tasks.status'],
         ...order,
         ...take
-      })
+      });
 
-      return res.json({ status: res.statusCode, data: projects })
+      return res.json({ status: res.statusCode, data: projects });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -62,10 +62,10 @@ export class ProjectController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { projectId } = req.params
+      const { projectId } = req.params;
 
       if (!projectId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
       const project: Project | undefined = await this.projectRepo.findOne(projectId, {
@@ -78,11 +78,11 @@ export class ProjectController {
           'tasks.status',
           'tasks.type'
         ]
-      })
+      });
 
-      return res.json({ status: res.statusCode, data: project })
+      return res.json({ status: res.statusCode, data: project });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -102,14 +102,14 @@ export class ProjectController {
   ): Promise<Response | void> {
     try {
       if (!req.body.project) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
-      const newProject: Project = await this.projectRepo.save(req.body.project)
+      const newProject: Project = await this.projectRepo.save(req.body.project);
 
-      return res.json({ status: res.statusCode, data: newProject })
+      return res.json({ status: res.statusCode, data: newProject });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -128,23 +128,23 @@ export class ProjectController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { projectId } = req.params
+      const { projectId } = req.params;
 
       if (!projectId || !req.body.project) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
-      const project: Project | undefined = await this.projectRepo.findOne(projectId)
+      const project: Project | undefined = await this.projectRepo.findOne(projectId);
 
       if (!project) {
-        return res.status(404).json({ status: 404, error: 'project not found' })
+        return res.status(404).json({ status: 404, error: 'project not found' });
       }
 
-      const updatedProject: Project = await this.projectRepo.save(req.body.project)
+      const updatedProject: Project = await this.projectRepo.save(req.body.project);
 
-      return res.json({ status: res.statusCode, data: updatedProject })
+      return res.json({ status: res.statusCode, data: updatedProject });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -163,23 +163,23 @@ export class ProjectController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { projectId } = req.params
+      const { projectId } = req.params;
 
       if (!projectId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
-      const project: Project | undefined = await this.projectRepo.findOne(projectId)
+      const project: Project | undefined = await this.projectRepo.findOne(projectId);
 
       if (!project) {
-        return res.status(404).json({ status: 404, error: 'Project not found' })
+        return res.status(404).json({ status: 404, error: 'Project not found' });
       }
 
-      await this.projectRepo.remove(project)
+      await this.projectRepo.remove(project);
 
-      return res.status(204).send()
+      return res.status(204).send();
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 }

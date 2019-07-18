@@ -1,13 +1,13 @@
-import { bind } from 'decko'
-import { NextFunction, Request, Response } from 'express'
-import { getManager, Repository } from 'typeorm'
+import { bind } from 'decko';
+import { NextFunction, Request, Response } from 'express';
+import { getManager, Repository } from 'typeorm';
 
-import { TaskComment } from './model'
+import { TaskComment } from './model';
 
 export class TaskCommentController {
   private readonly taskCommentRepo: Repository<TaskComment> = getManager().getRepository(
     'TaskComment'
-  )
+  );
 
   /**
    * Read all comments from a certain task from db
@@ -24,10 +24,10 @@ export class TaskCommentController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { taskId } = req.params
+      const { taskId } = req.params;
 
       if (!taskId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
       const comments: TaskComment[] = await this.taskCommentRepo.find({
@@ -37,11 +37,11 @@ export class TaskCommentController {
             id: taskId
           }
         }
-      })
+      });
 
-      return res.json({ status: res.statusCode, data: comments })
+      return res.json({ status: res.statusCode, data: comments });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -60,21 +60,21 @@ export class TaskCommentController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { taskId } = req.params
+      const { taskId } = req.params;
 
       if (!taskId || !req.body.comment) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
       const newComment: TaskComment = await this.taskCommentRepo.save({
         ...req.body.comment,
         author: req.user,
         task: { id: taskId }
-      })
+      });
 
-      return res.json({ status: res.statusCode, data: newComment })
+      return res.json({ status: res.statusCode, data: newComment });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -93,10 +93,10 @@ export class TaskCommentController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { taskId, commentId } = req.params
+      const { taskId, commentId } = req.params;
 
       if (!taskId || !commentId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
       const comment: TaskComment | undefined = await this.taskCommentRepo.findOne({
@@ -106,17 +106,17 @@ export class TaskCommentController {
             id: taskId
           }
         }
-      })
+      });
 
       if (!comment) {
-        return res.status(404).json({ status: 404, error: 'Comment not found' })
+        return res.status(404).json({ status: 404, error: 'Comment not found' });
       }
 
-      await this.taskCommentRepo.remove(comment)
+      await this.taskCommentRepo.remove(comment);
 
-      return res.status(204).send()
+      return res.status(204).send();
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 }

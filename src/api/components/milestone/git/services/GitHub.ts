@@ -1,14 +1,14 @@
-import { bind } from 'decko'
+import { bind } from 'decko';
 
-import { HttpService } from '@services/helper/http'
-import { GitOrganization } from '../_child/organization/model'
-import { GitRepository } from '../_child/repository/model'
+import { HttpService } from '@services/helper/http';
+import { GitOrganization } from '../_child/organization/model';
+import { GitRepository } from '../_child/repository/model';
 
 export interface ICommit {
-  author: string
-  message: string
-  sha: string
-  url: string
+  author: string;
+  message: string;
+  sha: string;
+  url: string;
 }
 
 /**
@@ -21,7 +21,7 @@ export class GitHubService extends HttpService {
   public constructor() {
     super({
       baseURL: 'https://api.github.com'
-    })
+    });
   }
 
   /**
@@ -33,24 +33,24 @@ export class GitHubService extends HttpService {
   @bind
   public async getOrganization(organization: string): Promise<GitOrganization> {
     try {
-      const res = await this.fetchData(`orgs/${organization}`)
-      const data = res.data
+      const res = await this.fetchData(`orgs/${organization}`);
+      const data = res.data;
 
-      const org: GitOrganization = new GitOrganization()
+      const org: GitOrganization = new GitOrganization();
 
-      org.name = data.login
-      org.description = data.description
-      org.url = data.url
-      org.avatarUrl = data.avatar_url
-      org.reposUrl = data.repos_url
-      org.htmlUrl = data.html_url
+      org.name = data.login;
+      org.description = data.description;
+      org.url = data.url;
+      org.avatarUrl = data.avatar_url;
+      org.reposUrl = data.repos_url;
+      org.htmlUrl = data.html_url;
 
-      return org
+      return org;
     } catch (err) {
       if (err.response.status === 404) {
-        throw new Error('Organization not found!')
+        throw new Error('Organization not found!');
       } else {
-        throw new Error('Failed to fetch data from GitHub!')
+        throw new Error('Failed to fetch data from GitHub!');
       }
     }
   }
@@ -64,20 +64,20 @@ export class GitHubService extends HttpService {
   @bind
   public async getOrganizationRepos(organization: GitOrganization): Promise<GitRepository[]> {
     try {
-      const res = await this.fetchData(`orgs/${organization.name}/repos`)
+      const res = await this.fetchData(`orgs/${organization.name}/repos`);
 
-      const repos: GitRepository[] = []
+      const repos: GitRepository[] = [];
       for (const repo of res.data) {
-        const newRepo: GitRepository = new GitRepository()
-        newRepo.name = repo.name
-        newRepo.url = repo.url
-        newRepo.organization = organization
-        repos.push(newRepo)
+        const newRepo: GitRepository = new GitRepository();
+        newRepo.name = repo.name;
+        newRepo.url = repo.url;
+        newRepo.organization = organization;
+        repos.push(newRepo);
       }
 
-      return repos
+      return repos;
     } catch (err) {
-      throw err
+      throw err;
     }
   }
 
@@ -95,7 +95,7 @@ export class GitHubService extends HttpService {
   ): Promise<ICommit[]> {
     const res = await this.fetchData(
       `repos/${organization.name}/${repository.name}/commits?sha=${branch}`
-    )
+    );
 
     return res.data.map((commit: any) => {
       return {
@@ -103,7 +103,7 @@ export class GitHubService extends HttpService {
         message: commit.commit.message,
         sha: commit.sha,
         url: commit.html_url
-      }
-    })
+      };
+    });
   }
 }

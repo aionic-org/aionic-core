@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
 /**
  * HttpService
@@ -6,20 +6,20 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
  * Service for making HTTP requests
  */
 export class HttpService {
-  private axiosInstance: AxiosInstance
-  private _reqConfig: AxiosRequestConfig
+  private axiosInstance: AxiosInstance;
+  private _reqConfig: AxiosRequestConfig;
 
   public constructor(reqConfig?: AxiosRequestConfig) {
-    this._reqConfig = reqConfig || {}
-    this.axiosInstance = axios.create(this._reqConfig)
+    this._reqConfig = reqConfig || {};
+    this.axiosInstance = axios.create(this._reqConfig);
   }
 
   public get reqConfig(): AxiosRequestConfig {
-    return this._reqConfig
+    return this._reqConfig;
   }
 
   public set reqConfig(reqConfig: AxiosRequestConfig) {
-    this._reqConfig = reqConfig
+    this._reqConfig = reqConfig;
   }
 
   /**
@@ -31,13 +31,13 @@ export class HttpService {
     return new Promise((resolve, reject) => {
       this.axiosInstance
         .request(reqConfig)
-        .then(res => {
-          resolve(res)
+        .then((res) => {
+          resolve(res);
         })
-        .catch(err => {
-          reject(err)
-        })
-    })
+        .catch((err) => {
+          reject(err);
+        });
+    });
   }
 
   /**
@@ -50,13 +50,13 @@ export class HttpService {
     return new Promise((resolve, reject) => {
       this.axiosInstance
         .get(url, { ...this._reqConfig, params })
-        .then(res => {
-          resolve(res)
+        .then((res) => {
+          resolve(res);
         })
-        .catch(err => {
-          reject(err)
-        })
-    })
+        .catch((err) => {
+          reject(err);
+        });
+    });
   }
 
   /**
@@ -69,12 +69,12 @@ export class HttpService {
     return new Promise((resolve, reject) => {
       this.axiosInstance
         .post(url, { ...this._reqConfig, data })
-        .then(res => {
-          resolve(res)
+        .then((res) => {
+          resolve(res);
         })
-        .catch(err => {
-          reject(err)
-        })
-    })
+        .catch((err) => {
+          reject(err);
+        });
+    });
   }
 }

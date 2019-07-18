@@ -9,48 +9,48 @@ import {
   PrimaryGeneratedColumn,
   Timestamp,
   UpdateDateColumn
-} from 'typeorm'
+} from 'typeorm';
 
-import { User } from '@global/user/model'
-import { Task } from '@milestone/task/model'
-import { ProjectComment } from './_child/comment/model'
+import { User } from '@global/user/model';
+import { Task } from '@milestone/task/model';
+import { ProjectComment } from './_child/comment/model';
 
 @Entity()
 export class Project {
   /***** columns *****/
   @PrimaryGeneratedColumn()
-  public id: number
+  public id: number;
 
   @Column({
     default: null
   })
-  public title: string
+  public title: string;
 
   @Column({
     default: null,
     type: 'text'
   })
-  public description: string
+  public description: string;
 
   @Column({
     default: false
   })
-  public completed: boolean
+  public completed: boolean;
 
   @CreateDateColumn()
-  public created: Timestamp
+  public created: Timestamp;
 
   @UpdateDateColumn()
-  public updated: Timestamp
+  public updated: Timestamp;
 
   /***** relations *****/
-  @ManyToOne(type => User, user => user.author)
-  public author: User
+  @ManyToOne((type) => User, (user) => user.author)
+  public author: User;
 
-  @OneToMany(type => ProjectComment, projectComment => projectComment.project)
-  public comments: ProjectComment[]
+  @OneToMany((type) => ProjectComment, (projectComment) => projectComment.project)
+  public comments: ProjectComment[];
 
-  @ManyToMany(type => Task, task => task.projects)
+  @ManyToMany((type) => Task, (task) => task.projects)
   @JoinTable()
-  public tasks: Task[]
+  public tasks: Task[];
 }

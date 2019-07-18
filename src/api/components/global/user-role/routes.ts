@@ -1,21 +1,21 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-import { AuthService, PassportStrategy } from '@services/auth'
+import { AuthService, PassportStrategy } from '@services/auth';
 
-import { UserRoleController } from './controller'
+import { UserRoleController } from './controller';
 
 export class UserRoleRoutes {
-  private authSerivce: AuthService
-  private readonly _router: Router = Router()
-  private readonly controller: UserRoleController = new UserRoleController()
+  private authSerivce: AuthService;
+  private readonly _router: Router = Router();
+  private readonly controller: UserRoleController = new UserRoleController();
 
   public constructor(defaultStrategy?: PassportStrategy) {
-    this.authSerivce = new AuthService(defaultStrategy)
-    this.initRoutes()
+    this.authSerivce = new AuthService(defaultStrategy);
+    this.initRoutes();
   }
 
   public get router(): Router {
-    return this._router
+    return this._router;
   }
 
   private initRoutes() {
@@ -24,6 +24,6 @@ export class UserRoleRoutes {
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('userRole', 'read'),
       this.controller.readUserRoles
-    )
+    );
   }
 }

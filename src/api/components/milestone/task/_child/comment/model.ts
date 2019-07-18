@@ -5,33 +5,33 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   Timestamp
-} from 'typeorm'
+} from 'typeorm';
 
-import { User } from '@global/user/model'
+import { User } from '@global/user/model';
 
-import { Task } from '@milestone/task/model'
+import { Task } from '@milestone/task/model';
 
 @Entity()
 export class TaskComment {
   /***** columns *****/
   @PrimaryGeneratedColumn()
-  public id: number
+  public id: number;
 
   @Column('text')
-  public text: string
+  public text: string;
 
   @Column({
     default: true
   })
-  public active: boolean
+  public active: boolean;
 
   @CreateDateColumn()
-  public created: Timestamp
+  public created: Timestamp;
 
   /***** relations *****/
-  @ManyToOne(type => User, user => user.taskComments, { onDelete: 'CASCADE' })
-  public author: User
+  @ManyToOne((type) => User, (user) => user.taskComments, { onDelete: 'CASCADE' })
+  public author: User;
 
-  @ManyToOne(type => Task, task => task.comments)
-  public task: Task
+  @ManyToOne((type) => Task, (task) => task.comments)
+  public task: Task;
 }

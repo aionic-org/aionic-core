@@ -1,22 +1,22 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-import { AuthService, PassportStrategy } from '@services/auth'
+import { AuthService, PassportStrategy } from '@services/auth';
 
-import { GitRepositoryController } from './controller'
+import { GitRepositoryController } from './controller';
 
 export class GitRepositoryRoutes {
-  private readonly controller: GitRepositoryController = new GitRepositoryController()
-  private authSerivce: AuthService
-  private _router: Router = Router({ mergeParams: true })
+  private readonly controller: GitRepositoryController = new GitRepositoryController();
+  private authSerivce: AuthService;
+  private _router: Router = Router({ mergeParams: true });
 
   public constructor(defaultStrategy?: PassportStrategy) {
-    this.authSerivce = new AuthService(defaultStrategy)
+    this.authSerivce = new AuthService(defaultStrategy);
 
-    this.initRoutes()
+    this.initRoutes();
   }
 
   public get router(): Router {
-    return this._router
+    return this._router;
   }
 
   private initRoutes(): void {
@@ -25,13 +25,13 @@ export class GitRepositoryRoutes {
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('gitOrgRepo', 'read'),
       this.controller.readGitOrgRepos
-    )
+    );
 
     this.router.get(
       '/repository/:repoId/:branch/commits',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('gitOrgRepo', 'read'),
       this.controller.readGitOrgRepoCommits
-    )
+    );
   }
 }

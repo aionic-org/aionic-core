@@ -21,9 +21,9 @@ export const env = {
       rejectUnauthorized: false
     }
   }
-}
+};
 
 // Mail addresses
 export const mails = {
   service: 'service@aionic.app'
-}
+};
