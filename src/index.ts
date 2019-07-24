@@ -16,9 +16,11 @@ import { logger } from '@config/logger';
 
 import { Server } from './api/server';
 
-createConnection()
-  .then(() => {
+// Startup
+(async function main() {
+  try {
     logger.info('Initializing ORM connection...');
+    await createConnection();
 
     // Init express server
     const app = new Server().app;
@@ -29,14 +31,14 @@ createConnection()
 
     server.on('listening', () => {
       logger.info(
-        `aionic-core server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode`
+        `aionic-core node server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode`
       );
     });
 
     server.on('close', () => {
       logger.info('Server closed');
     });
-  })
-  .catch((err) => {
+  } catch (err) {
     logger.error(err);
-  });
+  }
+})();

@@ -13,7 +13,6 @@ export interface ICommit {
 
 /**
  * Communication between Aionic and GitHub developer API
- *
  * https://developer.github.com/
  */
 
@@ -47,7 +46,7 @@ export class GitHubService extends HttpService {
 
       return org;
     } catch (err) {
-      if (err.response.status === 404) {
+      if (err.response && err.response.status === 404) {
         throw new Error('Organization not found!');
       } else {
         throw new Error('Failed to fetch data from GitHub!');
