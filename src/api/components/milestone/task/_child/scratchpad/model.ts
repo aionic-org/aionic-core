@@ -5,28 +5,28 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   Timestamp
-} from 'typeorm'
+} from 'typeorm';
 
-import { User } from '@global/user/model'
+import { User } from '@global/user/model';
 
-import { Task } from '@milestone/task/model'
+import { Task } from '@milestone/task/model';
 
 @Entity()
 export class TaskScratchpad {
   /***** columns *****/
   @PrimaryGeneratedColumn()
-  public id: number
+  public id: number;
 
   @Column('text')
-  public text: string
+  public text: string;
 
   @CreateDateColumn()
-  public created: Timestamp
+  public created: Timestamp;
 
   /***** relations *****/
-  @ManyToOne(type => User, user => user.taskScratchpads, { onDelete: 'CASCADE' })
-  public author: User
+  @ManyToOne((type) => User, (user) => user.taskScratchpads, { onDelete: 'CASCADE' })
+  public author: User;
 
-  @ManyToOne(type => Task, task => task.comments)
-  public task: Task
+  @ManyToOne((type) => Task, (task) => task.comments)
+  public task: Task;
 }

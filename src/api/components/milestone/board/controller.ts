@@ -1,11 +1,11 @@
-import { bind } from 'decko'
-import { NextFunction, Request, Response } from 'express'
-import { getManager, Repository } from 'typeorm'
+import { bind } from 'decko';
+import { NextFunction, Request, Response } from 'express';
+import { getManager, Repository } from 'typeorm';
 
-import { Board } from './model'
+import { Board } from './model';
 
 export class BoardController {
-  private readonly boardRepo: Repository<Board> = getManager().getRepository('Board')
+  private readonly boardRepo: Repository<Board> = getManager().getRepository('Board');
 
   /**
    * Read all boards from db
@@ -22,13 +22,28 @@ export class BoardController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const boards: Board[] = await this.boardRepo.find({
-        relations: ['author', 'users']
-      })
+      const { orderby, orderdir, limit } = req.query;
 
-      return res.json({ status: res.statusCode, data: boards })
+      let order = {};
+      let take: object = {};
+
+      if (orderby || orderdir) {
+        order = { order: { [orderby || 'id']: orderdir || 'ASC' } };
+      }
+
+      if (limit) {
+        take = { take: limit };
+      }
+
+      const boards: Board[] = await this.boardRepo.find({
+        relations: ['author', 'users'],
+        ...order,
+        ...take
+      });
+
+      return res.json({ status: res.statusCode, data: boards });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -47,19 +62,19 @@ export class BoardController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { boardId } = req.params
+      const { boardId } = req.params;
 
       if (!boardId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
       const board: Board | undefined = await this.boardRepo.findOne(boardId, {
         relations: ['author', 'users']
-      })
+      });
 
-      return res.json({ status: res.statusCode, data: board })
+      return res.json({ status: res.statusCode, data: board });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -79,14 +94,14 @@ export class BoardController {
   ): Promise<Response | void> {
     try {
       if (!req.body.board) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
-      const newBoard: Board = await this.boardRepo.save(req.body.board)
+      const newBoard: Board = await this.boardRepo.save(req.body.board);
 
-      return res.json({ status: res.statusCode, data: newBoard })
+      return res.json({ status: res.statusCode, data: newBoard });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -105,23 +120,23 @@ export class BoardController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { boardId } = req.params
+      const { boardId } = req.params;
 
       if (!boardId || !req.body.board) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
-      const board: Board | undefined = await this.boardRepo.findOne(boardId)
+      const board: Board | undefined = await this.boardRepo.findOne(boardId);
 
       if (!board) {
-        return res.status(404).json({ status: 404, error: 'Board not found' })
+        return res.status(404).json({ status: 404, error: 'Board not found' });
       }
 
-      const updatedBoard: Board = await this.boardRepo.save(req.body.board)
+      const updatedBoard: Board = await this.boardRepo.save(req.body.board);
 
-      return res.json({ status: res.statusCode, data: updatedBoard })
+      return res.json({ status: res.statusCode, data: updatedBoard });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -140,23 +155,23 @@ export class BoardController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { boardId } = req.params
+      const { boardId } = req.params;
 
       if (!boardId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
-      const board: Board | undefined = await this.boardRepo.findOne(boardId)
+      const board: Board | undefined = await this.boardRepo.findOne(boardId);
 
       if (!board) {
-        return res.status(404).json({ status: 404, error: 'Board not found' })
+        return res.status(404).json({ status: 404, error: 'Board not found' });
       }
 
-      await this.boardRepo.remove(board)
+      await this.boardRepo.remove(board);
 
-      return res.status(204).send()
+      return res.status(204).send();
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 }

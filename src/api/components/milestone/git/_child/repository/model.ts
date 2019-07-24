@@ -1,25 +1,25 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { GitOrganization } from '@milestone/git/_child/organization/model'
-import { Task } from '@milestone/task/model'
+import { GitOrganization } from '@milestone/git/_child/organization/model';
+import { Task } from '@milestone/task/model';
 
 @Entity()
 export class GitRepository {
   /***** columns *****/
   @PrimaryGeneratedColumn()
-  public id: number
+  public id: number;
 
   @Column()
-  public name: string
+  public name: string;
 
   @Column()
-  public url: string
+  public url: string;
 
-  @ManyToOne(type => GitOrganization, gitOrganization => gitOrganization.repositories, {
+  @ManyToOne((type) => GitOrganization, (gitOrganization) => gitOrganization.repositories, {
     onDelete: 'CASCADE'
   })
-  public organization: GitOrganization
+  public organization: GitOrganization;
 
-  @OneToMany(type => Task, task => task.repository)
-  public tasks: Task[]
+  @OneToMany((type) => Task, (task) => task.repository)
+  public tasks: Task[];
 }

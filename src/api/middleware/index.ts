@@ -1,11 +1,11 @@
-import compression from 'compression'
-import cors from 'cors'
-import helmet from 'helmet'
+import compression from 'compression';
+import cors from 'cors';
+import helmet from 'helmet';
 
-import { json, NextFunction, Request, Response, Router } from 'express'
+import { json, NextFunction, Request, Response, Router } from 'express';
 
-import { AuthService } from '@services/auth'
-import { UtilityService } from '@services/helper/utility'
+import { AuthService } from '@services/auth';
+import { UtilityService } from '@services/helper/utility';
 
 /**
  * Init Express middleware
@@ -14,13 +14,13 @@ import { UtilityService } from '@services/helper/utility'
  * @returns {void}
  */
 export function registerMiddleware(router: Router): void {
-  router.use(helmet())
-  router.use(cors({ origin: ['http://localhost:4200'] }))
-  router.use(json())
-  router.use(compression())
+  router.use(helmet());
+  router.use(cors({ origin: ['http://localhost:4200'] }));
+  router.use(json());
+  router.use(compression());
 
   // Setup passport strategies
-  new AuthService().initStrategies()
+  new AuthService().initStrategies();
 }
 
 /**
@@ -31,11 +31,11 @@ export function registerMiddleware(router: Router): void {
  */
 export function registerErrorHandler(router: Router): Response | void {
   router.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    UtilityService.handleError(err)
+    UtilityService.handleError(err);
 
     return res.status(500).json({
       error: err.message || err,
       status: 500
-    })
-  })
+    });
+  });
 }

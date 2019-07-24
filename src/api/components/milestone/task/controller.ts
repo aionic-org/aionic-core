@@ -1,11 +1,11 @@
-import { bind } from 'decko'
-import { NextFunction, Request, Response } from 'express'
-import { getManager, Like, Repository } from 'typeorm'
+import { bind } from 'decko';
+import { NextFunction, Request, Response } from 'express';
+import { getManager, Like, Repository } from 'typeorm';
 
-import { Task } from './model'
+import { Task } from './model';
 
 export class TaskController {
-  private readonly taskRepo: Repository<Task> = getManager().getRepository('Task')
+  private readonly taskRepo: Repository<Task> = getManager().getRepository('Task');
 
   /**
    * Read all tasks from db
@@ -22,49 +22,57 @@ export class TaskController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { title, searchTerm, status, assignee, author, organization, branch } = req.query
+      const { title, term, type, status, assignee, author, tag, organization, branch } = req.query;
 
-      let where: object = {}
+      let where: object = {};
 
       if (title && title.length) {
-        where = { ...where, title: Like(`%${title}%`) }
+        where = { ...where, title: Like(`%${title}%`) };
       }
 
-      if (searchTerm && searchTerm.length) {
-        where = { ...where, description: Like(`%${searchTerm}%`) }
+      if (term && term.length) {
+        where = { ...where, description: Like(`%${term}%`) };
+      }
+
+      if (type) {
+        where = { ...where, type: { id: type } };
       }
 
       if (status) {
-        where = { ...where, status: { id: status } }
+        where = { ...where, status: { id: status } };
       }
 
       if (assignee) {
-        where = { ...where, assignee: { id: assignee } }
+        where = { ...where, assignee: { id: assignee } };
       }
 
       if (author) {
-        where = { ...where, author: { id: author } }
+        where = { ...where, author: { id: author } };
+      }
+
+      if (tag && tag.length) {
+        where = { ...where, tags: Like(`%${tag}%`) };
       }
 
       if (organization) {
-        where = { ...where, organization: { id: organization } }
+        where = { ...where, organization: { id: organization } };
       }
 
       if (branch && branch.length) {
-        where = { ...where, branch }
+        where = { ...where, branch };
       }
 
       const tasks: Task[] = await this.taskRepo.find({
+        where,
         order: {
           updated: 'DESC'
         },
-        relations: ['author', 'assignee', 'status', 'priority', 'repository'],
-        where
-      })
+        relations: ['author', 'assignee', 'status', 'priority', 'type', 'repository']
+      });
 
-      return res.json({ status: res.statusCode, data: tasks })
+      return res.json({ status: res.statusCode, data: tasks });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -79,10 +87,10 @@ export class TaskController {
   @bind
   public async readTask(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
-      const { taskId } = req.params
+      const { taskId } = req.params;
 
       if (!taskId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
       const task: Task | undefined = await this.taskRepo.findOne(taskId, {
@@ -91,16 +99,17 @@ export class TaskController {
           'assignee',
           'status',
           'priority',
+          'type',
           'repository',
           'organization',
           'links',
           'links.author'
         ]
-      })
+      });
 
-      return res.json({ status: res.statusCode, data: task })
+      return res.json({ status: res.statusCode, data: task });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -120,14 +129,14 @@ export class TaskController {
   ): Promise<Response | void> {
     try {
       if (!req.body.task) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
-      const newTask: Task = await this.taskRepo.save(req.body.task)
+      const newTask: Task = await this.taskRepo.save(req.body.task);
 
-      return res.json({ status: res.statusCode, data: newTask })
+      return res.json({ status: res.statusCode, data: newTask });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -146,23 +155,23 @@ export class TaskController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { taskId } = req.params
+      const { taskId } = req.params;
 
       if (!taskId || !req.body.task) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
-      const task: Task | undefined = await this.taskRepo.findOne(taskId)
+      const task: Task | undefined = await this.taskRepo.findOne(taskId);
 
       if (!task) {
-        return res.status(404).json({ status: 404, error: 'Task not found' })
+        return res.status(404).json({ status: 404, error: 'Task not found' });
       }
 
-      const updatedTask: Task = await this.taskRepo.save(req.body.task)
+      const updatedTask: Task = await this.taskRepo.save(req.body.task);
 
-      return res.json({ status: res.statusCode, data: updatedTask })
+      return res.json({ status: res.statusCode, data: updatedTask });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -181,23 +190,23 @@ export class TaskController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { taskId } = req.params
+      const { taskId } = req.params;
 
       if (!taskId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
-      const task: Task | undefined = await this.taskRepo.findOne(taskId)
+      const task: Task | undefined = await this.taskRepo.findOne(taskId);
 
       if (!task) {
-        return res.status(404).json({ status: 404, error: 'Task not found' })
+        return res.status(404).json({ status: 404, error: 'Task not found' });
       }
 
-      await this.taskRepo.remove(task)
+      await this.taskRepo.remove(task);
 
-      return res.status(204).send()
+      return res.status(204).send();
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 }

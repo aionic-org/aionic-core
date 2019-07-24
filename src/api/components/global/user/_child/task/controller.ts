@@ -1,11 +1,11 @@
-import { bind } from 'decko'
-import { NextFunction, Request, Response } from 'express'
-import { getManager, Repository } from 'typeorm'
+import { bind } from 'decko';
+import { NextFunction, Request, Response } from 'express';
+import { getManager, Repository } from 'typeorm';
 
-import { Task } from '@milestone/task/model'
+import { Task } from '@milestone/task/model';
 
 export class UserTaskController {
-  private readonly taskRepo: Repository<Task> = getManager().getRepository('Task')
+  private readonly taskRepo: Repository<Task> = getManager().getRepository('Task');
 
   /**
    * Read tasks from a certain user from db
@@ -22,26 +22,26 @@ export class UserTaskController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { userId } = req.params
+      const { userId } = req.params;
 
       if (!userId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
       const tasks: Task[] = await this.taskRepo.find({
         order: {
           priority: 'DESC'
         },
-        relations: ['author', 'assignee', 'status', 'priority'],
+        relations: ['author', 'assignee', 'status', 'priority', 'type'],
         where: {
           assignee: { id: userId },
           closed: false
         }
-      })
+      });
 
-      return res.json({ status: res.statusCode, data: tasks })
+      return res.json({ status: res.statusCode, data: tasks });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 }

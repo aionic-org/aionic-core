@@ -1,13 +1,13 @@
-import { bind } from 'decko'
-import { Handler, NextFunction, Request, Response } from 'express'
-import { authenticate } from 'passport'
-import { BasicStrategy } from 'passport-http'
+import { bind } from 'decko';
+import { Handler, NextFunction, Request, Response } from 'express';
+import { authenticate } from 'passport';
+import { BasicStrategy } from 'passport-http';
 
-import { UtilityService } from '@services/helper/utility'
+import { UtilityService } from '@services/helper/utility';
 
-import { BaseStrategy } from './base'
+import { BaseStrategy } from './base';
 
-import { User } from '@global/user/model'
+import { User } from '@global/user/model';
 
 /**
  * Passport Basic Http Authentication
@@ -16,8 +16,8 @@ import { User } from '@global/user/model'
  */
 export class BasicAuthStrategy extends BaseStrategy {
   public constructor() {
-    super()
-    this._strategy = new BasicStrategy(this.verify)
+    super();
+    this._strategy = new BasicStrategy(this.verify);
   }
 
   /**
@@ -32,23 +32,23 @@ export class BasicAuthStrategy extends BaseStrategy {
     try {
       return authenticate('basic', { session: false }, (error, user, info) => {
         if (error) {
-          return next(error)
+          return next(error);
         }
 
         if (!user) {
           return res.status(401).json({
             data: 'User is not authorized',
             status: 401
-          })
+          });
         }
 
         // success - store user in req scope
-        req.user = user
+        req.user = user;
 
-        return next()
-      })(req, res, next)
+        return next();
+      })(req, res, next);
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -70,25 +70,25 @@ export class BasicAuthStrategy extends BaseStrategy {
         relations: ['userRole'],
         select: ['id', 'password'],
         where: {
-          active: true,
-          username
+          username,
+          active: true
         }
-      })
+      });
 
       if (!user) {
-        return next(null, null)
+        return next(null, null);
       }
 
       // Verify password
       if (!(await UtilityService.verifyPassword(password, user.password))) {
-        return next(null, null)
+        return next(null, null);
       }
 
-      await this.setPermissions(user)
+      await this.setPermissions(user);
 
-      return next(null, user)
+      return next(null, user);
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 }

@@ -1,13 +1,12 @@
 import { Router } from 'express';
 
 import { AuthService, PassportStrategy } from '@services/auth';
+import { TaskTypeController } from './controller';
 
-import { UserRoleController } from './controller';
-
-export class UserRoleRoutes {
+export class TaskTypeRoutes {
+  private readonly controller: TaskTypeController = new TaskTypeController();
   private authSerivce: AuthService;
-  private readonly _router: Router = Router();
-  private readonly controller: UserRoleController = new UserRoleController();
+  private _router: Router = Router();
 
   public constructor(defaultStrategy?: PassportStrategy) {
     this.authSerivce = new AuthService(defaultStrategy);
@@ -18,12 +17,12 @@ export class UserRoleRoutes {
     return this._router;
   }
 
-  private initRoutes() {
-    this._router.get(
+  private initRoutes(): void {
+    this.router.get(
       '/',
       this.authSerivce.isAuthorized(),
-      this.authSerivce.hasPermission('userRole', 'read'),
-      this.controller.readUserRoles
+      this.authSerivce.hasPermission('taskType', 'read'),
+      this.controller.readTaskType
     );
   }
 }

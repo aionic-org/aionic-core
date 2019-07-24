@@ -1,14 +1,15 @@
-import { bind } from 'decko'
-import { NextFunction, Request, Response } from 'express'
-import { getManager, Like, Repository } from 'typeorm'
+import { bind } from 'decko';
+import { NextFunction, Request, Response } from 'express';
+import { getManager, Like, Repository } from 'typeorm';
 
-import { CacheService } from '@services/cache'
+import { CacheService } from '@services/cache';
+import { UtilityService } from '@services/helper/utility';
 
-import { User } from './model'
+import { User } from './model';
 
 export class UserController {
-  private readonly cacheService: CacheService = new CacheService()
-  private readonly userRepo: Repository<User> = getManager().getRepository('User')
+  private readonly cacheService: CacheService = new CacheService();
+  private readonly userRepo: Repository<User> = getManager().getRepository('User');
 
   /**
    * Read all users from db (cached)
@@ -25,11 +26,11 @@ export class UserController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const users: User[] = await this.cacheService.get('user', this)
+      const users: User[] = await this.cacheService.get('user', this);
 
-      return res.json({ status: res.statusCode, data: users })
+      return res.json({ status: res.statusCode, data: users });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -42,36 +43,36 @@ export class UserController {
    * @returns {Promise<Response | void>} Returns HTTP response
    */
   @bind
-  public async searchUsers(
+  public async searchUsersByUsername(
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { username } = req.query
+      const { username } = req.query;
 
-      let where: object = {}
+      let where: object = {};
 
       if (username) {
-        const [firstname, lastname] = username.split(' ')
+        const [firstname, lastname] = username.split(' ');
 
         if (firstname) {
-          where = { ...where, firstname: Like(`%${firstname}%`) }
+          where = { ...where, firstname: Like(`%${firstname}%`) };
         }
 
         if (lastname) {
-          where = { ...where, lastname: Like(`%${lastname}%`) }
+          where = { ...where, lastname: Like(`%${lastname}%`) };
         }
       }
 
       const users: User[] = await this.userRepo.find({
-        relations: ['userRole'],
-        where
-      })
+        where,
+        relations: ['userRole']
+      });
 
-      return res.json({ status: res.statusCode, data: users })
+      return res.json({ status: res.statusCode, data: users });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -86,19 +87,65 @@ export class UserController {
   @bind
   public async readUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
-      const { userId } = req.params
+      const { userId } = req.params;
 
       if (!userId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
       const user: User | undefined = await this.userRepo.findOne(userId, {
         relations: ['userRole', 'assignee']
-      })
+      });
 
-      return res.json({ status: res.statusCode, data: user })
+      return res.json({ status: res.statusCode, data: user });
     } catch (err) {
-      return next(err)
+      return next(err);
+    }
+  }
+
+  /**
+   * Save new user to db
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   * @returns {Promise<Response | void>} Returns HTTP response
+   */
+  @bind
+  public async createUser(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
+    try {
+      const { user } = req.body;
+
+      if (!user) {
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
+      }
+
+      const existingUser: User | undefined = await this.userRepo.findOne({
+        where: {
+          email: user.email
+        }
+      });
+
+      // Email is already taken
+      if (existingUser) {
+        return res.status(400).json({ status: 400, error: 'Email is already taken' });
+      }
+
+      const newUser: User = await this.userRepo.save({
+        ...user,
+        password: await UtilityService.hashPassword(user.password)
+      });
+
+      // Clear user cache
+      this.cacheService.delete('user');
+
+      return res.json({ status: res.statusCode, data: newUser });
+    } catch (err) {
+      return next(err);
     }
   }
 
@@ -117,23 +164,23 @@ export class UserController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { userId } = req.params
+      const { userId } = req.params;
 
       if (!userId || !req.body.user) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
-      const user: User | undefined = await this.userRepo.findOne(userId)
+      const user: User | undefined = await this.userRepo.findOne(userId);
 
       if (!user) {
-        return res.status(404).json({ status: 404, error: 'User not found' })
+        return res.status(404).json({ status: 404, error: 'User not found' });
       }
 
-      const updatedUser: User = await this.userRepo.save(req.body.user)
+      const updatedUser: User = await this.userRepo.save(req.body.user);
 
-      return res.json({ status: res.statusCode, data: updatedUser })
+      return res.json({ status: res.statusCode, data: updatedUser });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -152,23 +199,23 @@ export class UserController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { userId } = req.params
+      const { userId } = req.params;
 
       if (!userId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
-      const user: User | undefined = await this.userRepo.findOne(userId)
+      const user: User | undefined = await this.userRepo.findOne(userId);
 
       if (!user) {
-        return res.status(404).json({ status: 404, error: 'User not found' })
+        return res.status(404).json({ status: 404, error: 'User not found' });
       }
 
-      await this.userRepo.remove(user)
+      await this.userRepo.remove(user);
 
-      return res.status(204).send()
+      return res.status(204).send();
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -181,6 +228,6 @@ export class UserController {
   private getCachedContent(): Promise<User[]> {
     return this.userRepo.find({
       relations: ['userRole']
-    })
+    });
   }
 }

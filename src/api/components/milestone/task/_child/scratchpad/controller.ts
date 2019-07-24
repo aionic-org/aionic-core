@@ -1,13 +1,13 @@
-import { bind } from 'decko'
-import { NextFunction, Request, Response } from 'express'
-import { getManager, Repository } from 'typeorm'
+import { bind } from 'decko';
+import { NextFunction, Request, Response } from 'express';
+import { getManager, Repository } from 'typeorm';
 
-import { TaskScratchpad } from '@milestone/task/_child/scratchpad/model'
+import { TaskScratchpad } from '@milestone/task/_child/scratchpad/model';
 
 export class ScratchpadController {
   private readonly taskScratchpadRepo: Repository<TaskScratchpad> = getManager().getRepository(
     'TaskScratchpad'
-  )
+  );
 
   /**
    * Read scratchpad from a certain task by user from db
@@ -24,10 +24,10 @@ export class ScratchpadController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { taskId, userId } = req.params
+      const { taskId, userId } = req.params;
 
       if (!taskId || !userId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
       const scratchpad: TaskScratchpad | undefined = await this.taskScratchpadRepo.findOne({
@@ -35,11 +35,11 @@ export class ScratchpadController {
           author: { id: userId },
           task: { id: taskId }
         }
-      })
+      });
 
-      return res.json({ status: res.statusCode, data: scratchpad })
+      return res.json({ status: res.statusCode, data: scratchpad });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -59,14 +59,14 @@ export class ScratchpadController {
   ): Promise<Response | void> {
     try {
       if (!req.body.scratchpad) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' })
+        return res.status(400).json({ status: 400, error: 'Invalid request' });
       }
 
-      const newScratchpad: TaskScratchpad = await this.taskScratchpadRepo.save(req.body.scratchpad)
+      const newScratchpad: TaskScratchpad = await this.taskScratchpadRepo.save(req.body.scratchpad);
 
-      return res.json({ status: res.statusCode, data: newScratchpad })
+      return res.json({ status: res.statusCode, data: newScratchpad });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 }

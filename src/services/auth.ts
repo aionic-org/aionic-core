@@ -1,15 +1,15 @@
-import { bind } from 'decko'
-import { Handler, NextFunction, Request, Response } from 'express'
-import { sign, SignOptions } from 'jsonwebtoken'
-import { use } from 'passport'
-import { ExtractJwt, StrategyOptions } from 'passport-jwt'
+import { bind } from 'decko';
+import { Handler, NextFunction, Request, Response } from 'express';
+import { sign, SignOptions } from 'jsonwebtoken';
+import { use } from 'passport';
+import { ExtractJwt, StrategyOptions } from 'passport-jwt';
 
-import { permissions } from '@config/permissions'
+import { permissions } from '@config/permissions';
 
-import { BasicAuthStrategy } from '@global/auth/strategies/basicAuth'
-import { JwtStrategy } from '@global/auth/strategies/jwt'
+import { BasicAuthStrategy } from '@global/auth/strategies/basicAuth';
+import { JwtStrategy } from '@global/auth/strategies/jwt';
 
-export type PassportStrategy = 'jwt' | 'basic'
+export type PassportStrategy = 'jwt' | 'basic';
 
 /**
  * AuthService
@@ -24,30 +24,30 @@ export type PassportStrategy = 'jwt' | 'basic'
  * Example: isAuthorized('basic')
  */
 export class AuthService {
-  private defaultStrategy: PassportStrategy
-  private jwtStrategy: JwtStrategy
-  private basicStrategy: BasicAuthStrategy
+  private defaultStrategy: PassportStrategy;
+  private jwtStrategy: JwtStrategy;
+  private basicStrategy: BasicAuthStrategy;
 
   private readonly strategyOptions: StrategyOptions = {
     audience: 'aionic-client',
     issuer: 'aionic-core',
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: 'aionic-secret-api-key'
-  }
+  };
 
   // JWT options
   private readonly signOptions: SignOptions = {
     audience: this.strategyOptions.audience,
     expiresIn: '8h',
     issuer: this.strategyOptions.issuer
-  }
+  };
 
   public constructor(defaultStrategy: PassportStrategy = 'jwt') {
     // Setup default strategy -> use jwt if none is provided
-    this.defaultStrategy = defaultStrategy
+    this.defaultStrategy = defaultStrategy;
 
-    this.jwtStrategy = new JwtStrategy(this.strategyOptions)
-    this.basicStrategy = new BasicAuthStrategy()
+    this.jwtStrategy = new JwtStrategy(this.strategyOptions);
+    this.basicStrategy = new BasicAuthStrategy();
   }
 
   /**
@@ -57,9 +57,9 @@ export class AuthService {
    * @returns {string} Returns JWT
    */
   public createToken(userID: number): string {
-    const payload = { userID }
+    const payload = { userID };
 
-    return sign(payload, this.strategyOptions.secretOrKey as string, this.signOptions)
+    return sign(payload, this.strategyOptions.secretOrKey as string, this.signOptions);
   }
 
   /**
@@ -72,21 +72,21 @@ export class AuthService {
   public hasPermission(resource: string, permission: string): Handler {
     return async (req: Request, res: Response, next: NextFunction) => {
       try {
-        const uid: number = req.user.id
-        const access: boolean = await permissions.isAllowed(uid, resource, permission)
+        const uid: number = req.user.id;
+        const access: boolean = await permissions.isAllowed(uid, resource, permission);
 
         if (!access) {
           return res.status(403).json({
             error: 'Missing user rights',
             status: 403
-          })
+          });
         }
 
-        return next()
+        return next();
       } catch (err) {
-        return next(err)
+        return next(err);
       }
-    }
+    };
   }
 
   /**
@@ -95,8 +95,8 @@ export class AuthService {
    * @returns {void}
    */
   public initStrategies(): void {
-    use('jwt', this.jwtStrategy.strategy)
-    use('basic', this.basicStrategy.strategy)
+    use('jwt', this.jwtStrategy.strategy);
+    use('basic', this.basicStrategy.strategy);
   }
 
   /**
@@ -110,12 +110,12 @@ export class AuthService {
     return (req: Request, res: Response, next: NextFunction) => {
       try {
         // if no strategy is provided use default strategy
-        const tempStrategy: PassportStrategy = strategy || this.defaultStrategy
-        return this.doAuthentication(req, res, next, tempStrategy)
+        const tempStrategy: PassportStrategy = strategy || this.defaultStrategy;
+        return this.doAuthentication(req, res, next, tempStrategy);
       } catch (err) {
-        return next(err)
+        return next(err);
       }
-    }
+    };
   }
 
   /**
@@ -137,14 +137,14 @@ export class AuthService {
     try {
       switch (strategy) {
         case 'jwt':
-          return this.jwtStrategy.isAuthorized(req, res, next)
+          return this.jwtStrategy.isAuthorized(req, res, next);
         case 'basic':
-          return this.basicStrategy.isAuthorized(req, res, next)
+          return this.basicStrategy.isAuthorized(req, res, next);
         default:
-          throw new Error(`Unknown passport strategy: ${this.defaultStrategy}`)
+          throw new Error(`Unknown passport strategy: ${this.defaultStrategy}`);
       }
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 }

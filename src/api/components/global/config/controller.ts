@@ -1,10 +1,10 @@
-import { bind } from 'decko'
-import { NextFunction, Request, Response } from 'express'
+import { bind } from 'decko';
+import { NextFunction, Request, Response } from 'express';
 
-import { CacheService } from '@services/cache'
+import { CacheService } from '@services/cache';
 
 export class ConfigController {
-  private readonly cacheService: CacheService = new CacheService()
+  private readonly cacheService: CacheService = new CacheService();
 
   /**
    * Get cache keys and stats
@@ -17,12 +17,12 @@ export class ConfigController {
   @bind
   public async getCache(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
-      const keys = await this.cacheService.getKeys()
-      const stats = await this.cacheService.getStats()
+      const keys = await this.cacheService.getKeys();
+      const stats = await this.cacheService.getStats();
 
-      return res.json({ status: res.statusCode, data: { keys, stats } })
+      return res.json({ status: res.statusCode, data: { keys, stats } });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 
@@ -41,11 +41,11 @@ export class ConfigController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      await this.cacheService.flush()
+      await this.cacheService.flush();
 
-      return res.json({ status: res.statusCode, data: 'cache cleared' })
+      return res.json({ status: res.statusCode, data: 'cache cleared' });
     } catch (err) {
-      return next(err)
+      return next(err);
     }
   }
 }

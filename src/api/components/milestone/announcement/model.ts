@@ -5,31 +5,31 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   Timestamp
-} from 'typeorm'
+} from 'typeorm';
 
-import { User } from '@global/user/model'
+import { User } from '@global/user/model';
 
 @Entity()
 export class Announcement {
   /***** columns *****/
   @PrimaryGeneratedColumn()
-  public id: number
+  public id: number;
 
   @Column({
     default: null,
     type: 'text'
   })
-  public description: string
+  public description: string;
 
   @Column({
     default: false
   })
-  public important: boolean
+  public important: boolean;
 
   @CreateDateColumn()
-  public created: Timestamp
+  public created: Timestamp;
 
   /***** relations *****/
-  @ManyToOne(type => User, user => user.author)
-  public author: User
+  @ManyToOne((type) => User, (user) => user.author)
+  public author: User;
 }

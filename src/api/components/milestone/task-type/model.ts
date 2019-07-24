@@ -3,7 +3,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Task } from '@milestone/task/model';
 
 @Entity()
-export class TaskStatus {
+export class TaskType {
   /***** columns *****/
   @PrimaryGeneratedColumn()
   public id: number;
@@ -20,6 +20,6 @@ export class TaskStatus {
   public active: boolean;
 
   /***** relations *****/
-  @OneToMany((type) => Task, (task) => task.status)
+  @OneToMany((type) => Task, (task) => task.type)
   public tasks: Task[];
 }

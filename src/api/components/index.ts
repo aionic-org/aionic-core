@@ -1,7 +1,7 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-import { registerGlobalRoutes } from './global/routes'
-import { registerMilestoneRoutes } from './milestone/routes'
+import { registerGlobalRoutes } from './global/routes';
+import { registerMilestoneRoutes } from './milestone/routes';
 
 /**
  * Init Express api routes
@@ -11,6 +11,6 @@ import { registerMilestoneRoutes } from './milestone/routes'
  * @returns {void}
  */
 export function registerApiRoutes(router: Router, prefix: string = ''): void {
-  registerGlobalRoutes(router, prefix)
-  registerMilestoneRoutes(router, prefix)
+  registerGlobalRoutes(router, prefix);
+  registerMilestoneRoutes(router, prefix);
 }

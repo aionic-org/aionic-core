@@ -1,25 +1,25 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-import { AuthService, PassportStrategy } from '@services/auth'
+import { AuthService, PassportStrategy } from '@services/auth';
 
-import { UserController } from './controller'
+import { UserController } from './controller';
 
-import { UserTaskRoutes } from './_child/task/routes'
+import { UserTaskRoutes } from './_child/task/routes';
 
 export class UserRoutes {
-  private authSerivce: AuthService
-  private readonly _router: Router = Router()
-  private readonly controller: UserController = new UserController()
+  private authSerivce: AuthService;
+  private readonly _router: Router = Router();
+  private readonly controller: UserController = new UserController();
 
   public constructor(defaultStrategy?: PassportStrategy) {
-    this.authSerivce = new AuthService(defaultStrategy)
+    this.authSerivce = new AuthService(defaultStrategy);
 
-    this.initChildRoutes(defaultStrategy)
-    this.initRoutes()
+    this.initChildRoutes(defaultStrategy);
+    this.initRoutes();
   }
 
   public get router(): Router {
-    return this._router
+    return this._router;
   }
 
   private initRoutes() {
@@ -28,38 +28,45 @@ export class UserRoutes {
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('user', 'read'),
       this.controller.readUsers
-    )
+    );
 
     this._router.get(
       '/search',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('user', 'read'),
-      this.controller.searchUsers
-    )
+      this.controller.searchUsersByUsername
+    );
+
+    this._router.post(
+      '/',
+      this.authSerivce.isAuthorized(),
+      this.authSerivce.hasPermission('user', 'create'),
+      this.controller.createUser
+    );
 
     this._router.get(
       '/:userId',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('user', 'read'),
       this.controller.readUser
-    )
+    );
 
     this._router.put(
       '/:userId',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('user', 'update'),
       this.controller.updateUser
-    )
+    );
 
     this._router.delete(
       '/:userId',
       this.authSerivce.isAuthorized(),
       this.authSerivce.hasPermission('user', 'delete'),
       this.controller.deleteUser
-    )
+    );
   }
 
   private initChildRoutes(defaultStrategy?: PassportStrategy): void {
-    this.router.use('/:userId', new UserTaskRoutes(defaultStrategy).router)
+    this.router.use('/:userId', new UserTaskRoutes(defaultStrategy).router);
   }
 }

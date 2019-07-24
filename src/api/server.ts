@@ -1,20 +1,20 @@
-import express from 'express'
+import express from 'express';
 
-import { initRestRoutes } from './routes'
+import { initRestRoutes } from './routes';
 
 export class Server {
-  private readonly _app: express.Application = express()
+  private readonly _app: express.Application = express();
 
   public constructor() {
-    initRestRoutes(this._app)
+    initRestRoutes(this._app);
   }
 
   /**
-   * Get app
+   * Get express app
    *
    * @returns {express.Application} Returns Express app
    */
   public get app(): express.Application {
-    return this._app
+    return this._app;
   }
 }
