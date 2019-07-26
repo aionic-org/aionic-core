@@ -2,24 +2,24 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class UserInvitation {
-  /***** columns *****/
-  @PrimaryGeneratedColumn()
-  public id: number;
+	/***** columns *****/
+	@PrimaryGeneratedColumn()
+	public id: number;
 
-  @Column({
-    nullable: false,
-    unique: true
-  })
-  public email: string;
+	@Column({
+		nullable: false,
+		unique: true
+	})
+	public email: string;
 
-  @Column({
-    nullable: false,
-    unique: true
-  })
-  public hash: string;
+	@Column({
+		nullable: false,
+		unique: true
+	})
+	public hash: string;
 
-  @Column({
-    default: true
-  })
-  public active: boolean;
+	@Column({
+		default: true
+	})
+	public active: boolean;
 }

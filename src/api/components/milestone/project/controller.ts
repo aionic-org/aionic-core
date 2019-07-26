@@ -5,181 +5,153 @@ import { getManager, Repository } from 'typeorm';
 import { Project } from './model';
 
 export class ProjectController {
-  private readonly projectRepo: Repository<Project> = getManager().getRepository('Project');
+	private readonly projectRepo: Repository<Project> = getManager().getRepository('Project');
 
-  /**
-   * Read all projects from db
-   *
-   * @param {Request} req
-   * @param {Response} res
-   * @param {NextFunction} next
-   * @returns {Promise<Response | void>} Returns HTTP response
-   */
-  @bind
-  public async readProjects(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response | void> {
-    try {
-      const { orderby, orderdir, limit } = req.query;
+	/**
+	 * Read all projects from db
+	 *
+	 * @param {Request} req
+	 * @param {Response} res
+	 * @param {NextFunction} next
+	 * @returns {Promise<Response | void>} Returns HTTP response
+	 */
+	@bind
+	public async readProjects(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+		try {
+			const { orderby, orderdir, limit } = req.query;
 
-      let order = {};
-      let take: object = {};
+			let order = {};
+			let take: object = {};
 
-      if (orderby || orderdir) {
-        order = { order: { [orderby || 'id']: orderdir || 'ASC' } };
-      }
+			if (orderby || orderdir) {
+				order = { order: { [orderby || 'id']: orderdir || 'ASC' } };
+			}
 
-      if (limit) {
-        take = { take: limit };
-      }
+			if (limit) {
+				take = { take: limit };
+			}
 
-      const projects: Project[] = await this.projectRepo.find({
-        relations: ['author', 'tasks', 'tasks.status'],
-        ...order,
-        ...take
-      });
+			const projects: Project[] = await this.projectRepo.find({
+				relations: ['author', 'tasks', 'tasks.status'],
+				...order,
+				...take
+			});
 
-      return res.json({ status: res.statusCode, data: projects });
-    } catch (err) {
-      return next(err);
-    }
-  }
+			return res.json({ status: res.statusCode, data: projects });
+		} catch (err) {
+			return next(err);
+		}
+	}
 
-  /**
-   * Read a certain project from db
-   *
-   * @param {Request} req
-   * @param {Response} res
-   * @param {NextFunction} next
-   * @returns {Promise<Response | void>} Returns HTTP response
-   */
-  @bind
-  public async readProject(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response | void> {
-    try {
-      const { projectId } = req.params;
+	/**
+	 * Read a certain project from db
+	 *
+	 * @param {Request} req
+	 * @param {Response} res
+	 * @param {NextFunction} next
+	 * @returns {Promise<Response | void>} Returns HTTP response
+	 */
+	@bind
+	public async readProject(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+		try {
+			const { projectId } = req.params;
 
-      if (!projectId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' });
-      }
+			if (!projectId) {
+				return res.status(400).json({ status: 400, error: 'Invalid request' });
+			}
 
-      const project: Project | undefined = await this.projectRepo.findOne(projectId, {
-        relations: [
-          'author',
-          'tasks',
-          'tasks.priority',
-          'tasks.assignee',
-          'tasks.author',
-          'tasks.status',
-          'tasks.type'
-        ]
-      });
+			const project: Project | undefined = await this.projectRepo.findOne(projectId, {
+				relations: ['author', 'tasks', 'tasks.priority', 'tasks.assignee', 'tasks.author', 'tasks.status', 'tasks.type']
+			});
 
-      return res.json({ status: res.statusCode, data: project });
-    } catch (err) {
-      return next(err);
-    }
-  }
+			return res.json({ status: res.statusCode, data: project });
+		} catch (err) {
+			return next(err);
+		}
+	}
 
-  /**
-   * Save new project to db
-   *
-   * @param {Request} req
-   * @param {Response} res
-   * @param {NextFunction} next
-   * @returns {Promise<Response | void>} Returns HTTP response
-   */
-  @bind
-  public async createProject(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response | void> {
-    try {
-      if (!req.body.project) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' });
-      }
+	/**
+	 * Save new project to db
+	 *
+	 * @param {Request} req
+	 * @param {Response} res
+	 * @param {NextFunction} next
+	 * @returns {Promise<Response | void>} Returns HTTP response
+	 */
+	@bind
+	public async createProject(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+		try {
+			if (!req.body.project) {
+				return res.status(400).json({ status: 400, error: 'Invalid request' });
+			}
 
-      const newProject: Project = await this.projectRepo.save(req.body.project);
+			const newProject: Project = await this.projectRepo.save(req.body.project);
 
-      return res.json({ status: res.statusCode, data: newProject });
-    } catch (err) {
-      return next(err);
-    }
-  }
+			return res.json({ status: res.statusCode, data: newProject });
+		} catch (err) {
+			return next(err);
+		}
+	}
 
-  /**
-   * Update project in db
-   *
-   * @param {Request} req
-   * @param {Response} res
-   * @param {NextFunction} next
-   * @returns {Promise<Response | void>} Returns HTTP response
-   */
-  @bind
-  public async updateProject(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response | void> {
-    try {
-      const { projectId } = req.params;
+	/**
+	 * Update project in db
+	 *
+	 * @param {Request} req
+	 * @param {Response} res
+	 * @param {NextFunction} next
+	 * @returns {Promise<Response | void>} Returns HTTP response
+	 */
+	@bind
+	public async updateProject(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+		try {
+			const { projectId } = req.params;
 
-      if (!projectId || !req.body.project) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' });
-      }
+			if (!projectId || !req.body.project) {
+				return res.status(400).json({ status: 400, error: 'Invalid request' });
+			}
 
-      const project: Project | undefined = await this.projectRepo.findOne(projectId);
+			const project: Project | undefined = await this.projectRepo.findOne(projectId);
 
-      if (!project) {
-        return res.status(404).json({ status: 404, error: 'project not found' });
-      }
+			if (!project) {
+				return res.status(404).json({ status: 404, error: 'project not found' });
+			}
 
-      const updatedProject: Project = await this.projectRepo.save(req.body.project);
+			const updatedProject: Project = await this.projectRepo.save(req.body.project);
 
-      return res.json({ status: res.statusCode, data: updatedProject });
-    } catch (err) {
-      return next(err);
-    }
-  }
+			return res.json({ status: res.statusCode, data: updatedProject });
+		} catch (err) {
+			return next(err);
+		}
+	}
 
-  /**
-   * Delete project from db
-   *
-   * @param {Request} req
-   * @param {Response} res
-   * @param {NextFunction} next
-   * @returns {Promise<Response | void>} Returns HTTP response
-   */
-  @bind
-  public async deleteProject(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response | void> {
-    try {
-      const { projectId } = req.params;
+	/**
+	 * Delete project from db
+	 *
+	 * @param {Request} req
+	 * @param {Response} res
+	 * @param {NextFunction} next
+	 * @returns {Promise<Response | void>} Returns HTTP response
+	 */
+	@bind
+	public async deleteProject(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+		try {
+			const { projectId } = req.params;
 
-      if (!projectId) {
-        return res.status(400).json({ status: 400, error: 'Invalid request' });
-      }
+			if (!projectId) {
+				return res.status(400).json({ status: 400, error: 'Invalid request' });
+			}
 
-      const project: Project | undefined = await this.projectRepo.findOne(projectId);
+			const project: Project | undefined = await this.projectRepo.findOne(projectId);
 
-      if (!project) {
-        return res.status(404).json({ status: 404, error: 'Project not found' });
-      }
+			if (!project) {
+				return res.status(404).json({ status: 404, error: 'Project not found' });
+			}
 
-      await this.projectRepo.remove(project);
+			await this.projectRepo.remove(project);
 
-      return res.status(204).send();
-    } catch (err) {
-      return next(err);
-    }
-  }
+			return res.status(204).send();
+		} catch (err) {
+			return next(err);
+		}
+	}
 }

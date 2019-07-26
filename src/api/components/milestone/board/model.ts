@@ -1,45 +1,45 @@
 import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  Timestamp,
-  UpdateDateColumn
+	Column,
+	CreateDateColumn,
+	Entity,
+	JoinTable,
+	ManyToMany,
+	ManyToOne,
+	PrimaryGeneratedColumn,
+	Timestamp,
+	UpdateDateColumn
 } from 'typeorm';
 
 import { User } from '@global/user/model';
 
 @Entity()
 export class Board {
-  /***** columns *****/
-  @PrimaryGeneratedColumn()
-  public id: number;
+	/***** columns *****/
+	@PrimaryGeneratedColumn()
+	public id: number;
 
-  @Column({
-    default: null
-  })
-  public title: string;
+	@Column({
+		default: null
+	})
+	public title: string;
 
-  @Column({
-    default: null,
-    type: 'text'
-  })
-  public description: string;
+	@Column({
+		default: null,
+		type: 'text'
+	})
+	public description: string;
 
-  @CreateDateColumn()
-  public created: Timestamp;
+	@CreateDateColumn()
+	public created: Timestamp;
 
-  @UpdateDateColumn()
-  public updated: Timestamp;
+	@UpdateDateColumn()
+	public updated: Timestamp;
 
-  /***** relations *****/
-  @ManyToOne((type) => User, (user) => user.author)
-  public author: User;
+	/***** relations *****/
+	@ManyToOne((type) => User, (user) => user.author)
+	public author: User;
 
-  @ManyToMany((type) => User, (user) => user.boards)
-  @JoinTable()
-  public users: User[];
+	@ManyToMany((type) => User, (user) => user.boards)
+	@JoinTable()
+	public users: User[];
 }

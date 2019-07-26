@@ -4,17 +4,17 @@ import { Task } from '@milestone/task/model';
 
 @Entity()
 export class TaskPriority {
-  /***** columns *****/
-  @PrimaryGeneratedColumn()
-  public id: number;
+	/***** columns *****/
+	@PrimaryGeneratedColumn()
+	public id: number;
 
-  @Column()
-  public title: string;
+	@Column()
+	public title: string;
 
-  @Column()
-  public value: number;
+	@Column()
+	public value: number;
 
-  /***** relations *****/
-  @OneToMany((type) => Task, (task) => task.priority)
-  public tasks: Task[];
+	/***** relations *****/
+	@OneToMany((type) => Task, (task) => task.priority)
+	public tasks: Task[];
 }

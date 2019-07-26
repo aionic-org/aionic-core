@@ -18,27 +18,25 @@ import { Server } from './api/server';
 
 // Startup
 (async function main() {
-  try {
-    logger.info('Initializing ORM connection...');
-    await createConnection();
+	try {
+		logger.info('Initializing ORM connection...');
+		await createConnection();
 
-    // Init express server
-    const app = new Server().app;
-    const server = createServer(app);
+		// Init express server
+		const app = new Server().app;
+		const server = createServer(app);
 
-    // Start express server
-    server.listen(env.NODE_PORT);
+		// Start express server
+		server.listen(env.NODE_PORT);
 
-    server.on('listening', () => {
-      logger.info(
-        `aionic-core node server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode`
-      );
-    });
+		server.on('listening', () => {
+			logger.info(`aionic-core node server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode`);
+		});
 
-    server.on('close', () => {
-      logger.info('Server closed');
-    });
-  } catch (err) {
-    logger.error(err);
-  }
+		server.on('close', () => {
+			logger.info('Server closed');
+		});
+	} catch (err) {
+		logger.error(err);
+	}
 })();

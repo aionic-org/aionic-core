@@ -7,14 +7,14 @@ const permissions = new acl(new acl.memoryBackend());
 const policies = JSON.parse(readFileSync('./dist/output/policies.combined.json', 'utf-8'));
 
 permissions.allow([
-  {
-    allows: policies.Admin,
-    roles: ['Admin']
-  },
-  {
-    allows: policies.User,
-    roles: ['User']
-  }
+	{
+		allows: policies.Admin,
+		roles: ['Admin']
+	},
+	{
+		allows: policies.User,
+		roles: ['User']
+	}
 ]);
 
 export { permissions };

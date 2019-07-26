@@ -12,26 +12,26 @@ import { User } from '@global/user/model';
  * Other strategies inherits from this one
  */
 export abstract class BaseStrategy {
-  protected readonly userRepo: Repository<User> = getManager().getRepository('User');
-  protected _strategy: Strategy_Jwt | Strategy_Basic;
+	protected readonly userRepo: Repository<User> = getManager().getRepository('User');
+	protected _strategy: Strategy_Jwt | Strategy_Basic;
 
-  /**
-   * Get strategy
-   *
-   * @returns {Strategy_Jwt | Strategy_Basic} Returns Passport strategy
-   */
-  public get strategy(): Strategy_Jwt | Strategy_Basic {
-    return this._strategy;
-  }
+	/**
+	 * Get strategy
+	 *
+	 * @returns {Strategy_Jwt | Strategy_Basic} Returns Passport strategy
+	 */
+	public get strategy(): Strategy_Jwt | Strategy_Basic {
+		return this._strategy;
+	}
 
-  /**
-   * Sets acl user permission
-   *
-   * @param {User} user
-   * @returns {Promise<void>}
-   */
-  protected async setPermissions(user: User): Promise<void> {
-    // add role from db
-    await permissions.addUserRoles(user.id, user.userRole.name);
-  }
+	/**
+	 * Sets acl user permission
+	 *
+	 * @param {User} user
+	 * @returns {Promise<void>}
+	 */
+	protected async setPermissions(user: User): Promise<void> {
+		// add role from db
+		await permissions.addUserRoles(user.id, user.userRole.name);
+	}
 }

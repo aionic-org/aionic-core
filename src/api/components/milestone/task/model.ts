@@ -1,14 +1,14 @@
 import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  Timestamp,
-  UpdateDateColumn
+	Column,
+	CreateDateColumn,
+	Entity,
+	JoinTable,
+	ManyToMany,
+	ManyToOne,
+	OneToMany,
+	PrimaryGeneratedColumn,
+	Timestamp,
+	UpdateDateColumn
 } from 'typeorm';
 
 import { User } from '@global/user/model';
@@ -24,90 +24,90 @@ import { TaskScratchpad } from './_child/scratchpad/model';
 
 @Entity()
 export class Task {
-  /***** columns *****/
-  @PrimaryGeneratedColumn()
-  public id: number;
+	/***** columns *****/
+	@PrimaryGeneratedColumn()
+	public id: number;
 
-  @Column({
-    default: null
-  })
-  public title: string;
+	@Column({
+		default: null
+	})
+	public title: string;
 
-  @Column({
-    default: null,
-    type: 'text'
-  })
-  public description: string;
+	@Column({
+		default: null,
+		type: 'text'
+	})
+	public description: string;
 
-  @Column({
-    default: null
-  })
-  public branch: string;
+	@Column({
+		default: null
+	})
+	public branch: string;
 
-  @Column({
-    default: null
-  })
-  public label: string;
+	@Column({
+		default: null
+	})
+	public label: string;
 
-  @Column({
-    default: null,
-    type: 'text'
-  })
-  public tags: string;
+	@Column({
+		default: null,
+		type: 'text'
+	})
+	public tags: string;
 
-  @Column({
-    default: false
-  })
-  public completed: boolean;
+	@Column({
+		default: false
+	})
+	public completed: boolean;
 
-  @Column({
-    default: null,
-    type: 'datetime'
-  })
-  public deadline: Timestamp;
+	@Column({
+		default: null,
+		type: 'datetime'
+	})
+	public deadline: Timestamp;
 
-  @CreateDateColumn()
-  public created: Timestamp;
+	@CreateDateColumn()
+	public created: Timestamp;
 
-  @UpdateDateColumn()
-  public updated: Timestamp;
+	@UpdateDateColumn()
+	public updated: Timestamp;
 
-  /***** relations *****/
-  @ManyToOne((type) => User, (user) => user.author, { onDelete: 'SET NULL' })
-  public author: User;
+	/***** relations *****/
+	@ManyToOne((type) => User, (user) => user.author, { onDelete: 'SET NULL' })
+	public author: User;
 
-  @ManyToOne((type) => User, (user) => user.assignee, { onDelete: 'SET NULL' })
-  public assignee: User;
+	@ManyToOne((type) => User, (user) => user.assignee, { onDelete: 'SET NULL' })
+	public assignee: User;
 
-  @ManyToOne((type) => TaskStatus, (taskStatus) => taskStatus.tasks)
-  public status: TaskStatus;
+	@ManyToOne((type) => TaskStatus, (taskStatus) => taskStatus.tasks)
+	public status: TaskStatus;
 
-  @ManyToOne((type) => TaskPriority, (taskPriority) => taskPriority.tasks)
-  public priority: TaskPriority;
+	@ManyToOne((type) => TaskPriority, (taskPriority) => taskPriority.tasks)
+	public priority: TaskPriority;
 
-  @ManyToOne((type) => TaskType, (taskType) => taskType.tasks)
-  public type: TaskType;
+	@ManyToOne((type) => TaskType, (taskType) => taskType.tasks)
+	public type: TaskType;
 
-  @OneToMany((type) => TaskComment, (taskComment) => taskComment.task)
-  public comments: TaskComment[];
+	@OneToMany((type) => TaskComment, (taskComment) => taskComment.task)
+	public comments: TaskComment[];
 
-  @OneToMany((type) => TaskScratchpad, (taskScratchpad) => taskScratchpad.task)
-  public scratchpads: TaskScratchpad[];
+	@OneToMany((type) => TaskScratchpad, (taskScratchpad) => taskScratchpad.task)
+	public scratchpads: TaskScratchpad[];
 
-  @ManyToOne((type) => GitOrganization, (gitOrganization) => gitOrganization.tasks, {
-    onDelete: 'SET NULL'
-  })
-  public organization: GitOrganization;
+	@ManyToOne((type) => GitOrganization, (gitOrganization) => gitOrganization.tasks, {
+		onDelete: 'SET NULL'
+	})
+	public organization: GitOrganization;
 
-  @ManyToOne((type) => GitRepository, (gitRepository) => gitRepository.tasks, {
-    onDelete: 'SET NULL'
-  })
-  public repository: GitRepository;
+	@ManyToOne((type) => GitRepository, (gitRepository) => gitRepository.tasks, {
+		onDelete: 'SET NULL'
+	})
+	public repository: GitRepository;
 
-  @ManyToMany((type) => Project, (project) => project.tasks)
-  public projects: Project[];
+	@ManyToMany((type) => Project, (project) => project.tasks)
+	public projects: Project[];
 
-  @ManyToMany((type) => Task)
-  @JoinTable()
-  public links: Task[];
+	@ManyToMany((type) => Task)
+	@JoinTable()
+	public links: Task[];
 }

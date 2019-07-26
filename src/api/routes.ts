@@ -10,9 +10,9 @@ import { Router } from 'express';
  * @returns {void}
  */
 export function initRestRoutes(router: Router): void {
-  const prefix: string = '/api/v1';
+	const prefix: string = '/api/v1';
 
-  registerMiddleware(router);
-  registerApiRoutes(router, prefix);
-  registerErrorHandler(router);
+	registerMiddleware(router);
+	registerApiRoutes(router, prefix);
+	registerErrorHandler(router);
 }
