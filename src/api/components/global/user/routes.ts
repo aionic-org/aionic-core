@@ -30,13 +30,6 @@ export class UserRoutes {
 			this.controller.readUsers
 		);
 
-		this._router.get(
-			'/search',
-			this.authSerivce.isAuthorized(),
-			this.authSerivce.hasPermission('user', 'read'),
-			this.controller.searchUsersByUsername
-		);
-
 		this._router.post(
 			'/',
 			this.authSerivce.isAuthorized(),
@@ -63,6 +56,13 @@ export class UserRoutes {
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('user', 'delete'),
 			this.controller.deleteUser
+		);
+
+		this._router.get(
+			'/search',
+			this.authSerivce.isAuthorized(),
+			this.authSerivce.hasPermission('user', 'read'),
+			this.controller.searchUsersByUsername
 		);
 	}
 

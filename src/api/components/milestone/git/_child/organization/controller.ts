@@ -84,9 +84,6 @@ export class GitOrganizationController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			// Remove organization and its repos
-			await this.gitOrgRepo.delete(orgId);
-
 			const newOrganization: GitOrganization = await this.synchOrganization(name);
 
 			return res.json({ status: res.statusCode, data: newOrganization });
@@ -133,14 +130,53 @@ export class GitOrganizationController {
 	 * @param {string} organizationName
 	 */
 	private async synchOrganization(organizationName: string): Promise<GitOrganization> {
-		// Load and save organization
-		const organization: GitOrganization = await this.gitHubService.getOrganization(organizationName);
-		const newOrganization: GitOrganization = await this.gitOrgRepo.save(organization);
+		// Load organization details from GitHub API
+		const gitHubOrganization: GitOrganization = await this.gitHubService.getOrganization(organizationName);
 
-		// Load and save all organization repos
-		const repos: GitRepository[] = await this.gitHubService.getOrganizationRepos(newOrganization);
-		for (const repo of repos) {
-			await this.gitRepositoryRepo.save(repo);
+		let newOrganization: GitOrganization = new GitOrganization();
+
+		// Lookup for an existing organization with this name in db
+		const existingOrganization: GitOrganization | undefined = await this.gitOrgRepo.findOne({
+			where: {
+				name: organizationName
+			}
+		});
+
+		if (existingOrganization) {
+			// Apply id from existing organization and overwrite in db
+			gitHubOrganization.id = existingOrganization.id;
+			newOrganization = await this.gitOrgRepo.save(gitHubOrganization);
+
+			// Load organization repos from GitHub API
+			const gitHubOrgRepos: GitRepository[] = await this.gitHubService.getOrganizationRepos(newOrganization);
+			for (const gitHubRepo of gitHubOrgRepos) {
+				// Lookup for an existing organization repo in db
+				const existingOrgRepo: GitRepository | undefined = await this.gitRepositoryRepo.findOne({
+					where: {
+						name: gitHubRepo.name,
+						organization: {
+							id: newOrganization.id
+						}
+					}
+				});
+
+				// Apply ID from existing organization repo to overwrite in db
+				if (existingOrgRepo) {
+					gitHubRepo.id = existingOrgRepo.id;
+				}
+
+				// Save organization repo to db
+				await this.gitRepositoryRepo.save(gitHubRepo);
+			}
+		} else {
+			// Save new organization in db
+			newOrganization = await this.gitOrgRepo.save(gitHubOrganization);
+
+			// Load organization repos from GitHub API and save to db
+			const repos: GitRepository[] = await this.gitHubService.getOrganizationRepos(newOrganization);
+			for (const repo of repos) {
+				await this.gitRepositoryRepo.save(repo);
+			}
 		}
 
 		return newOrganization;

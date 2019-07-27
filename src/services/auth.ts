@@ -57,9 +57,7 @@ export class AuthService {
 	 * @returns {string} Returns JWT
 	 */
 	public createToken(userID: number): string {
-		const payload = { userID };
-
-		return sign(payload, this.strategyOptions.secretOrKey as string, this.signOptions);
+		return sign({ userID }, this.strategyOptions.secretOrKey as string, this.signOptions);
 	}
 
 	/**
@@ -72,8 +70,8 @@ export class AuthService {
 	public hasPermission(resource: string, permission: string): Handler {
 		return async (req: Request, res: Response, next: NextFunction) => {
 			try {
-				const uid: number = req.user.id;
-				const access: boolean = await permissions.isAllowed(uid, resource, permission);
+				const userID: number = req.user.id;
+				const access: boolean = await permissions.isAllowed(userID, resource, permission);
 
 				if (!access) {
 					return res.status(403).json({

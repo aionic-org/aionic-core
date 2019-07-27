@@ -8,7 +8,7 @@ import { logger } from '@config/logger';
 /**
  * MailService
  *
- * Service for sending email
+ * Service for sending emails
  * Mail services in components inherits from this one
  */
 export abstract class MailService {
@@ -25,7 +25,7 @@ export abstract class MailService {
 		if (env.NODE_ENV === 'production' || forceSend) {
 			return this.transporter.sendMail(config);
 		}
-		logger.info('Email are only sent in production mode!');
+		logger.info('Emails are only sent in production mode!');
 	}
 
 	/**

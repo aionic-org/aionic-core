@@ -31,44 +31,6 @@ export class UserController {
 	}
 
 	/**
-	 * Search users from db
-	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
-	 */
-	@bind
-	public async searchUsersByUsername(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
-		try {
-			const { username } = req.query;
-
-			let where: object = {};
-
-			if (username) {
-				const [firstname, lastname] = username.split(' ');
-
-				if (firstname) {
-					where = { ...where, firstname: Like(`%${firstname}%`) };
-				}
-
-				if (lastname) {
-					where = { ...where, lastname: Like(`%${lastname}%`) };
-				}
-			}
-
-			const users: User[] = await this.userRepo.find({
-				where,
-				relations: ['userRole']
-			});
-
-			return res.json({ status: res.statusCode, data: users });
-		} catch (err) {
-			return next(err);
-		}
-	}
-
-	/**
 	 * Read a certain user from db
 	 *
 	 * @param {Request} req
@@ -194,6 +156,44 @@ export class UserController {
 			await this.userRepo.remove(user);
 
 			return res.status(204).send();
+		} catch (err) {
+			return next(err);
+		}
+	}
+
+	/**
+	 * Search users from db
+	 *
+	 * @param {Request} req
+	 * @param {Response} res
+	 * @param {NextFunction} next
+	 * @returns {Promise<Response | void>} Returns HTTP response
+	 */
+	@bind
+	public async searchUsersByUsername(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+		try {
+			const { username } = req.query;
+
+			let where: object = {};
+
+			if (username) {
+				const [firstname, lastname] = username.split(' ');
+
+				if (firstname) {
+					where = { ...where, firstname: Like(`%${firstname}%`) };
+				}
+
+				if (lastname) {
+					where = { ...where, lastname: Like(`%${lastname}%`) };
+				}
+			}
+
+			const users: User[] = await this.userRepo.find({
+				where,
+				relations: ['userRole']
+			});
+
+			return res.json({ status: res.statusCode, data: users });
 		} catch (err) {
 			return next(err);
 		}

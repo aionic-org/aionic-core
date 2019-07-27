@@ -37,6 +37,6 @@ import { Server } from './api/server';
 			logger.info('Server closed');
 		});
 	} catch (err) {
-		logger.error(err);
+		logger.error(err.stack);
 	}
 })();

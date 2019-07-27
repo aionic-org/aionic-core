@@ -18,7 +18,7 @@ export class AuthMailService extends MailService {
 		};
 
 		const mailTemplate = await this.renderMailTemplate(
-			'./dist/rest/components/auth/templates/userInvitation.html',
+			'./dist/api/components/global/user-invitation/templates/user-invitation.html',
 			templateParams
 		);
 

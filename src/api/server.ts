@@ -10,7 +10,7 @@ export class Server {
 	}
 
 	/**
-	 * Get express app
+	 * Get Express app
 	 *
 	 * @returns {express.Application} Returns Express app
 	 */

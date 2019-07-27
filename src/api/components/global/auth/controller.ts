@@ -180,6 +180,7 @@ export class AuthController {
 				return res.status(400).json({ status: 400, error: 'Email is already taken' });
 			}
 
+			// UUID for registration link
 			const hash = UtilityService.generateUuid();
 
 			await this.userInvRepo.save({
