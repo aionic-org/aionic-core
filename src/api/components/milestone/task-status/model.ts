@@ -4,22 +4,22 @@ import { Task } from '@milestone/task/model';
 
 @Entity()
 export class TaskStatus {
-  /***** columns *****/
-  @PrimaryGeneratedColumn()
-  public id: number;
+	/***** columns *****/
+	@PrimaryGeneratedColumn()
+	public id: number;
 
-  @Column()
-  public title: string;
+	@Column()
+	public title: string;
 
-  @Column()
-  public sort: number;
+	@Column()
+	public sort: number;
 
-  @Column({
-    default: false
-  })
-  public active: boolean;
+	@Column({
+		default: false
+	})
+	public active: boolean;
 
-  /***** relations *****/
-  @OneToMany((type) => Task, (task) => task.status)
-  public tasks: Task[];
+	/***** relations *****/
+	@OneToMany((type) => Task, (task) => task.status)
+	public tasks: Task[];
 }

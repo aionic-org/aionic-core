@@ -16,11 +16,11 @@ import { UserRoutes } from './user/routes';
  * @returns {void}
  */
 export function registerGlobalRoutes(router: Router, prefix: string = ''): void {
-  router.use(`${prefix}/auth`, new AuthRoutes().router);
+	router.use(`${prefix}/auth`, new AuthRoutes().router);
 
-  router.use(`${prefix}/config`, new ConfigRoutes().router);
+	router.use(`${prefix}/config`, new ConfigRoutes().router);
 
-  router.use(`${prefix}/users`, new UserRoutes().router);
-  router.use(`${prefix}/user-invitations`, new UserInvitationRoutes().router);
-  router.use(`${prefix}/user-roles`, new UserRoleRoutes().router);
+	router.use(`${prefix}/users`, new UserRoutes().router);
+	router.use(`${prefix}/user-invitations`, new UserInvitationRoutes().router);
+	router.use(`${prefix}/user-roles`, new UserRoleRoutes().router);
 }

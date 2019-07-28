@@ -7,41 +7,35 @@ import { CacheService } from '@services/cache';
 import { TaskPriority } from './model';
 
 export class TaskPriorityController {
-  private readonly cacheService: CacheService = new CacheService();
-  private readonly taskPriorityRepo: Repository<TaskPriority> = getManager().getRepository(
-    'TaskPriority'
-  );
+	private readonly cacheService: CacheService = new CacheService();
+	private readonly taskPriorityRepo: Repository<TaskPriority> = getManager().getRepository('TaskPriority');
 
-  /**
-   * Read all task priorities from db
-   *
-   * @param {Request} req
-   * @param {Response} res
-   * @param {NextFunction} next
-   * @returns {Promise<Response | void>} Returns HTTP response
-   */
-  @bind
-  public async readTaskPriorities(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response | void> {
-    try {
-      const taskPriorities: TaskPriority[] = await this.cacheService.get('taskPriority', this);
+	/**
+	 * Read all task priorities from db
+	 *
+	 * @param {Request} req
+	 * @param {Response} res
+	 * @param {NextFunction} next
+	 * @returns {Promise<Response | void>} Returns HTTP response
+	 */
+	@bind
+	public async readTaskPriorities(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+		try {
+			const taskPriorities: TaskPriority[] = await this.cacheService.get('taskPriority', this);
 
-      return res.json({ status: res.statusCode, data: taskPriorities });
-    } catch (err) {
-      return next(err);
-    }
-  }
+			return res.json({ status: res.statusCode, data: taskPriorities });
+		} catch (err) {
+			return next(err);
+		}
+	}
 
-  /**
-   * Get target content for cache service
-   *
-   * @returns {Promise<Array<TaskPriority>>}
-   */
-  @bind
-  private getCachedContent(): Promise<TaskPriority[]> {
-    return this.taskPriorityRepo.find();
-  }
+	/**
+	 * Get target content for cache service
+	 *
+	 * @returns {Promise<Array<TaskPriority>>}
+	 */
+	@bind
+	private getCachedContent(): Promise<TaskPriority[]> {
+		return this.taskPriorityRepo.find();
+	}
 }

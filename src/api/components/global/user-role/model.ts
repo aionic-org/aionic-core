@@ -4,17 +4,17 @@ import { User } from '@global/user/model';
 
 @Entity()
 export class UserRole {
-  /***** columns *****/
-  @PrimaryGeneratedColumn()
-  public id: number;
+	/***** columns *****/
+	@PrimaryGeneratedColumn()
+	public id: number;
 
-  @Column({
-    nullable: false,
-    unique: true
-  })
-  public name: string;
+	@Column({
+		nullable: false,
+		unique: true
+	})
+	public name: string;
 
-  /***** relations *****/
-  @OneToMany((type) => User, (user) => user.userRole)
-  public users: User[];
+	/***** relations *****/
+	@OneToMany((type) => User, (user) => user.userRole)
+	public users: User[];
 }

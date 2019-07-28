@@ -11,6 +11,6 @@ import { registerMilestoneRoutes } from './milestone/routes';
  * @returns {void}
  */
 export function registerApiRoutes(router: Router, prefix: string = ''): void {
-  registerGlobalRoutes(router, prefix);
-  registerMilestoneRoutes(router, prefix);
+	registerGlobalRoutes(router, prefix);
+	registerMilestoneRoutes(router, prefix);
 }

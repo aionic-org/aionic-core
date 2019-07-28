@@ -1,19 +1,19 @@
-const mysql = require('mysql')
-const fs = require('fs')
+const mysql = require('mysql');
+const fs = require('fs');
 
-console.log('Running SQL seed...')
+console.log('Running SQL seed...');
 
 // Read MySQL config
 const config = JSON.parse(
   fs.readFileSync('ormconfig.json', {
     encoding: 'utf-8'
   })
-)
+);
 
 // Read SQL seed
 const seedQuery = fs.readFileSync('db/seeds.sql', {
   encoding: 'utf-8'
-})
+});
 
 // Connect to database
 const connection = mysql.createConnection({
@@ -22,15 +22,15 @@ const connection = mysql.createConnection({
   password: config.password,
   database: config.database,
   multipleStatements: true
-})
+});
 
-connection.connect()
+connection.connect();
 
 // Run seed query
 connection.query(seedQuery, (err, res) => {
   if (err) {
-    throw err
+    throw err;
   }
-})
+});
 
-connection.end()
+connection.end();
