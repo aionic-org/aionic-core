@@ -2,21 +2,23 @@
 
 ![alt text](https://avatars0.githubusercontent.com/u/42389304?s=100&v=4 'Aionic Logo')
 
-Aionic offers open source applications for project management and collaboration. Our focus is on simplifying the workflow for agile teams in an open way.
+Aionic offers open source applications for project management and collaboration. Our focus is on simplifying and accelerating the workflow for agile teams in the open source way.
 
 ## Description
+
 Aionic offers a set of **open source products** for project management of any size. All our products are released under the [MIT](https://opensource.org/licenses/MIT) license, so feel free to customize it and share it with others!
 
-Please note that we just develop the software and don't host the applications anywhere for public usage. That means you have to take care of the hosting for yourself.
+Please keep in mind that we just develop the software and don't host the applications anywhere for public usage. That means you have to take care of the hosting for yourself.
 
-All services are built on top of the **Aionic Core** application, since this is the place where all the data is managed. So for the usage of any other service, you have to use at least [Aionice Core](https://github.com/Aionic-Apps/aionic-core/).
+All products are built on top of the **Aionic Core** application, since this is the place where all your data is managed and distributed. So for the usage of any other application, you have to use at least [Aionice Core](https://github.com/Aionic-Apps/aionic-core/).
 
 Some of the technologies we trust: _NodeJS, ReactJS, MySQL_
 
 ## Features
-**Aionic Core** is the foundation for any other of our services. It's the place to store and manage all the data you create. The application is written in Typescript and is based on an ExpressJS HTTP server.
 
-Some of the features this service offers:
+**Aionic Core** is the foundation for any other of our applications, since it's the place to store and distribute all the data you create. The application is a REST API written in Typescript and based on an ExpressJS HTTP server.
+
+Some of the features included in this app:
 
 - REST API
 - Task Service
@@ -28,10 +30,13 @@ Some of the features this service offers:
 - Authentication via JWT or BasicAuth
 
 ## Prerequisites
-- Hosting server (incl. SMTP for sending mails)
+
+- NodeJS
+- SMTP server (for sending mails)
 - MySQL database
 
 ## Installation
+
 First of all, create a new database on your MySQL server:
 
 ```sql
@@ -60,18 +65,22 @@ yarn run seed
 NOTE: You can also use [npm](https://www.npmjs.com/).
 
 ## User Guide
+
 In progress.
 
 ## Philosophy
-> Our focus is on simplifying the workflow for agile teams in an open way.
+
+> Our focus is on simplifying and accelerating the workflow for agile teams in the open source way.
 
 We try to help other people / companies realizing their ideas by offering highly maintainable project management softwares that everybody can **adjust as desired**.
 
 ## Community
+
 - [Author](https://github.com/larswaechter)
 - [Website](https://aionic-apps.com)
 - [GitHub](https://github.com/Aionic-Apps)
 - [Twitter](https://twitter.com/AionicApps)
 
 ## License
+
 Aionic Core is released under [MIT](https://github.com/Aionic-Apps/aionic-core/blob/master/LICENSE) license.
