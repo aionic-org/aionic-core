@@ -9,7 +9,7 @@ export const env = {
 		DOMAIN: process.env.HP_DOMAIN
 	},
 	NODE_ENV: process.env.NODE_ENV || 'development',
-	NODE_PORT: process.env.NODE_PORT || 3000,
+	NODE_PORT: process.env.NODE_PORT || process.env.PORT || 3000,
 	SMTP: {
 		auth: {
 			pass: process.env.SMTP_PASSWORD || '',
