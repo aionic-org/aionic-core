@@ -1,12 +1,13 @@
 {
 	"name": "aionic-core",
 	"version": "0.0.1",
-	"description": "Aionic Core - Software products for project management",
+	"description": "Aionic Core - Applications for project management and collaboration",
 	"main": "./dist/index.js",
 	"author": "Lars Wächter <lars97.waechter@gmail.com>",
 	"private": true,
 	"repository": "https://github.com/Aionic-Apps/aionic-core",
 	"license": "MIT",
+	"homepage": "https://aionic-apps.com",
 	"scripts": {
 		"start": "node ./dist/index.js",
 		"build": "rm -rf dist && tsc -p tsconfig.json && gulp copy && gulp merge",
