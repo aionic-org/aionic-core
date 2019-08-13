@@ -18,9 +18,9 @@ export class TaskCommentController {
 	@bind
 	public async readTaskComments(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { taskId } = req.params;
+			const { taskID } = req.params;
 
-			if (!taskId) {
+			if (!taskID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
@@ -28,7 +28,7 @@ export class TaskCommentController {
 				relations: ['author'],
 				where: {
 					task: {
-						id: taskId
+						id: taskID
 					}
 				}
 			});
@@ -50,16 +50,16 @@ export class TaskCommentController {
 	@bind
 	public async createTaskComment(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { taskId } = req.params;
+			const { taskID } = req.params;
 
-			if (!taskId || !req.body.comment) {
+			if (!taskID || !req.body.comment) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
 			const newComment: TaskComment = await this.taskCommentRepo.save({
 				...req.body.comment,
 				author: req.user,
-				task: { id: taskId }
+				task: { id: taskID }
 			});
 
 			return res.json({ status: res.statusCode, data: newComment });
@@ -79,17 +79,17 @@ export class TaskCommentController {
 	@bind
 	public async deleteTaskComment(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { taskId, commentId } = req.params;
+			const { taskID, commentID } = req.params;
 
-			if (!taskId || !commentId) {
+			if (!taskID || !commentID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
 			const comment: TaskComment | undefined = await this.taskCommentRepo.findOne({
 				where: {
-					id: commentId,
+					id: commentID,
 					task: {
-						id: taskId
+						id: taskID
 					}
 				}
 			});

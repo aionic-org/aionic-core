@@ -79,13 +79,13 @@ export class UserController {
 	@bind
 	public async readUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { userId } = req.params;
+			const { userID } = req.params;
 
-			if (!userId) {
+			if (!userID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userRepo.findOne(userId, {
+			const user: User | undefined = await this.userRepo.findOne(userID, {
 				relations: ['userRole', 'assignee']
 			});
 
@@ -148,13 +148,13 @@ export class UserController {
 	@bind
 	public async updateUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { userId } = req.params;
+			const { userID } = req.params;
 
-			if (!userId || !req.body.user) {
+			if (!userID || !req.body.user) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userRepo.findOne(userId);
+			const user: User | undefined = await this.userRepo.findOne(userID);
 
 			if (!user) {
 				return res.status(404).json({ status: 404, error: 'User not found' });
@@ -179,13 +179,13 @@ export class UserController {
 	@bind
 	public async deleteUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { userId } = req.params;
+			const { userID } = req.params;
 
-			if (!userId) {
+			if (!userID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userRepo.findOne(userId);
+			const user: User | undefined = await this.userRepo.findOne(userID);
 
 			if (!user) {
 				return res.status(404).json({ status: 404, error: 'User not found' });

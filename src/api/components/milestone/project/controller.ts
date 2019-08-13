@@ -54,13 +54,13 @@ export class ProjectController {
 	@bind
 	public async readProject(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { projectId } = req.params;
+			const { projectID } = req.params;
 
-			if (!projectId) {
+			if (!projectID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const project: Project | undefined = await this.projectRepo.findOne(projectId, {
+			const project: Project | undefined = await this.projectRepo.findOne(projectID, {
 				relations: ['author', 'tasks', 'tasks.priority', 'tasks.assignee', 'tasks.author', 'tasks.status', 'tasks.type']
 			});
 
@@ -104,13 +104,13 @@ export class ProjectController {
 	@bind
 	public async updateProject(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { projectId } = req.params;
+			const { projectID } = req.params;
 
-			if (!projectId || !req.body.project) {
+			if (!projectID || !req.body.project) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const project: Project | undefined = await this.projectRepo.findOne(projectId);
+			const project: Project | undefined = await this.projectRepo.findOne(projectID);
 
 			if (!project) {
 				return res.status(404).json({ status: 404, error: 'project not found' });
@@ -135,13 +135,13 @@ export class ProjectController {
 	@bind
 	public async deleteProject(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { projectId } = req.params;
+			const { projectID } = req.params;
 
-			if (!projectId) {
+			if (!projectID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const project: Project | undefined = await this.projectRepo.findOne(projectId);
+			const project: Project | undefined = await this.projectRepo.findOne(projectID);
 
 			if (!project) {
 				return res.status(404).json({ status: 404, error: 'Project not found' });

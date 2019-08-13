@@ -28,7 +28,7 @@ export class AnnouncementRoutes {
 		);
 
 		this.router.get(
-			'/:announcementId',
+			'/:announcementID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('announcement', 'read'),
 			this.controller.readAnnouncement
@@ -42,7 +42,7 @@ export class AnnouncementRoutes {
 		);
 
 		this.router.delete(
-			'/:announcementId',
+			'/:announcementID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('announcement', 'delete'),
 			this.controller.deleteAnnouncement

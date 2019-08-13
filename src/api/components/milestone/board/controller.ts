@@ -54,13 +54,13 @@ export class BoardController {
 	@bind
 	public async readBoard(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { boardId } = req.params;
+			const { boardID } = req.params;
 
-			if (!boardId) {
+			if (!boardID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const board: Board | undefined = await this.boardRepo.findOne(boardId, {
+			const board: Board | undefined = await this.boardRepo.findOne(boardID, {
 				relations: ['author', 'users']
 			});
 
@@ -104,13 +104,13 @@ export class BoardController {
 	@bind
 	public async updateBoard(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { boardId } = req.params;
+			const { boardID } = req.params;
 
-			if (!boardId || !req.body.board) {
+			if (!boardID || !req.body.board) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const board: Board | undefined = await this.boardRepo.findOne(boardId);
+			const board: Board | undefined = await this.boardRepo.findOne(boardID);
 
 			if (!board) {
 				return res.status(404).json({ status: 404, error: 'Board not found' });
@@ -135,13 +135,13 @@ export class BoardController {
 	@bind
 	public async deleteBoard(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { boardId } = req.params;
+			const { boardID } = req.params;
 
-			if (!boardId) {
+			if (!boardID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const board: Board | undefined = await this.boardRepo.findOne(boardId);
+			const board: Board | undefined = await this.boardRepo.findOne(boardID);
 
 			if (!board) {
 				return res.status(404).json({ status: 404, error: 'Board not found' });

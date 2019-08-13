@@ -45,21 +45,21 @@ export class UserRoutes {
 		);
 
 		this._router.get(
-			'/:userId',
+			'/:userID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('user', 'read'),
 			this.controller.readUser
 		);
 
 		this._router.put(
-			'/:userId',
+			'/:userID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('user', 'update'),
 			this.controller.updateUser
 		);
 
 		this._router.delete(
-			'/:userId',
+			'/:userID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('user', 'delete'),
 			this.controller.deleteUser
@@ -67,6 +67,6 @@ export class UserRoutes {
 	}
 
 	private initChildRoutes(defaultStrategy?: PassportStrategy): void {
-		this.router.use('/:userId', new UserTaskRoutes(defaultStrategy).router);
+		this.router.use('/:userID', new UserTaskRoutes(defaultStrategy).router);
 	}
 }

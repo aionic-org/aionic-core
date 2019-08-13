@@ -77,10 +77,10 @@ export class GitOrganizationController {
 	@bind
 	public async updateGitOrg(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { orgId } = req.params;
+			const { orgID } = req.params;
 			const { name } = req.body;
 
-			if (!orgId || !name) {
+			if (!orgID || !name) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
@@ -103,13 +103,13 @@ export class GitOrganizationController {
 	@bind
 	public async deleteGitOrg(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { orgId } = req.params;
+			const { orgID } = req.params;
 
-			if (!orgId) {
+			if (!orgID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const organization: GitOrganization | undefined = await this.gitOrgRepo.findOne(orgId);
+			const organization: GitOrganization | undefined = await this.gitOrgRepo.findOne(orgID);
 
 			if (!organization) {
 				return res.status(404).json({ status: 404, error: 'Organization not found' });

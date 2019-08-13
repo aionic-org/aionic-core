@@ -21,6 +21,6 @@ export class GitRoutes {
 
 	private initChildRoutes(defaultStrategy?: PassportStrategy): void {
 		this.router.use('/', new GitOranizationRoutes(defaultStrategy).router);
-		this.router.use('/:orgId', new GitRepositoryRoutes(defaultStrategy).router);
+		this.router.use('/:orgID', new GitRepositoryRoutes(defaultStrategy).router);
 	}
 }

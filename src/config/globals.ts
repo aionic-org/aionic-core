@@ -5,9 +5,6 @@ export const env = {
 		id: process.env.GH_CLIENT_ID,
 		secret: process.env.GH_CLIENT_SECRET
 	},
-	HP: {
-		DOMAIN: process.env.HP_DOMAIN
-	},
 	NODE_ENV: process.env.NODE_ENV || 'development',
 	NODE_PORT: process.env.NODE_PORT || process.env.PORT || 3000,
 	SMTP: {
@@ -23,7 +20,21 @@ export const env = {
 	}
 };
 
+// Aionic application details
+export const apps = {
+	core: {
+		name: 'Aionic Core',
+		email: 'core@aionic-apps.com',
+		domain: process.env.AIC_CORE_DOMAIN
+	},
+	milestone: {
+		name: 'Aionic Milestone',
+		email: 'milestone@aionic-apps.com',
+		domain: process.env.AIC_MILESTONE_DOMAIN
+	}
+};
+
 // Mail addresses
 export const mails = {
-	service: 'service@aionic.app'
+	service: 'service@aionic-apps.com'
 };

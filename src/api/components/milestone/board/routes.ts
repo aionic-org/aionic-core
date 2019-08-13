@@ -28,7 +28,7 @@ export class BoardRoutes {
 		);
 
 		this.router.get(
-			'/:boardId',
+			'/:boardID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('board', 'read'),
 			this.controller.readBoard
@@ -42,14 +42,14 @@ export class BoardRoutes {
 		);
 
 		this.router.put(
-			'/:boardId',
+			'/:boardID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('board', 'update'),
 			this.controller.updateBoard
 		);
 
 		this.router.delete(
-			'/:boardId',
+			'/:boardID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('board', 'delete'),
 			this.controller.deleteBoard

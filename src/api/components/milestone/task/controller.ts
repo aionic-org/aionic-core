@@ -83,13 +83,13 @@ export class TaskController {
 	@bind
 	public async readTask(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { taskId } = req.params;
+			const { taskID } = req.params;
 
-			if (!taskId) {
+			if (!taskID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const task: Task | undefined = await this.taskRepo.findOne(taskId, {
+			const task: Task | undefined = await this.taskRepo.findOne(taskID, {
 				relations: [
 					'author',
 					'assignee',
@@ -143,13 +143,13 @@ export class TaskController {
 	@bind
 	public async updateTask(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { taskId } = req.params;
+			const { taskID } = req.params;
 
-			if (!taskId || !req.body.task) {
+			if (!taskID || !req.body.task) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const task: Task | undefined = await this.taskRepo.findOne(taskId);
+			const task: Task | undefined = await this.taskRepo.findOne(taskID);
 
 			if (!task) {
 				return res.status(404).json({ status: 404, error: 'Task not found' });
@@ -174,13 +174,13 @@ export class TaskController {
 	@bind
 	public async deleteTask(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { taskId } = req.params;
+			const { taskID } = req.params;
 
-			if (!taskId) {
+			if (!taskID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const task: Task | undefined = await this.taskRepo.findOne(taskId);
+			const task: Task | undefined = await this.taskRepo.findOne(taskID);
 
 			if (!task) {
 				return res.status(404).json({ status: 404, error: 'Task not found' });

@@ -34,7 +34,7 @@ export class ProjectCommentRoutes {
 		);
 
 		this.router.delete(
-			'/comments/:commentId',
+			'/comments/:commentID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('projectComment', 'delete'),
 			this.controller.deleteProjectComment

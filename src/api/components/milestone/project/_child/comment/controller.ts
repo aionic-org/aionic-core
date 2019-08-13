@@ -18,9 +18,9 @@ export class ProjectCommentController {
 	@bind
 	public async readProjectComments(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { projectId } = req.params;
+			const { projectID } = req.params;
 
-			if (!projectId) {
+			if (!projectID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
@@ -28,7 +28,7 @@ export class ProjectCommentController {
 				relations: ['author'],
 				where: {
 					project: {
-						id: projectId
+						id: projectID
 					}
 				}
 			});
@@ -50,16 +50,16 @@ export class ProjectCommentController {
 	@bind
 	public async createProjectComment(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { projectId } = req.params;
+			const { projectID } = req.params;
 
-			if (!projectId || !req.body.comment) {
+			if (!projectID || !req.body.comment) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
 			const newComment: ProjectComment = await this.projectCommentRepo.save({
 				...req.body.comment,
 				author: req.user,
-				project: { id: projectId }
+				project: { id: projectID }
 			});
 
 			return res.json({ status: res.statusCode, data: newComment });
@@ -79,17 +79,17 @@ export class ProjectCommentController {
 	@bind
 	public async deleteProjectComment(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { projectId, commentId } = req.params;
+			const { projectID, commentID } = req.params;
 
-			if (!projectId || !commentId) {
+			if (!projectID || !commentID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
 			const comment: ProjectComment | undefined = await this.projectCommentRepo.findOne({
 				where: {
-					id: commentId,
+					id: commentID,
 					project: {
-						id: projectId
+						id: projectID
 					}
 				}
 			});
