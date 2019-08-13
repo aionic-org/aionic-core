@@ -18,9 +18,9 @@ export class UserTaskController {
 	@bind
 	public async readUserTasks(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { userId } = req.params;
+			const { userID } = req.params;
 
-			if (!userId) {
+			if (!userID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
@@ -30,7 +30,7 @@ export class UserTaskController {
 				},
 				relations: ['author', 'assignee', 'status', 'priority', 'type'],
 				where: {
-					assignee: { id: userId },
+					assignee: { id: userID },
 					completed: false
 				}
 			});
