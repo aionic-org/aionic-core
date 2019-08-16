@@ -19,7 +19,7 @@ export class ProjectShareRoutes {
 	}
 
 	private initRoutes(): void {
-		this.router.get(
+		this.router.post(
 			'/share',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('project', 'share'),
