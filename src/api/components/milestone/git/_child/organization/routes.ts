@@ -38,14 +38,14 @@ export class GitOranizationRoutes {
 		);
 
 		this.router.put(
-			'/organization/:orgId',
+			'/organization/:orgID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('gitOrgs', 'update'),
 			this.controller.updateGitOrg
 		);
 
 		this.router.delete(
-			'/organization/:orgId',
+			'/organization/:orgID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('gitOrgs', 'delete'),
 			this.controller.deleteGitOrg
@@ -53,6 +53,6 @@ export class GitOranizationRoutes {
 	}
 
 	private initChildRoutes(defaultStrategy?: PassportStrategy): void {
-		this.router.use('/:orgId', new GitRepositoryRoutes(defaultStrategy).router);
+		this.router.use('/:orgID', new GitRepositoryRoutes(defaultStrategy).router);
 	}
 }

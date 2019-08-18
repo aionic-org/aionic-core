@@ -14,11 +14,6 @@ export class TaskStatus {
 	@Column()
 	public sort: number;
 
-	@Column({
-		default: false
-	})
-	public active: boolean;
-
 	/***** relations *****/
 	@OneToMany((type) => Task, (task) => task.status)
 	public tasks: Task[];

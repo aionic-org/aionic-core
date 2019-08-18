@@ -7,6 +7,7 @@ import { TaskController } from './controller';
 import { TaskCommentRoutes } from './_child/comment/routes';
 import { TaskProjectRoutes } from './_child/project/routes';
 import { TaskScratchpadRoutes } from './_child/scratchpad/routes';
+import { TaskShareRoutes } from './_child/share/routes';
 
 export class TaskRoutes {
 	private readonly controller: TaskController = new TaskController();
@@ -33,7 +34,7 @@ export class TaskRoutes {
 		);
 
 		this.router.get(
-			'/:taskId',
+			'/:taskID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('task', 'read'),
 			this.controller.readTask
@@ -47,14 +48,14 @@ export class TaskRoutes {
 		);
 
 		this.router.put(
-			'/:taskId',
+			'/:taskID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('task', 'update'),
 			this.controller.updateTask
 		);
 
 		this.router.delete(
-			'/:taskId',
+			'/:taskID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('task', 'delete'),
 			this.controller.deleteTask
@@ -62,8 +63,9 @@ export class TaskRoutes {
 	}
 
 	private initChildRoutes(defaultStrategy?: PassportStrategy): void {
-		this.router.use('/:taskId', new TaskCommentRoutes(defaultStrategy).router);
-		this.router.use('/:taskId', new TaskProjectRoutes(defaultStrategy).router);
-		this.router.use('/:taskId', new TaskScratchpadRoutes(defaultStrategy).router);
+		this.router.use('/:taskID', new TaskCommentRoutes(defaultStrategy).router);
+		this.router.use('/:taskID', new TaskProjectRoutes(defaultStrategy).router);
+		this.router.use('/:taskID', new TaskScratchpadRoutes(defaultStrategy).router);
+		this.router.use('/:taskID', new TaskShareRoutes(defaultStrategy).router);
 	}
 }

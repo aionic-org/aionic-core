@@ -24,16 +24,16 @@ export class GitRepositoryController {
 	@bind
 	public async readGitOrgRepos(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { orgId } = req.params;
+			const { orgID } = req.params;
 
-			if (!orgId) {
+			if (!orgID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
 			const repositories: GitRepository[] = await this.gitRepositoryRepo.find({
 				where: {
 					organization: {
-						id: orgId
+						id: orgID
 					}
 				}
 			});
@@ -55,14 +55,14 @@ export class GitRepositoryController {
 	@bind
 	public async readGitOrgRepoCommits(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { orgId, repoId, branch } = req.params;
+			const { orgID, repoID, branch } = req.params;
 
-			if (!orgId || !repoId || !branch) {
+			if (!orgID || !repoID || !branch) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const org: GitOrganization = (await this.gitOrgRepo.findOne(orgId)) as GitOrganization;
-			const repo: GitRepository = (await this.gitRepositoryRepo.findOne(repoId)) as GitRepository;
+			const org: GitOrganization = (await this.gitOrgRepo.findOne(orgID)) as GitOrganization;
+			const repo: GitRepository = (await this.gitRepositoryRepo.findOne(repoID)) as GitRepository;
 
 			const commits: ICommit[] = await this.gitHubService.getBranchCommits(org, repo, branch);
 

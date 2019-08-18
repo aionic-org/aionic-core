@@ -39,13 +39,13 @@ export class AnnouncementController {
 	@bind
 	public async readAnnouncement(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { announcementId } = req.params;
+			const { announcementID } = req.params;
 
-			if (!announcementId) {
+			if (!announcementID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const announcement: Announcement | undefined = await this.announcementRepo.findOne(announcementId, {
+			const announcement: Announcement | undefined = await this.announcementRepo.findOne(announcementID, {
 				relations: ['author']
 			});
 
@@ -89,13 +89,13 @@ export class AnnouncementController {
 	@bind
 	public async deleteAnnouncement(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { announcementId } = req.params;
+			const { announcementID } = req.params;
 
-			if (!announcementId) {
+			if (!announcementID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const announcement: Announcement | undefined = await this.announcementRepo.findOne(announcementId);
+			const announcement: Announcement | undefined = await this.announcementRepo.findOne(announcementID);
 
 			if (!announcement) {
 				return res.status(404).json({ status: 404, error: 'Announcement not found' });

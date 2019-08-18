@@ -18,16 +18,16 @@ export class ScratchpadController {
 	@bind
 	public async readTaskScratchpadByUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { taskId, userId } = req.params;
+			const { taskID, userID } = req.params;
 
-			if (!taskId || !userId) {
+			if (!taskID || !userID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
 			const scratchpad: TaskScratchpad | undefined = await this.taskScratchpadRepo.findOne({
 				where: {
-					author: { id: userId },
-					task: { id: taskId }
+					author: { id: userID },
+					task: { id: taskID }
 				}
 			});
 

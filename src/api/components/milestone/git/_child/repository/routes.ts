@@ -28,7 +28,7 @@ export class GitRepositoryRoutes {
 		);
 
 		this.router.get(
-			'/repository/:repoId/:branch/commits',
+			'/repository/:repoID/:branch/commits',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('gitOrgRepo', 'read'),
 			this.controller.readGitOrgRepoCommits

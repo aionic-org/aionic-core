@@ -20,13 +20,13 @@ export class TaskScratchpadRoutes {
 
 	private initRoutes(): void {
 		this.router.get(
-			'/scratchpads/users/:userId',
+			'/scratchpads/users/:userID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('taskScratchpad', 'read'),
 			this.controller.readTaskScratchpadByUser
 		);
 		this.router.post(
-			'/scratchpads/users/:userId',
+			'/scratchpads/users/:userID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('taskScratchpad', 'read'),
 			this.controller.createOrUpdateTaskScratchpad

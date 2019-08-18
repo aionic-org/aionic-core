@@ -18,16 +18,16 @@ export class TaskProjectController {
 	@bind
 	public async readTaskProjects(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { taskId } = req.params;
+			const { taskID } = req.params;
 
-			if (!taskId) {
+			if (!taskID) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
 			const projects: Project[] = await this.taskProjectRepo
 				.createQueryBuilder('project')
 				.leftJoinAndSelect('project.author', 'user')
-				.innerJoinAndSelect('project.tasks', 'task', 'task.id = :id', { id: taskId })
+				.innerJoinAndSelect('project.tasks', 'task', 'task.id = :id', { id: taskID })
 				.getMany();
 
 			return res.json({ status: res.statusCode, data: projects });

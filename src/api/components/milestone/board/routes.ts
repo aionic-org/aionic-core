@@ -3,6 +3,7 @@ import { Router } from 'express';
 import { AuthService, PassportStrategy } from '@services/auth';
 
 import { BoardController } from './controller';
+import { BoardShareRoutes } from './_child/share/routes';
 
 export class BoardRoutes {
 	private readonly controller: BoardController = new BoardController();
@@ -13,6 +14,7 @@ export class BoardRoutes {
 		this.authSerivce = new AuthService(defaultStrategy);
 
 		this.initRoutes();
+		this.initChildRoutes(defaultStrategy);
 	}
 
 	public get router(): Router {
@@ -28,7 +30,7 @@ export class BoardRoutes {
 		);
 
 		this.router.get(
-			'/:boardId',
+			'/:boardID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('board', 'read'),
 			this.controller.readBoard
@@ -42,17 +44,21 @@ export class BoardRoutes {
 		);
 
 		this.router.put(
-			'/:boardId',
+			'/:boardID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('board', 'update'),
 			this.controller.updateBoard
 		);
 
 		this.router.delete(
-			'/:boardId',
+			'/:boardID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('board', 'delete'),
 			this.controller.deleteBoard
 		);
+	}
+
+	private initChildRoutes(defaultStrategy?: PassportStrategy): void {
+		this.router.use('/:boardID', new BoardShareRoutes(defaultStrategy).router);
 	}
 }

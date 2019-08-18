@@ -4,6 +4,7 @@ import { AuthService, PassportStrategy } from '@services/auth';
 
 import { ProjectCommentRoutes } from './_child/comment/routes';
 import { ProjectController } from './controller';
+import { ProjectShareRoutes } from './_child/share/routes';
 
 export class ProjectRoutes {
 	private readonly controller: ProjectController = new ProjectController();
@@ -30,7 +31,7 @@ export class ProjectRoutes {
 		);
 
 		this.router.get(
-			'/:projectId',
+			'/:projectID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('project', 'read'),
 			this.controller.readProject
@@ -44,14 +45,14 @@ export class ProjectRoutes {
 		);
 
 		this.router.put(
-			'/:projectId',
+			'/:projectID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('project', 'update'),
 			this.controller.updateProject
 		);
 
 		this.router.delete(
-			'/:projectId',
+			'/:projectID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('project', 'delete'),
 			this.controller.deleteProject
@@ -59,6 +60,7 @@ export class ProjectRoutes {
 	}
 
 	private initChildRoutes(defaultStrategy?: PassportStrategy): void {
-		this.router.use('/:projectId', new ProjectCommentRoutes(defaultStrategy).router);
+		this.router.use('/:projectID', new ProjectCommentRoutes(defaultStrategy).router);
+		this.router.use('/:projectID', new ProjectShareRoutes(defaultStrategy).router);
 	}
 }

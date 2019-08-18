@@ -34,7 +34,7 @@ export class TaskCommentRoutes {
 		);
 
 		this.router.delete(
-			'/comments/:commentId',
+			'/comments/:commentID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('taskComment', 'delete'),
 			this.controller.deleteTaskComment

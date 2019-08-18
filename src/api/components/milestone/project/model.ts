@@ -37,6 +37,12 @@ export class Project {
 	})
 	public completed: boolean;
 
+	@Column({
+		default: null,
+		type: 'datetime'
+	})
+	public deadline: Timestamp;
+
 	@CreateDateColumn()
 	public created: Timestamp;
 
