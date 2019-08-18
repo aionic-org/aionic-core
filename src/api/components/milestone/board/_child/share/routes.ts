@@ -1,0 +1,29 @@
+import { Router } from 'express';
+
+import { AuthService, PassportStrategy } from '@services/auth';
+
+import { BoardShareController } from './controller';
+
+export class BoardShareRoutes {
+	protected readonly controller: BoardShareController = new BoardShareController();
+	protected authSerivce: AuthService;
+	private _router: Router = Router({ mergeParams: true });
+
+	public constructor(defaultStrategy?: PassportStrategy) {
+		this.authSerivce = new AuthService(defaultStrategy);
+		this.initRoutes();
+	}
+
+	public get router(): Router {
+		return this._router;
+	}
+
+	private initRoutes(): void {
+		this.router.post(
+			'/share',
+			this.authSerivce.isAuthorized(),
+			this.authSerivce.hasPermission('board', 'share'),
+			this.controller.shareBoard
+		);
+	}
+}
