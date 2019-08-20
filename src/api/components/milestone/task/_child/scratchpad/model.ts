@@ -20,6 +20,6 @@ export class TaskScratchpad {
 	@ManyToOne((type) => User, (user) => user.taskScratchpads, { onDelete: 'CASCADE' })
 	public author: User;
 
-	@ManyToOne((type) => Task, (task) => task.comments)
+	@ManyToOne((type) => Task, (task) => task.scratchpads, { onDelete: 'CASCADE' })
 	public task: Task;
 }

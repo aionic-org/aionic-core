@@ -25,6 +25,6 @@ export class TaskComment {
 	@ManyToOne((type) => User, (user) => user.taskComments, { onDelete: 'CASCADE' })
 	public author: User;
 
-	@ManyToOne((type) => Task, (task) => task.comments)
+	@ManyToOne((type) => Task, (task) => task.comments, { onDelete: 'CASCADE' })
 	public task: Task;
 }
