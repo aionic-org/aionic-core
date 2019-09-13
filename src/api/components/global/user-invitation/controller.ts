@@ -1,15 +1,13 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
-import { getManager, Repository } from 'typeorm';
 
 import { UserInvitation } from './model';
+import { UserInvitationService } from './service';
 
 export class UserInvitationController {
-	private readonly userInvitationRepo: Repository<UserInvitation> = getManager().getRepository('UserInvitation');
+	private readonly service: UserInvitationService = new UserInvitationService();
 
 	/**
-	 * Read user invitations from db
-	 *
 	 * @param {Request} req
 	 * @param {Response} res
 	 * @param {NextFunction} next
@@ -18,7 +16,7 @@ export class UserInvitationController {
 	@bind
 	public async readUserInvitations(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const userInvitations: UserInvitation[] = await this.userInvitationRepo.find();
+			const userInvitations: UserInvitation[] = await this.service.readUserInvitations();
 
 			return res.json({ status: res.statusCode, data: userInvitations });
 		} catch (err) {

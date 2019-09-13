@@ -1,20 +1,20 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
-import { getManager, Repository } from 'typeorm';
 
-import { BoardShareMailService } from './services/mail';
+import { BoardShareService } from './service';
+
+import { UserService } from '@global/user/service';
+import { BoardService } from '@milestone/board/service';
 
 import { User } from '@global/user/model';
 import { Board } from '@milestone/board/model';
 
 export class BoardShareController {
-	private readonly userRepo: Repository<User> = getManager().getRepository('User');
-	private readonly boardRepo: Repository<Board> = getManager().getRepository('Board');
-	private readonly boardShareMailService: BoardShareMailService = new BoardShareMailService();
+	private readonly boardShareService: BoardShareService = new BoardShareService();
+	private readonly boardService: BoardService = new BoardService();
+	private readonly userService: UserService = new UserService();
 
 	/**
-	 * Share a board via email with user
-	 *
 	 * @param {Request} req
 	 * @param {Response} res
 	 * @param {NextFunction} next
@@ -30,19 +30,31 @@ export class BoardShareController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const boardToShare: Board | undefined = await this.boardRepo.findOne(boardID);
+			const boardToShare: Board | undefined = await this.boardService.readBoard({
+				where: {
+					id: boardID
+				}
+			});
 
 			if (!boardToShare) {
 				return res.status(404).json({ status: 404, error: 'Board to share not found' });
 			}
 
-			for (const userID of userIDs) {
-				const targetUser: User | undefined = await this.userRepo.findOne(userID);
+			const users: User[] = [];
 
-				if (targetUser) {
-					await this.boardShareMailService.sendBoard(req.user, targetUser, boardToShare);
+			for (const userID of userIDs) {
+				const user: User | undefined = await this.userService.readUser({
+					where: {
+						id: userID
+					}
+				});
+
+				if (user) {
+					users.push(user);
 				}
 			}
+
+			await this.boardShareService.shareBoard(req.user as User, users, boardToShare);
 
 			return res.status(204).send();
 		} catch (err) {

@@ -1,15 +1,14 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
-import { getManager, Like, Repository } from 'typeorm';
+import { Like, FindConditions } from 'typeorm';
 
 import { Task } from './model';
+import { TaskService } from './service';
 
 export class TaskController {
-	private readonly taskRepo: Repository<Task> = getManager().getRepository('Task');
+	private readonly service: TaskService = new TaskService();
 
 	/**
-	 * Read all tasks from db
-	 *
 	 * @param {Request} req
 	 * @param {Response} res
 	 * @param {NextFunction} next
@@ -18,9 +17,9 @@ export class TaskController {
 	@bind
 	public async readTasks(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { title, term, type, status, assignee, author, tag, organization, branch } = req.query;
+			const { title, term, status, assignee, author, tag, organization, branch } = req.query;
 
-			let where: object = {};
+			let where: FindConditions<Task> = {};
 
 			if (title && title.length) {
 				where = { ...where, title: Like(`%${title}%`) };
@@ -28,10 +27,6 @@ export class TaskController {
 
 			if (term && term.length) {
 				where = { ...where, description: Like(`%${term}%`) };
-			}
-
-			if (type) {
-				where = { ...where, type: { id: type } };
 			}
 
 			if (status) {
@@ -58,12 +53,9 @@ export class TaskController {
 				where = { ...where, branch };
 			}
 
-			const tasks: Task[] = await this.taskRepo.find({
+			const tasks: Task[] = await this.service.readTasks({
 				where,
-				order: {
-					updated: 'DESC'
-				},
-				relations: ['author', 'assignee', 'status', 'priority', 'type', 'repository']
+				relations: ['author', 'assignee', 'status', 'priority', 'repository']
 			});
 
 			return res.json({ status: res.statusCode, data: tasks });
@@ -73,8 +65,6 @@ export class TaskController {
 	}
 
 	/**
-	 * Read a certain task from db
-	 *
 	 * @param {Request} req
 	 * @param {Response} res
 	 * @param {NextFunction} next
@@ -89,18 +79,10 @@ export class TaskController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const task: Task | undefined = await this.taskRepo.findOne(taskID, {
-				relations: [
-					'author',
-					'assignee',
-					'status',
-					'priority',
-					'type',
-					'repository',
-					'organization',
-					'links',
-					'links.author'
-				]
+			const task: Task | undefined = await this.service.readTask({
+				where: {
+					id: taskID
+				}
 			});
 
 			return res.json({ status: res.statusCode, data: task });
@@ -110,8 +92,6 @@ export class TaskController {
 	}
 
 	/**
-	 * Save new task to db
-	 *
 	 * @param {Request} req
 	 * @param {Response} res
 	 * @param {NextFunction} next
@@ -124,7 +104,7 @@ export class TaskController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const newTask: Task = await this.taskRepo.save(req.body.task);
+			const newTask: Task = await this.service.saveTask(req.body.task);
 
 			return res.json({ status: res.statusCode, data: newTask });
 		} catch (err) {
@@ -133,8 +113,6 @@ export class TaskController {
 	}
 
 	/**
-	 * Update task in db
-	 *
 	 * @param {Request} req
 	 * @param {Response} res
 	 * @param {NextFunction} next
@@ -149,13 +127,28 @@ export class TaskController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const task: Task | undefined = await this.taskRepo.findOne(taskID);
+			const task: Task | undefined = await this.service.readTask({
+				where: {
+					id: taskID
+				}
+			});
 
 			if (!task) {
 				return res.status(404).json({ status: 404, error: 'Task not found' });
 			}
 
-			const updatedTask: Task = await this.taskRepo.save(req.body.task);
+			await this.service.saveTask(req.body.task);
+
+			/**
+			 * We have to reload the model again since .save()
+			 * does not return all columns on updates
+			 */
+
+			const updatedTask: Task | undefined = await this.service.readTask({
+				where: {
+					id: taskID
+				}
+			});
 
 			return res.json({ status: res.statusCode, data: updatedTask });
 		} catch (err) {
@@ -164,8 +157,6 @@ export class TaskController {
 	}
 
 	/**
-	 * Delete task from db
-	 *
 	 * @param {Request} req
 	 * @param {Response} res
 	 * @param {NextFunction} next
@@ -180,13 +171,17 @@ export class TaskController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const task: Task | undefined = await this.taskRepo.findOne(taskID);
+			const task: Task | undefined = await this.service.readTask({
+				where: {
+					id: taskID
+				}
+			});
 
 			if (!task) {
 				return res.status(404).json({ status: 404, error: 'Task not found' });
 			}
 
-			await this.taskRepo.remove(task);
+			await this.service.deleteTask(task);
 
 			return res.status(204).send();
 		} catch (err) {

@@ -30,7 +30,7 @@ export class BasicAuthStrategy extends BaseStrategy {
 	 */
 	public isAuthorized(req: Request, res: Response, next: NextFunction): Handler | void {
 		try {
-			return authenticate('basic', { session: false }, (error, user, info) => {
+			return authenticate('basic', { session: false }, (error, user: User, info) => {
 				if (error) {
 					return next(error);
 				}

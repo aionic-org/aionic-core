@@ -1,15 +1,13 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
-import { getManager, Repository } from 'typeorm';
 
 import { Board } from './model';
+import { BoardService } from './service';
 
 export class BoardController {
-	private readonly boardRepo: Repository<Board> = getManager().getRepository('Board');
+	private readonly service: BoardService = new BoardService();
 
 	/**
-	 * Read all boards from db
-	 *
 	 * @param {Request} req
 	 * @param {Response} res
 	 * @param {NextFunction} next
@@ -31,8 +29,7 @@ export class BoardController {
 				take = { take: limit };
 			}
 
-			const boards: Board[] = await this.boardRepo.find({
-				relations: ['author', 'users'],
+			const boards: Board[] = await this.service.readBoards({
 				...order,
 				...take
 			});
@@ -44,8 +41,6 @@ export class BoardController {
 	}
 
 	/**
-	 * Read a certain board from db
-	 *
 	 * @param {Request} req
 	 * @param {Response} res
 	 * @param {NextFunction} next
@@ -60,8 +55,10 @@ export class BoardController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const board: Board | undefined = await this.boardRepo.findOne(boardID, {
-				relations: ['author', 'users']
+			const board: Board | undefined = await this.service.readBoard({
+				where: {
+					id: boardID
+				}
 			});
 
 			return res.json({ status: res.statusCode, data: board });
@@ -71,8 +68,6 @@ export class BoardController {
 	}
 
 	/**
-	 * Save new board to db
-	 *
 	 * @param {Request} req
 	 * @param {Response} res
 	 * @param {NextFunction} next
@@ -85,7 +80,7 @@ export class BoardController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const newBoard: Board = await this.boardRepo.save(req.body.board);
+			const newBoard: Board = await this.service.saveBoard(req.body.board);
 
 			return res.json({ status: res.statusCode, data: newBoard });
 		} catch (err) {
@@ -94,8 +89,6 @@ export class BoardController {
 	}
 
 	/**
-	 * Update board in db
-	 *
 	 * @param {Request} req
 	 * @param {Response} res
 	 * @param {NextFunction} next
@@ -110,13 +103,17 @@ export class BoardController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const board: Board | undefined = await this.boardRepo.findOne(boardID);
+			const board: Board | undefined = await this.service.readBoard({
+				where: {
+					id: boardID
+				}
+			});
 
 			if (!board) {
 				return res.status(404).json({ status: 404, error: 'Board not found' });
 			}
 
-			const updatedBoard: Board = await this.boardRepo.save(req.body.board);
+			const updatedBoard: Board = await this.service.saveBoard(req.body.board);
 
 			return res.json({ status: res.statusCode, data: updatedBoard });
 		} catch (err) {
@@ -125,8 +122,6 @@ export class BoardController {
 	}
 
 	/**
-	 * Delete board from db
-	 *
 	 * @param {Request} req
 	 * @param {Response} res
 	 * @param {NextFunction} next
@@ -141,13 +136,17 @@ export class BoardController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const board: Board | undefined = await this.boardRepo.findOne(boardID);
+			const board: Board | undefined = await this.service.readBoard({
+				where: {
+					id: boardID
+				}
+			});
 
 			if (!board) {
 				return res.status(404).json({ status: 404, error: 'Board not found' });
 			}
 
-			await this.boardRepo.remove(board);
+			await this.service.deleteBoard(board);
 
 			return res.status(204).send();
 		} catch (err) {

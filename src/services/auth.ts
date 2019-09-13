@@ -8,6 +8,7 @@ import { permissions } from '@config/permissions';
 
 import { BasicAuthStrategy } from '@global/auth/strategies/basicAuth';
 import { JwtStrategy } from '@global/auth/strategies/jwt';
+import { User } from '@global/user/model';
 
 export type PassportStrategy = 'jwt' | 'basic';
 
@@ -70,8 +71,8 @@ export class AuthService {
 	public hasPermission(resource: string, permission: string): Handler {
 		return async (req: Request, res: Response, next: NextFunction) => {
 			try {
-				const userID: number = req.user.id;
-				const access: boolean = await permissions.isAllowed(userID, resource, permission);
+				const { id } = req.user as User;
+				const access: boolean = await permissions.isAllowed(id, resource, permission);
 
 				if (!access) {
 					return res.status(403).json({

@@ -28,8 +28,8 @@ export class TaskScratchpadRoutes {
 		this.router.post(
 			'/scratchpads/users/:userID',
 			this.authSerivce.isAuthorized(),
-			this.authSerivce.hasPermission('taskScratchpad', 'read'),
-			this.controller.createOrUpdateTaskScratchpad
+			this.authSerivce.hasPermission('taskScratchpad', 'create'),
+			this.controller.saveTaskScratchpad
 		);
 	}
 }

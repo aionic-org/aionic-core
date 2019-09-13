@@ -1,4 +1,0 @@
-{
-  "Admin": [{"resources": "taskType", "permissions": "*"}],
-  "User": [{"resources": "taskType", "permissions": ["read"]}]
-}

@@ -6,7 +6,6 @@ import { GitRoutes } from './git/routes';
 import { ProjectRoutes } from './project/routes';
 import { TaskPriorityRoutes } from './task-priority/routes';
 import { TaskStatusRoutes } from './task-status/routes';
-import { TaskTypeRoutes } from './task-type/routes';
 import { TaskRoutes } from './task/routes';
 
 /**
@@ -24,5 +23,4 @@ export function registerMilestoneRoutes(router: Router, prefix: string = ''): vo
 	router.use(`${prefix}/tasks`, new TaskRoutes().router);
 	router.use(`${prefix}/task-priorities`, new TaskPriorityRoutes().router);
 	router.use(`${prefix}/task-status`, new TaskStatusRoutes().router);
-	router.use(`${prefix}/task-type`, new TaskTypeRoutes().router);
 }

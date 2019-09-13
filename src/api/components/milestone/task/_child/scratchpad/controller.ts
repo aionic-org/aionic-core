@@ -1,15 +1,13 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
-import { getManager, Repository } from 'typeorm';
 
-import { TaskScratchpad } from '@milestone/task/_child/scratchpad/model';
+import { TaskScratchpadService } from './service';
+import { TaskScratchpad } from './model';
 
 export class ScratchpadController {
-	private readonly taskScratchpadRepo: Repository<TaskScratchpad> = getManager().getRepository('TaskScratchpad');
+	private readonly service: TaskScratchpadService = new TaskScratchpadService();
 
 	/**
-	 * Read scratchpad from a certain task by user from db
-	 *
 	 * @param {Request} req
 	 * @param {Response} res
 	 * @param {NextFunction} next
@@ -24,11 +22,9 @@ export class ScratchpadController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const scratchpad: TaskScratchpad | undefined = await this.taskScratchpadRepo.findOne({
-				where: {
-					author: { id: userID },
-					task: { id: taskID }
-				}
+			const scratchpad: TaskScratchpad | undefined = await this.service.readTaskScratchpad({
+				author: { id: parseInt(userID, 10) },
+				task: { id: parseInt(taskID, 10) }
 			});
 
 			return res.json({ status: res.statusCode, data: scratchpad });
@@ -38,21 +34,19 @@ export class ScratchpadController {
 	}
 
 	/**
-	 * Save or update if exists scratchpad to db
-	 *
 	 * @param {Request} req
 	 * @param {Response} res
 	 * @param {NextFunction} next
 	 * @returns {Promise<Response | void>} Returns HTTP response
 	 */
 	@bind
-	public async createOrUpdateTaskScratchpad(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+	public async saveTaskScratchpad(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
 			if (!req.body.scratchpad) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const newScratchpad: TaskScratchpad = await this.taskScratchpadRepo.save(req.body.scratchpad);
+			const newScratchpad: TaskScratchpad = await this.service.saveTaskScratchpad(req.body.scratchpad);
 
 			return res.json({ status: res.statusCode, data: newScratchpad });
 		} catch (err) {

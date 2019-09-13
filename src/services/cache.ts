@@ -1,7 +1,9 @@
 import nodeCache from 'node-cache';
+import { Service } from 'typedi';
 
 import { env } from '@config/globals';
 
+@Service()
 export class CacheService {
 	private static cache: nodeCache = new nodeCache({ stdTTL: env.CACHE_TTL });
 

@@ -2,8 +2,6 @@ import {
 	Column,
 	CreateDateColumn,
 	Entity,
-	JoinTable,
-	ManyToMany,
 	ManyToOne,
 	OneToMany,
 	PrimaryGeneratedColumn,
@@ -56,7 +54,6 @@ export class Project {
 	@OneToMany((type) => ProjectComment, (projectComment) => projectComment.project)
 	public comments: ProjectComment[];
 
-	@ManyToMany((type) => Task, (task) => task.projects)
-	@JoinTable()
+	@OneToMany((type) => Task, (task) => task.project)
 	public tasks: Task[];
 }

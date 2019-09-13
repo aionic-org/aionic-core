@@ -4,6 +4,7 @@ import { authenticate } from 'passport';
 import { Strategy, StrategyOptions } from 'passport-jwt';
 
 import { BaseStrategy } from './base';
+import { User } from '@global/user/model';
 
 /**
  * Passport JWT Authentication
@@ -31,7 +32,7 @@ export class JwtStrategy extends BaseStrategy {
 	 */
 	public isAuthorized(req: Request, res: Response, next: NextFunction): Handler | void {
 		try {
-			authenticate('jwt', { session: false }, (err, user, info) => {
+			authenticate('jwt', { session: false }, (err, user: User, info) => {
 				// internal error
 				if (err) {
 					return next(err);
