@@ -1,7 +1,6 @@
 import { Data, renderFile } from 'ejs';
 import { createTransport, SendMailOptions, SentMessageInfo, Transporter, TransportOptions } from 'nodemailer';
 import { resolve } from 'path';
-import { Service } from 'typedi';
 
 import { env } from '@config/globals';
 import { logger } from '@config/logger';
@@ -12,7 +11,6 @@ import { logger } from '@config/logger';
  * Service for sending emails
  * Mail services in components inherits from this one
  */
-@Service()
 export class MailService {
 	private transporter: Transporter = createTransport(env.SMTP as TransportOptions);
 

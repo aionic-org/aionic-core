@@ -1,10 +1,8 @@
 import { bind } from 'decko';
-import { Service } from 'typedi';
 import { Repository, FindConditions, getManager } from 'typeorm';
 
 import { UserInvitation } from './model';
 
-@Service()
 export class UserInvitationService {
 	private readonly repo: Repository<UserInvitation> = getManager().getRepository(UserInvitation);
 
