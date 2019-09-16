@@ -1,7 +1,7 @@
 {
 	"name": "aionic-core",
 	"version": "0.0.1",
-	"description": "Aionic Core - Applications for project management and collaboration",
+	"description": "Aionic Core - Core API for Aionic applications",
 	"main": "./dist/index.js",
 	"author": "Lars Wächter <lars97.waechter@gmail.com>",
 	"private": true,
@@ -11,8 +11,7 @@
 	"scripts": {
 		"start": "node ./dist/index.js",
 		"build": "rm -rf dist && tsc -p tsconfig.json && gulp copy && gulp merge",
-		"build:light": "rm -rf dist && tsc -p tsconfig.json",
-		"watch": "nodemon --exec \"npm run build:light && npm run start\" --watch src --ext ts",
+		"watch": "nodemon --exec \"npm run build && npm run start\" --watch src --ext ts",
 		"seed": "node db/index.js",
 		"lint": "tslint -p tsconfig.json",
 		"prettier": "prettier --config ./.prettierrc --write src/**/*.ts",
