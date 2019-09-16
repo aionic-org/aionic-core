@@ -6,7 +6,7 @@ import { CacheService } from '@services/cache';
 import { User } from './model';
 
 export class UserService {
-	private readonly defaultRelations: string[] = ['userRole', 'assignee'];
+	private readonly defaultRelations: string[] = ['userRole', 'assignee', 'tasksWatched'];
 
 	private readonly cacheService: CacheService = new CacheService();
 

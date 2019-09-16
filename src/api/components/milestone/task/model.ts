@@ -60,6 +60,11 @@ export class Task {
 	public completed: boolean;
 
 	@Column({
+		default: false
+	})
+	public isClone: boolean;
+
+	@Column({
 		default: null,
 		type: 'datetime'
 	})

@@ -12,6 +12,8 @@ Please keep in mind that we just develop the software and don't host the applica
 
 All products are built on top of the **Aionic Core** application, since this is the place where all your data is managed and distributed. So for the usage of any other application, you have to use at least [Aionic Core](https://github.com/Aionic-Apps/aionic-core/).
 
+Moreover we highly recommend [Aionic Manager](https://github.com/Aionic-Apps/aionic-manager/) which makes your data management much easier.
+
 Some of the technologies we trust: _Node.js, React, MySQL_
 
 ## Features

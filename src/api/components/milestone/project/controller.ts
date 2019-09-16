@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { Project } from './model';
 import { ProjectService } from './service';
+import { FindConditions, OrderByCondition } from 'typeorm';
 
 export class ProjectController {
 	private readonly service: ProjectService = new ProjectService();
@@ -16,23 +17,29 @@ export class ProjectController {
 	@bind
 	public async readProjects(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { orderby, orderdir, limit } = req.query;
+			const { completed, orderby, orderdir, limit } = req.query;
 
-			let order = {};
-			let take: object = {};
+			let where: FindConditions<Project> = {};
+			let order: OrderByCondition = { completed: 'ASC' };
+			let take: number = 0;
+
+			if (completed !== undefined && completed.length) {
+				where = { ...where, completed: !!+completed };
+			}
 
 			if (orderby || orderdir) {
-				order = { order: { [orderby || 'id']: orderdir || 'ASC' } };
+				order = { [orderby || 'completed']: orderdir || 'ASC' };
 			}
 
 			if (limit) {
-				take = { take: limit };
+				take = limit;
 			}
 
 			const projects: Project[] = await this.service.readProjects({
-				relations: ['author', 'tasks', 'tasks.status'],
-				...order,
-				...take
+				where,
+				order,
+				take,
+				relations: ['author', 'tasks', 'tasks.status']
 			});
 
 			return res.json({ status: res.statusCode, data: projects });

@@ -26,6 +26,12 @@ export class Project {
 
 	@Column({
 		default: null,
+		unique: true
+	})
+	public key: string;
+
+	@Column({
+		default: null,
 		type: 'text'
 	})
 	public description: string;
@@ -34,6 +40,11 @@ export class Project {
 		default: false
 	})
 	public completed: boolean;
+
+	@Column({
+		default: false
+	})
+	public isClone: boolean;
 
 	@Column({
 		default: null,
