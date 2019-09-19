@@ -27,22 +27,12 @@ export class TaskStatusService {
 			}
 
 			if (cached) {
-				return this.cacheService.get('TaskStatus', this);
+				return this.cacheService.get('task-status', this.readTaskStatus);
 			}
 
 			return this.repo.find();
 		} catch (err) {
 			throw new Error(err);
 		}
-	}
-
-	/**
-	 * Get target content for cache service
-	 *
-	 * @returns {Promise<TaskStatus[]>}
-	 */
-	@bind
-	private getCachedContent(): Promise<TaskStatus[]> {
-		return this.repo.find();
 	}
 }

@@ -1,6 +1,7 @@
 import { compare, genSalt, hash } from 'bcrypt-nodejs';
-import * as crypto from 'crypto';
 import { v1 as uuidv1 } from 'uuid';
+
+import * as crypto from 'crypto';
 
 import { logger } from '@config/logger';
 

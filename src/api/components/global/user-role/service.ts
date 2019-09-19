@@ -27,23 +27,9 @@ export class UserRoleService {
 			}
 
 			if (cached) {
-				return this.cacheService.get('userRole', this);
+				return this.cacheService.get('user-roles', this.readUserRoles);
 			}
 
-			return this.repo.find();
-		} catch (err) {
-			throw new Error(err);
-		}
-	}
-
-	/**
-	 * Get target content for cache service
-	 *
-	 * @returns {Promise<UserRole[]>}
-	 */
-	@bind
-	private getCachedContent(): Promise<UserRole[]> {
-		try {
 			return this.repo.find();
 		} catch (err) {
 			throw new Error(err);

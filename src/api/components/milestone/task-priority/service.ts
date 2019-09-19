@@ -30,22 +30,12 @@ export class TaskPriorityService {
 			}
 
 			if (cached) {
-				return this.cacheService.get('taskPriority', this);
+				return this.cacheService.get('task-priorities', this.readTaskPriorities);
 			}
 
 			return this.repo.find();
 		} catch (err) {
 			throw new Error(err);
 		}
-	}
-
-	/**
-	 * Get target content for cache service
-	 *
-	 * @returns {Promise<TaskPriority[]>}
-	 */
-	@bind
-	private getCachedContent(): Promise<TaskPriority[]> {
-		return this.repo.find();
 	}
 }

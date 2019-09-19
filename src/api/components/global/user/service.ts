@@ -30,7 +30,7 @@ export class UserService {
 			}
 
 			if (cached) {
-				return this.cacheService.get('user', this);
+				return this.cacheService.get('users', this.readUsers);
 			}
 
 			return this.repo.find({
@@ -123,22 +123,6 @@ export class UserService {
 			this.cacheService.delete('user');
 
 			return deletedUser;
-		} catch (err) {
-			throw new Error(err);
-		}
-	}
-
-	/**
-	 * Get target content for cache service
-	 *
-	 * @returns {Promise<User[]>}
-	 */
-	@bind
-	private getCachedContent(): Promise<User[]> {
-		try {
-			return this.repo.find({
-				relations: this.defaultRelations
-			});
 		} catch (err) {
 			throw new Error(err);
 		}

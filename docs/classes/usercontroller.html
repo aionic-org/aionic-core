@@ -81,8 +81,7 @@
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="usercontroller.html#cacheservice" class="tsd-kind-icon">cache<wbr>Service</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="usercontroller.html#userrepo" class="tsd-kind-icon">user<wbr>Repo</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="usercontroller.html#userservice" class="tsd-kind-icon">user<wbr>Service</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -90,7 +89,6 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="usercontroller.html#createuser" class="tsd-kind-icon">create<wbr>User</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="usercontroller.html#deleteuser" class="tsd-kind-icon">delete<wbr>User</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="usercontroller.html#getcachedcontent" class="tsd-kind-icon">get<wbr>Cached<wbr>Content</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="usercontroller.html#readuser" class="tsd-kind-icon">read<wbr>User</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="usercontroller.html#readusers" class="tsd-kind-icon">read<wbr>Users</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="usercontroller.html#searchusersbyusername" class="tsd-kind-icon">search<wbr>Users<wbr>ByUsername</a></li>
@@ -103,22 +101,12 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="cacheservice" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> cache<wbr>Service</h3>
-					<div class="tsd-signature tsd-kind-icon">cache<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="cacheservice.html" class="tsd-signature-type">CacheService</a><span class="tsd-signature-symbol"> =&nbsp;new CacheService()</span></div>
+					<a name="userservice" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> user<wbr>Service</h3>
+					<div class="tsd-signature tsd-kind-icon">user<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="userservice.html" class="tsd-signature-type">UserService</a><span class="tsd-signature-symbol"> =&nbsp;new UserService()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/global/user/controller.ts#L11">api/components/global/user/controller.ts:11</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="userrepo" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> user<wbr>Repo</h3>
-					<div class="tsd-signature tsd-kind-icon">user<wbr>Repo<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Repository</span><span class="tsd-signature-symbol">&lt;</span><a href="user.html" class="tsd-signature-type">User</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;getManager().getRepository(&#x27;User&#x27;)</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/global/user/controller.ts#L12">api/components/global/user/controller.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/api/components/global/user/controller.ts#L10">api/components/global/user/controller.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -135,13 +123,10 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/global/user/controller.ts#L115">api/components/global/user/controller.ts:115</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/api/components/global/user/controller.ts#L82">api/components/global/user/controller.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Save new user to db</p>
-								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -170,13 +155,10 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/global/user/controller.ts#L196">api/components/global/user/controller.ts:196</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/api/components/global/user/controller.ts#L152">api/components/global/user/controller.ts:152</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Delete user from db</p>
-								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -195,28 +177,6 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="getcachedcontent" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Cached<wbr>Content</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Cached<wbr>Content<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="user.html" class="tsd-signature-type">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/global/user/controller.ts#L228">api/components/global/user/controller.ts:228</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Get target content for cache service</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="user.html" class="tsd-signature-type">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="readuser" class="tsd-anchor"></a>
 					<h3>read<wbr>User</h3>
@@ -227,13 +187,10 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/global/user/controller.ts#L88">api/components/global/user/controller.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/api/components/global/user/controller.ts#L55">api/components/global/user/controller.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Read a certain user from db</p>
-								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -262,13 +219,10 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/global/user/controller.ts#L23">api/components/global/user/controller.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/api/components/global/user/controller.ts#L19">api/components/global/user/controller.ts:19</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Read all users from db (cached)</p>
-								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -297,13 +251,10 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/global/user/controller.ts#L46">api/components/global/user/controller.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/api/components/global/user/controller.ts#L36">api/components/global/user/controller.ts:36</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Search users from db</p>
-								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -332,13 +283,10 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/global/user/controller.ts#L161">api/components/global/user/controller.ts:161</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/api/components/global/user/controller.ts#L119">api/components/global/user/controller.ts:119</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Update user in db</p>
-								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -375,19 +323,13 @@
 						<a href="usercontroller.html" class="tsd-kind-icon">User<wbr>Controller</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="usercontroller.html#cacheservice" class="tsd-kind-icon">cache<wbr>Service</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="usercontroller.html#userrepo" class="tsd-kind-icon">user<wbr>Repo</a>
+								<a href="usercontroller.html#userservice" class="tsd-kind-icon">user<wbr>Service</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="usercontroller.html#createuser" class="tsd-kind-icon">create<wbr>User</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="usercontroller.html#deleteuser" class="tsd-kind-icon">delete<wbr>User</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="usercontroller.html#getcachedcontent" class="tsd-kind-icon">get<wbr>Cached<wbr>Content</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="usercontroller.html#readuser" class="tsd-kind-icon">read<wbr>User</a>

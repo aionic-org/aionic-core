@@ -19,17 +19,60 @@ export class ConfigRoutes {
 	}
 
 	private initRoutes() {
+		/**
+		 * Caches
+		 */
 		this._router.get(
-			'/cache',
+			'/caches',
 			this.authSerivce.isAuthorized(),
-			this.authSerivce.hasPermission('config', 'getCache'),
-			this.controller.getCache
+			this.authSerivce.hasPermission('config', 'getCachesMetadata'),
+			this.controller.getCachesMetadata
 		);
 		this._router.delete(
-			'/cache',
+			'/caches',
 			this.authSerivce.isAuthorized(),
-			this.authSerivce.hasPermission('config', 'deleteCache'),
-			this.controller.deleteCache
+			this.authSerivce.hasPermission('config', 'deleteCachesMetadata'),
+			this.controller.deleteCachesMetadata
+		);
+		this._router.get(
+			'/caches/:key',
+			this.authSerivce.isAuthorized(),
+			this.authSerivce.hasPermission('config', 'getCacheKeyData'),
+			this.controller.getCacheKeyData
+		);
+		this._router.delete(
+			'/caches/:key',
+			this.authSerivce.isAuthorized(),
+			this.authSerivce.hasPermission('config', 'deleteCacheKeyData'),
+			this.controller.deleteCacheKeyData
+		);
+
+		/**
+		 * Logs
+		 */
+		this._router.get(
+			'/logs',
+			this.authSerivce.isAuthorized(),
+			this.authSerivce.hasPermission('config', 'getLogFiles'),
+			this.controller.getLogFiles
+		);
+		this._router.get(
+			'/logs/:logname',
+			this.authSerivce.isAuthorized(),
+			this.authSerivce.hasPermission('config', 'readLogFile'),
+			this.controller.readLogFile
+		);
+		this._router.delete(
+			'/logs/:logname',
+			this.authSerivce.isAuthorized(),
+			this.authSerivce.hasPermission('config', 'deleteLogFile'),
+			this.controller.deleteLogFile
+		);
+		this._router.get(
+			'/logs/:logname/download',
+			this.authSerivce.isAuthorized(),
+			this.authSerivce.hasPermission('config', 'downloadLogFile'),
+			this.controller.downloadLogFile
 		);
 	}
 }

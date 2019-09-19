@@ -13,14 +13,14 @@ export class CacheService {
 	 * @param {object} params
 	 * @returns {Promise<any>}
 	 */
-	public get(key: string, storeController: any, params: any[] = []): Promise<any> {
+	public get(key: string, storeFunction: Function = () => Promise.resolve(), params: any[] = []): Promise<any> {
 		const value = CacheService.cache.get(key);
 
 		if (value) {
 			return Promise.resolve(value);
 		}
 
-		return storeController.getCachedContent(...params).then((res: any) => {
+		return storeFunction(...params).then((res: any) => {
 			CacheService.cache.set(key, res);
 			return res;
 		});
