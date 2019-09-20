@@ -15,10 +15,12 @@ export class BoardShareController {
 	private readonly userService: UserService = new UserService();
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Share board
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async shareBoard(req: Request, res: Response, next: NextFunction): Promise<Response | void> {

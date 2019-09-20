@@ -15,9 +15,9 @@ export class UserService {
 	/**
 	 * Read all users from db
 	 *
-	 * @param {FindManyOptions<User>} options = {}
-	 * @param {boolean} cached = false
-	 * @returns {Promise<User[]>} Returns an array of users
+	 * @param options Find options
+	 * @param cached Read users from cache
+	 * @returns Returns an array of users
 	 */
 	@bind
 	public readUsers(options: FindManyOptions<User> = {}, cached: boolean = false): Promise<User[]> {
@@ -44,8 +44,8 @@ export class UserService {
 	/**
 	 * Read users from db by username
 	 *
-	 * @param {string} username
-	 * @returns {Promise<User[]>} Returns an array of users
+	 * @param username Username to search for
+	 * @returns Returns an array of users
 	 */
 	@bind
 	public readUsersByUsername(username: string): Promise<User[]> {
@@ -73,8 +73,8 @@ export class UserService {
 	/**
 	 * Read a certain user from db
 	 *
-	 * @param {FindOneOptions<User>} options
-	 * @returns {Promise<User | undefined>} Returns a single user
+	 * @param options Find options
+	 * @returns Returns a single user
 	 */
 	@bind
 	public readUser(options: FindOneOptions<User> = {}): Promise<User | undefined> {
@@ -89,10 +89,10 @@ export class UserService {
 	}
 
 	/**
-	 * Save new or updated user to db
+	 * Save new or updated u ser to db
 	 *
-	 * @param {User} user
-	 * @returns {Promise<User>} Returns saved user
+	 * @param user User to save
+	 * @returns Returns saved user
 	 */
 	@bind
 	public async saveUser(user: User): Promise<User> {
@@ -111,8 +111,8 @@ export class UserService {
 	/**
 	 * Delete user from db
 	 *
-	 * @param {User} user
-	 * @returns {Promise<User>} Returns deleted user
+	 * @param user User to delete
+	 * @returns Returns deleted user
 	 */
 	@bind
 	public async deleteUser(user: User): Promise<User> {

@@ -9,8 +9,8 @@ export class TaskScratchpadService {
 	/**
 	 * Read a certain task scratchpad from db
 	 *
-	 * @param {FindConditions<TaskScratchpad>} where = {}
-	 * @returns {Promise<TaskScratchpad | undefined>} Returns an single task scratchpad
+	 * @param where Find conditions
+	 * @returns Returns an single task scratchpad
 	 */
 	@bind
 	public readTaskScratchpad(where: FindConditions<TaskScratchpad> = {}): Promise<TaskScratchpad | undefined> {
@@ -22,8 +22,8 @@ export class TaskScratchpadService {
 	/**
 	 * Save new or updated task scratchpad to db
 	 *
-	 * @param {TaskScratchpad} taskScratchpad
-	 * @returns {Promise<TaskScratchpad>} Returns saved task scratchpad
+	 * @param taskScratchpad Task scratchpad to save
+	 * @returns Returns saved task scratchpad
 	 */
 	@bind
 	public saveTaskScratchpad(taskScratchpad: TaskScratchpad): Promise<TaskScratchpad> {

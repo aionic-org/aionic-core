@@ -8,10 +8,12 @@ export class AnnouncementController {
 	private readonly service: AnnouncementService = new AnnouncementService();
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read announcements
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readAnnouncements(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -25,10 +27,12 @@ export class AnnouncementController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read announcement
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readAnnouncement(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -52,10 +56,12 @@ export class AnnouncementController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Create announcement
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async createAnnouncement(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -73,10 +79,12 @@ export class AnnouncementController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Delete announcement
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async deleteAnnouncement(req: Request, res: Response, next: NextFunction): Promise<Response | void> {

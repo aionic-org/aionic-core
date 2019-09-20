@@ -139,7 +139,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L44">services/auth.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L44">services/auth.ts:44</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -161,7 +161,7 @@
 					<div class="tsd-signature tsd-kind-icon">basic<wbr>Strategy<span class="tsd-signature-symbol">:</span> <a href="basicauthstrategy.html" class="tsd-signature-type">BasicAuthStrategy</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L30">services/auth.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L30">services/auth.ts:30</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -171,7 +171,7 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Strategy<span class="tsd-signature-symbol">:</span> <a href="../globals.html#passportstrategy" class="tsd-signature-type">PassportStrategy</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L28">services/auth.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L28">services/auth.ts:28</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -181,7 +181,7 @@
 					<div class="tsd-signature tsd-kind-icon">jwt<wbr>Strategy<span class="tsd-signature-symbol">:</span> <a href="jwtstrategy.html" class="tsd-signature-type">JwtStrategy</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L29">services/auth.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L29">services/auth.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -198,7 +198,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L60">services/auth.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L60">services/auth.ts:60</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -210,6 +210,9 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>userID: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Used for JWT payload</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -227,7 +230,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L130">services/auth.ts:130</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L130">services/auth.ts:130</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -239,21 +242,34 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>req: <span class="tsd-signature-type">Request</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Express request</p>
+									</div>
 								</li>
 								<li>
 									<h5>res: <span class="tsd-signature-type">Response</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Express response</p>
+									</div>
 								</li>
 								<li>
 									<h5>next: <span class="tsd-signature-type">NextFunction</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Express next</p>
+									</div>
 								</li>
 								<li>
 									<h5>strategy: <a href="../globals.html#passportstrategy" class="tsd-signature-type">PassportStrategy</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Passport strategy name</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Handler</span>
 								<span class="tsd-signature-symbol"> | </span>
 								<span class="tsd-signature-type">void</span>
 							</h4>
+							<p>Returns if user is authorized</p>
 						</li>
 					</ul>
 				</section>
@@ -261,13 +277,13 @@
 					<a name="haspermission" class="tsd-anchor"></a>
 					<h3>has<wbr>Permission</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">has<wbr>Permission<span class="tsd-signature-symbol">(</span>resource<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, permission<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Handler</span></li>
+						<li class="tsd-signature tsd-kind-icon">has<wbr>Permission<span class="tsd-signature-symbol">(</span>resource<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, action<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Handler</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L71">services/auth.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L71">services/auth.ts:71</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -279,12 +295,19 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>resource: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Requested resource</p>
+									</div>
 								</li>
 								<li>
-									<h5>permission: <span class="tsd-signature-type">string</span></h5>
+									<h5>action: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Performed action on requested resource</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Handler</span></h4>
+							<p>Returns if action on resource is allowed</p>
 						</li>
 					</ul>
 				</section>
@@ -298,7 +321,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L96">services/auth.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L96">services/auth.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -320,7 +343,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L108">services/auth.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L108">services/auth.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -332,9 +355,13 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> strategy: <a href="../globals.html#passportstrategy" class="tsd-signature-type">PassportStrategy</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Passport strategy</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Handler</span></h4>
+							<p>Returns if user is authorized</p>
 						</li>
 					</ul>
 				</section>
@@ -347,7 +374,7 @@
 					<div class="tsd-signature tsd-kind-icon">sign<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L40">services/auth.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L40">services/auth.ts:40</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -356,7 +383,7 @@
 						<div class="tsd-signature tsd-kind-icon">audience<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;this.strategyOptions.audience</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L41">services/auth.ts:41</a></li>
+								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L41">services/auth.ts:41</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -366,7 +393,7 @@
 						<div class="tsd-signature tsd-kind-icon">expires<wbr>In<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;8h&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L42">services/auth.ts:42</a></li>
+								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L42">services/auth.ts:42</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -376,7 +403,7 @@
 						<div class="tsd-signature tsd-kind-icon">issuer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;this.strategyOptions.issuer</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L43">services/auth.ts:43</a></li>
+								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L43">services/auth.ts:43</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -387,7 +414,7 @@
 					<div class="tsd-signature tsd-kind-icon">strategy<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L32">services/auth.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L32">services/auth.ts:32</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -396,7 +423,7 @@
 						<div class="tsd-signature tsd-kind-icon">audience<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;aionic-client&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L33">services/auth.ts:33</a></li>
+								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L33">services/auth.ts:33</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -406,7 +433,7 @@
 						<div class="tsd-signature tsd-kind-icon">issuer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;aionic-core&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L34">services/auth.ts:34</a></li>
+								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L34">services/auth.ts:34</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -416,7 +443,7 @@
 						<div class="tsd-signature tsd-kind-icon">jwt<wbr>From<wbr>Request<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">JwtFromRequestFunction</span><span class="tsd-signature-symbol"> =&nbsp;ExtractJwt.fromAuthHeaderAsBearerToken()</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L35">services/auth.ts:35</a></li>
+								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L35">services/auth.ts:35</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -426,7 +453,7 @@
 						<div class="tsd-signature tsd-kind-icon">secret<wbr>OrKey<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;aionic-secret-api-key&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/5342d02/src/services/auth.ts#L36">services/auth.ts:36</a></li>
+								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/services/auth.ts#L36">services/auth.ts:36</a></li>
 							</ul>
 						</aside>
 					</section>

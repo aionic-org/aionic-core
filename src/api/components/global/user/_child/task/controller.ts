@@ -8,10 +8,12 @@ export class UserTaskController {
 	private readonly taskService: TaskService = new TaskService();
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read tasks from user
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readUserTasks(req: Request, res: Response, next: NextFunction): Promise<Response | void> {

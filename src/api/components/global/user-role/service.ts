@@ -13,9 +13,9 @@ export class UserRoleService {
 	/**
 	 * Read all user roles from db
 	 *
-	 * @param {FindConditions<UserRole>} where = {}
-	 * @param {boolean} cached = false
-	 * @returns {Promise<UserRole[]>} Returns array of user roles
+	 * @param where Find conditions
+	 * @param cached Read user roles from cache
+	 * @returns Returns an array of user roles
 	 */
 	@bind
 	public readUserRoles(where: FindConditions<UserRole> = {}, cached: boolean = false): Promise<UserRole[]> {

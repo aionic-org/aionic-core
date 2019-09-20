@@ -28,10 +28,10 @@ export class AuthController {
 	private readonly userInvService: UserInvitationService = new UserInvitationService();
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async signinUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -70,10 +70,10 @@ export class AuthController {
 	/**
 	 * Validate hash required for registration
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async validateRegistrationHash(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -94,10 +94,10 @@ export class AuthController {
 	/**
 	 * Register new user
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async registerUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -154,10 +154,10 @@ export class AuthController {
 	/**
 	 * Create user invitation that is required for registration
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async createUserInvitation(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -198,10 +198,10 @@ export class AuthController {
 	/**
 	 * Unregister user
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async unregisterUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -235,11 +235,10 @@ export class AuthController {
 	}
 
 	/**
-	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async handleGitHubAuth(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -259,11 +258,10 @@ export class AuthController {
 	}
 
 	/**
-	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async handleGitHubAuthCallback(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -294,10 +292,9 @@ export class AuthController {
 	}
 
 	/**
-	 *
-	 * @param {string} hash
-	 * @param {string} [email]
-	 * @returns {Promise<UserInvitation | undefined>} Returns user invitation
+	 * @param hash
+	 * @param email
+	 * @returns Returns user invitation
 	 */
 	@bind
 	private async getUserInvitation(hash: string, email?: string): Promise<UserInvitation | undefined> {

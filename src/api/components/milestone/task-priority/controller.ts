@@ -8,10 +8,12 @@ export class TaskPriorityController {
 	private readonly service: TaskPriorityService = new TaskPriorityService();
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read task priorities
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readTaskPriorities(req: Request, res: Response, next: NextFunction): Promise<Response | void> {

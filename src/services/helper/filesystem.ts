@@ -56,8 +56,9 @@ export class FilesystemService {
 	}
 
 	/**
-	 * Delete file from path
+	 * Delete file
 	 *
+	 * @param path Path to delete file from
 	 * @returns
 	 */
 	public static deleteFile(path: string): Promise<string | undefined> {
@@ -79,7 +80,7 @@ export class FilesystemService {
 	/**
 	 * Read error log file
 	 *
-	 * @returns  Returns error log content
+	 * @returns Returns error log content
 	 */
 	public static readErrorLog(): Promise<string> {
 		return FilesystemService.readFile(FilesystemService.errorLogFilePath);

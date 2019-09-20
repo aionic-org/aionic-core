@@ -9,10 +9,12 @@ export class ProjectController {
 	private readonly service: ProjectService = new ProjectService();
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read projects
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readProjects(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -49,10 +51,12 @@ export class ProjectController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read project
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readProject(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -77,10 +81,12 @@ export class ProjectController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Create project
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async createProject(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -98,10 +104,12 @@ export class ProjectController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Update project
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async updateProject(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -131,10 +139,12 @@ export class ProjectController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Delete project
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async deleteProject(req: Request, res: Response, next: NextFunction): Promise<Response | void> {

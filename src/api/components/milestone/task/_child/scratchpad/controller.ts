@@ -8,10 +8,12 @@ export class ScratchpadController {
 	private readonly service: TaskScratchpadService = new TaskScratchpadService();
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read task scratchpad by user
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readTaskScratchpadByUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -34,10 +36,12 @@ export class ScratchpadController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Save task scratchpad
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async saveTaskScratchpad(req: Request, res: Response, next: NextFunction): Promise<Response | void> {

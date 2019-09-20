@@ -18,17 +18,17 @@ export abstract class BaseStrategy {
 	/**
 	 * Get strategy
 	 *
-	 * @returns {Strategy_Jwt | Strategy_Basic} Returns Passport strategy
+	 * @returns Returns Passport strategy
 	 */
 	public get strategy(): Strategy_Jwt | Strategy_Basic {
 		return this._strategy;
 	}
 
 	/**
-	 * Sets acl user permission
+	 * Sets acl permission for user
 	 *
-	 * @param {User} user
-	 * @returns {Promise<void>}
+	 * @param user
+	 * @returns
 	 */
 	protected async setPermissions(user: User): Promise<void> {
 		// add role from db

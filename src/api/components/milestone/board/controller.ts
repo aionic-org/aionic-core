@@ -8,10 +8,12 @@ export class BoardController {
 	private readonly service: BoardService = new BoardService();
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read boards
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readBoards(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -41,10 +43,12 @@ export class BoardController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read board
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readBoard(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -68,10 +72,12 @@ export class BoardController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Create board
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async createBoard(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -89,10 +95,12 @@ export class BoardController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Update board
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async updateBoard(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -122,10 +130,12 @@ export class BoardController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Delete board
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async deleteBoard(req: Request, res: Response, next: NextFunction): Promise<Response | void> {

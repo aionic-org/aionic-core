@@ -25,7 +25,8 @@ export class HttpService {
 	/**
 	 * Send custom request
 	 *
-	 * @param {AxiosRequestConfig} reqConfig
+	 * @param reqConfig Request config
+	 * @returns Returns request
 	 */
 	public request(reqConfig: AxiosRequestConfig): Promise<any> {
 		return new Promise((resolve, reject) => {
@@ -43,8 +44,9 @@ export class HttpService {
 	/**
 	 * Fetch data from resource
 	 *
-	 * @param {string} url
-	 * @param {object} [params]
+	 * @param url URL to fetch data from
+	 * @param params Request params
+	 * @returns Returns request
 	 */
 	public fetchData(url: string, params?: object): Promise<any> {
 		return new Promise((resolve, reject) => {
@@ -62,8 +64,8 @@ export class HttpService {
 	/**
 	 * Post data to resource
 	 *
-	 * @param {string} url
-	 * @param {object} data
+	 * @param url URL to post data to
+	 * @param data Request data
 	 */
 	public postData(url: string, data: object): Promise<any> {
 		return new Promise((resolve, reject) => {

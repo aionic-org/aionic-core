@@ -14,10 +14,10 @@ export class ProjectShareService {
 	/**
 	 * Share a project via email with users
 	 *
-	 * @param {User} author
-	 * @param {User} users
-	 * @param {Task} task
-	 * @returns {Promise<void>}
+	 * @param author User who shares project
+	 * @param users Users to share project with
+	 * @param project Project to share
+	 * @returns
 	 */
 	@bind
 	public async shareProject(author: User, users: User[], project: Project): Promise<void> {

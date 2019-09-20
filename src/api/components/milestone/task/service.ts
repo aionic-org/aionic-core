@@ -21,8 +21,8 @@ export class TaskService {
 	/**
 	 * Read all tasks from db
 	 *
-	 * @param {FindManyOptions<Task>} options = {}
-	 * @returns {Promise<Task[]>} Returns an array of tasks
+	 * @param options Find options
+	 * @returns Returns an array of tasks
 	 */
 	@bind
 	public readTasks(options: FindManyOptions<Task>): Promise<Task[]> {
@@ -39,8 +39,8 @@ export class TaskService {
 	/**
 	 * Read a certain task from db
 	 *
-	 * @param {FindOneOptions<Task>} options = {}
-	 * @returns {Promise<Task | undefined>} Returns a single task
+	 * @param options Find options
+	 * @returns Returns a single task
 	 */
 	@bind
 	public readTask(options: FindOneOptions<Task>): Promise<Task | undefined> {
@@ -57,8 +57,8 @@ export class TaskService {
 	/**
 	 * Save new or updated task to db
 	 *
-	 * @param {Task} task
-	 * @returns {Promise<Task>} Returns saved task
+	 * @param task Task to save
+	 * @returns Returns saved task
 	 */
 	@bind
 	public saveTask(task: Task): Promise<Task> {
@@ -72,8 +72,8 @@ export class TaskService {
 	/**
 	 * Delete task from db
 	 *
-	 * @param {Task} task
-	 * @returns {Promise<Task>} Returns deleted task
+	 * @param task Task to delete
+	 * @returns Returns deleted task
 	 */
 	@bind
 	public async deleteTask(task: Task): Promise<Task> {

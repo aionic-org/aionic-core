@@ -13,12 +13,12 @@ export class GitOrganizationController {
 	private readonly gitRepositoryRepo: Repository<GitRepository> = getManager().getRepository('GitRepository');
 
 	/**
-	 * Read all git organizations from db
+	 * Read Git organizations
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readGitOrgs(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -32,12 +32,12 @@ export class GitOrganizationController {
 	}
 
 	/**
-	 * Save new git organization and its repos to db
+	 * Create Git organization
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async createGitOrg(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -69,10 +69,10 @@ export class GitOrganizationController {
 	/**
 	 * Update git organization and its repos to db
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async updateGitOrg(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -93,12 +93,12 @@ export class GitOrganizationController {
 	}
 
 	/**
-	 * Update git organization and its repos to db
+	 * Delete Git organization
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async deleteGitOrg(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -127,7 +127,7 @@ export class GitOrganizationController {
 	/**
 	 * Load and store git organization data in db
 	 *
-	 * @param {string} organizationName
+	 * @param organizationName Organization to synch
 	 */
 	private async synchOrganization(organizationName: string): Promise<GitOrganization> {
 		// Load organization details from GitHub API

@@ -11,8 +11,8 @@ export class ProjectService {
 	/**
 	 * Read all projects from db
 	 *
-	 * @param {FindManyOptions<Project>} options = {}
-	 * @returns {Promise<Project[]>} Returns an array of projects
+	 * @param options Find options
+	 * @returns Returns an array of projects
 	 */
 	@bind
 	public readProjects(options: FindManyOptions<Project>): Promise<Project[]> {
@@ -29,8 +29,8 @@ export class ProjectService {
 	/**
 	 * Read a certain project from db
 	 *
-	 * @param {FindOneOptions<Project>} options = {}
-	 * @returns {Promise<Project | undefined>} Returns a single project
+	 * @param options Find options
+	 * @returns Returns a single project
 	 */
 	@bind
 	public readProject(options: FindOneOptions<Project>): Promise<Project | undefined> {
@@ -47,8 +47,8 @@ export class ProjectService {
 	/**
 	 * Save new or updated project to db
 	 *
-	 * @param {Project} project
-	 * @returns {Promise<Project>} Returns saved project
+	 * @param project Project to save
+	 * @returns Returns saved project
 	 */
 	@bind
 	public saveProject(project: Project): Promise<Project> {
@@ -62,8 +62,8 @@ export class ProjectService {
 	/**
 	 * Delete project from db
 	 *
-	 * @param {Project} project
-	 * @returns {Promise<Project>} Returns deleted project
+	 * @param project Project to delete
+	 * @returns Returns deleted project
 	 */
 	@bind
 	public async deleteProject(project: Project): Promise<Project> {

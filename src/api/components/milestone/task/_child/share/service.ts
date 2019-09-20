@@ -14,10 +14,10 @@ export class TaskShareService {
 	/**
 	 * Share a task via email with users
 	 *
-	 * @param {User} author
-	 * @param {User} users
-	 * @param {Task} task
-	 * @returns {Promise<void>} Returns info of sent mail
+	 * @param author User who shares task
+	 * @param users Users to share tasks with
+	 * @param task Task to share
+	 * @returns
 	 */
 	@bind
 	public async shareTask(author: User, users: User[], task: Task): Promise<void> {

@@ -14,10 +14,10 @@ export class BoardShareService {
 	/**
 	 * Share a board via email with users
 	 *
-	 * @param {User} author
-	 * @param {User} users
-	 * @param {Project} project
-	 * @returns {Promise<void>}
+	 * @param author User who shares board
+	 * @param users Users to share board with
+	 * @param board Board to share
+	 * @returns
 	 */
 	@bind
 	public async shareBoard(author: User, users: User[], board: Board): Promise<void> {

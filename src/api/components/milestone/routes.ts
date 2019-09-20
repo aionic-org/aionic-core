@@ -11,9 +11,9 @@ import { TaskRoutes } from './task/routes';
 /**
  * Init Express api routes (Milestone)
  *
- * @param {Router} router
- * @param {string} prefix
- * @returns {void}
+ * @param router Router the routes are attached to
+ * @param prefix Prefix for attached routes
+ * @returns
  */
 export function registerMilestoneRoutes(router: Router, prefix: string = ''): void {
 	router.use(`${prefix}/announcements`, new AnnouncementRoutes().router);

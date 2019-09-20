@@ -8,19 +8,23 @@ export class CacheService {
 	/**
 	 * Get cache value and set if not provided
 	 *
-	 * @param {string} key
-	 * @param {object} storeController
-	 * @param {object} params
-	 * @returns {Promise<any>}
+	 * @param key Cache key
+	 * @param storeFunction Function to execute if key is not set
+	 * @param storeFunctionArgs Arguments for store function
+	 * @returns Returns cache key value
 	 */
-	public get(key: string, storeFunction: Function = () => Promise.resolve(), params: any[] = []): Promise<any> {
+	public get(
+		key: string,
+		storeFunction: Function = () => Promise.resolve(),
+		storeFunctionArgs: any[] = []
+	): Promise<any> {
 		const value = CacheService.cache.get(key);
 
 		if (value) {
 			return Promise.resolve(value);
 		}
 
-		return storeFunction(...params).then((res: any) => {
+		return storeFunction(...storeFunctionArgs).then((res: any) => {
 			CacheService.cache.set(key, res);
 			return res;
 		});

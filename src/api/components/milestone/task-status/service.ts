@@ -13,9 +13,9 @@ export class TaskStatusService {
 	/**
 	 * Read all task status from db
 	 *
-	 * @param {FindConditions<TaskStatus>} where = {}
-	 * @param {boolean} cached = false
-	 * @returns {Promise<TaskStatus[]>} Returns array of task status
+	 * @param where Find conditions
+	 * @param cached Read task status from cache
+	 * @returns Returns an array of task status
 	 */
 	@bind
 	public async readTaskStatus(where: FindConditions<TaskStatus> = {}, cached: boolean = false): Promise<TaskStatus[]> {

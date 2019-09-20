@@ -13,9 +13,9 @@ export class TaskPriorityService {
 	/**
 	 * Read all task priorities from db
 	 *
-	 * @param {FindConditions<TaskPriority>} where = {}
-	 * @param {boolean} cached = false
-	 * @returns {Promise<TaskPriority[]>} Returns array of task priorities
+	 * @param where Find conditions
+	 * @param cached Read task priorities from cache
+	 * @returns Returns an array of task priorities
 	 */
 	@bind
 	public async readTaskPriorities(

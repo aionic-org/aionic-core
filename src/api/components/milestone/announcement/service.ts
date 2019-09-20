@@ -11,8 +11,8 @@ export class AnnouncementService {
 	/**
 	 * Read all announcements from db
 	 *
-	 * @param {FindManyOptions<Announcement>} options = {}
-	 * @returns {Promise<Announcement[]>} Returns an array of announcements
+	 * @param  options Find options
+	 * @returns Returns an array of announcements
 	 */
 	@bind
 	public readAnnouncements(options: FindManyOptions<Announcement> = {}): Promise<Announcement[]> {
@@ -29,8 +29,8 @@ export class AnnouncementService {
 	/**
 	 * Read a certain announcement from db
 	 *
-	 * @param {FindOneOptions<Announcement>} options = {}
-	 * @returns {Promise<Announcement>} Returns a single announcement
+	 * @param options Find options
+	 * @returns Returns a single announcement
 	 */
 	@bind
 	public readAnnouncement(options: FindOneOptions<Announcement>): Promise<Announcement | undefined> {
@@ -47,8 +47,8 @@ export class AnnouncementService {
 	/**
 	 * Save new or updated announcement to db
 	 *
-	 * @param {Announcement} announcement
-	 * @returns {Promise<Announcement>} Returns saved announcement
+	 * @param announcement Announcement to save
+	 * @returns Returns saved announcement
 	 */
 	@bind
 	public saveAnnouncement(announcement: Announcement): Promise<Announcement> {
@@ -62,8 +62,8 @@ export class AnnouncementService {
 	/**
 	 * Delete announcement from db
 	 *
-	 * @param {Announcement} announcement
-	 * @returns {Promise<Announcement>} Returns deleted announcement
+	 * @param announcement Announcement to delete
+	 * @returns Returns deleted announcement
 	 */
 	@bind
 	public async deleteAnnouncement(announcement: Announcement): Promise<Announcement> {

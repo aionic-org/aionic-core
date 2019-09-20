@@ -8,10 +8,12 @@ export class TaskStatusController {
 	private readonly service: TaskStatusService = new TaskStatusService();
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read task status
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readTaskStatus(req: Request, res: Response, next: NextFunction): Promise<Response | void> {

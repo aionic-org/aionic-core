@@ -53,26 +53,26 @@ export class ConfigRoutes {
 		this._router.get(
 			'/logs',
 			this.authSerivce.isAuthorized(),
-			this.authSerivce.hasPermission('config', 'getLogFiles'),
-			this.controller.getLogFiles
+			this.authSerivce.hasPermission('config', 'getLogfiles'),
+			this.controller.getLogfiles
 		);
 		this._router.get(
-			'/logs/:logname',
+			'/logs/:logfile',
 			this.authSerivce.isAuthorized(),
-			this.authSerivce.hasPermission('config', 'readLogFile'),
-			this.controller.readLogFile
+			this.authSerivce.hasPermission('config', 'readLogfile'),
+			this.controller.readLogfile
 		);
 		this._router.delete(
-			'/logs/:logname',
+			'/logs/:logfile',
 			this.authSerivce.isAuthorized(),
-			this.authSerivce.hasPermission('config', 'deleteLogFile'),
-			this.controller.deleteLogFile
+			this.authSerivce.hasPermission('config', 'deleteLogfile'),
+			this.controller.deleteLogfile
 		);
 		this._router.get(
-			'/logs/:logname/download',
+			'/logs/:logfile/download',
 			this.authSerivce.isAuthorized(),
-			this.authSerivce.hasPermission('config', 'downloadLogFile'),
-			this.controller.downloadLogFile
+			this.authSerivce.hasPermission('config', 'downloadLogfile'),
+			this.controller.downloadLogfile
 		);
 	}
 }

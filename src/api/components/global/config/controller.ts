@@ -15,10 +15,10 @@ export class ConfigController {
 	/**
 	 * Get cache keys and stats
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async getCachesMetadata(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -35,10 +35,10 @@ export class ConfigController {
 	/**
 	 * Delete complete cache
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async deleteCachesMetadata(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -54,10 +54,10 @@ export class ConfigController {
 	/**
 	 * Get cache key data
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async getCacheKeyData(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -79,10 +79,10 @@ export class ConfigController {
 	/**
 	 * Delete cache key data
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async deleteCacheKeyData(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -106,38 +106,42 @@ export class ConfigController {
 	 */
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Get name of logfiles
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
-	public async getLogFiles(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+	public async getLogfiles(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const logFiles: string[] = await FilesystemService.readFolder(FilesystemService.logsFilePath);
+			const logfiles: string[] = await FilesystemService.readFolder(FilesystemService.logsFilePath);
 
-			return res.json({ status: res.statusCode, data: logFiles });
+			return res.json({ status: res.statusCode, data: logfiles });
 		} catch (err) {
 			return next(err);
 		}
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read logfile content
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
-	public async readLogFile(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+	public async readLogfile(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { logname } = req.params;
+			const { logfile } = req.params;
 
-			if (!logname) {
+			if (!logfile) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const logContent: string = await FilesystemService.readFile(resolve(FilesystemService.logsFilePath, logname));
+			const logContent: string = await FilesystemService.readFile(resolve(FilesystemService.logsFilePath, logfile));
 
 			return res.json({ status: res.statusCode, data: logContent });
 		} catch (err) {
@@ -146,21 +150,23 @@ export class ConfigController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Delete logfile
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
-	public async deleteLogFile(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+	public async deleteLogfile(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { logname } = req.params;
+			const { logfile } = req.params;
 
-			if (!logname) {
+			if (!logfile) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			await FilesystemService.deleteFile(resolve(FilesystemService.logsFilePath, logname));
+			await FilesystemService.deleteFile(resolve(FilesystemService.logsFilePath, logfile));
 
 			return res.status(204).json({ status: 204 });
 		} catch (err) {
@@ -169,21 +175,23 @@ export class ConfigController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Download logfile
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
-	public downloadLogFile(req: Request, res: Response, next: NextFunction): Response | void {
+	public downloadLogfile(req: Request, res: Response, next: NextFunction): Response | void {
 		try {
-			const { logname } = req.params;
+			const { logfile } = req.params;
 
-			if (!logname) {
+			if (!logfile) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			return res.download(resolve(FilesystemService.logsFilePath, logname));
+			return res.download(resolve(FilesystemService.logsFilePath, logfile));
 		} catch (err) {
 			return next(err);
 		}

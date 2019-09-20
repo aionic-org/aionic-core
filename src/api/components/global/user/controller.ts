@@ -10,10 +10,12 @@ export class UserController {
 	private readonly userService: UserService = new UserService();
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read users
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readUsers(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -27,13 +29,15 @@ export class UserController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read users by username
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
-	public async searchUsersByUsername(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+	public async readUsersByUsername(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
 			const { username } = req.query;
 
@@ -46,10 +50,12 @@ export class UserController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read user
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -73,10 +79,12 @@ export class UserController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Create user
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async createUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -110,10 +118,12 @@ export class UserController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Update user
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async updateUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -143,10 +153,12 @@ export class UserController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Delete user
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async deleteUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {

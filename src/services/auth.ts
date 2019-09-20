@@ -54,8 +54,8 @@ export class AuthService {
 	/**
 	 * Create JWT
 	 *
-	 * @param {number} userID
-	 * @returns {string} Returns JWT
+	 * @param userID Used for JWT payload
+	 * @returns Returns JWT
 	 */
 	public createToken(userID: number): string {
 		return sign({ userID }, this.strategyOptions.secretOrKey as string, this.signOptions);
@@ -64,15 +64,15 @@ export class AuthService {
 	/**
 	 * Middleware for verifying user permissions from acl
 	 *
-	 * @param {string} resource
-	 * @param {string} permission
-	 * @returns {Handler}
+	 * @param resource Requested resource
+	 * @param action Performed action on requested resource
+	 * @returns Returns if action on resource is allowed
 	 */
-	public hasPermission(resource: string, permission: string): Handler {
+	public hasPermission(resource: string, action: string): Handler {
 		return async (req: Request, res: Response, next: NextFunction) => {
 			try {
 				const { id } = req.user as User;
-				const access: boolean = await permissions.isAllowed(id, resource, permission);
+				const access: boolean = await permissions.isAllowed(id, resource, action);
 
 				if (!access) {
 					return res.status(403).json({
@@ -91,7 +91,7 @@ export class AuthService {
 	/**
 	 * Init passport strategies
 	 *
-	 * @returns {void}
+	 * @returns
 	 */
 	public initStrategies(): void {
 		use('jwt', this.jwtStrategy.strategy);
@@ -101,8 +101,8 @@ export class AuthService {
 	/**
 	 * Setup target passport authorization
 	 *
-	 * @param {string} strategy
-	 * @returns {Handler}
+	 * @param strategy Passport strategy
+	 * @returns Returns if user is authorized
 	 */
 	@bind
 	public isAuthorized(strategy?: PassportStrategy): Handler {
@@ -120,11 +120,11 @@ export class AuthService {
 	/**
 	 * Executes the target passport authorization
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @param {string} strategy
-	 * @returns {Handler | void}
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @param strategy Passport strategy name
+	 * @returns Returns if user is authorized
 	 */
 	@bind
 	private doAuthentication(

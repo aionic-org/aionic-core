@@ -11,8 +11,8 @@ export class BoardService {
 	/**
 	 * Read all boards from db
 	 *
-	 * @param {FindManyOptions<Board>} options = {}
-	 * @returns {Promise<Board[]>} Returns an array of boards
+	 * @param options Find options
+	 * @returns Returns an array of boards
 	 */
 	@bind
 	public readBoards(options: FindManyOptions<Board>): Promise<Board[]> {
@@ -29,8 +29,8 @@ export class BoardService {
 	/**
 	 * Read a certain board from db
 	 *
-	 * @param {FindOneOptions<Board>} options = {}
-	 * @returns {Promise<Board>} Returns a single board
+	 * @param options Find options
+	 * @returns Returns a single board
 	 */
 	@bind
 	public readBoard(options: FindOneOptions<Board>): Promise<Board | undefined> {
@@ -47,8 +47,8 @@ export class BoardService {
 	/**
 	 * Save new or updated board to db
 	 *
-	 * @param {Board} board
-	 * @returns {Promise<Board>} Returns saved board
+	 * @param board Board to save
+	 * @returns Returns saved board
 	 */
 	@bind
 	public saveBoard(board: Board): Promise<Board> {
@@ -62,8 +62,8 @@ export class BoardService {
 	/**
 	 * Delete board from db
 	 *
-	 * @param {Board} board
-	 * @returns {Promise<Board>} Returns deleted board
+	 * @param board Board to delete
+	 * @returns Returns deleted board
 	 */
 	@bind
 	public async deleteBoard(board: Board): Promise<Board> {

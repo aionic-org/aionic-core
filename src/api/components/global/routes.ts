@@ -11,9 +11,9 @@ import { UserRoutes } from './user/routes';
 /**
  * Init Express api routes (Global)
  *
- * @param {Router} router
- * @param {string} prefix
- * @returns {void}
+ * @param router Router the routes are attached to
+ * @param prefix Prefix for attached routes
+ * @returns
  */
 export function registerGlobalRoutes(router: Router, prefix: string = ''): void {
 	router.use(`${prefix}/auth`, new AuthRoutes().router);

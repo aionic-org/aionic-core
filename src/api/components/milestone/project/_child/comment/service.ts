@@ -11,8 +11,8 @@ export class ProjectCommentService {
 	/**
 	 * Read all project comments from db
 	 *
-	 * @param {number} projectID
-	 * @returns {Promise<ProjectComment[]>} Returns an array of project comments
+	 * @param projectID ID of project to read comments from
+	 * @returns Returns an array of project comments
 	 */
 	@bind
 	public readProjectComments(projectID: number): Promise<ProjectComment[]> {
@@ -33,9 +33,9 @@ export class ProjectCommentService {
 	/**
 	 * Read a certain project comment from db
 	 *
-	 * @param {number} projectID
-	 * @param {number} commentID
-	 * @returns {Promise<ProjectComment | undefined>} Returns a single project comment
+	 * @param projectID ID of project to read comment from
+	 * @param commentID ID of comment to read
+	 * @returns Returns a single project comment
 	 */
 	@bind
 	public readProjectComment(projectID: number, commentID: number): Promise<ProjectComment | undefined> {
@@ -57,8 +57,8 @@ export class ProjectCommentService {
 	/**
 	 * Save new or updated project comment to db
 	 *
-	 * @param {ProjectComment} projectComment
-	 * @returns {Promise<ProjectComment>} Returns saved project comment
+	 * @param projectComment Project comment to save
+	 * @returns Returns saved project comment
 	 */
 	@bind
 	public saveProjectComment(projectComment: ProjectComment): Promise<ProjectComment> {
@@ -72,7 +72,7 @@ export class ProjectCommentService {
 	/**
 	 * Delete project comment from db
 	 *
-	 * @param {ProjectComment} projectComment
+	 * @param projectComment Project comment to delete
 	 * @returns {Promise<ProjectComment>} Returns deleted project comment
 	 */
 	@bind

@@ -9,8 +9,8 @@ export class UserInvitationService {
 	/**
 	 * Read all user invitations from db
 	 *
-	 * @param {FindConditions<UserInvitation>} where = {}
-	 * @returns {Promise<UserInvitation[]>} Returns array of user invitations
+	 * @param where Find conditions
+	 * @returns Returns an array of user invitations
 	 */
 	@bind
 	public readUserInvitations(where: FindConditions<UserInvitation> = {}): Promise<UserInvitation[]> {
@@ -24,8 +24,8 @@ export class UserInvitationService {
 	/**
 	 * Read a certain user invitation from db
 	 *
-	 * @param {FindConditions<UserInvitation>} where = {}
-	 * @returns {Promise<UserInvitation>} Returns a single user invitation
+	 * @param where Find conditions
+	 * @returns Returns a single user invitation
 	 */
 	@bind
 	public readUserInvitation(where: FindConditions<UserInvitation>): Promise<UserInvitation | undefined> {
@@ -41,8 +41,8 @@ export class UserInvitationService {
 	/**
 	 * Save new or updated user invitation to db
 	 *
-	 * @param {UserInvitation} userInvitation
-	 * @returns {Promise<User>} Returns saved user invitation
+	 * @param userInvitation User invitation to save
+	 * @returns Returns saved user invitation
 	 */
 	@bind
 	public saveUserInvitation(userInvitation: UserInvitation): Promise<UserInvitation> {
@@ -56,8 +56,8 @@ export class UserInvitationService {
 	/**
 	 * Delete user invitation from db
 	 *
-	 * @param {User} user
-	 * @returns {Promise<User>} Returns deleted user invitation
+	 * @param userInvitation User invitation to delete
+	 * @returns Returns deleted user invitation
 	 */
 	@bind
 	public async deleteUserInvitation(userInvitation: UserInvitation): Promise<UserInvitation> {

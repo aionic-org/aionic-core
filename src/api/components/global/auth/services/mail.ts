@@ -8,9 +8,9 @@ export class AuthMailService extends MailService {
 	/**
 	 * Send user invitation email
 	 *
-	 * @param {string} email
-	 * @param {string} uuid
-	 * @returns {Promise<SentMessageInfo>} Returns info of sent mail
+	 * @param email Email to which the invitation is sent
+	 * @param uuid UUID for registration link
+	 * @returns Returns info of sent mail
 	 */
 	public async sendUserInvitation(email: string, uuid: string): Promise<SentMessageInfo> {
 		const templateParams = {

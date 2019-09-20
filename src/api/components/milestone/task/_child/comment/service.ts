@@ -11,8 +11,8 @@ export class TaskCommentService {
 	/**
 	 * Read all task comments from db
 	 *
-	 * @param {number} taskID
-	 * @returns {Promise<TaskComment[]>} Returns an array of task comments
+	 * @param taskID ID of task to read comments from
+	 * @returns Returns an array of task comments
 	 */
 	@bind
 	public readTaskComments(taskID: number): Promise<TaskComment[]> {
@@ -33,9 +33,9 @@ export class TaskCommentService {
 	/**
 	 * Read a certain task comment from db
 	 *
-	 * @param {number} taskID
-	 * @param {number} commentID
-	 * @returns {Promise<TaskComment | undefined>} Returns a single task comment
+	 * @param taskID ID of task to read comments from
+	 * @param commentID ID of comment to read
+	 * @returns Returns a single task comment
 	 */
 	@bind
 	public readTaskComment(taskID: number, commentID: number): Promise<TaskComment | undefined> {
@@ -57,8 +57,8 @@ export class TaskCommentService {
 	/**
 	 * Save new or updated task comment to db
 	 *
-	 * @param {TaskComment} taskComment
-	 * @returns {Promise<TaskComment>} Returns saved task comment
+	 * @param taskComment Task comment to save
+	 * @returns Returns saved task comment
 	 */
 	@bind
 	public saveTaskComment(taskComment: TaskComment): Promise<TaskComment> {
@@ -72,7 +72,7 @@ export class TaskCommentService {
 	/**
 	 * Delete task comment from db
 	 *
-	 * @param {TaskComment} taskComment
+	 * @param taskComment Task comment to delete
 	 * @returns {Promise<TaskComment>} Returns deleted task comment
 	 */
 	@bind

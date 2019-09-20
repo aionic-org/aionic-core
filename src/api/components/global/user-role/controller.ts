@@ -8,10 +8,12 @@ export class UserRoleController {
 	private readonly service: UserRoleService = new UserRoleService();
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read user roles
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readUserRoles(req: Request, res: Response, next: NextFunction): Promise<Response | void> {

@@ -26,8 +26,8 @@ export class GitHubService extends HttpService {
 	/**
 	 * Get an organization
 	 *
-	 * @param {string} organization
-	 * @returns {Promise<Array<object>>}
+	 * @param organization Organization to get
+	 * @returns Returns GitHub organization
 	 */
 	@bind
 	public async getOrganization(organization: string): Promise<GitOrganization> {
@@ -57,8 +57,8 @@ export class GitHubService extends HttpService {
 	/**
 	 * Get repositories from an organization
 	 *
-	 * @param {string} organization
-	 * @returns {Promise<Array<object>>}
+	 * @param organization
+	 * @returns Returns GitHub organization repos
 	 */
 	@bind
 	public async getOrganizationRepos(organization: GitOrganization): Promise<GitRepository[]> {
@@ -83,8 +83,8 @@ export class GitHubService extends HttpService {
 	/**
 	 * Get commits from an branch
 	 *
-	 * @param {string} branch
-	 * @returns {Promise<Array<object>>}
+	 * @param branch Branch to get commits from
+	 * @returns Returns an array of GitHub branch commits
 	 */
 	@bind
 	public async getBranchCommits(

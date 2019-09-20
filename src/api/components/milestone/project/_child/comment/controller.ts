@@ -8,10 +8,12 @@ export class ProjectCommentController {
 	private readonly service: ProjectCommentService = new ProjectCommentService();
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read project comments
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readProjectComments(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -31,10 +33,12 @@ export class ProjectCommentController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Create project comment
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async createProjectComment(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -58,10 +62,12 @@ export class ProjectCommentController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Delete project comment
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async deleteProjectComment(req: Request, res: Response, next: NextFunction): Promise<Response | void> {

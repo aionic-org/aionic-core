@@ -8,10 +8,12 @@ export class TaskCommentController {
 	private readonly service: TaskCommentService = new TaskCommentService();
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Read task comments
+	 *
+	 * @param req Express request
+	 * @param res Express reponse
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readTaskComments(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -31,10 +33,12 @@ export class TaskCommentController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Create task comment
+	 *
+	 * @param req Express request
+	 * @param res Express reponse
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async createTaskComment(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -60,10 +64,12 @@ export class TaskCommentController {
 	}
 
 	/**
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * Delete task comment
+	 *
+	 * @param req Express request
+	 * @param res Express reponse
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async deleteTaskComment(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
