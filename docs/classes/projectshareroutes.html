@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>TaskProjectController | aionic-core</title>
+	<title>ProjectShareRoutes | aionic-core</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="taskprojectcontroller.html">TaskProjectController</a>
+					<a href="projectshareroutes.html">ProjectShareRoutes</a>
 				</li>
 			</ul>
-			<h1>Class TaskProjectController</h1>
+			<h1>Class ProjectShareRoutes</h1>
 		</div>
 	</div>
 </header>
@@ -70,7 +70,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">TaskProjectController</span>
+						<span class="target">ProjectShareRoutes</span>
 					</li>
 				</ul>
 			</section>
@@ -78,68 +78,130 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="projectshareroutes.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="taskprojectcontroller.html#taskprojectrepo" class="tsd-kind-icon">task<wbr>Project<wbr>Repo</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="projectshareroutes.html#_router" class="tsd-kind-icon">_router</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="projectshareroutes.html#authserivce" class="tsd-kind-icon">auth<wbr>Serivce</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="projectshareroutes.html#controller" class="tsd-kind-icon">controller</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="projectshareroutes.html#router" class="tsd-kind-icon">router</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="taskprojectcontroller.html#readtaskprojects" class="tsd-kind-icon">read<wbr>Task<wbr>Projects</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="projectshareroutes.html#initroutes" class="tsd-kind-icon">init<wbr>Routes</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="taskprojectrepo" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> task<wbr>Project<wbr>Repo</h3>
-					<div class="tsd-signature tsd-kind-icon">task<wbr>Project<wbr>Repo<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Repository</span><span class="tsd-signature-symbol">&lt;</span><a href="project.html" class="tsd-signature-type">Project</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;getManager().getRepository(&#x27;Project&#x27;)</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/milestone/task/_child/project/controller.ts#L8">api/components/milestone/task/_child/project/controller.ts:8</a></li>
-						</ul>
-					</aside>
-				</section>
-			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="readtaskprojects" class="tsd-anchor"></a>
-					<h3>read<wbr>Task<wbr>Projects</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">read<wbr>Task<wbr>Projects<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Request</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NextFunction</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Project<wbr>Share<wbr>Routes<span class="tsd-signature-symbol">(</span>defaultStrategy<span class="tsd-signature-symbol">?: </span><a href="../globals.html#passportstrategy" class="tsd-signature-type">PassportStrategy</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="projectshareroutes.html" class="tsd-signature-type">ProjectShareRoutes</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/milestone/task/_child/project/controller.ts#L19">api/components/milestone/task/_child/project/controller.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/api/components/milestone/project/_child/share/routes.ts#L10">api/components/milestone/project/_child/share/routes.ts:10</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Read all projects from a certain task from db</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>req: <span class="tsd-signature-type">Request</span></h5>
-								</li>
-								<li>
-									<h5>res: <span class="tsd-signature-type">Response</span></h5>
-								</li>
-								<li>
-									<h5>next: <span class="tsd-signature-type">NextFunction</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaultStrategy: <a href="../globals.html#passportstrategy" class="tsd-signature-type">PassportStrategy</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>Returns HTTP response</p>
+							<h4 class="tsd-returns-title">Returns <a href="projectshareroutes.html" class="tsd-signature-type">ProjectShareRoutes</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_router" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _router</h3>
+					<div class="tsd-signature tsd-kind-icon">_router<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Router</span><span class="tsd-signature-symbol"> =&nbsp;Router({ mergeParams: true })</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/api/components/milestone/project/_child/share/routes.ts#L10">api/components/milestone/project/_child/share/routes.ts:10</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a name="authserivce" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> auth<wbr>Serivce</h3>
+					<div class="tsd-signature tsd-kind-icon">auth<wbr>Serivce<span class="tsd-signature-symbol">:</span> <a href="authservice.html" class="tsd-signature-type">AuthService</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/api/components/milestone/project/_child/share/routes.ts#L9">api/components/milestone/project/_child/share/routes.ts:9</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a name="controller" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> controller</h3>
+					<div class="tsd-signature tsd-kind-icon">controller<span class="tsd-signature-symbol">:</span> <a href="projectsharecontroller.html" class="tsd-signature-type">ProjectShareController</a><span class="tsd-signature-symbol"> =&nbsp;new ProjectShareController()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/api/components/milestone/project/_child/share/routes.ts#L8">api/components/milestone/project/_child/share/routes.ts:8</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="router" class="tsd-anchor"></a>
+					<h3>router</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> router<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Router</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/api/components/milestone/project/_child/share/routes.ts#L17">api/components/milestone/project/_child/share/routes.ts:17</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Router</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="initroutes" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> init<wbr>Routes</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">init<wbr>Routes<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/api/components/milestone/project/_child/share/routes.ts#L21">api/components/milestone/project/_child/share/routes.ts:21</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -158,13 +220,25 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="taskprojectcontroller.html" class="tsd-kind-icon">Task<wbr>Project<wbr>Controller</a>
+						<a href="projectshareroutes.html" class="tsd-kind-icon">Project<wbr>Share<wbr>Routes</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="taskprojectcontroller.html#taskprojectrepo" class="tsd-kind-icon">task<wbr>Project<wbr>Repo</a>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="projectshareroutes.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="taskprojectcontroller.html#readtaskprojects" class="tsd-kind-icon">read<wbr>Task<wbr>Projects</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="projectshareroutes.html#_router" class="tsd-kind-icon">_router</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="projectshareroutes.html#authserivce" class="tsd-kind-icon">auth<wbr>Serivce</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="projectshareroutes.html#controller" class="tsd-kind-icon">controller</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="projectshareroutes.html#router" class="tsd-kind-icon">router</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="projectshareroutes.html#initroutes" class="tsd-kind-icon">init<wbr>Routes</a>
 							</li>
 						</ul>
 					</li>

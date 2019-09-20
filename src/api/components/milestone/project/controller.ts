@@ -1,40 +1,47 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
-import { getManager, Repository } from 'typeorm';
 
 import { Project } from './model';
+import { ProjectService } from './service';
+import { FindConditions, OrderByCondition } from 'typeorm';
 
 export class ProjectController {
-	private readonly projectRepo: Repository<Project> = getManager().getRepository('Project');
+	private readonly service: ProjectService = new ProjectService();
 
 	/**
-	 * Read all projects from db
+	 * Read projects
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readProjects(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { orderby, orderdir, limit } = req.query;
+			const { completed, orderby, orderdir, limit } = req.query;
 
-			let order = {};
-			let take: object = {};
+			let where: FindConditions<Project> = {};
+			let order: OrderByCondition = { completed: 'ASC' };
+			let take: number = 0;
+
+			if (completed !== undefined && completed.length) {
+				where = { ...where, completed: !!+completed };
+			}
 
 			if (orderby || orderdir) {
-				order = { order: { [orderby || 'id']: orderdir || 'ASC' } };
+				order = { [orderby || 'completed']: orderdir || 'ASC' };
 			}
 
 			if (limit) {
-				take = { take: limit };
+				take = limit;
 			}
 
-			const projects: Project[] = await this.projectRepo.find({
-				relations: ['author', 'tasks', 'tasks.status'],
-				...order,
-				...take
+			const projects: Project[] = await this.service.readProjects({
+				where,
+				order,
+				take,
+				relations: ['author', 'tasks', 'tasks.status']
 			});
 
 			return res.json({ status: res.statusCode, data: projects });
@@ -44,12 +51,12 @@ export class ProjectController {
 	}
 
 	/**
-	 * Read a certain project from db
+	 * Read project
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readProject(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -60,8 +67,11 @@ export class ProjectController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const project: Project | undefined = await this.projectRepo.findOne(projectID, {
-				relations: ['author', 'tasks', 'tasks.priority', 'tasks.assignee', 'tasks.author', 'tasks.status', 'tasks.type']
+			const project: Project | undefined = await this.service.readProject({
+				relations: ['author', 'tasks', 'tasks.priority', 'tasks.assignee', 'tasks.author', 'tasks.status'],
+				where: {
+					id: projectID
+				}
 			});
 
 			return res.json({ status: res.statusCode, data: project });
@@ -71,12 +81,12 @@ export class ProjectController {
 	}
 
 	/**
-	 * Save new project to db
+	 * Create project
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async createProject(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -85,7 +95,7 @@ export class ProjectController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const newProject: Project = await this.projectRepo.save(req.body.project);
+			const newProject: Project = await this.service.saveProject(req.body.project);
 
 			return res.json({ status: res.statusCode, data: newProject });
 		} catch (err) {
@@ -94,12 +104,12 @@ export class ProjectController {
 	}
 
 	/**
-	 * Update project in db
+	 * Update project
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async updateProject(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -110,13 +120,17 @@ export class ProjectController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const project: Project | undefined = await this.projectRepo.findOne(projectID);
+			const project: Project | undefined = await this.service.readProject({
+				where: {
+					id: projectID
+				}
+			});
 
 			if (!project) {
 				return res.status(404).json({ status: 404, error: 'project not found' });
 			}
 
-			const updatedProject: Project = await this.projectRepo.save(req.body.project);
+			const updatedProject: Project = await this.service.saveProject(req.body.project);
 
 			return res.json({ status: res.statusCode, data: updatedProject });
 		} catch (err) {
@@ -125,12 +139,12 @@ export class ProjectController {
 	}
 
 	/**
-	 * Delete project from db
+	 * Delete project
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async deleteProject(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -141,13 +155,17 @@ export class ProjectController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const project: Project | undefined = await this.projectRepo.findOne(projectID);
+			const project: Project | undefined = await this.service.readProject({
+				where: {
+					id: projectID
+				}
+			});
 
 			if (!project) {
 				return res.status(404).json({ status: 404, error: 'Project not found' });
 			}
 
-			await this.projectRepo.remove(project);
+			await this.service.deleteProject(project);
 
 			return res.status(204).send();
 		} catch (err) {

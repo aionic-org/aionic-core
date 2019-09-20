@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>TaskType | aionic-core</title>
+	<title>TaskScratchpadService | aionic-core</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="tasktype.html">TaskType</a>
+					<a href="taskscratchpadservice.html">TaskScratchpadService</a>
 				</li>
 			</ul>
-			<h1>Class TaskType</h1>
+			<h1>Class TaskScratchpadService</h1>
 		</div>
 	</div>
 </header>
@@ -70,7 +70,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">TaskType</span>
+						<span class="target">TaskScratchpadService</span>
 					</li>
 				</ul>
 			</section>
@@ -78,80 +78,100 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="tasktype.html#active" class="tsd-kind-icon">active</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="tasktype.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="tasktype.html#sort" class="tsd-kind-icon">sort</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="tasktype.html#tasks" class="tsd-kind-icon">tasks</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="tasktype.html#title" class="tsd-kind-icon">title</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="taskscratchpadservice.html#repo" class="tsd-kind-icon">repo</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="taskscratchpadservice.html#readtaskscratchpad" class="tsd-kind-icon">read<wbr>Task<wbr>Scratchpad</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="taskscratchpadservice.html#savetaskscratchpad" class="tsd-kind-icon">save<wbr>Task<wbr>Scratchpad</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="active" class="tsd-anchor"></a>
-					<h3>active</h3>
-					<div class="tsd-signature tsd-kind-icon">active<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="repo" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> repo</h3>
+					<div class="tsd-signature tsd-kind-icon">repo<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Repository</span><span class="tsd-signature-symbol">&lt;</span><a href="taskscratchpad.html" class="tsd-signature-type">TaskScratchpad</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;getManager().getRepository(TaskScratchpad)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/milestone/task-type/model.ts#L20">api/components/milestone/task-type/model.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/api/components/milestone/task/_child/scratchpad/service.ts#L7">api/components/milestone/task/_child/scratchpad/service.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="id" class="tsd-anchor"></a>
-					<h3>id</h3>
-					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/milestone/task-type/model.ts#L9">api/components/milestone/task-type/model.ts:9</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>columns</p>
-						</div>
-					</div>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="readtaskscratchpad" class="tsd-anchor"></a>
+					<h3>read<wbr>Task<wbr>Scratchpad</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">read<wbr>Task<wbr>Scratchpad<span class="tsd-signature-symbol">(</span>where<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">FindConditions</span><span class="tsd-signature-symbol">&lt;</span><a href="taskscratchpad.html" class="tsd-signature-type">TaskScratchpad</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="taskscratchpad.html" class="tsd-signature-type">TaskScratchpad</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/api/components/milestone/task/_child/scratchpad/service.ts#L16">api/components/milestone/task/_child/scratchpad/service.ts:16</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Read a certain task scratchpad from db</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> where: <span class="tsd-signature-type">FindConditions</span><span class="tsd-signature-symbol">&lt;</span><a href="taskscratchpad.html" class="tsd-signature-type">TaskScratchpad</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Find conditions</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="taskscratchpad.html" class="tsd-signature-type">TaskScratchpad</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Returns an single task scratchpad</p>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="sort" class="tsd-anchor"></a>
-					<h3>sort</h3>
-					<div class="tsd-signature tsd-kind-icon">sort<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/milestone/task-type/model.ts#L15">api/components/milestone/task-type/model.ts:15</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="tasks" class="tsd-anchor"></a>
-					<h3>tasks</h3>
-					<div class="tsd-signature tsd-kind-icon">tasks<span class="tsd-signature-symbol">:</span> <a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/milestone/task-type/model.ts#L24">api/components/milestone/task-type/model.ts:24</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>relations</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="title" class="tsd-anchor"></a>
-					<h3>title</h3>
-					<div class="tsd-signature tsd-kind-icon">title<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/milestone/task-type/model.ts#L12">api/components/milestone/task-type/model.ts:12</a></li>
-						</ul>
-					</aside>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="savetaskscratchpad" class="tsd-anchor"></a>
+					<h3>save<wbr>Task<wbr>Scratchpad</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">save<wbr>Task<wbr>Scratchpad<span class="tsd-signature-symbol">(</span>taskScratchpad<span class="tsd-signature-symbol">: </span><a href="taskscratchpad.html" class="tsd-signature-type">TaskScratchpad</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="taskscratchpad.html" class="tsd-signature-type">TaskScratchpad</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/api/components/milestone/task/_child/scratchpad/service.ts#L29">api/components/milestone/task/_child/scratchpad/service.ts:29</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Save new or updated task scratchpad to db</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>taskScratchpad: <a href="taskscratchpad.html" class="tsd-signature-type">TaskScratchpad</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Task scratchpad to save</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="taskscratchpad.html" class="tsd-signature-type">TaskScratchpad</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Returns saved task scratchpad</p>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -168,22 +188,16 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="tasktype.html" class="tsd-kind-icon">Task<wbr>Type</a>
+						<a href="taskscratchpadservice.html" class="tsd-kind-icon">Task<wbr>Scratchpad<wbr>Service</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="tasktype.html#active" class="tsd-kind-icon">active</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="taskscratchpadservice.html#repo" class="tsd-kind-icon">repo</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="tasktype.html#id" class="tsd-kind-icon">id</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="taskscratchpadservice.html#readtaskscratchpad" class="tsd-kind-icon">read<wbr>Task<wbr>Scratchpad</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="tasktype.html#sort" class="tsd-kind-icon">sort</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="tasktype.html#tasks" class="tsd-kind-icon">tasks</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="tasktype.html#title" class="tsd-kind-icon">title</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="taskscratchpadservice.html#savetaskscratchpad" class="tsd-kind-icon">save<wbr>Task<wbr>Scratchpad</a>
 							</li>
 						</ul>
 					</li>

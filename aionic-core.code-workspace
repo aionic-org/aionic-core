@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.formatOnPaste": true,
+		"editor.formatOnSave": true,
+		"editor.formatOnType": true
+	},
+	"extensions": {
+		"recommendations": ["ms-vscode.vscode-typescript-tslint-plugin", "esbenp.prettier-vscode"]
+	}
+}

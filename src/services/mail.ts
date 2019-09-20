@@ -9,21 +9,20 @@ import { logger } from '@config/logger';
  * MailService
  *
  * Service for sending emails
- * Mail services in components inherits from this one
  */
-export abstract class MailService {
+export class MailService {
 	private transporter: Transporter = createTransport(env.SMTP as TransportOptions);
 
 	/**
 	 * Send email
 	 *
-	 * @param {IMailConfig} config
-	 * @param {boolean} forceSend
-	 * @returns {Promise<SentMessageInfo> } Returns info of sent mail
+	 * @param options Mail options
+	 * @param forceSend Force email to be sent
+	 * @returns Returns info of sent mail
 	 */
-	protected sendMail(config: SendMailOptions, forceSend: boolean = false): Promise<SentMessageInfo> | void {
+	public sendMail(options: SendMailOptions, forceSend: boolean = false): Promise<SentMessageInfo> | void {
 		if (env.NODE_ENV === 'production' || forceSend) {
-			return this.transporter.sendMail(config);
+			return this.transporter.sendMail(options);
 		}
 		logger.info('Emails are only sent in production mode!');
 	}
@@ -31,10 +30,10 @@ export abstract class MailService {
 	/**
 	 * Render EJS template for Email
 	 *
-	 * @param {string} path
-	 * @param {Data} data
+	 * @param templatePath Path of template to render
+	 * @param templateData Data for template to render
 	 */
-	protected renderMailTemplate(path: string, data: Data): Promise<string> {
-		return renderFile(resolve(path), data);
+	public renderMailTemplate(templatePath: string, templateData: Data): Promise<string> {
+		return renderFile(resolve(templatePath), templateData);
 	}
 }

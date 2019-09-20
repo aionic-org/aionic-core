@@ -25,6 +25,6 @@ export class ProjectComment {
 	@ManyToOne((type) => User, (user) => user.projectComments, { onDelete: 'CASCADE' })
 	public author: User;
 
-	@ManyToOne((type) => Project, (project) => project.comments)
+	@ManyToOne((type) => Project, (project) => project.comments, { onDelete: 'CASCADE' })
 	public project: Project;
 }

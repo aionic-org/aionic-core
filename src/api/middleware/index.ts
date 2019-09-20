@@ -7,6 +7,8 @@ import { json, NextFunction, Request, Response, Router } from 'express';
 import { AuthService } from '@services/auth';
 import { UtilityService } from '@services/helper/utility';
 
+import { logger } from '@config/logger';
+
 /**
  * Init Express middleware
  *
@@ -18,6 +20,18 @@ export function registerMiddleware(router: Router): void {
 	router.use(cors({ origin: ['http://localhost:4200'] }));
 	router.use(json());
 	router.use(compression());
+
+	// Log incoming requests
+	router.use((req: Request, res: Response, next: NextFunction) => {
+		const ip: string | string[] | undefined = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+		logger.log({
+			isRequest: true,
+			level: 'info',
+			message: `${req.method} ${req.url} ${ip}`
+		});
+		return next();
+	});
 
 	// Setup passport strategies
 	new AuthService().initStrategies();

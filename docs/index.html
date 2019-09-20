@@ -66,18 +66,18 @@
 			<div class="tsd-panel tsd-typography">
 				<h1 id="aionic-core">Aionic Core</h1>
 				<p><img src="https://avatars0.githubusercontent.com/u/42389304?s=100&v=4" alt="alt text" title="Aionic Logo"></p>
-				<p>Aionic offers open source applications for project management and collaboration. Our focus is on simplifying the workflow for agile teams in an open way.</p>
+				<p>Aionic offers open source applications for project management and collaboration. Our focus is on simplifying and accelerating the workflow for agile teams in the open source way.</p>
 				<h2 id="description">Description</h2>
 				<p>Aionic offers a set of <strong>open source products</strong> for project management of any size. All our products are released under the <a href="https://opensource.org/licenses/MIT">MIT</a> license, so feel free to customize it and share it with others!</p>
-				<p>Please note that we just develop the software and don&#39;t host the applications anywhere for public usage. That means you have to take care of the hosting for yourself.</p>
-				<p>All services are built on top of the <strong>Aionic Core</strong> application, since this is the place where all the data is managed. So for the usage of any other service, you have to use at least <a href="https://github.com/Aionic-Apps/aionic-core/">Aionice Core</a>.</p>
-				<p>Some of the technologies we trust: <em>NodeJS, ReactJS, MySQL</em></p>
+				<p>Please keep in mind that we just develop the software and don&#39;t host the applications anywhere for public usage. That means you have to take care of the hosting for yourself.</p>
+				<p>All products are built on top of the <strong>Aionic Core</strong> application, since this is the place where all your data is managed and distributed. So for the usage of any other application, you have to use at least <a href="https://github.com/Aionic-Apps/aionic-core/">Aionic Core</a>.</p>
+				<p>Moreover we highly recommend <a href="https://github.com/Aionic-Apps/aionic-manager/">Aionic Manager</a> which makes your data management much easier.</p>
+				<p>Some of the technologies we trust: <em>Node.js, React, MySQL</em></p>
 				<h2 id="features">Features</h2>
-				<p><strong>Aionic Core</strong> is the foundation for any other of our services. It&#39;s the place to store and manage all the data you create. The application is written in Typescript and is based on an ExpressJS HTTP server.</p>
-				<p>Some of the features this service offers:</p>
+				<p><strong>Aionic Core</strong> is the foundation for any other of our applications, since it&#39;s the place to store and distribute all the data you create. The application is a REST API written in Typescript and based on an Express.js HTTP server.</p>
+				<p>Some of the features included in this app:</p>
 				<ul>
 					<li>REST API</li>
-					<li>Task Service</li>
 					<li>Mail Service</li>
 					<li>MySQL ORM</li>
 					<li>GitHub API integration</li>
@@ -87,7 +87,8 @@
 				</ul>
 				<h2 id="prerequisites">Prerequisites</h2>
 				<ul>
-					<li>Hosting server (incl. SMTP for sending mails)</li>
+					<li>Node.js</li>
+					<li>SMTP server (for sending mails)</li>
 					<li>MySQL database</li>
 				</ul>
 				<h2 id="installation">Installation</h2>
@@ -107,9 +108,9 @@
 				<p>In progress.</p>
 				<h2 id="philosophy">Philosophy</h2>
 				<blockquote>
-					<p>Our focus is on simplifying the workflow for agile teams in an open way.</p>
+					<p>Our focus is on simplifying and accelerating the workflow for agile teams in the open source way.</p>
 				</blockquote>
-				<p>We try to help other people / companies realizing their ideas by offering highly maintainable project management softwares that everybody can <strong>adjust as desired</strong>.</p>
+				<p>We try to help other people and companies realizing their ideas by offering highly maintainable project management softwares that everybody can <strong>adjust as desired</strong>.</p>
 				<h2 id="community">Community</h2>
 				<ul>
 					<li><a href="https://github.com/larswaechter">Author</a></li>
@@ -141,6 +142,9 @@
 						<a href="classes/announcementroutes.html" class="tsd-kind-icon">Announcement<wbr>Routes</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/announcementservice.html" class="tsd-kind-icon">Announcement<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/authcontroller.html" class="tsd-kind-icon">Auth<wbr>Controller</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -168,6 +172,18 @@
 						<a href="classes/boardroutes.html" class="tsd-kind-icon">Board<wbr>Routes</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/boardservice.html" class="tsd-kind-icon">Board<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/boardsharecontroller.html" class="tsd-kind-icon">Board<wbr>Share<wbr>Controller</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/boardshareroutes.html" class="tsd-kind-icon">Board<wbr>Share<wbr>Routes</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/boardshareservice.html" class="tsd-kind-icon">Board<wbr>Share<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/cacheservice.html" class="tsd-kind-icon">Cache<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -175,6 +191,9 @@
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/configroutes.html" class="tsd-kind-icon">Config<wbr>Routes</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/filesystemservice.html" class="tsd-kind-icon">Filesystem<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/githubservice.html" class="tsd-kind-icon">Git<wbr>Hub<wbr>Service</a>
@@ -222,10 +241,25 @@
 						<a href="classes/projectcommentroutes.html" class="tsd-kind-icon">Project<wbr>Comment<wbr>Routes</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/projectcommentservice.html" class="tsd-kind-icon">Project<wbr>Comment<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/projectcontroller.html" class="tsd-kind-icon">Project<wbr>Controller</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/projectroutes.html" class="tsd-kind-icon">Project<wbr>Routes</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/projectservice.html" class="tsd-kind-icon">Project<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/projectsharecontroller.html" class="tsd-kind-icon">Project<wbr>Share<wbr>Controller</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/projectshareroutes.html" class="tsd-kind-icon">Project<wbr>Share<wbr>Routes</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/projectshareservice.html" class="tsd-kind-icon">Project<wbr>Share<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/scratchpadcontroller.html" class="tsd-kind-icon">Scratchpad<wbr>Controller</a>
@@ -246,6 +280,9 @@
 						<a href="classes/taskcommentroutes.html" class="tsd-kind-icon">Task<wbr>Comment<wbr>Routes</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/taskcommentservice.html" class="tsd-kind-icon">Task<wbr>Comment<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/taskcontroller.html" class="tsd-kind-icon">Task<wbr>Controller</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -258,10 +295,7 @@
 						<a href="classes/taskpriorityroutes.html" class="tsd-kind-icon">Task<wbr>Priority<wbr>Routes</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/taskprojectcontroller.html" class="tsd-kind-icon">Task<wbr>Project<wbr>Controller</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/taskprojectroutes.html" class="tsd-kind-icon">Task<wbr>Project<wbr>Routes</a>
+						<a href="classes/taskpriorityservice.html" class="tsd-kind-icon">Task<wbr>Priority<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/taskroutes.html" class="tsd-kind-icon">Task<wbr>Routes</a>
@@ -273,6 +307,21 @@
 						<a href="classes/taskscratchpadroutes.html" class="tsd-kind-icon">Task<wbr>Scratchpad<wbr>Routes</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/taskscratchpadservice.html" class="tsd-kind-icon">Task<wbr>Scratchpad<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/taskservice.html" class="tsd-kind-icon">Task<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/tasksharecontroller.html" class="tsd-kind-icon">Task<wbr>Share<wbr>Controller</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/taskshareroutes.html" class="tsd-kind-icon">Task<wbr>Share<wbr>Routes</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/taskshareservice.html" class="tsd-kind-icon">Task<wbr>Share<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/taskstatus.html" class="tsd-kind-icon">Task<wbr>Status</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -282,13 +331,7 @@
 						<a href="classes/taskstatusroutes.html" class="tsd-kind-icon">Task<wbr>Status<wbr>Routes</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/tasktype.html" class="tsd-kind-icon">Task<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/tasktypecontroller.html" class="tsd-kind-icon">Task<wbr>Type<wbr>Controller</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/tasktyperoutes.html" class="tsd-kind-icon">Task<wbr>Type<wbr>Routes</a>
+						<a href="classes/taskstatusservice.html" class="tsd-kind-icon">Task<wbr>Status<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/user.html" class="tsd-kind-icon">User</a>
@@ -306,6 +349,9 @@
 						<a href="classes/userinvitationroutes.html" class="tsd-kind-icon">User<wbr>Invitation<wbr>Routes</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/userinvitationservice.html" class="tsd-kind-icon">User<wbr>Invitation<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/userrole.html" class="tsd-kind-icon">User<wbr>Role</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -315,7 +361,13 @@
 						<a href="classes/userroleroutes.html" class="tsd-kind-icon">User<wbr>Role<wbr>Routes</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/userroleservice.html" class="tsd-kind-icon">User<wbr>Role<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/userroutes.html" class="tsd-kind-icon">User<wbr>Routes</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/userservice.html" class="tsd-kind-icon">User<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/usertaskcontroller.html" class="tsd-kind-icon">User<wbr>Task<wbr>Controller</a>
@@ -333,7 +385,16 @@
 						<a href="globals.html#passportstrategy" class="tsd-kind-icon">Passport<wbr>Strategy</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#filename" class="tsd-kind-icon">filename</a>
+						<a href="globals.html#combinedlog" class="tsd-kind-icon">combined<wbr>Log</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#errorlog" class="tsd-kind-icon">error<wbr>Log</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#exceptionslog" class="tsd-kind-icon">exceptions<wbr>Log</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#isrequest" class="tsd-kind-icon">is<wbr>Request</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#logdir" class="tsd-kind-icon">log<wbr>Dir</a>
@@ -346,6 +407,9 @@
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#policies" class="tsd-kind-icon">policies</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#requestlog" class="tsd-kind-icon">request<wbr>Log</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#initrestroutes" class="tsd-kind-icon">init<wbr>Rest<wbr>Routes</a>
@@ -364,6 +428,9 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#registermilestoneroutes" class="tsd-kind-icon">register<wbr>Milestone<wbr>Routes</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#apps" class="tsd-kind-icon">apps</a>
 					</li>
 					<li class=" tsd-kind-object-literal">
 						<a href="globals.html#env" class="tsd-kind-icon">env</a>

@@ -1,6 +1,7 @@
 import { compare, genSalt, hash } from 'bcrypt-nodejs';
-import * as crypto from 'crypto';
 import { v1 as uuidv1 } from 'uuid';
+
+import * as crypto from 'crypto';
 
 import { logger } from '@config/logger';
 
@@ -13,8 +14,8 @@ export class UtilityService {
 	/**
 	 * Error handler
 	 *
-	 * @param {Error} err
-	 * @returns {void}
+	 * @param err
+	 * @returns
 	 */
 	public static handleError(err: any): void {
 		logger.error(err.stack || err);
@@ -23,8 +24,8 @@ export class UtilityService {
 	/**
 	 * Hash plain password
 	 *
-	 * @param {string} plainPassword
-	 * @returns {Promise<string>}
+	 * @param plainPassword Password to hash
+	 * @returns Returns hashed password
 	 */
 	public static hashPassword(plainPassword: string): Promise<string> {
 		return new Promise((resolve, reject) => {
@@ -54,9 +55,9 @@ export class UtilityService {
 	/**
 	 * Compares plain password with hashed password
 	 *
-	 * @param {string} plainPassword
-	 * @param {string} hashedPassword
-	 * @returns {Promise<boolean>} Returns if passwords match
+	 * @param plainPassword Plain password to compare
+	 * @param hashedPassword Hashed password to compare
+	 * @returns Returns if passwords match
 	 */
 	public static verifyPassword(plainPassword: string, hashedPassword: string): Promise<boolean> {
 		return new Promise((resolve, reject) => {
@@ -70,10 +71,10 @@ export class UtilityService {
 	}
 
 	/**
-	 * Hash string with sha256 algorithm - don't use for passwords
+	 * Hash string with sha256 algorithm
 	 *
-	 * @param {string} string
-	 * @returns {string} Returns hashed string
+	 * @param string String to hash
+	 * @returns Returns hashed string
 	 */
 	public static hashString(string: string): string {
 		return crypto
@@ -83,9 +84,9 @@ export class UtilityService {
 	}
 
 	/**
-	 * Generate uuid
+	 * Generate UUID
 	 *
-	 * @returns {string} Returns UUID
+	 * @returns Returns UUID
 	 */
 	public static generateUuid(): string {
 		return uuidv1();

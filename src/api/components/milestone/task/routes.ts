@@ -5,7 +5,6 @@ import { AuthService, PassportStrategy } from '@services/auth';
 import { TaskController } from './controller';
 
 import { TaskCommentRoutes } from './_child/comment/routes';
-import { TaskProjectRoutes } from './_child/project/routes';
 import { TaskScratchpadRoutes } from './_child/scratchpad/routes';
 import { TaskShareRoutes } from './_child/share/routes';
 
@@ -64,7 +63,6 @@ export class TaskRoutes {
 
 	private initChildRoutes(defaultStrategy?: PassportStrategy): void {
 		this.router.use('/:taskID', new TaskCommentRoutes(defaultStrategy).router);
-		this.router.use('/:taskID', new TaskProjectRoutes(defaultStrategy).router);
 		this.router.use('/:taskID', new TaskScratchpadRoutes(defaultStrategy).router);
 		this.router.use('/:taskID', new TaskShareRoutes(defaultStrategy).router);
 	}

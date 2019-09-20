@@ -1,19 +1,19 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
-import { getManager, Repository } from 'typeorm';
 
 import { ProjectComment } from './model';
+import { ProjectCommentService } from './service';
 
 export class ProjectCommentController {
-	private readonly projectCommentRepo: Repository<ProjectComment> = getManager().getRepository('ProjectComment');
+	private readonly service: ProjectCommentService = new ProjectCommentService();
 
 	/**
-	 * Read all comments from a certain project from db
+	 * Read project comments
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readProjectComments(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -24,14 +24,7 @@ export class ProjectCommentController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const comments: ProjectComment[] = await this.projectCommentRepo.find({
-				relations: ['author'],
-				where: {
-					project: {
-						id: projectID
-					}
-				}
-			});
+			const comments: ProjectComment[] = await this.service.readProjectComments(parseInt(projectID, 10));
 
 			return res.json({ status: res.statusCode, data: comments });
 		} catch (err) {
@@ -40,12 +33,12 @@ export class ProjectCommentController {
 	}
 
 	/**
-	 * Save new project comment to db
+	 * Create project comment
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async createProjectComment(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -56,7 +49,7 @@ export class ProjectCommentController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const newComment: ProjectComment = await this.projectCommentRepo.save({
+			const newComment: ProjectComment = await this.service.saveProjectComment({
 				...req.body.comment,
 				author: req.user,
 				project: { id: projectID }
@@ -69,12 +62,12 @@ export class ProjectCommentController {
 	}
 
 	/**
-	 * Delete project comment from db
+	 * Delete project comment
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async deleteProjectComment(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -85,20 +78,16 @@ export class ProjectCommentController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const comment: ProjectComment | undefined = await this.projectCommentRepo.findOne({
-				where: {
-					id: commentID,
-					project: {
-						id: projectID
-					}
-				}
-			});
+			const comment: ProjectComment | undefined = await this.service.readProjectComment(
+				parseInt(projectID, 10),
+				parseInt(commentID, 10)
+			);
 
 			if (!comment) {
 				return res.status(404).json({ status: 404, error: 'Comment not found' });
 			}
 
-			await this.projectCommentRepo.remove(comment);
+			await this.service.deleteProjectComment(comment);
 
 			return res.status(204).send();
 		} catch (err) {

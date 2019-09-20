@@ -1,19 +1,19 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
-import { getManager, Repository } from 'typeorm';
 
+import { TaskService } from '@milestone/task/service';
 import { Task } from '@milestone/task/model';
 
 export class UserTaskController {
-	private readonly taskRepo: Repository<Task> = getManager().getRepository('Task');
+	private readonly taskService: TaskService = new TaskService();
 
 	/**
-	 * Read tasks from a certain user from db
+	 * Read tasks from user
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readUserTasks(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -24,11 +24,10 @@ export class UserTaskController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const tasks: Task[] = await this.taskRepo.find({
+			const tasks: Task[] = await this.taskService.readTasks({
 				order: {
 					priority: 'DESC'
 				},
-				relations: ['author', 'assignee', 'status', 'priority', 'type'],
 				where: {
 					assignee: { id: userID },
 					completed: false

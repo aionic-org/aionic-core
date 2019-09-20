@@ -1,24 +1,26 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
-import { getManager, Repository } from 'typeorm';
 
-import { TaskShareMailService } from './services/mail';
+import { TaskShareService } from './service';
+
+import { UserService } from '@global/user/service';
+import { TaskService } from '@milestone/task/service';
 
 import { User } from '@global/user/model';
 import { Task } from '@milestone/task/model';
 
 export class TaskShareController {
-	private readonly userRepo: Repository<User> = getManager().getRepository('User');
-	private readonly taskRepo: Repository<Task> = getManager().getRepository('Task');
-	private readonly taskShareMailService: TaskShareMailService = new TaskShareMailService();
+	private readonly taskShareService: TaskShareService = new TaskShareService();
+	private readonly taskService: TaskService = new TaskService();
+	private readonly userService: UserService = new UserService();
 
 	/**
-	 * Share a task via email with user
+	 * Share task
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async shareTask(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -30,19 +32,29 @@ export class TaskShareController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const taskToShare: Task | undefined = await this.taskRepo.findOne(taskID);
+			const taskToShare: Task | undefined = await this.taskService.readTask({
+				where: {
+					id: taskID
+				}
+			});
 
 			if (!taskToShare) {
 				return res.status(404).json({ status: 404, error: 'Task to share not found' });
 			}
 
-			for (const userID of userIDs) {
-				const targetUser: User | undefined = await this.userRepo.findOne(userID);
+			const users: User[] = [];
 
-				if (targetUser) {
-					await this.taskShareMailService.sendTask(req.user, targetUser, taskToShare);
+			for (const userID of userIDs) {
+				const user: User | undefined = await this.userService.readUser({
+					where: { id: userID }
+				});
+
+				if (user) {
+					users.push(user);
 				}
 			}
+
+			await this.taskShareService.shareTask(req.user as User, users, taskToShare);
 
 			return res.status(204).send();
 		} catch (err) {

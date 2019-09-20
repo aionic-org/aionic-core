@@ -34,7 +34,7 @@ export class UserRoutes {
 			'/search',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('user', 'read'),
-			this.controller.searchUsersByUsername
+			this.controller.readUsersByUsername
 		);
 
 		this._router.post(

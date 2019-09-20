@@ -23,14 +23,14 @@ export class BasicAuthStrategy extends BaseStrategy {
 	/**
 	 * Middleware for checking if a user is authorized to access the endpoint
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Handler | void}
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns if user is authorized
 	 */
 	public isAuthorized(req: Request, res: Response, next: NextFunction): Handler | void {
 		try {
-			return authenticate('basic', { session: false }, (error, user, info) => {
+			return authenticate('basic', { session: false }, (error, user: User, info) => {
 				if (error) {
 					return next(error);
 				}
@@ -53,13 +53,11 @@ export class BasicAuthStrategy extends BaseStrategy {
 	}
 
 	/**
-	 * Verify incoming userID / password from request
+	 * Verify incoming userID / password from request -> validation in isAuthorized()
 	 *
-	 * Validation in isAuthorized()
-	 *
-	 * @param {any} payload
-	 * @param {any} next
-	 * @returns {Handler}
+	 * @param payload JWT payload
+	 * @param next Express next
+	 * @returns
 	 */
 	@bind
 	private async verify(username: string, password: string, next: any): Promise<void> {

@@ -2,8 +2,6 @@ import {
 	Column,
 	CreateDateColumn,
 	Entity,
-	JoinTable,
-	ManyToMany,
 	ManyToOne,
 	OneToMany,
 	PrimaryGeneratedColumn,
@@ -28,6 +26,12 @@ export class Project {
 
 	@Column({
 		default: null,
+		unique: true
+	})
+	public key: string;
+
+	@Column({
+		default: null,
 		type: 'text'
 	})
 	public description: string;
@@ -36,6 +40,11 @@ export class Project {
 		default: false
 	})
 	public completed: boolean;
+
+	@Column({
+		default: false
+	})
+	public isClone: boolean;
 
 	@Column({
 		default: null,
@@ -56,7 +65,6 @@ export class Project {
 	@OneToMany((type) => ProjectComment, (projectComment) => projectComment.project)
 	public comments: ProjectComment[];
 
-	@ManyToMany((type) => Task, (task) => task.projects)
-	@JoinTable()
+	@OneToMany((type) => Task, (task) => task.project)
 	public tasks: Task[];
 }

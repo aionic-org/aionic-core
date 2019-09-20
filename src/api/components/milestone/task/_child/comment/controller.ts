@@ -1,19 +1,19 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
-import { getManager, Repository } from 'typeorm';
 
+import { TaskCommentService } from './service';
 import { TaskComment } from './model';
 
 export class TaskCommentController {
-	private readonly taskCommentRepo: Repository<TaskComment> = getManager().getRepository('TaskComment');
+	private readonly service: TaskCommentService = new TaskCommentService();
 
 	/**
-	 * Read all comments from a certain task from db
+	 * Read task comments
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express reponse
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readTaskComments(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -24,14 +24,7 @@ export class TaskCommentController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const comments: TaskComment[] = await this.taskCommentRepo.find({
-				relations: ['author'],
-				where: {
-					task: {
-						id: taskID
-					}
-				}
-			});
+			const comments: TaskComment[] = await this.service.readTaskComments(parseInt(taskID, 10));
 
 			return res.json({ status: res.statusCode, data: comments });
 		} catch (err) {
@@ -40,12 +33,12 @@ export class TaskCommentController {
 	}
 
 	/**
-	 * Save new task comment to db
+	 * Create task comment
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express reponse
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async createTaskComment(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -56,7 +49,9 @@ export class TaskCommentController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const newComment: TaskComment = await this.taskCommentRepo.save({
+			// TODO: Check if task exists
+
+			const newComment: TaskComment = await this.service.saveTaskComment({
 				...req.body.comment,
 				author: req.user,
 				task: { id: taskID }
@@ -69,12 +64,12 @@ export class TaskCommentController {
 	}
 
 	/**
-	 * Delete task comment from db
+	 * Delete task comment
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express reponse
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async deleteTaskComment(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -85,20 +80,16 @@ export class TaskCommentController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const comment: TaskComment | undefined = await this.taskCommentRepo.findOne({
-				where: {
-					id: commentID,
-					task: {
-						id: taskID
-					}
-				}
-			});
+			const comment: TaskComment | undefined = await this.service.readTaskComment(
+				parseInt(taskID, 10),
+				parseInt(commentID, 10)
+			);
 
 			if (!comment) {
 				return res.status(404).json({ status: 404, error: 'Comment not found' });
 			}
 
-			await this.taskCommentRepo.remove(comment);
+			await this.service.deleteTaskComment(comment);
 
 			return res.status(204).send();
 		} catch (err) {

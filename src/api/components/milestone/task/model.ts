@@ -18,7 +18,6 @@ import { GitRepository } from '@milestone/git/_child/repository/model';
 import { Project } from '@milestone/project/model';
 import { TaskPriority } from '@milestone/task-priority/model';
 import { TaskStatus } from '@milestone/task-status/model';
-import { TaskType } from '@milestone/task-type/model';
 import { TaskComment } from './_child/comment/model';
 import { TaskScratchpad } from './_child/scratchpad/model';
 
@@ -61,6 +60,11 @@ export class Task {
 	public completed: boolean;
 
 	@Column({
+		default: false
+	})
+	public isClone: boolean;
+
+	@Column({
 		default: null,
 		type: 'datetime'
 	})
@@ -85,9 +89,6 @@ export class Task {
 	@ManyToOne((type) => TaskPriority, (taskPriority) => taskPriority.tasks)
 	public priority: TaskPriority;
 
-	@ManyToOne((type) => TaskType, (taskType) => taskType.tasks)
-	public type: TaskType;
-
 	@OneToMany((type) => TaskComment, (taskComment) => taskComment.task)
 	public comments: TaskComment[];
 
@@ -104,8 +105,8 @@ export class Task {
 	})
 	public repository: GitRepository;
 
-	@ManyToMany((type) => Project, (project) => project.tasks)
-	public projects: Project[];
+	@ManyToOne((type) => Project, (project) => project.tasks)
+	public project: Project[];
 
 	@ManyToMany((type) => Task)
 	@JoinTable()

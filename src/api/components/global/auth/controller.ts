@@ -15,6 +15,8 @@ import { AuthMailService } from './services/mail';
 
 import { UserInvitation } from '@global/user-invitation/model';
 import { User } from '@global/user/model';
+import { UserService } from '@global/user/service';
+import { UserInvitationService } from '@global/user-invitation/service';
 
 export class AuthController {
 	private readonly authService: AuthService = new AuthService();
@@ -22,16 +24,14 @@ export class AuthController {
 	private readonly cacheService: CacheService = new CacheService();
 	private readonly httpService: HttpService = new HttpService();
 
-	private readonly userRepo: Repository<User> = getManager().getRepository('User');
-	private readonly userInvRepo: Repository<UserInvitation> = getManager().getRepository('UserInvitation');
+	private readonly userService: UserService = new UserService();
+	private readonly userInvService: UserInvitationService = new UserInvitationService();
 
 	/**
-	 * Signin user
-	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async signinUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -42,8 +42,7 @@ export class AuthController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userRepo.findOne({
-				relations: ['userRole'],
+			const user: User | undefined = await this.userService.readUser({
 				select: ['id', 'email', 'firstname', 'lastname', 'password'],
 				where: {
 					email,
@@ -71,10 +70,10 @@ export class AuthController {
 	/**
 	 * Validate hash required for registration
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async validateRegistrationHash(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -95,10 +94,10 @@ export class AuthController {
 	/**
 	 * Register new user
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async registerUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -117,7 +116,7 @@ export class AuthController {
 				return res.status(403).json({ status: 403, error: 'Invalid hash' });
 			}
 
-			const user: User | undefined = await this.userRepo.findOne({
+			const user: User | undefined = await this.userService.readUser({
 				where: {
 					email
 				}
@@ -128,7 +127,7 @@ export class AuthController {
 				return res.status(400).json({ status: 400, error: 'Email is already taken' });
 			}
 
-			const newUser: User = await this.userRepo.save({
+			const newUser: User = await this.userService.saveUser({
 				...req.body.user,
 				password: await UtilityService.hashPassword(password),
 				userRole: {
@@ -144,7 +143,7 @@ export class AuthController {
 			delete newUser.password;
 
 			// Remove user invitation
-			await this.userInvRepo.remove(invitation);
+			await this.userInvService.deleteUserInvitation(invitation);
 
 			return res.status(204).send();
 		} catch (err) {
@@ -155,10 +154,10 @@ export class AuthController {
 	/**
 	 * Create user invitation that is required for registration
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async createUserInvitation(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -169,7 +168,7 @@ export class AuthController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userRepo.findOne({
+			const user: User | undefined = await this.userService.readUser({
 				where: {
 					email
 				}
@@ -183,10 +182,10 @@ export class AuthController {
 			// UUID for registration link
 			const hash = UtilityService.generateUuid();
 
-			await this.userInvRepo.save({
+			await this.userInvService.saveUserInvitation({
 				email,
 				hash
-			});
+			} as UserInvitation);
 
 			await this.authMailService.sendUserInvitation(req.body.email, hash);
 
@@ -199,21 +198,21 @@ export class AuthController {
 	/**
 	 * Unregister user
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async unregisterUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { email } = req.user;
+			const { email } = req.user as User;
 
 			if (!email) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userRepo.findOne({
+			const user: User | undefined = await this.userService.readUser({
 				where: {
 					email
 				}
@@ -224,7 +223,7 @@ export class AuthController {
 				return res.status(404).json({ status: 404, error: 'User not found' });
 			}
 
-			await this.userRepo.remove(user);
+			await this.userService.deleteUser(user);
 
 			// Clear user cache
 			this.cacheService.delete('user');
@@ -236,11 +235,10 @@ export class AuthController {
 	}
 
 	/**
-	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async handleGitHubAuth(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -260,11 +258,10 @@ export class AuthController {
 	}
 
 	/**
-	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async handleGitHubAuthCallback(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -295,19 +292,14 @@ export class AuthController {
 	}
 
 	/**
-	 *
-	 * @param {string} hash
-	 * @param {string} [email]
-	 * @returns {Promise<UserInvitation | undefined>} Returns user invitation
+	 * @param hash
+	 * @param email
+	 * @returns Returns user invitation
 	 */
 	@bind
 	private async getUserInvitation(hash: string, email?: string): Promise<UserInvitation | undefined> {
 		try {
-			return email === undefined
-				? this.userInvRepo.findOne({
-						where: { hash }
-				  })
-				: this.userInvRepo.findOne({ where: { hash, email } });
+			return this.userInvService.readUserInvitation(email === undefined ? { hash } : { hash, email });
 		} catch (err) {
 			throw err;
 		}

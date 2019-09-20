@@ -2,6 +2,7 @@ import {
 	Column,
 	CreateDateColumn,
 	Entity,
+	JoinTable,
 	ManyToMany,
 	ManyToOne,
 	OneToMany,
@@ -83,4 +84,8 @@ export class User {
 
 	@ManyToMany((type) => Board, (board) => board.users)
 	public boards: Board[];
+
+	@ManyToMany((type) => Task)
+	@JoinTable()
+	public tasksWatched: Task[];
 }

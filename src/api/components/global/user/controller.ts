@@ -1,28 +1,26 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
-import { getManager, Like, Repository } from 'typeorm';
 
-import { CacheService } from '@services/cache';
 import { UtilityService } from '@services/helper/utility';
 
+import { UserService } from './service';
 import { User } from './model';
 
 export class UserController {
-	private readonly cacheService: CacheService = new CacheService();
-	private readonly userRepo: Repository<User> = getManager().getRepository('User');
+	private readonly userService: UserService = new UserService();
 
 	/**
-	 * Read all users from db (cached)
+	 * Read users
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readUsers(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const users: User[] = await this.cacheService.get('user', this);
+			const users: User[] = await this.userService.readUsers({}, true);
 
 			return res.json({ status: res.statusCode, data: users });
 		} catch (err) {
@@ -31,36 +29,19 @@ export class UserController {
 	}
 
 	/**
-	 * Search users from db
+	 * Read users by username
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
-	public async searchUsersByUsername(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+	public async readUsersByUsername(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
 			const { username } = req.query;
 
-			let where: object = {};
-
-			if (username) {
-				const [firstname, lastname] = username.split(' ');
-
-				if (firstname) {
-					where = { ...where, firstname: Like(`%${firstname}%`) };
-				}
-
-				if (lastname) {
-					where = { ...where, lastname: Like(`%${lastname}%`) };
-				}
-			}
-
-			const users: User[] = await this.userRepo.find({
-				where,
-				relations: ['userRole']
-			});
+			const users: User[] = await this.userService.readUsersByUsername(username);
 
 			return res.json({ status: res.statusCode, data: users });
 		} catch (err) {
@@ -69,12 +50,12 @@ export class UserController {
 	}
 
 	/**
-	 * Read a certain user from db
+	 * Read user
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -85,8 +66,10 @@ export class UserController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userRepo.findOne(userID, {
-				relations: ['userRole', 'assignee']
+			const user: User | undefined = await this.userService.readUser({
+				where: {
+					id: parseInt(userID, 10)
+				}
 			});
 
 			return res.json({ status: res.statusCode, data: user });
@@ -96,12 +79,12 @@ export class UserController {
 	}
 
 	/**
-	 * Save new user to db
+	 * Create user
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async createUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -112,7 +95,7 @@ export class UserController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const existingUser: User | undefined = await this.userRepo.findOne({
+			const existingUser: User | undefined = await this.userService.readUser({
 				where: {
 					email: user.email
 				}
@@ -123,13 +106,10 @@ export class UserController {
 				return res.status(400).json({ status: 400, error: 'Email is already taken' });
 			}
 
-			const newUser: User = await this.userRepo.save({
+			const newUser: User = await this.userService.saveUser({
 				...user,
 				password: await UtilityService.hashPassword(user.password)
 			});
-
-			// Clear user cache
-			this.cacheService.delete('user');
 
 			return res.json({ status: res.statusCode, data: newUser });
 		} catch (err) {
@@ -138,12 +118,12 @@ export class UserController {
 	}
 
 	/**
-	 * Update user in db
+	 * Update user
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async updateUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -154,13 +134,17 @@ export class UserController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userRepo.findOne(userID);
+			const user: User | undefined = await this.userService.readUser({
+				where: {
+					id: parseInt(userID, 10)
+				}
+			});
 
 			if (!user) {
 				return res.status(404).json({ status: 404, error: 'User not found' });
 			}
 
-			const updatedUser: User = await this.userRepo.save(req.body.user);
+			const updatedUser: User = await this.userService.saveUser(req.body.user);
 
 			return res.json({ status: res.statusCode, data: updatedUser });
 		} catch (err) {
@@ -169,12 +153,12 @@ export class UserController {
 	}
 
 	/**
-	 * Delete user from db
+	 * Delete user
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async deleteUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -185,29 +169,21 @@ export class UserController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userRepo.findOne(userID);
+			const user: User | undefined = await this.userService.readUser({
+				where: {
+					id: parseInt(userID, 10)
+				}
+			});
 
 			if (!user) {
 				return res.status(404).json({ status: 404, error: 'User not found' });
 			}
 
-			await this.userRepo.remove(user);
+			await this.userService.deleteUser(user);
 
 			return res.status(204).send();
 		} catch (err) {
 			return next(err);
 		}
-	}
-
-	/**
-	 * Get target content for cache service
-	 *
-	 * @returns {Promise<Array<User>>}
-	 */
-	@bind
-	private getCachedContent(): Promise<User[]> {
-		return this.userRepo.find({
-			relations: ['userRole']
-		});
 	}
 }

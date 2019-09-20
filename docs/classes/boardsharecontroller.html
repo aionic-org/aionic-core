@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>TaskTypeController | aionic-core</title>
+	<title>BoardShareController | aionic-core</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="tasktypecontroller.html">TaskTypeController</a>
+					<a href="boardsharecontroller.html">BoardShareController</a>
 				</li>
 			</ul>
-			<h1>Class TaskTypeController</h1>
+			<h1>Class BoardShareController</h1>
 		</div>
 	</div>
 </header>
@@ -70,7 +70,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">TaskTypeController</span>
+						<span class="target">BoardShareController</span>
 					</li>
 				</ul>
 			</section>
@@ -81,15 +81,15 @@
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="tasktypecontroller.html#cacheservice" class="tsd-kind-icon">cache<wbr>Service</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="tasktypecontroller.html#tasktyperepo" class="tsd-kind-icon">task<wbr>Type<wbr>Repo</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="boardsharecontroller.html#boardservice" class="tsd-kind-icon">board<wbr>Service</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="boardsharecontroller.html#boardshareservice" class="tsd-kind-icon">board<wbr>Share<wbr>Service</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="boardsharecontroller.html#userservice" class="tsd-kind-icon">user<wbr>Service</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="tasktypecontroller.html#getcachedcontent" class="tsd-kind-icon">get<wbr>Cached<wbr>Content</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="tasktypecontroller.html#readtasktype" class="tsd-kind-icon">read<wbr>Task<wbr>Type</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="boardsharecontroller.html#shareboard" class="tsd-kind-icon">share<wbr>Board</a></li>
 							</ul>
 						</section>
 					</div>
@@ -98,84 +98,75 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="cacheservice" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> cache<wbr>Service</h3>
-					<div class="tsd-signature tsd-kind-icon">cache<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="cacheservice.html" class="tsd-signature-type">CacheService</a><span class="tsd-signature-symbol"> =&nbsp;new CacheService()</span></div>
+					<a name="boardservice" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> board<wbr>Service</h3>
+					<div class="tsd-signature tsd-kind-icon">board<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="boardservice.html" class="tsd-signature-type">BoardService</a><span class="tsd-signature-symbol"> =&nbsp;new BoardService()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/milestone/task-type/controller.ts#L10">api/components/milestone/task-type/controller.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/api/components/milestone/board/_child/share/controller.ts#L14">api/components/milestone/board/_child/share/controller.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="tasktyperepo" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> task<wbr>Type<wbr>Repo</h3>
-					<div class="tsd-signature tsd-kind-icon">task<wbr>Type<wbr>Repo<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Repository</span><span class="tsd-signature-symbol">&lt;</span><a href="tasktype.html" class="tsd-signature-type">TaskType</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;getManager().getRepository(&#x27;TaskType&#x27;)</span></div>
+					<a name="boardshareservice" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> board<wbr>Share<wbr>Service</h3>
+					<div class="tsd-signature tsd-kind-icon">board<wbr>Share<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="boardshareservice.html" class="tsd-signature-type">BoardShareService</a><span class="tsd-signature-symbol"> =&nbsp;new BoardShareService()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/milestone/task-type/controller.ts#L11">api/components/milestone/task-type/controller.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/api/components/milestone/board/_child/share/controller.ts#L13">api/components/milestone/board/_child/share/controller.ts:13</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="userservice" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> user<wbr>Service</h3>
+					<div class="tsd-signature tsd-kind-icon">user<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="userservice.html" class="tsd-signature-type">UserService</a><span class="tsd-signature-symbol"> =&nbsp;new UserService()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/api/components/milestone/board/_child/share/controller.ts#L15">api/components/milestone/board/_child/share/controller.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="getcachedcontent" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Cached<wbr>Content</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Cached<wbr>Content<span class="tsd-signature-symbol">(</span>sortOrder<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="tasktype.html" class="tsd-signature-type">TaskType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/milestone/task-type/controller.ts#L43">api/components/milestone/task-type/controller.ts:43</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Get target content for cache service</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>sortOrder: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="tasktype.html" class="tsd-signature-type">TaskType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="readtasktype" class="tsd-anchor"></a>
-					<h3>read<wbr>Task<wbr>Type</h3>
+					<a name="shareboard" class="tsd-anchor"></a>
+					<h3>share<wbr>Board</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">read<wbr>Task<wbr>Type<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Request</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NextFunction</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">share<wbr>Board<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Request</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NextFunction</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/963c8ba/src/api/components/milestone/task-type/controller.ts#L22">api/components/milestone/task-type/controller.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/0ac5593/src/api/components/milestone/board/_child/share/controller.ts#L26">api/components/milestone/board/_child/share/controller.ts:26</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Read all task types from db</p>
+									<p>Share board</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>req: <span class="tsd-signature-type">Request</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Express request</p>
+									</div>
 								</li>
 								<li>
 									<h5>res: <span class="tsd-signature-type">Response</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Express response</p>
+									</div>
 								</li>
 								<li>
 									<h5>next: <span class="tsd-signature-type">NextFunction</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Express next</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -198,19 +189,19 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="tasktypecontroller.html" class="tsd-kind-icon">Task<wbr>Type<wbr>Controller</a>
+						<a href="boardsharecontroller.html" class="tsd-kind-icon">Board<wbr>Share<wbr>Controller</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="tasktypecontroller.html#cacheservice" class="tsd-kind-icon">cache<wbr>Service</a>
+								<a href="boardsharecontroller.html#boardservice" class="tsd-kind-icon">board<wbr>Service</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="tasktypecontroller.html#tasktyperepo" class="tsd-kind-icon">task<wbr>Type<wbr>Repo</a>
+								<a href="boardsharecontroller.html#boardshareservice" class="tsd-kind-icon">board<wbr>Share<wbr>Service</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="tasktypecontroller.html#getcachedcontent" class="tsd-kind-icon">get<wbr>Cached<wbr>Content</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="boardsharecontroller.html#userservice" class="tsd-kind-icon">user<wbr>Service</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="tasktypecontroller.html#readtasktype" class="tsd-kind-icon">read<wbr>Task<wbr>Type</a>
+								<a href="boardsharecontroller.html#shareboard" class="tsd-kind-icon">share<wbr>Board</a>
 							</li>
 						</ul>
 					</li>

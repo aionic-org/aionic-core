@@ -14,12 +14,12 @@ export class GitRepositoryController {
 	private readonly gitRepositoryRepo: Repository<GitRepository> = getManager().getRepository('GitRepository');
 
 	/**
-	 * Read all git organization repositories from db
+	 * Read Git organization repositories
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readGitOrgRepos(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -45,12 +45,12 @@ export class GitRepositoryController {
 	}
 
 	/**
-	 * Read git organization repository commits from GitHub API
+	 * Read Git organization repository commits
 	 *
-	 * @param {Request} req
-	 * @param {Response} res
-	 * @param {NextFunction} next
-	 * @returns {Promise<Response | void>} Returns HTTP response
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
 	 */
 	@bind
 	public async readGitOrgRepoCommits(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
