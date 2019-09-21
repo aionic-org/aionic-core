@@ -1,5 +1,7 @@
-import { exists, readFile, unlink, readdir } from 'fs';
+import { readFile, unlink, readdir, stat } from 'fs';
 import { resolve } from 'path';
+
+import { logger } from '@config/logger';
 
 /**
  * FilesystemService
@@ -18,16 +20,18 @@ export class FilesystemService {
 	 */
 	public static readFolder(path: string): Promise<string[]> {
 		return new Promise((resolve, reject) => {
-			exists(path, (exists: boolean) => {
-				if (exists) {
-					return readdir(path, (err, files) => {
-						if (err) {
-							reject(err);
-						}
-						resolve(files);
-					});
+			stat(path, (err: NodeJS.ErrnoException | null) => {
+				if (err) {
+					logger.error(`${path} does not exists!`);
+					reject(err);
 				}
-				reject('Folder does not exist!');
+
+				return readdir(path, (err, files) => {
+					if (err) {
+						reject(err);
+					}
+					resolve(files);
+				});
 			});
 		});
 	}
@@ -41,16 +45,18 @@ export class FilesystemService {
 	 */
 	public static readFile(path: string, encoding: string = 'utf8'): Promise<string> {
 		return new Promise((resolve, reject) => {
-			exists(path, (exists: boolean) => {
-				if (exists) {
-					return readFile(path, encoding, (err, data) => {
-						if (err) {
-							reject(err);
-						}
-						resolve(data);
-					});
+			stat(path, (err: NodeJS.ErrnoException | null) => {
+				if (err) {
+					logger.error(`${path} does not exists!`);
+					reject(err);
 				}
-				reject('File does not exist!');
+
+				return readFile(path, encoding, (err, data) => {
+					if (err) {
+						reject(err);
+					}
+					resolve(data);
+				});
 			});
 		});
 	}
@@ -63,16 +69,18 @@ export class FilesystemService {
 	 */
 	public static deleteFile(path: string): Promise<string | undefined> {
 		return new Promise((resolve, reject) => {
-			exists(path, (exists: boolean) => {
-				if (exists) {
-					return unlink(path, (err) => {
-						if (err) {
-							reject(err);
-						}
-						resolve();
-					});
+			stat(path, (err: NodeJS.ErrnoException | null) => {
+				if (err) {
+					logger.error(`${path} does not exists!`);
+					reject(err);
 				}
-				reject('File does not exist!');
+
+				return unlink(path, (err) => {
+					if (err) {
+						reject(err);
+					}
+					resolve();
+				});
 			});
 		});
 	}
