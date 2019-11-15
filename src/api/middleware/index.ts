@@ -8,6 +8,7 @@ import { AuthService } from '@services/auth';
 import { UtilityService } from '@services/helper/utility';
 
 import { logger } from '@config/logger';
+import { env } from '@config/globals';
 
 /**
  * Init Express middleware
@@ -17,7 +18,13 @@ import { logger } from '@config/logger';
  */
 export function registerMiddleware(router: Router): void {
 	router.use(helmet());
-	router.use(cors({ origin: ['http://localhost:4200'] }));
+
+	if (env.NODE_ENV === 'development') {
+		router.use(cors({ origin: '*' }));
+	} else {
+		router.use(cors({ origin: ['http://localhost:4200'] }));
+	}
+
 	router.use(json());
 	router.use(compression());
 
