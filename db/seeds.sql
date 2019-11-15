@@ -13,6 +13,10 @@ INSERT INTO user_role (name)
 VALUES	('Admin'),
 				('User');
 
+/* Insert admin account */
+INSERT INTO user (email, firstname, lastname, password, userRoleId)
+VALUES	('admin@aionic-core.com', 'Admin', 'Admin', ?, 1);
+
 /* Insert task status */
 INSERT INTO task_status (title, sort)
 VALUES	('To Do', 1),

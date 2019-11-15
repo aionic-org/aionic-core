@@ -1,4 +1,4 @@
-import { compare, genSalt, hash } from 'bcrypt-nodejs';
+import { compare, genSalt, hash } from 'bcryptjs';
 import { v1 as uuidv1 } from 'uuid';
 
 import * as crypto from 'crypto';
@@ -29,7 +29,7 @@ export class UtilityService {
 	 */
 	public static hashPassword(plainPassword: string): Promise<string> {
 		return new Promise((resolve, reject) => {
-			genSalt(10, (err, salt) => {
+			genSalt((err, salt) => {
 				if (err) {
 					reject(err);
 				}
@@ -37,9 +37,6 @@ export class UtilityService {
 				hash(
 					plainPassword,
 					salt,
-					() => {
-						// just leave this empty
-					},
 					(error, hashedVal) => {
 						if (error) {
 							reject(error);
