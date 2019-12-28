@@ -2,6 +2,10 @@ import nodeCache from 'node-cache';
 
 import { env } from '@config/globals';
 
+/**
+ * TODO: Refactor
+ */
+
 export class CacheService {
 	private static cache: nodeCache = new nodeCache({ stdTTL: env.CACHE_TTL });
 

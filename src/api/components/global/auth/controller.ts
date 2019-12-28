@@ -1,7 +1,6 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
 import { parse, stringify } from 'querystring';
-import { getManager, Repository } from 'typeorm';
 import { isEmail } from 'validator';
 
 import { env } from '@config/globals';
@@ -244,7 +243,7 @@ export class AuthController {
 	public async handleGitHubAuth(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
 			const url = `https://github.com/login/oauth/authorize?${stringify({
-				client_id: env.GITHUB.id,
+				client_id: env.GITHUB.id as string,
 				scope: 'user:email'
 			})}`;
 

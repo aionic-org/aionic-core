@@ -30,7 +30,7 @@ export class UserService {
 			}
 
 			if (cached) {
-				return this.cacheService.get('users', this.readUsers);
+				return this.cacheService.get('user', this.readUsers);
 			}
 
 			return this.repo.find({
