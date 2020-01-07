@@ -8,8 +8,10 @@ import 'module-alias/register';
 import { config } from 'dotenv';
 config();
 
-import { createServer } from 'http';
-import { createConnection } from 'typeorm';
+import express from 'express';
+
+import { createServer, Server as HttpServer } from 'http';
+import { createConnection, Connection } from 'typeorm';
 
 import { env } from '@config/globals';
 import { logger } from '@config/logger';
@@ -20,11 +22,11 @@ import { Server } from './api/server';
 (async function main() {
 	try {
 		logger.info('Initializing ORM connection...');
-		await createConnection();
+		const connection: Connection = await createConnection();
 
 		// Init express server
-		const app = new Server().app;
-		const server = createServer(app);
+		const app: express.Application = new Server().app;
+		const server: HttpServer = createServer(app);
 
 		// Start express server
 		server.listen(env.NODE_PORT);
@@ -34,7 +36,8 @@ import { Server } from './api/server';
 		});
 
 		server.on('close', () => {
-			logger.info('Server closed');
+			connection.close();
+			logger.info('aionic-core node server closed');
 		});
 	} catch (err) {
 		logger.error(err.stack);

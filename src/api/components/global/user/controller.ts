@@ -129,22 +129,30 @@ export class UserController {
 	public async updateUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
 			const { userID } = req.params;
+			let { user } = req.body;
 
 			if (!userID || !req.body.user) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userService.readUser({
+			const existingUser: User | undefined = await this.userService.readUser({
 				where: {
 					id: parseInt(userID, 10)
 				}
 			});
 
-			if (!user) {
+			if (!existingUser) {
 				return res.status(404).json({ status: 404, error: 'User not found' });
 			}
 
-			const updatedUser: User = await this.userService.saveUser(req.body.user);
+			if (user.password) {
+				user = {
+					...user,
+					password: await UtilityService.hashPassword(user.password)
+				};
+			}
+
+			const updatedUser: User = await this.userService.saveUser(user);
 
 			return res.json({ status: res.statusCode, data: updatedUser });
 		} catch (err) {

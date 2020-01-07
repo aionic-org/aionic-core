@@ -61,7 +61,7 @@ export class TestFactory {
 	/**
 	 * Close server and DB connection
 	 */
-	public close(): void {
+	public async close(): Promise<void> {
 		this._server.close();
 		this._connection.close();
 	}
@@ -84,7 +84,7 @@ export class TestFactory {
 		});
 
 		this._server.on('close', () => {
-			logger.info('aionice-core node server closed');
+			logger.info('aionic-core node server closed');
 		});
 	}
 }

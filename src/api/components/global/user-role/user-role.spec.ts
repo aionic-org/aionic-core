@@ -1,3 +1,6 @@
+import { assert } from 'chai';
+
+import { UserRole } from './model';
 import { TestFactory } from '../../../../test/factory';
 
 describe('Testing user-role component', () => {
@@ -7,8 +10,8 @@ describe('Testing user-role component', () => {
 		await factory.init();
 	});
 
-	after(() => {
-		factory.close();
+	after(async () => {
+		await factory.close();
 	});
 
 	it('POST /user-roles', (done) => {
@@ -19,17 +22,20 @@ describe('Testing user-role component', () => {
 			})
 			.set('Accept', 'application/json')
 			.expect('Content-Type', /json/)
-			.expect(
-				200,
-				{
-					status: 200,
-					data: {
-						id: 1,
-						name: 'Admin'
-					}
-				},
-				done
-			);
+			.expect(200)
+			.then((res) => {
+				const { status } = res.body;
+				const userRole: UserRole = res.body.data;
+
+				// Assert status
+				assert(status, res.status.toString());
+
+				// Assert userRole
+				assert(userRole.id, '1');
+				assert(userRole.name, 'Admin');
+
+				done();
+			});
 	});
 
 	it('GET /user-roles', (done) => {
@@ -37,13 +43,19 @@ describe('Testing user-role component', () => {
 			.get('/api/v1/user-roles')
 			.set('Accept', 'application/json')
 			.expect('Content-Type', /json/)
-			.expect(
-				200,
-				{
-					status: 200,
-					data: [{ id: 1, name: 'Admin' }]
-				},
-				done
-			);
+			.expect(200)
+			.then((res) => {
+				const { status } = res.body;
+				const userRoles: UserRole[] = res.body.data;
+
+				// Assert status
+				assert(status, res.status.toString());
+
+				// Assert userRoles
+				assert(userRoles[0].id, '1');
+				assert(userRoles[0].name, 'Admin');
+
+				done();
+			});
 	});
 });

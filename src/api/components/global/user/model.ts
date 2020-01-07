@@ -117,7 +117,7 @@ export class User {
 		const user = new User();
 
 		user.id = 1;
-		user.email = 'testuser@test.com';
+		user.email = 'test@email.com';
 		user.firstname = 'TestFirstname';
 		user.lastname = 'TestLastName';
 		user.userRole = {
