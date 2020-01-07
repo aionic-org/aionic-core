@@ -27,10 +27,30 @@ export class UserRoleService {
 			}
 
 			if (cached) {
-				return this.cacheService.get('user-roles', this.readUserRoles);
+				return this.cacheService.get('user-role', this.readUserRoles);
 			}
 
 			return this.repo.find();
+		} catch (err) {
+			throw new Error(err);
+		}
+	}
+
+	/**
+	 * Save new or updated user-role to db
+	 *
+	 * @param user User-role to save
+	 * @returns Returns saved user-role
+	 */
+	@bind
+	public async saveUserRole(userRole: UserRole): Promise<UserRole> {
+		try {
+			const newUserRole: UserRole = await this.repo.save(userRole);
+
+			// Clear user cache
+			this.cacheService.delete('user-role');
+
+			return newUserRole;
 		} catch (err) {
 			throw new Error(err);
 		}

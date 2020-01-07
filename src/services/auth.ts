@@ -4,6 +4,7 @@ import { sign, SignOptions } from 'jsonwebtoken';
 import { use } from 'passport';
 import { ExtractJwt, StrategyOptions } from 'passport-jwt';
 
+import { env } from '@config/globals';
 import { permissions } from '@config/permissions';
 
 import { BasicAuthStrategy } from '@global/auth/strategies/basicAuth';
@@ -71,14 +72,16 @@ export class AuthService {
 	public hasPermission(resource: string, action: string): Handler {
 		return async (req: Request, res: Response, next: NextFunction) => {
 			try {
-				const { id } = req.user as User;
-				const access: boolean = await permissions.isAllowed(id, resource, action);
+				if (env.NODE_ENV === 'production') {
+					const { id } = req.user as User;
+					const access: boolean = await permissions.isAllowed(id, resource, action);
 
-				if (!access) {
-					return res.status(403).json({
-						error: 'Missing user rights',
-						status: 403
-					});
+					if (!access) {
+						return res.status(403).json({
+							error: 'Missing user rights',
+							status: 403
+						});
+					}
 				}
 
 				return next();
@@ -108,9 +111,16 @@ export class AuthService {
 	public isAuthorized(strategy?: PassportStrategy): Handler {
 		return (req: Request, res: Response, next: NextFunction) => {
 			try {
-				// if no strategy is provided use default strategy
-				const tempStrategy: PassportStrategy = strategy || this.defaultStrategy;
-				return this.doAuthentication(req, res, next, tempStrategy);
+				if (env.NODE_ENV === 'production') {
+					// if no strategy is provided use default strategy
+					const tempStrategy: PassportStrategy = strategy || this.defaultStrategy;
+					return this.doAuthentication(req, res, next, tempStrategy);
+				}
+
+				// Mock user
+				req.user = User.mockUser();
+
+				return next();
 			} catch (err) {
 				return next(err);
 			}

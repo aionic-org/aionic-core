@@ -61,31 +61,71 @@ export class User {
 	public created: Timestamp;
 
 	/***** relations *****/
-	@OneToMany((type) => Task, (task) => task.author)
+	@OneToMany(
+		(type) => Task,
+		(task) => task.author
+	)
 	public author: Task[];
 
-	@OneToMany((type) => Task, (task) => task.author)
+	@OneToMany(
+		(type) => Task,
+		(task) => task.author
+	)
 	public assignee: Task[];
 
-	@OneToMany((type) => TaskComment, (taskComment) => taskComment.author)
+	@OneToMany(
+		(type) => TaskComment,
+		(taskComment) => taskComment.author
+	)
 	public taskComments: TaskComment[];
 
-	@OneToMany((type) => TaskScratchpad, (taskScratchpad) => taskScratchpad.author)
+	@OneToMany(
+		(type) => TaskScratchpad,
+		(taskScratchpad) => taskScratchpad.author
+	)
 	public taskScratchpads: TaskScratchpad[];
 
-	@OneToMany((type) => ProjectComment, (projectComment) => projectComment.author)
+	@OneToMany(
+		(type) => ProjectComment,
+		(projectComment) => projectComment.author
+	)
 	public projectComments: ProjectComment[];
 
-	@OneToMany((type) => Announcement, (announcement) => announcement.author)
+	@OneToMany(
+		(type) => Announcement,
+		(announcement) => announcement.author
+	)
 	public announcements: Announcement[];
 
-	@ManyToOne((type) => UserRole, (userRole) => userRole.users)
+	@ManyToOne(
+		(type) => UserRole,
+		(userRole) => userRole.users
+	)
 	public userRole: UserRole;
 
-	@ManyToMany((type) => Board, (board) => board.users)
+	@ManyToMany(
+		(type) => Board,
+		(board) => board.users
+	)
 	public boards: Board[];
 
 	@ManyToMany((type) => Task)
 	@JoinTable()
 	public tasksWatched: Task[];
+
+	public static mockUser(): User {
+		const user = new User();
+
+		user.id = 1;
+		user.email = 'testuser@test.com';
+		user.firstname = 'TestFirstname';
+		user.lastname = 'TestLastName';
+		user.userRole = {
+			id: 1,
+			name: 'Admin',
+			users: []
+		};
+
+		return user;
+	}
 }

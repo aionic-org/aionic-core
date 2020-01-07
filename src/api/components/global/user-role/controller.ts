@@ -25,4 +25,29 @@ export class UserRoleController {
 			return next(err);
 		}
 	}
+
+	/**
+	 * Create user role
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns Returns HTTP response
+	 */
+	@bind
+	public async createUserRole(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+		try {
+			const { userRole } = req.body;
+
+			if (!userRole) {
+				return res.status(400).json({ status: 400, error: 'Invalid request' });
+			}
+
+			const newUserRole: UserRole = await this.service.saveUserRole(userRole);
+
+			return res.json({ status: res.statusCode, data: newUserRole });
+		} catch (err) {
+			return next(err);
+		}
+	}
 }

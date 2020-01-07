@@ -25,5 +25,11 @@ export class UserRoleRoutes {
 			this.authSerivce.hasPermission('userRole', 'read'),
 			this.controller.readUserRoles
 		);
+		this._router.post(
+			'/',
+			this.authSerivce.isAuthorized(),
+			this.authSerivce.hasPermission('userRole', 'create'),
+			this.controller.createUserRole
+		);
 	}
 }

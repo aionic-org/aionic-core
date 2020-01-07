@@ -89,7 +89,7 @@ export class UserService {
 	}
 
 	/**
-	 * Save new or updated u ser to db
+	 * Save new or updated user to db
 	 *
 	 * @param user User to save
 	 * @returns Returns saved user
