@@ -1,5 +1,7 @@
 import { Router } from 'express';
 
+import { IComponentRoutes } from '../../index';
+
 import { AuthService, PassportStrategy } from '@services/auth';
 
 import { TaskController } from './controller';
@@ -8,10 +10,10 @@ import { TaskCommentRoutes } from './_child/comment/routes';
 import { TaskScratchpadRoutes } from './_child/scratchpad/routes';
 import { TaskShareRoutes } from './_child/share/routes';
 
-export class TaskRoutes {
-	private readonly controller: TaskController = new TaskController();
-	private authSerivce: AuthService;
-	private _router: Router = Router();
+export class TaskRoutes implements IComponentRoutes<TaskController> {
+	readonly controller: TaskController = new TaskController();
+	readonly router: Router = Router();
+	authSerivce: AuthService;
 
 	public constructor(defaultStrategy?: PassportStrategy) {
 		this.authSerivce = new AuthService(defaultStrategy);
@@ -20,11 +22,7 @@ export class TaskRoutes {
 		this.initChildRoutes(defaultStrategy);
 	}
 
-	public get router(): Router {
-		return this._router;
-	}
-
-	private initRoutes(): void {
+	initRoutes(): void {
 		this.router.get(
 			'/',
 			this.authSerivce.isAuthorized(),
@@ -61,7 +59,7 @@ export class TaskRoutes {
 		);
 	}
 
-	private initChildRoutes(defaultStrategy?: PassportStrategy): void {
+	initChildRoutes(defaultStrategy?: PassportStrategy): void {
 		this.router.use('/:taskID', new TaskCommentRoutes(defaultStrategy).router);
 		this.router.use('/:taskID', new TaskScratchpadRoutes(defaultStrategy).router);
 		this.router.use('/:taskID', new TaskShareRoutes(defaultStrategy).router);

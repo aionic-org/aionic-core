@@ -13,12 +13,11 @@ import { createConnection, ConnectionOptions, Connection } from 'typeorm';
 import { createServer, Server as HttpServer } from 'http';
 
 import express from 'express';
+import supertest from 'supertest';
 
 import { env } from '@config/globals';
-import { logger } from '@config/logger';
 
 import { Server } from '../api/server';
-import supertest from 'supertest';
 
 /**
  * TestFactory
@@ -56,7 +55,6 @@ export class TestFactory {
 	public async init(): Promise<void> {
 		// logger.info('Running startup for test case');
 		await this.startup();
-		this.setListeners();
 	}
 
 	/**
@@ -74,18 +72,5 @@ export class TestFactory {
 		this._connection = await createConnection(this.options);
 		this._app = new Server().app;
 		this._server = createServer(this._app).listen(env.NODE_PORT);
-	}
-
-	/**
-	 * Set event listeners
-	 */
-	private setListeners(): void {
-		this._server.on('listening', () => {
-			// logger.info(`aionic-core node server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode`);
-		});
-
-		this._server.on('close', () => {
-			// logger.info('aionic-core node server closed');
-		});
 	}
 }

@@ -1,10 +1,12 @@
 import { bind } from 'decko';
 import { Repository, FindManyOptions, FindOneOptions, getManager } from 'typeorm';
 
+import { IComponentService } from '../../index';
+
 import { Task } from './model';
 
-export class TaskService {
-	private readonly defaultRelations: string[] = [
+export class TaskService implements IComponentService<Task> {
+	readonly defaultRelations: string[] = [
 		'author',
 		'assignee',
 		'status',
@@ -16,7 +18,7 @@ export class TaskService {
 		'links.author'
 	];
 
-	private readonly repo: Repository<Task> = getManager().getRepository(Task);
+	readonly repo: Repository<Task> = getManager().getRepository(Task);
 
 	/**
 	 * Read all tasks from db

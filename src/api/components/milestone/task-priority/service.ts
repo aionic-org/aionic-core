@@ -1,14 +1,16 @@
 import { bind } from 'decko';
 import { Repository, FindConditions, getManager } from 'typeorm';
 
+import { IComponentService } from '../../index';
+
 import { CacheService } from '@services/cache';
 
 import { TaskPriority } from './model';
 
-export class TaskPriorityService {
-	private readonly cacheService: CacheService = new CacheService();
+export class TaskPriorityService implements IComponentService<TaskPriority> {
+	readonly cacheService: CacheService = new CacheService();
 
-	private readonly repo: Repository<TaskPriority> = getManager().getRepository(TaskPriority);
+	readonly repo: Repository<TaskPriority> = getManager().getRepository(TaskPriority);
 
 	/**
 	 * Read all task priorities from db

@@ -17,9 +17,17 @@ export class TaskScratchpad {
 	public created: Timestamp;
 
 	/***** relations *****/
-	@ManyToOne((type) => User, (user) => user.taskScratchpads, { onDelete: 'CASCADE' })
+	@ManyToOne(
+		(type) => User,
+		(user) => user.taskScratchpads,
+		{ onDelete: 'CASCADE' }
+	)
 	public author: User;
 
-	@ManyToOne((type) => Task, (task) => task.scratchpads, { onDelete: 'CASCADE' })
+	@ManyToOne(
+		(type) => Task,
+		(task) => task.scratchpads,
+		{ onDelete: 'CASCADE' }
+	)
 	public task: Task;
 }

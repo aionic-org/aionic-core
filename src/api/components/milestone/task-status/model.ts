@@ -15,6 +15,9 @@ export class TaskStatus {
 	public sort: number;
 
 	/***** relations *****/
-	@OneToMany((type) => Task, (task) => task.status)
+	@OneToMany(
+		(type) => Task,
+		(task) => task.status
+	)
 	public tasks: Task[];
 }

@@ -1,14 +1,16 @@
 import { bind } from 'decko';
 import { Repository, FindConditions, getManager } from 'typeorm';
 
+import { IComponentService } from '../../index';
+
 import { CacheService } from '@services/cache';
 
 import { TaskStatus } from './model';
 
-export class TaskStatusService {
-	private readonly cacheService: CacheService = new CacheService();
+export class TaskStatusService implements IComponentService<TaskStatus> {
+	readonly cacheService: CacheService = new CacheService();
 
-	private readonly repo: Repository<TaskStatus> = getManager().getRepository(TaskStatus);
+	readonly repo: Repository<TaskStatus> = getManager().getRepository(TaskStatus);
 
 	/**
 	 * Read all task status from db

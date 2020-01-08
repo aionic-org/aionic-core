@@ -1,24 +1,22 @@
 import { Router } from 'express';
 
+import { IComponentRoutes } from '../../../../index';
+
 import { AuthService, PassportStrategy } from '@services/auth';
 
 import { ProjectShareController } from './controller';
 
-export class ProjectShareRoutes {
-	protected readonly controller: ProjectShareController = new ProjectShareController();
-	protected authSerivce: AuthService;
-	private _router: Router = Router({ mergeParams: true });
+export class ProjectShareRoutes implements IComponentRoutes<ProjectShareController> {
+	readonly controller: ProjectShareController = new ProjectShareController();
+	readonly router: Router = Router({ mergeParams: true });
+	authSerivce: AuthService;
 
 	public constructor(defaultStrategy?: PassportStrategy) {
 		this.authSerivce = new AuthService(defaultStrategy);
 		this.initRoutes();
 	}
 
-	public get router(): Router {
-		return this._router;
-	}
-
-	private initRoutes(): void {
+	initRoutes(): void {
 		this.router.post(
 			'/share',
 			this.authSerivce.isAuthorized(),

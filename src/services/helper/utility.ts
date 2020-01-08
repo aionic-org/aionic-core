@@ -34,17 +34,13 @@ export class UtilityService {
 					reject(err);
 				}
 
-				hash(
-					plainPassword,
-					salt,
-					(error, hashedVal) => {
-						if (error) {
-							reject(error);
-						}
-
-						resolve(hashedVal);
+				hash(plainPassword, salt, (error, hashedVal) => {
+					if (error) {
+						reject(error);
 					}
-				);
+
+					resolve(hashedVal);
+				});
 			});
 		});
 	}

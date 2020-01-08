@@ -1,15 +1,17 @@
 import { Router } from 'express';
 
+import { IComponentRoutes } from '../../../../index';
+
 import { AuthService, PassportStrategy } from '@services/auth';
 
 import { GitOrganizationController } from './controller';
 
 import { GitRepositoryRoutes } from '../repository/routes';
 
-export class GitOranizationRoutes {
-	private readonly controller: GitOrganizationController = new GitOrganizationController();
-	private authSerivce: AuthService;
-	private _router: Router = Router();
+export class GitOranizationRoutes implements IComponentRoutes<GitOrganizationController> {
+	readonly controller: GitOrganizationController = new GitOrganizationController();
+	readonly router: Router = Router();
+	authSerivce: AuthService;
 
 	public constructor(defaultStrategy?: PassportStrategy) {
 		this.authSerivce = new AuthService(defaultStrategy);
@@ -18,11 +20,7 @@ export class GitOranizationRoutes {
 		this.initChildRoutes(defaultStrategy);
 	}
 
-	public get router(): Router {
-		return this._router;
-	}
-
-	private initRoutes(): void {
+	initRoutes(): void {
 		this.router.get(
 			'/organization',
 			this.authSerivce.isAuthorized(),
@@ -52,7 +50,7 @@ export class GitOranizationRoutes {
 		);
 	}
 
-	private initChildRoutes(defaultStrategy?: PassportStrategy): void {
+	initChildRoutes(defaultStrategy?: PassportStrategy): void {
 		this.router.use('/:orgID', new GitRepositoryRoutes(defaultStrategy).router);
 	}
 }

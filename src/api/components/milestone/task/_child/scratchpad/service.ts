@@ -1,10 +1,12 @@
 import { bind } from 'decko';
 import { Repository, FindConditions, getManager } from 'typeorm';
 
+import { IComponentService } from '../../../../index';
+
 import { TaskScratchpad } from './model';
 
-export class TaskScratchpadService {
-	private readonly repo: Repository<TaskScratchpad> = getManager().getRepository(TaskScratchpad);
+export class TaskScratchpadService implements IComponentService<TaskScratchpad> {
+	readonly repo: Repository<TaskScratchpad> = getManager().getRepository(TaskScratchpad);
 
 	/**
 	 * Read a certain task scratchpad from db

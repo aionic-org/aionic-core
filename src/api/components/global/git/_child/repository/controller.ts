@@ -2,7 +2,7 @@ import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
 import { getManager, Repository } from 'typeorm';
 
-import { GitHubService, ICommit } from '@milestone/git/services/GitHub';
+import { GitHubService, ICommit } from '@global/git/services/GitHub';
 
 import { GitOrganization } from '../organization/model';
 import { GitRepository } from './model';

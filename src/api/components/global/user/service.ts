@@ -1,16 +1,18 @@
 import { bind } from 'decko';
 import { Like, Repository, FindConditions, getManager, FindManyOptions, FindOneOptions } from 'typeorm';
 
+import { IComponentService } from '../../index';
+
 import { CacheService } from '@services/cache';
 
 import { User } from './model';
 
-export class UserService {
-	private readonly defaultRelations: string[] = ['userRole', 'assignee', 'tasksWatched'];
+export class UserService implements IComponentService<User> {
+	readonly defaultRelations: string[] = ['userRole', 'assignee', 'tasksWatched'];
 
-	private readonly cacheService: CacheService = new CacheService();
+	readonly cacheService: CacheService = new CacheService();
 
-	private readonly repo: Repository<User> = getManager().getRepository(User);
+	readonly repo: Repository<User> = getManager().getRepository(User);
 
 	/**
 	 * Read all users from db

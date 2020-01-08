@@ -11,12 +11,13 @@ import {
 } from 'typeorm';
 
 import { UserRole } from '@global/user-role/model';
-import { Announcement } from '@milestone/announcement/model';
+import { Announcement } from '@global/announcement/model';
 import { Board } from '@milestone/board/model';
 import { ProjectComment } from '@milestone/project/_child/comment/model';
 import { TaskComment } from '@milestone/task/_child/comment/model';
 import { TaskScratchpad } from '@milestone/task/_child/scratchpad/model';
 import { Task } from '@milestone/task/model';
+import { UtilityService } from '@services/helper/utility';
 
 @Entity()
 export class User {

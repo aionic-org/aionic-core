@@ -1,13 +1,15 @@
 import { Router } from 'express';
 
+import { IComponentRoutes } from '../../../../index';
+
 import { AuthService, PassportStrategy } from '@services/auth';
 
 import { GitRepositoryController } from './controller';
 
-export class GitRepositoryRoutes {
-	private readonly controller: GitRepositoryController = new GitRepositoryController();
-	private authSerivce: AuthService;
-	private _router: Router = Router({ mergeParams: true });
+export class GitRepositoryRoutes implements IComponentRoutes<GitRepositoryController> {
+	readonly controller: GitRepositoryController = new GitRepositoryController();
+	readonly router: Router = Router({ mergeParams: true });
+	authSerivce: AuthService;
 
 	public constructor(defaultStrategy?: PassportStrategy) {
 		this.authSerivce = new AuthService(defaultStrategy);
@@ -15,11 +17,7 @@ export class GitRepositoryRoutes {
 		this.initRoutes();
 	}
 
-	public get router(): Router {
-		return this._router;
-	}
-
-	private initRoutes(): void {
+	initRoutes(): void {
 		this.router.get(
 			'/repository',
 			this.authSerivce.isAuthorized(),

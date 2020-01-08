@@ -1,12 +1,14 @@
 import { bind } from 'decko';
 import { Repository, FindManyOptions, FindOneOptions, getManager } from 'typeorm';
 
+import { IComponentService } from '../../index';
+
 import { Board } from './model';
 
-export class BoardService {
-	private readonly defaultRelations: string[] = ['author', 'users'];
+export class BoardService implements IComponentService<Board> {
+	readonly defaultRelations: string[] = ['author', 'users'];
 
-	private readonly repo: Repository<Board> = getManager().getRepository(Board);
+	readonly repo: Repository<Board> = getManager().getRepository(Board);
 
 	/**
 	 * Read all boards from db

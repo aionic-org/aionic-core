@@ -1,15 +1,17 @@
 import { Router } from 'express';
 
+import { IComponentRoutes } from '../../index';
+
 import { AuthService, PassportStrategy } from '@services/auth';
 
 import { ProjectCommentRoutes } from './_child/comment/routes';
 import { ProjectController } from './controller';
 import { ProjectShareRoutes } from './_child/share/routes';
 
-export class ProjectRoutes {
-	private readonly controller: ProjectController = new ProjectController();
-	private authSerivce: AuthService;
-	private _router: Router = Router();
+export class ProjectRoutes implements IComponentRoutes<ProjectController> {
+	readonly controller: ProjectController = new ProjectController();
+	readonly router: Router = Router();
+	authSerivce: AuthService;
 
 	public constructor(defaultStrategy?: PassportStrategy) {
 		this.authSerivce = new AuthService(defaultStrategy);
@@ -18,11 +20,7 @@ export class ProjectRoutes {
 		this.initChildRoutes(defaultStrategy);
 	}
 
-	public get router(): Router {
-		return this._router;
-	}
-
-	private initRoutes(): void {
+	initRoutes(): void {
 		this.router.get(
 			'/',
 			this.authSerivce.isAuthorized(),
@@ -59,7 +57,7 @@ export class ProjectRoutes {
 		);
 	}
 
-	private initChildRoutes(defaultStrategy?: PassportStrategy): void {
+	initChildRoutes(defaultStrategy?: PassportStrategy): void {
 		this.router.use('/:projectID', new ProjectCommentRoutes(defaultStrategy).router);
 		this.router.use('/:projectID', new ProjectShareRoutes(defaultStrategy).router);
 	}

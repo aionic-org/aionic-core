@@ -23,6 +23,18 @@ export class Announcement {
 	public created: Timestamp;
 
 	/***** relations *****/
-	@ManyToOne((type) => User, (user) => user.author)
+	@ManyToOne(
+		(type) => User,
+		(user) => user.author
+	)
 	public author: User;
+
+	public static mockTestAnnouncement(): Announcement {
+		const announcement: Announcement = new Announcement();
+		announcement.id = 1;
+		announcement.important = true;
+		announcement.description = 'testDescription';
+
+		return announcement;
+	}
 }

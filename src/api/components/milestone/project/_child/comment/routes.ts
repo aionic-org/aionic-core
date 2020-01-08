@@ -1,24 +1,22 @@
 import { Router } from 'express';
 
+import { IComponentRoutes } from '../../../../index';
+
 import { AuthService, PassportStrategy } from '@services/auth';
 
 import { ProjectCommentController } from './controller';
 
-export class ProjectCommentRoutes {
-	protected readonly controller: ProjectCommentController = new ProjectCommentController();
-	protected authSerivce: AuthService;
-	private _router: Router = Router({ mergeParams: true });
+export class ProjectCommentRoutes implements IComponentRoutes<ProjectCommentController> {
+	readonly controller: ProjectCommentController = new ProjectCommentController();
+	readonly router: Router = Router({ mergeParams: true });
+	authSerivce: AuthService;
 
 	public constructor(defaultStrategy?: PassportStrategy) {
 		this.authSerivce = new AuthService(defaultStrategy);
 		this.initRoutes();
 	}
 
-	public get router(): Router {
-		return this._router;
-	}
-
-	private initRoutes(): void {
+	initRoutes(): void {
 		this.router.get(
 			'/comments',
 			this.authSerivce.isAuthorized(),

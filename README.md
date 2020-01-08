@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/Aionic-Apps/aionic-core.svg?branch=master)](https://travis-ci.org/Aionic-Apps/aionic-core)
 
-Aionic offers open source applications for project management and collaboration. Our focus is on simplifying and accelerating the workflow for agile teams in the open source way.
+Aionic offers open source applications for project management and collaboration. Our focus is on simplifying and accelerating the workflow for agile teams.
 
 ## Description
 

@@ -1,12 +1,14 @@
 import { bind } from 'decko';
 import { Repository, getManager } from 'typeorm';
 
+import { IComponentService } from '../../../../index';
+
 import { TaskComment } from './model';
 
-export class TaskCommentService {
-	private readonly defaultRelations: string[] = ['author'];
+export class TaskCommentService implements IComponentService<TaskComment> {
+	readonly defaultRelations: string[] = ['author'];
 
-	private readonly repo: Repository<TaskComment> = getManager().getRepository(TaskComment);
+	readonly repo: Repository<TaskComment> = getManager().getRepository(TaskComment);
 
 	/**
 	 * Read all task comments from db

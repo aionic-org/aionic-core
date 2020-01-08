@@ -22,9 +22,17 @@ export class ProjectComment {
 	public created: Timestamp;
 
 	/***** relations *****/
-	@ManyToOne((type) => User, (user) => user.projectComments, { onDelete: 'CASCADE' })
+	@ManyToOne(
+		(type) => User,
+		(user) => user.projectComments,
+		{ onDelete: 'CASCADE' }
+	)
 	public author: User;
 
-	@ManyToOne((type) => Project, (project) => project.comments, { onDelete: 'CASCADE' })
+	@ManyToOne(
+		(type) => Project,
+		(project) => project.comments,
+		{ onDelete: 'CASCADE' }
+	)
 	public project: Project;
 }

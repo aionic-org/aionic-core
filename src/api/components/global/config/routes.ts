@@ -1,46 +1,44 @@
 import { Router } from 'express';
 
+import { IComponentRoutes } from '../../index';
+
 import { AuthService, PassportStrategy } from '@services/auth';
 
 import { ConfigController } from './controller';
 
-export class ConfigRoutes {
-	private authSerivce: AuthService;
-	private readonly _router: Router = Router();
-	private readonly controller: ConfigController = new ConfigController();
+export class ConfigRoutes implements IComponentRoutes<ConfigController> {
+	readonly router: Router = Router();
+	readonly controller: ConfigController = new ConfigController();
+	authSerivce: AuthService;
 
 	public constructor(defaultStrategy?: PassportStrategy) {
 		this.authSerivce = new AuthService(defaultStrategy);
 		this.initRoutes();
 	}
 
-	public get router(): Router {
-		return this._router;
-	}
-
-	private initRoutes() {
+	initRoutes(): void {
 		/**
 		 * Caches
 		 */
-		this._router.get(
+		this.router.get(
 			'/caches',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('config', 'getCachesMetadata'),
 			this.controller.getCachesMetadata
 		);
-		this._router.delete(
+		this.router.delete(
 			'/caches',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('config', 'deleteCachesMetadata'),
 			this.controller.deleteCachesMetadata
 		);
-		this._router.get(
+		this.router.get(
 			'/caches/:key',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('config', 'getCacheKeyData'),
 			this.controller.getCacheKeyData
 		);
-		this._router.delete(
+		this.router.delete(
 			'/caches/:key',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('config', 'deleteCacheKeyData'),
@@ -50,25 +48,25 @@ export class ConfigRoutes {
 		/**
 		 * Logs
 		 */
-		this._router.get(
+		this.router.get(
 			'/logs',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('config', 'getLogfiles'),
 			this.controller.getLogfiles
 		);
-		this._router.get(
+		this.router.get(
 			'/logs/:logfile',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('config', 'readLogfile'),
 			this.controller.readLogfile
 		);
-		this._router.delete(
+		this.router.delete(
 			'/logs/:logfile',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('config', 'deleteLogfile'),
 			this.controller.deleteLogfile
 		);
-		this._router.get(
+		this.router.get(
 			'/logs/:logfile/download',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('config', 'downloadLogfile'),

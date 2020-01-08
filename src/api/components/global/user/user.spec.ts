@@ -49,10 +49,11 @@ describe('Testing user component', () => {
 
 						// Assert user
 						assert.isObject(user, 'user should be an object');
-						assert(user.id === testUser.id, 'userID does not match');
-						assert(user.email === testUser.email, 'userEmail does not match');
-						assert(user.firstname === testUser.firstname, 'userFirstname does not match');
-						assert(user.lastname === testUser.lastname, 'userLastname does not match');
+						for (const k in testUser) {
+							if (k !== 'password') {
+								assert(testUser[k as keyof User] === user[k as keyof User], `key ${k} does not match`);
+							}
+						}
 
 						return done();
 					} catch (err) {
@@ -83,11 +84,11 @@ describe('Testing user component', () => {
 
 						// Assert user
 						assert.isObject(user, 'user should be an object');
-						assert(user.id === testUserModified.id, 'userID does not match');
-						assert(user.email === testUserModified.email, 'userEmail does not match');
-						assert(user.firstname === testUserModified.firstname, 'userFirstname does not match');
-						assert(user.lastname === testUserModified.lastname, 'userLastname does not match');
-
+						for (const k in testUserModified) {
+							if (k !== 'password') {
+								assert(testUserModified[k as keyof User] === user[k as keyof User], `key ${k} does not match`);
+							}
+						}
 						return done();
 					} catch (err) {
 						return done(err);
@@ -115,10 +116,11 @@ describe('Testing user component', () => {
 
 						// Assert users
 						assert.isArray(users, 'users should be an array');
-						assert(users[0].id === testUserModified.id, 'userID does not match');
-						assert(users[0].email === testUserModified.email, 'userEmail does not match');
-						assert(users[0].firstname === testUserModified.firstname, 'userFirstname does not match');
-						assert(users[0].lastname === testUserModified.lastname, 'userLastname does not match');
+						for (const k in testUserModified) {
+							if (k !== 'password') {
+								assert(testUserModified[k as keyof User] === users[0][k as keyof User], `key ${k} does not match`);
+							}
+						}
 
 						return done();
 					} catch (err) {
@@ -147,10 +149,45 @@ describe('Testing user component', () => {
 
 						// Assert user
 						assert.isObject(user, 'user should be an object');
-						assert(user.id === testUserModified.id, 'userID does not match');
-						assert(user.email === testUserModified.email, 'userEmail does not match');
-						assert(user.firstname === testUserModified.firstname, 'userFirstname does not match');
-						assert(user.lastname === testUserModified.lastname, 'userLastname does not match');
+						for (const k in testUserModified) {
+							if (k !== 'password') {
+								assert(testUserModified[k as keyof User] === user[k as keyof User], `key ${k} does not match`);
+							}
+						}
+
+						return done();
+					} catch (err) {
+						return done(err);
+					}
+				});
+		});
+	});
+
+	describe('GET /users/search', () => {
+		it('responds with user array', (done) => {
+			factory.app
+				.get('/api/v1/users')
+				.query({ username: 'testFirstnameModified testLastnameModified' })
+				.set('Accept', 'application/json')
+				.expect('Content-Type', /json/)
+				.expect(200)
+				.end((err, res) => {
+					try {
+						if (err) throw err;
+
+						const { status } = res.body;
+						const users: User[] = res.body.data;
+
+						// Assert status
+						assert(status === res.status, 'status does not match');
+
+						// Assert users
+						assert.isArray(users, 'users should be an array');
+						for (const k in testUserModified) {
+							if (k !== 'password') {
+								assert(testUserModified[k as keyof User] === users[0][k as keyof User], `key ${k} does not match`);
+							}
+						}
 
 						return done();
 					} catch (err) {

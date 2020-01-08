@@ -1,12 +1,14 @@
 import { bind } from 'decko';
 import { Repository, FindManyOptions, FindOneOptions, getManager } from 'typeorm';
 
+import { IComponentService } from '../../index';
+
 import { Project } from './model';
 
-export class ProjectService {
-	private readonly defaultRelations: string[] = ['author', 'tasks', 'tasks.status'];
+export class ProjectService implements IComponentService<Project> {
+	readonly defaultRelations: string[] = ['author', 'tasks', 'tasks.status'];
 
-	private readonly repo: Repository<Project> = getManager().getRepository(Project);
+	readonly repo: Repository<Project> = getManager().getRepository(Project);
 
 	/**
 	 * Read all projects from db

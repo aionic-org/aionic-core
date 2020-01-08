@@ -36,10 +36,25 @@ export class Board {
 	public updated: Timestamp;
 
 	/***** relations *****/
-	@ManyToOne((type) => User, (user) => user.author)
+	@ManyToOne(
+		(type) => User,
+		(user) => user.author
+	)
 	public author: User;
 
-	@ManyToMany((type) => User, (user) => user.boards)
+	@ManyToMany(
+		(type) => User,
+		(user) => user.boards
+	)
 	@JoinTable()
 	public users: User[];
+
+	public static mockTestBoard(): Board {
+		const board: Board = new Board();
+		board.id = 1;
+		board.title = 'testTitle';
+		board.description = 'testDescription';
+
+		return board;
+	}
 }

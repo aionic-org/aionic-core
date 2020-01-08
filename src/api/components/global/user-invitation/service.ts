@@ -1,10 +1,12 @@
 import { bind } from 'decko';
 import { Repository, FindConditions, getManager } from 'typeorm';
 
+import { IComponentService } from '../../index';
+
 import { UserInvitation } from './model';
 
-export class UserInvitationService {
-	private readonly repo: Repository<UserInvitation> = getManager().getRepository(UserInvitation);
+export class UserInvitationService implements IComponentService<UserInvitation> {
+	readonly repo: Repository<UserInvitation> = getManager().getRepository(UserInvitation);
 
 	/**
 	 * Read all user invitations from db

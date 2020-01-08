@@ -1,24 +1,22 @@
 import { Router } from 'express';
 
+import { IComponentRoutes } from '../../../../index';
+
 import { AuthService, PassportStrategy } from '@services/auth';
 
 import { ScratchpadController } from './controller';
 
-export class TaskScratchpadRoutes {
-	protected readonly controller: ScratchpadController = new ScratchpadController();
-	protected authSerivce: AuthService;
-	private _router: Router = Router({ mergeParams: true });
+export class TaskScratchpadRoutes implements IComponentRoutes<ScratchpadController> {
+	readonly controller: ScratchpadController = new ScratchpadController();
+	readonly router: Router = Router({ mergeParams: true });
+	authSerivce: AuthService;
 
 	public constructor(defaultStrategy?: PassportStrategy) {
 		this.authSerivce = new AuthService(defaultStrategy);
 		this.initRoutes();
 	}
 
-	public get router(): Router {
-		return this._router;
-	}
-
-	private initRoutes(): void {
+	initRoutes(): void {
 		this.router.get(
 			'/scratchpads/users/:userID',
 			this.authSerivce.isAuthorized(),

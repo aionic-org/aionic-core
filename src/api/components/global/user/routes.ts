@@ -1,15 +1,17 @@
 import { Router } from 'express';
 
+import { IComponentRoutes } from '../../index';
+
 import { AuthService, PassportStrategy } from '@services/auth';
 
 import { UserController } from './controller';
 
 import { UserTaskRoutes } from './_child/task/routes';
 
-export class UserRoutes {
-	private authSerivce: AuthService;
-	private readonly _router: Router = Router();
-	private readonly controller: UserController = new UserController();
+export class UserRoutes implements IComponentRoutes<UserController> {
+	readonly controller: UserController = new UserController();
+	readonly router: Router = Router();
+	authSerivce: AuthService;
 
 	public constructor(defaultStrategy?: PassportStrategy) {
 		this.authSerivce = new AuthService(defaultStrategy);
@@ -18,47 +20,43 @@ export class UserRoutes {
 		this.initRoutes();
 	}
 
-	public get router(): Router {
-		return this._router;
-	}
-
-	private initRoutes() {
-		this._router.get(
+	initRoutes(): void {
+		this.router.get(
 			'/',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('user', 'read'),
 			this.controller.readUsers
 		);
 
-		this._router.get(
+		this.router.get(
 			'/search',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('user', 'read'),
 			this.controller.readUsersByUsername
 		);
 
-		this._router.post(
+		this.router.post(
 			'/',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('user', 'create'),
 			this.controller.createUser
 		);
 
-		this._router.get(
+		this.router.get(
 			'/:userID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('user', 'read'),
 			this.controller.readUser
 		);
 
-		this._router.put(
+		this.router.put(
 			'/:userID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('user', 'update'),
 			this.controller.updateUser
 		);
 
-		this._router.delete(
+		this.router.delete(
 			'/:userID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('user', 'delete'),
@@ -66,7 +64,7 @@ export class UserRoutes {
 		);
 	}
 
-	private initChildRoutes(defaultStrategy?: PassportStrategy): void {
+	initChildRoutes(defaultStrategy?: PassportStrategy): void {
 		this.router.use('/:userID', new UserTaskRoutes(defaultStrategy).router);
 	}
 }

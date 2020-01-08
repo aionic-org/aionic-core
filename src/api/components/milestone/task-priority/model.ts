@@ -15,6 +15,9 @@ export class TaskPriority {
 	public value: number;
 
 	/***** relations *****/
-	@OneToMany((type) => Task, (task) => task.priority)
+	@OneToMany(
+		(type) => Task,
+		(task) => task.priority
+	)
 	public tasks: Task[];
 }

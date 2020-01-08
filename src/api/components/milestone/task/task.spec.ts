@@ -49,10 +49,9 @@ describe('Testing task component', () => {
 
 						// Assert task
 						assert.isObject(task, 'task should be an object');
-						assert(task.id === testTask.id, 'taskID does not match');
-						assert(task.title === testTask.title, 'taskTitle does not match');
-						assert(task.description === testTask.description, 'taskDescription does not match');
-						assert(task.tags === testTask.tags, 'taskTags does not match');
+						for (const k in testTask) {
+							assert(testTask[k as keyof Task] === task[k as keyof Task], `key ${k} does not match`);
+						}
 
 						return done();
 					} catch (err) {
@@ -83,10 +82,9 @@ describe('Testing task component', () => {
 
 						// Assert task
 						assert.isObject(task, 'task should be an object');
-						assert(task.id === testTaskModified.id, 'taskID does not match');
-						assert(task.title === testTaskModified.title, 'taskTitle does not match');
-						assert(task.description === testTaskModified.description, 'taskDescription does not match');
-						assert(task.tags === testTaskModified.tags, 'taskTags does not match');
+						for (const k in testTaskModified) {
+							assert(testTaskModified[k as keyof Task] === task[k as keyof Task], `key ${k} does not match`);
+						}
 
 						return done();
 					} catch (err) {
@@ -115,10 +113,9 @@ describe('Testing task component', () => {
 
 						// Assert tasks
 						assert.isArray(tasks, 'tasks should be an array');
-						assert(tasks[0].id === testTaskModified.id, 'taskID does not match');
-						assert(tasks[0].title === testTaskModified.title, 'taskTitle does not match');
-						assert(tasks[0].description === testTaskModified.description, 'taskDescription does not match');
-						assert(tasks[0].tags === testTaskModified.tags, 'taskTags does not match');
+						for (const k in testTaskModified) {
+							assert(testTaskModified[k as keyof Task] === tasks[0][k as keyof Task], `key ${k} does not match`);
+						}
 
 						return done();
 					} catch (err) {
@@ -147,10 +144,9 @@ describe('Testing task component', () => {
 
 						// Assert task
 						assert.isObject(task, 'task should be an object');
-						assert(task.id === testTaskModified.id, 'taskID does not match');
-						assert(task.title === testTaskModified.title, 'taskTitle does not match');
-						assert(task.description === testTaskModified.description, 'taskDescription does not match');
-						assert(task.tags === testTaskModified.tags, 'taskTags does not match');
+						for (const k in testTaskModified) {
+							assert(testTaskModified[k as keyof Task] === task[k as keyof Task], `key ${k} does not match`);
+						}
 
 						return done();
 					} catch (err) {

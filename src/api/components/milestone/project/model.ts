@@ -59,12 +59,33 @@ export class Project {
 	public updated: Timestamp;
 
 	/***** relations *****/
-	@ManyToOne((type) => User, (user) => user.author)
+	@ManyToOne(
+		(type) => User,
+		(user) => user.author
+	)
 	public author: User;
 
-	@OneToMany((type) => ProjectComment, (projectComment) => projectComment.project)
+	@OneToMany(
+		(type) => ProjectComment,
+		(projectComment) => projectComment.project
+	)
 	public comments: ProjectComment[];
 
-	@OneToMany((type) => Task, (task) => task.project)
+	@OneToMany(
+		(type) => Task,
+		(task) => task.project
+	)
 	public tasks: Task[];
+
+	public static mockTestProject(): Project {
+		const project: Project = new Project();
+		project.id = 1;
+		project.key = 'testKey';
+		project.title = 'testTitle';
+		project.description = 'testDescription';
+		project.completed = false;
+		project.isClone = false;
+
+		return project;
+	}
 }

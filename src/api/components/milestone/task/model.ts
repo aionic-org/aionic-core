@@ -13,8 +13,8 @@ import {
 
 import { User } from '@global/user/model';
 
-import { GitOrganization } from '@milestone/git/_child/organization/model';
-import { GitRepository } from '@milestone/git/_child/repository/model';
+import { GitOrganization } from '@global/git/_child/organization/model';
+import { GitRepository } from '@global/git/_child/repository/model';
 import { Project } from '@milestone/project/model';
 import { TaskPriority } from '@milestone/task-priority/model';
 import { TaskStatus } from '@milestone/task-status/model';

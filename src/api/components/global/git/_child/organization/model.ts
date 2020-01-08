@@ -31,9 +31,15 @@ export class GitOrganization {
 	@Column()
 	public htmlUrl: string;
 
-	@OneToMany((type) => Task, (task) => task.repository)
+	@OneToMany(
+		(type) => Task,
+		(task) => task.repository
+	)
 	public tasks: Task[];
 
-	@OneToMany((type) => GitRepository, (gitRepository) => gitRepository.organization)
+	@OneToMany(
+		(type) => GitRepository,
+		(gitRepository) => gitRepository.organization
+	)
 	public repositories: GitRepository[];
 }

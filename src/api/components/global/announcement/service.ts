@@ -1,12 +1,14 @@
 import { bind } from 'decko';
 import { Repository, FindManyOptions, FindOneOptions, getManager } from 'typeorm';
 
+import { IComponentService } from '../../index';
+
 import { Announcement } from './model';
 
-export class AnnouncementService {
-	private readonly defaultRelations: string[] = ['author'];
+export class AnnouncementService implements IComponentService<Announcement> {
+	readonly defaultRelations: string[] = ['author'];
 
-	private readonly repo: Repository<Announcement> = getManager().getRepository(Announcement);
+	readonly repo: Repository<Announcement> = getManager().getRepository(Announcement);
 
 	/**
 	 * Read all announcements from db

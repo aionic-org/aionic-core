@@ -1,12 +1,14 @@
 import { bind } from 'decko';
 import { Repository, getManager } from 'typeorm';
 
+import { IComponentService } from '../../../../index';
+
 import { ProjectComment } from './model';
 
-export class ProjectCommentService {
-	private readonly defaultRelations: string[] = ['author'];
+export class ProjectCommentService implements IComponentService<ProjectComment> {
+	readonly defaultRelations: string[] = ['author'];
 
-	private readonly repo: Repository<ProjectComment> = getManager().getRepository(ProjectComment);
+	readonly repo: Repository<ProjectComment> = getManager().getRepository(ProjectComment);
 
 	/**
 	 * Read all project comments from db
