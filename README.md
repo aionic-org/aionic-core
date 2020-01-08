@@ -2,6 +2,8 @@
 
 ![alt text](https://avatars0.githubusercontent.com/u/42389304?s=100&v=4 'Aionic Logo')
 
+[![Build Status](https://travis-ci.org/Aionic-Apps/aionic-core.svg?branch=master)](https://travis-ci.org/Aionic-Apps/aionic-core)
+
 Aionic offers open source applications for project management and collaboration. Our focus is on simplifying and accelerating the workflow for agile teams in the open source way.
 
 ## Description
