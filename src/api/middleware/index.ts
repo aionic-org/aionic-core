@@ -30,13 +30,15 @@ export function registerMiddleware(router: Router): void {
 
 	// Log incoming requests
 	router.use((req: Request, res: Response, next: NextFunction) => {
-		const ip: string | string[] | undefined = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+		if (env.NODE_ENV === 'production') {
+			const ip: string | string[] | undefined = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+			logger.log({
+				isRequest: true,
+				level: 'info',
+				message: `${req.method} ${req.url} ${ip}`
+			});
+		}
 
-		logger.log({
-			isRequest: true,
-			level: 'info',
-			message: `${req.method} ${req.url} ${ip}`
-		});
 		return next();
 	});
 

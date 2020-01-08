@@ -113,18 +113,14 @@ export class User {
 	@JoinTable()
 	public tasksWatched: Task[];
 
-	public static mockUser(): User {
+	public static mockTestUser(): User {
 		const user = new User();
 
 		user.id = 1;
 		user.email = 'test@email.com';
-		user.firstname = 'TestFirstname';
-		user.lastname = 'TestLastName';
-		user.userRole = {
-			id: 1,
-			name: 'Admin',
-			users: []
-		};
+		user.firstname = 'testFirstname';
+		user.lastname = 'testLastName';
+		user.password = 'testPassword';
 
 		return user;
 	}

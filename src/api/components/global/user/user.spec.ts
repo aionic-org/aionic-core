@@ -1,3 +1,5 @@
+import 'module-alias/register';
+
 import { assert } from 'chai';
 
 import { User } from './model';
@@ -5,6 +7,8 @@ import { TestFactory } from '../../../../test/factory';
 
 describe('Testing user component', () => {
 	const factory: TestFactory = new TestFactory();
+	const testUser: User = User.mockTestUser();
+	const testUserModified: User = { ...testUser, firstname: 'testFirstnameModified', lastname: 'testLastnameModified' };
 
 	before(async () => {
 		await factory.init();
@@ -14,88 +18,161 @@ describe('Testing user component', () => {
 		await factory.close();
 	});
 
-	it('POST /users', (done) => {
-		factory.app
-			.post('/api/v1/users')
-			.send({
-				user: {
-					email: 'test@email.com',
-					firstname: 'testFirstname',
-					lastname: 'testLastname',
-					password: 'testPassword'
-				}
-			})
-			.set('Accept', 'application/json')
-			.expect('Content-Type', /json/)
-			.expect(200)
-			.then((res) => {
-				const { status } = res.body;
-				const user: User = res.body.data;
+	describe('POST /users', () => {
+		it('responds with status 400', (done) => {
+			factory.app
+				.post('/api/v1/users')
+				.send()
+				.set('Accept', 'application/json')
+				.expect('Content-Type', /json/)
+				.expect(400, done);
+		});
 
-				// Assert status
-				assert(status, res.status.toString());
+		it('responds with new user', (done) => {
+			factory.app
+				.post('/api/v1/users')
+				.send({
+					user: testUser
+				})
+				.set('Accept', 'application/json')
+				.expect('Content-Type', /json/)
+				.expect(200)
+				.end((err, res) => {
+					try {
+						if (err) throw err;
 
-				// Assert user
-				assert(user.id, '1');
-				assert(user.email, 'test@email.com');
-				assert(user.firstname, 'testFirstname');
-				assert(user.lastname, 'testLastname');
+						const { status } = res.body;
+						const user: User = res.body.data;
 
-				done();
-			});
+						// Assert status
+						assert(status === res.status, 'status does not match');
+
+						// Assert user
+						assert.isObject(user, 'user should be an object');
+						assert(user.id === testUser.id, 'userID does not match');
+						assert(user.email === testUser.email, 'userEmail does not match');
+						assert(user.firstname === testUser.firstname, 'userFirstname does not match');
+						assert(user.lastname === testUser.lastname, 'userLastname does not match');
+
+						return done();
+					} catch (err) {
+						return done(err);
+					}
+				});
+		});
 	});
 
-	it('PUT /users/1', (done) => {
-		factory.app
-			.put('/api/v1/users/1')
-			.send({
-				user: {
-					id: 1,
-					email: 'test@email.com',
-					firstname: 'testFirstnameChanged',
-					lastname: 'testLastnameChanged'
-				}
-			})
-			.set('Accept', 'application/json')
-			.expect('Content-Type', /json/)
-			.expect(200)
-			.then((res) => {
-				const { status } = res.body;
-				const user: User = res.body.data;
+	describe('PUT /users/1', () => {
+		it('responds with updated user', (done) => {
+			factory.app
+				.put('/api/v1/users/1')
+				.send({
+					user: testUserModified
+				})
+				.set('Accept', 'application/json')
+				.expect('Content-Type', /json/)
+				.end((err, res) => {
+					try {
+						if (err) throw err;
 
-				// Assert status
-				assert(status, res.status.toString());
+						const { status } = res.body;
+						const user: User = res.body.data;
 
-				// Assert user
-				assert(user.id, '1');
-				assert(user.email, 'test@email.com');
-				assert(user.firstname, 'testFirstnameChanged');
-				assert(user.lastname, 'testLastnameChanged');
+						// Assert status
+						assert(status === res.status, 'status does not match');
 
-				done();
-			});
+						// Assert user
+						assert.isObject(user, 'user should be an object');
+						assert(user.id === testUserModified.id, 'userID does not match');
+						assert(user.email === testUserModified.email, 'userEmail does not match');
+						assert(user.firstname === testUserModified.firstname, 'userFirstname does not match');
+						assert(user.lastname === testUserModified.lastname, 'userLastname does not match');
+
+						return done();
+					} catch (err) {
+						return done(err);
+					}
+				});
+		});
 	});
 
-	it('GET /users', (done) => {
-		factory.app
-			.get('/api/v1/users')
-			.set('Accept', 'application/json')
-			.expect('Content-Type', /json/)
-			.expect(200)
-			.then((res) => {
-				const { status } = res.body;
-				const users: User[] = res.body.data;
+	describe('GET /users', () => {
+		it('responds with user array', (done) => {
+			factory.app
+				.get('/api/v1/users')
+				.set('Accept', 'application/json')
+				.expect('Content-Type', /json/)
+				.expect(200)
+				.end((err, res) => {
+					try {
+						if (err) throw err;
 
-				// Assert status
-				assert(status, res.status.toString());
+						const { status } = res.body;
+						const users: User[] = res.body.data;
 
-				// Assert users
-				assert(users[0].id, '1');
-				assert(users[0].email, 'test@email.com');
-				assert(users[0].firstname, 'testFirstnameChanged');
-				assert(users[0].lastname, 'testLastnameChanged');
+						// Assert status
+						assert(status === res.status, 'status does not match');
 
-				done();
-			});
+						// Assert users
+						assert.isArray(users, 'users should be an array');
+						assert(users[0].id === testUserModified.id, 'userID does not match');
+						assert(users[0].email === testUserModified.email, 'userEmail does not match');
+						assert(users[0].firstname === testUserModified.firstname, 'userFirstname does not match');
+						assert(users[0].lastname === testUserModified.lastname, 'userLastname does not match');
+
+						return done();
+					} catch (err) {
+						return done(err);
+					}
+				});
+		});
+	});
+
+	describe('GET /users/1', () => {
+		it('responds with single user', (done) => {
+			factory.app
+				.get('/api/v1/users/1')
+				.set('Accept', 'application/json')
+				.expect('Content-Type', /json/)
+				.expect(200)
+				.end((err, res) => {
+					try {
+						if (err) throw err;
+
+						const { status } = res.body;
+						const user: User = res.body.data;
+
+						// Assert status
+						assert(status === res.status, 'status does not match');
+
+						// Assert user
+						assert.isObject(user, 'user should be an object');
+						assert(user.id === testUserModified.id, 'userID does not match');
+						assert(user.email === testUserModified.email, 'userEmail does not match');
+						assert(user.firstname === testUserModified.firstname, 'userFirstname does not match');
+						assert(user.lastname === testUserModified.lastname, 'userLastname does not match');
+
+						return done();
+					} catch (err) {
+						return done(err);
+					}
+				});
+		});
+	});
+
+	describe('DELETE /users/1', () => {
+		it('responds with status 204', (done) => {
+			factory.app
+				.delete('/api/v1/users/1')
+				.set('Accept', 'application/json')
+				.expect(204, done);
+		});
+
+		it('responds with status 404', (done) => {
+			factory.app
+				.delete('/api/v1/users/1')
+				.set('Accept', 'application/json')
+				.expect(404, done);
+		});
 	});
 });

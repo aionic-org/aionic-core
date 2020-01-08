@@ -77,38 +77,80 @@ export class Task {
 	public updated: Timestamp;
 
 	/***** relations *****/
-	@ManyToOne((type) => User, (user) => user.author, { onDelete: 'SET NULL' })
+	@ManyToOne(
+		(type) => User,
+		(user) => user.author,
+		{ onDelete: 'SET NULL' }
+	)
 	public author: User;
 
-	@ManyToOne((type) => User, (user) => user.assignee, { onDelete: 'SET NULL' })
+	@ManyToOne(
+		(type) => User,
+		(user) => user.assignee,
+		{ onDelete: 'SET NULL' }
+	)
 	public assignee: User;
 
-	@ManyToOne((type) => TaskStatus, (taskStatus) => taskStatus.tasks)
+	@ManyToOne(
+		(type) => TaskStatus,
+		(taskStatus) => taskStatus.tasks
+	)
 	public status: TaskStatus;
 
-	@ManyToOne((type) => TaskPriority, (taskPriority) => taskPriority.tasks)
+	@ManyToOne(
+		(type) => TaskPriority,
+		(taskPriority) => taskPriority.tasks
+	)
 	public priority: TaskPriority;
 
-	@OneToMany((type) => TaskComment, (taskComment) => taskComment.task)
+	@OneToMany(
+		(type) => TaskComment,
+		(taskComment) => taskComment.task
+	)
 	public comments: TaskComment[];
 
-	@OneToMany((type) => TaskScratchpad, (taskScratchpad) => taskScratchpad.task)
+	@OneToMany(
+		(type) => TaskScratchpad,
+		(taskScratchpad) => taskScratchpad.task
+	)
 	public scratchpads: TaskScratchpad[];
 
-	@ManyToOne((type) => GitOrganization, (gitOrganization) => gitOrganization.tasks, {
-		onDelete: 'SET NULL'
-	})
+	@ManyToOne(
+		(type) => GitOrganization,
+		(gitOrganization) => gitOrganization.tasks,
+		{
+			onDelete: 'SET NULL'
+		}
+	)
 	public organization: GitOrganization;
 
-	@ManyToOne((type) => GitRepository, (gitRepository) => gitRepository.tasks, {
-		onDelete: 'SET NULL'
-	})
+	@ManyToOne(
+		(type) => GitRepository,
+		(gitRepository) => gitRepository.tasks,
+		{
+			onDelete: 'SET NULL'
+		}
+	)
 	public repository: GitRepository;
 
-	@ManyToOne((type) => Project, (project) => project.tasks)
+	@ManyToOne(
+		(type) => Project,
+		(project) => project.tasks
+	)
 	public project: Project[];
 
 	@ManyToMany((type) => Task)
 	@JoinTable()
 	public links: Task[];
+
+	public static mockTestTask(): Task {
+		const task: Task = new Task();
+
+		task.id = 1;
+		task.title = 'testTitle';
+		task.description = 'testDescription';
+		task.tags = 'testTag1,testTag2';
+
+		return task;
+	}
 }

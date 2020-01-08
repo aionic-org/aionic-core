@@ -1,3 +1,5 @@
+import 'module-alias/register';
+
 import { assert } from 'chai';
 
 import { UserRole } from './model';
@@ -5,6 +7,7 @@ import { TestFactory } from '../../../../test/factory';
 
 describe('Testing user-role component', () => {
 	const factory: TestFactory = new TestFactory();
+	const testUserRole: UserRole = UserRole.mockTestUserRole();
 
 	before(async () => {
 		await factory.init();
@@ -14,48 +17,75 @@ describe('Testing user-role component', () => {
 		await factory.close();
 	});
 
-	it('POST /user-roles', (done) => {
-		factory.app
-			.post('/api/v1/user-roles')
-			.send({
-				userRole: { name: 'Admin' }
-			})
-			.set('Accept', 'application/json')
-			.expect('Content-Type', /json/)
-			.expect(200)
-			.then((res) => {
-				const { status } = res.body;
-				const userRole: UserRole = res.body.data;
+	describe('POST /user-roles', () => {
+		it('responds with status 400', (done) => {
+			factory.app
+				.post('/api/v1/user-roles')
+				.send()
+				.set('Accept', 'application/json')
+				.expect('Content-Type', /json/)
+				.expect(400, done);
+		});
 
-				// Assert status
-				assert(status, res.status.toString());
+		it('responds with new user-role', (done) => {
+			factory.app
+				.post('/api/v1/user-roles')
+				.send({
+					userRole: { name: 'Admin' }
+				})
+				.set('Accept', 'application/json')
+				.expect('Content-Type', /json/)
+				.expect(200)
+				.end((err, res) => {
+					try {
+						if (err) throw err;
 
-				// Assert userRole
-				assert(userRole.id, '1');
-				assert(userRole.name, 'Admin');
+						const { status } = res.body;
+						const userRole: UserRole = res.body.data;
 
-				done();
-			});
+						// Assert status
+						assert(status === res.status, 'status does not match');
+
+						// Assert userRole
+						assert.isObject(userRole, 'userRole should be an object');
+						assert(userRole.id === testUserRole.id, 'userRoleID does not match');
+						assert(userRole.name === testUserRole.name, 'userRoleName does not match');
+
+						return done();
+					} catch (err) {
+						return done(err);
+					}
+				});
+		});
 	});
 
-	it('GET /user-roles', (done) => {
-		factory.app
-			.get('/api/v1/user-roles')
-			.set('Accept', 'application/json')
-			.expect('Content-Type', /json/)
-			.expect(200)
-			.then((res) => {
-				const { status } = res.body;
-				const userRoles: UserRole[] = res.body.data;
+	describe('GET /user-roles', () => {
+		it('responds with user-role array', (done) => {
+			factory.app
+				.get('/api/v1/user-roles')
+				.set('Accept', 'application/json')
+				.expect('Content-Type', /json/)
+				.expect(200)
+				.end((err, res) => {
+					try {
+						if (err) throw err;
 
-				// Assert status
-				assert(status, res.status.toString());
+						const { status } = res.body;
+						const userRoles: UserRole[] = res.body.data;
 
-				// Assert userRoles
-				assert(userRoles[0].id, '1');
-				assert(userRoles[0].name, 'Admin');
+						// Assert status
+						assert(status === res.status, 'status does not match');
 
-				done();
-			});
+						// Assert userRoles
+						assert.isArray(userRoles, 'userRoles shoud be an array');
+						assert(userRoles[0].id === testUserRole.id, 'userRoleID does not match');
+						assert(userRoles[0].name === testUserRole.name, 'userRoleName does not match');
+
+						return done();
+					} catch (err) {
+						return done(err);
+					}
+				});
+		});
 	});
 });

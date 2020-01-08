@@ -118,7 +118,7 @@ export class AuthService {
 				}
 
 				// Mock user
-				req.user = User.mockUser();
+				req.user = User.mockTestUser();
 
 				return next();
 			} catch (err) {

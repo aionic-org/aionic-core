@@ -22,7 +22,8 @@ import supertest from 'supertest';
 
 /**
  * TestFactory
- * Loaded in each unit test
+ * - Loaded in each unit test
+ * - Starts server and DB connection
  */
 
 export class TestFactory {
@@ -53,7 +54,7 @@ export class TestFactory {
 	}
 
 	public async init(): Promise<void> {
-		logger.info('Running startup for test case');
+		// logger.info('Running startup for test case');
 		await this.startup();
 		this.setListeners();
 	}
@@ -80,11 +81,11 @@ export class TestFactory {
 	 */
 	private setListeners(): void {
 		this._server.on('listening', () => {
-			logger.info(`aionic-core node server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode`);
+			// logger.info(`aionic-core node server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode`);
 		});
 
 		this._server.on('close', () => {
-			logger.info('aionic-core node server closed');
+			// logger.info('aionic-core node server closed');
 		});
 	}
 }

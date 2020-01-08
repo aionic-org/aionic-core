@@ -15,6 +15,18 @@ export class UserRole {
 	public name: string;
 
 	/***** relations *****/
-	@OneToMany((type) => User, (user) => user.userRole)
+	@OneToMany(
+		(type) => User,
+		(user) => user.userRole
+	)
 	public users: User[];
+
+	public static mockTestUserRole(): UserRole {
+		const userRole: UserRole = new UserRole();
+
+		userRole.id = 1;
+		userRole.name = 'Admin';
+
+		return userRole;
+	}
 }
