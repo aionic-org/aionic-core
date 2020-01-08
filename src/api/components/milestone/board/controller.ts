@@ -31,7 +31,7 @@ export class BoardController {
 				take = { take: limit };
 			}
 
-			const boards: Board[] = await this.service.readBoards({
+			const boards: Board[] = await this.service.readAll({
 				...order,
 				...take
 			});
@@ -59,7 +59,7 @@ export class BoardController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const board: Board | undefined = await this.service.readBoard({
+			const board: Board | undefined = await this.service.read({
 				where: {
 					id: boardID
 				}
@@ -86,7 +86,7 @@ export class BoardController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const newBoard: Board = await this.service.saveBoard(req.body.board);
+			const newBoard: Board = await this.service.save(req.body.board);
 
 			return res.json({ status: res.statusCode, data: newBoard });
 		} catch (err) {
@@ -111,7 +111,7 @@ export class BoardController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const board: Board | undefined = await this.service.readBoard({
+			const board: Board | undefined = await this.service.read({
 				where: {
 					id: boardID
 				}
@@ -121,7 +121,7 @@ export class BoardController {
 				return res.status(404).json({ status: 404, error: 'Board not found' });
 			}
 
-			const updatedBoard: Board = await this.service.saveBoard(req.body.board);
+			const updatedBoard: Board = await this.service.save(req.body.board);
 
 			return res.json({ status: res.statusCode, data: updatedBoard });
 		} catch (err) {
@@ -146,7 +146,7 @@ export class BoardController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const board: Board | undefined = await this.service.readBoard({
+			const board: Board | undefined = await this.service.read({
 				where: {
 					id: boardID
 				}
@@ -156,7 +156,7 @@ export class BoardController {
 				return res.status(404).json({ status: 404, error: 'Board not found' });
 			}
 
-			await this.service.deleteBoard(board);
+			await this.service.delete(board);
 
 			return res.status(204).send();
 		} catch (err) {

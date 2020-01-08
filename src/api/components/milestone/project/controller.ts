@@ -37,7 +37,7 @@ export class ProjectController {
 				take = limit;
 			}
 
-			const projects: Project[] = await this.service.readProjects({
+			const projects: Project[] = await this.service.readAll({
 				where,
 				order,
 				take,
@@ -67,7 +67,7 @@ export class ProjectController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const project: Project | undefined = await this.service.readProject({
+			const project: Project | undefined = await this.service.read({
 				relations: ['author', 'tasks', 'tasks.priority', 'tasks.assignee', 'tasks.author', 'tasks.status'],
 				where: {
 					id: projectID
@@ -95,7 +95,7 @@ export class ProjectController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const newProject: Project = await this.service.saveProject(req.body.project);
+			const newProject: Project = await this.service.save(req.body.project);
 
 			return res.json({ status: res.statusCode, data: newProject });
 		} catch (err) {
@@ -120,7 +120,7 @@ export class ProjectController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const project: Project | undefined = await this.service.readProject({
+			const project: Project | undefined = await this.service.read({
 				where: {
 					id: projectID
 				}
@@ -130,7 +130,7 @@ export class ProjectController {
 				return res.status(404).json({ status: 404, error: 'project not found' });
 			}
 
-			const updatedProject: Project = await this.service.saveProject(req.body.project);
+			const updatedProject: Project = await this.service.save(req.body.project);
 
 			return res.json({ status: res.statusCode, data: updatedProject });
 		} catch (err) {
@@ -155,7 +155,7 @@ export class ProjectController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const project: Project | undefined = await this.service.readProject({
+			const project: Project | undefined = await this.service.read({
 				where: {
 					id: projectID
 				}
@@ -165,7 +165,7 @@ export class ProjectController {
 				return res.status(404).json({ status: 404, error: 'Project not found' });
 			}
 
-			await this.service.deleteProject(project);
+			await this.service.delete(project);
 
 			return res.status(204).send();
 		} catch (err) {

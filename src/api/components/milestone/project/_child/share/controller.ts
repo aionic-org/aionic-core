@@ -32,7 +32,7 @@ export class ProjectShareController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const projectToShare: Project | undefined = await this.projectService.readProject({
+			const projectToShare: Project | undefined = await this.projectService.read({
 				where: {
 					id: projectID
 				}
@@ -45,7 +45,7 @@ export class ProjectShareController {
 			const users: User[] = [];
 
 			for (const userID of userIDs) {
-				const user: User | undefined = await this.userService.readUser({
+				const user: User | undefined = await this.userService.read({
 					where: {
 						id: userID
 					}

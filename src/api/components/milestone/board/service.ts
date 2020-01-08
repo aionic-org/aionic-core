@@ -1,11 +1,11 @@
 import { bind } from 'decko';
 import { Repository, FindManyOptions, FindOneOptions, getManager } from 'typeorm';
 
-import { IComponentService } from '../../index';
+import { IComponentServiceStrict } from '../../index';
 
 import { Board } from './model';
 
-export class BoardService implements IComponentService<Board> {
+export class BoardService implements IComponentServiceStrict<Board> {
 	readonly defaultRelations: string[] = ['author', 'users'];
 
 	readonly repo: Repository<Board> = getManager().getRepository(Board);
@@ -17,7 +17,7 @@ export class BoardService implements IComponentService<Board> {
 	 * @returns Returns an array of boards
 	 */
 	@bind
-	public readBoards(options: FindManyOptions<Board>): Promise<Board[]> {
+	public readAll(options: FindManyOptions<Board>): Promise<Board[]> {
 		try {
 			return this.repo.find({
 				relations: this.defaultRelations,
@@ -35,7 +35,7 @@ export class BoardService implements IComponentService<Board> {
 	 * @returns Returns a single board
 	 */
 	@bind
-	public readBoard(options: FindOneOptions<Board>): Promise<Board | undefined> {
+	public read(options: FindOneOptions<Board>): Promise<Board | undefined> {
 		try {
 			return this.repo.findOne({
 				relations: this.defaultRelations,
@@ -53,7 +53,7 @@ export class BoardService implements IComponentService<Board> {
 	 * @returns Returns saved board
 	 */
 	@bind
-	public saveBoard(board: Board): Promise<Board> {
+	public save(board: Board): Promise<Board> {
 		try {
 			return this.repo.save(board);
 		} catch (err) {
@@ -68,7 +68,7 @@ export class BoardService implements IComponentService<Board> {
 	 * @returns Returns deleted board
 	 */
 	@bind
-	public async deleteBoard(board: Board): Promise<Board> {
+	public async delete(board: Board): Promise<Board> {
 		try {
 			return this.repo.remove(board);
 		} catch (err) {

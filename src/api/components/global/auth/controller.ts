@@ -41,7 +41,7 @@ export class AuthController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userService.readUser({
+			const user: User | undefined = await this.userService.read({
 				select: ['id', 'email', 'firstname', 'lastname', 'password'],
 				where: {
 					email,
@@ -115,7 +115,7 @@ export class AuthController {
 				return res.status(403).json({ status: 403, error: 'Invalid hash' });
 			}
 
-			const user: User | undefined = await this.userService.readUser({
+			const user: User | undefined = await this.userService.read({
 				where: {
 					email
 				}
@@ -126,7 +126,7 @@ export class AuthController {
 				return res.status(400).json({ status: 400, error: 'Email is already taken' });
 			}
 
-			const newUser: User = await this.userService.saveUser({
+			const newUser: User = await this.userService.save({
 				...req.body.user,
 				password: await UtilityService.hashPassword(password),
 				userRole: {
@@ -167,7 +167,7 @@ export class AuthController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userService.readUser({
+			const user: User | undefined = await this.userService.read({
 				where: {
 					email
 				}
@@ -211,7 +211,7 @@ export class AuthController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userService.readUser({
+			const user: User | undefined = await this.userService.read({
 				where: {
 					email
 				}
@@ -222,7 +222,7 @@ export class AuthController {
 				return res.status(404).json({ status: 404, error: 'User not found' });
 			}
 
-			await this.userService.deleteUser(user);
+			await this.userService.delete(user);
 
 			// Clear user cache
 			this.cacheService.delete('user');

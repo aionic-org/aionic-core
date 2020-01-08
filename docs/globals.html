@@ -161,6 +161,7 @@
 								<li class="tsd-kind-interface"><a href="interfaces/icommit.html" class="tsd-kind-icon">ICommit</a></li>
 								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/icomponentroutes.html" class="tsd-kind-icon">IComponent<wbr>Routes</a></li>
 								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/icomponentservice.html" class="tsd-kind-icon">IComponent<wbr>Service</a></li>
+								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/icomponentservicestrict.html" class="tsd-kind-icon">IComponent<wbr>Service<wbr>Strict</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -213,7 +214,7 @@
 					<div class="tsd-signature tsd-kind-icon">Passport<wbr>Strategy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"jwt"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"basic"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/services/auth.ts#L14">services/auth.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/services/auth.ts#L14">services/auth.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -226,7 +227,7 @@
 					<div class="tsd-signature tsd-kind-icon">combined<wbr>Log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;join(logDir, &#x27;combined.log&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/logger.ts#L16">config/logger.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/logger.ts#L16">config/logger.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -236,7 +237,7 @@
 					<div class="tsd-signature tsd-kind-icon">error<wbr>Log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;join(logDir, &#x27;error.log&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/logger.ts#L14">config/logger.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/logger.ts#L14">config/logger.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -246,7 +247,7 @@
 					<div class="tsd-signature tsd-kind-icon">exceptions<wbr>Log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;join(logDir, &#x27;exceptions.log&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/logger.ts#L17">config/logger.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/logger.ts#L17">config/logger.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -256,7 +257,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Request<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> =&nbsp;format((info, opts) &#x3D;&gt; {if (info.isRequest) {return info;}return false;})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/logger.ts#L19">config/logger.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/logger.ts#L19">config/logger.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -287,7 +288,7 @@
 					<div class="tsd-signature tsd-kind-icon">log<wbr>Dir<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"logs"</span><span class="tsd-signature-symbol"> =&nbsp;&quot;logs&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/logger.ts#L7">config/logger.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/logger.ts#L7">config/logger.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -297,7 +298,7 @@
 					<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Logger</span><span class="tsd-signature-symbol"> =&nbsp;createLogger({level: &#x27;info&#x27;,format: format.combine(format.timestamp({format: &#x27;YYYY-MM-DD HH:mm:ss&#x27;}),format.printf((info) &#x3D;&gt; &#x60;${info.timestamp} ${info.level}: ${info.message}&#x60;)),transports: [new transports.File({filename: errorLog,level: &#x27;error&#x27;}),new transports.File({filename: requestLog,format: format.combine(isRequest())}),new transports.File({filename: combinedLog})],exceptionHandlers: [new transports.File({filename: exceptionsLog})]})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/logger.ts#L26">config/logger.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/logger.ts#L26">config/logger.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -307,7 +308,7 @@
 					<div class="tsd-signature tsd-kind-icon">permissions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Acl</span><span class="tsd-signature-symbol"> =&nbsp;new acl(new acl.memoryBackend())</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/permissions.ts#L4">config/permissions.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/permissions.ts#L4">config/permissions.ts:4</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -317,7 +318,7 @@
 					<div class="tsd-signature tsd-kind-icon">policies<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;JSON.parse(readFileSync(&#x27;./dist/output/policies.combined.json&#x27;, &#x27;utf-8&#x27;))</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/permissions.ts#L7">config/permissions.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/permissions.ts#L7">config/permissions.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -327,7 +328,7 @@
 					<div class="tsd-signature tsd-kind-icon">request<wbr>Log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;join(logDir, &#x27;request.log&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/logger.ts#L15">config/logger.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/logger.ts#L15">config/logger.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -344,7 +345,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/api/routes.ts#L12">api/routes.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/api/routes.ts#L12">api/routes.ts:12</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -372,7 +373,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/api/components/index.ts#L32">api/components/index.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/api/components/index.ts#L39">api/components/index.ts:39</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -403,7 +404,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/api/middleware/index.ts#L55">api/middleware/index.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/api/middleware/index.ts#L55">api/middleware/index.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -434,7 +435,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/api/components/global/routes.ts#L21">api/components/global/routes.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/api/components/global/routes.ts#L21">api/components/global/routes.ts:21</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -471,7 +472,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/api/middleware/index.ts#L19">api/middleware/index.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/api/middleware/index.ts#L19">api/middleware/index.ts:19</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -499,7 +500,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/api/components/milestone/routes.ts#L16">api/components/milestone/routes.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/api/components/milestone/routes.ts#L16">api/components/milestone/routes.ts:16</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -535,7 +536,7 @@
 					<div class="tsd-signature tsd-kind-icon">apps<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L24">config/globals.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L24">config/globals.ts:24</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-object-literal">
@@ -544,7 +545,7 @@
 						<div class="tsd-signature tsd-kind-icon">core<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L25">config/globals.ts:25</a></li>
+								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L25">config/globals.ts:25</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -553,7 +554,7 @@
 							<div class="tsd-signature tsd-kind-icon">domain<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;process.env.AIC_CORE_DOMAIN</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L28">config/globals.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L28">config/globals.ts:28</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -563,7 +564,7 @@
 							<div class="tsd-signature tsd-kind-icon">email<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;core@aionic-apps.com&quot;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L27">config/globals.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L27">config/globals.ts:27</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -573,7 +574,7 @@
 							<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;Aionic Core&quot;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L26">config/globals.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L26">config/globals.ts:26</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -584,7 +585,7 @@
 						<div class="tsd-signature tsd-kind-icon">milestone<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L30">config/globals.ts:30</a></li>
+								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L30">config/globals.ts:30</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -593,7 +594,7 @@
 							<div class="tsd-signature tsd-kind-icon">domain<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;process.env.AIC_MILESTONE_DOMAIN</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L33">config/globals.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L33">config/globals.ts:33</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -603,7 +604,7 @@
 							<div class="tsd-signature tsd-kind-icon">email<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;milestone@aionic-apps.com&quot;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L32">config/globals.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L32">config/globals.ts:32</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -613,7 +614,7 @@
 							<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;Aionic Milestone&quot;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L31">config/globals.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L31">config/globals.ts:31</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -625,7 +626,7 @@
 					<div class="tsd-signature tsd-kind-icon">env<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L2">config/globals.ts:2</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L2">config/globals.ts:2</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -634,7 +635,7 @@
 						<div class="tsd-signature tsd-kind-icon">CACHE_<wbr>TTL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;3600</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L3">config/globals.ts:3</a></li>
+								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L3">config/globals.ts:3</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -644,7 +645,7 @@
 						<div class="tsd-signature tsd-kind-icon">NODE_<wbr>ENV<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;process.env.NODE_ENV || &#x27;development&#x27;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L8">config/globals.ts:8</a></li>
+								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L8">config/globals.ts:8</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -654,7 +655,7 @@
 						<div class="tsd-signature tsd-kind-icon">NODE_<wbr>PORT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;process.env.NODE_PORT || process.env.PORT || 3000</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L9">config/globals.ts:9</a></li>
+								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L9">config/globals.ts:9</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -664,7 +665,7 @@
 						<div class="tsd-signature tsd-kind-icon">GITHUB<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L4">config/globals.ts:4</a></li>
+								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L4">config/globals.ts:4</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -673,7 +674,7 @@
 							<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;process.env.GH_CLIENT_ID</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L5">config/globals.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L5">config/globals.ts:5</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -683,7 +684,7 @@
 							<div class="tsd-signature tsd-kind-icon">secret<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;process.env.GH_CLIENT_SECRET</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L6">config/globals.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L6">config/globals.ts:6</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -694,7 +695,7 @@
 						<div class="tsd-signature tsd-kind-icon">SMTP<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L10">config/globals.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L10">config/globals.ts:10</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -703,7 +704,7 @@
 							<div class="tsd-signature tsd-kind-icon">host<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;process.env.SMTP_HOST || &#x27;&#x27;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L15">config/globals.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L15">config/globals.ts:15</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -713,7 +714,7 @@
 							<div class="tsd-signature tsd-kind-icon">port<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;process.env.SMTP_PORT || &#x27;&#x27;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L16">config/globals.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L16">config/globals.ts:16</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -723,7 +724,7 @@
 							<div class="tsd-signature tsd-kind-icon">auth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L11">config/globals.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L11">config/globals.ts:11</a></li>
 								</ul>
 							</aside>
 							<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -732,7 +733,7 @@
 								<div class="tsd-signature tsd-kind-icon">pass<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;process.env.SMTP_PASSWORD || &#x27;&#x27;</span></div>
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L12">config/globals.ts:12</a></li>
+										<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L12">config/globals.ts:12</a></li>
 									</ul>
 								</aside>
 							</section>
@@ -742,7 +743,7 @@
 								<div class="tsd-signature tsd-kind-icon">user<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;process.env.SMTP_USERNAME || &#x27;&#x27;</span></div>
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L13">config/globals.ts:13</a></li>
+										<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L13">config/globals.ts:13</a></li>
 									</ul>
 								</aside>
 							</section>
@@ -753,7 +754,7 @@
 							<div class="tsd-signature tsd-kind-icon">tls<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L17">config/globals.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L17">config/globals.ts:17</a></li>
 								</ul>
 							</aside>
 							<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -762,7 +763,7 @@
 								<div class="tsd-signature tsd-kind-icon">reject<wbr>Unauthorized<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L18">config/globals.ts:18</a></li>
+										<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L18">config/globals.ts:18</a></li>
 									</ul>
 								</aside>
 							</section>
@@ -775,7 +776,7 @@
 					<div class="tsd-signature tsd-kind-icon">mails<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L38">config/globals.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L38">config/globals.ts:38</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -784,7 +785,7 @@
 						<div class="tsd-signature tsd-kind-icon">service<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;service@aionic-apps.com&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/config/globals.ts#L39">config/globals.ts:39</a></li>
+								<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/config/globals.ts#L39">config/globals.ts:39</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1058,6 +1059,9 @@
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="interfaces/icomponentservice.html" class="tsd-kind-icon">IComponent<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/icomponentservicestrict.html" class="tsd-kind-icon">IComponent<wbr>Service<wbr>Strict</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#passportstrategy" class="tsd-kind-icon">Passport<wbr>Strategy</a>

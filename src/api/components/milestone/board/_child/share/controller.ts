@@ -32,7 +32,7 @@ export class BoardShareController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const boardToShare: Board | undefined = await this.boardService.readBoard({
+			const boardToShare: Board | undefined = await this.boardService.read({
 				where: {
 					id: boardID
 				}
@@ -45,7 +45,7 @@ export class BoardShareController {
 			const users: User[] = [];
 
 			for (const userID of userIDs) {
-				const user: User | undefined = await this.userService.readUser({
+				const user: User | undefined = await this.userService.read({
 					where: {
 						id: userID
 					}

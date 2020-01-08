@@ -1,11 +1,11 @@
 import { bind } from 'decko';
 import { Repository, FindManyOptions, FindOneOptions, getManager } from 'typeorm';
 
-import { IComponentService } from '../../index';
+import { IComponentServiceStrict } from '../../index';
 
 import { Task } from './model';
 
-export class TaskService implements IComponentService<Task> {
+export class TaskService implements IComponentServiceStrict<Task> {
 	readonly defaultRelations: string[] = [
 		'author',
 		'assignee',
@@ -27,7 +27,7 @@ export class TaskService implements IComponentService<Task> {
 	 * @returns Returns an array of tasks
 	 */
 	@bind
-	public readTasks(options: FindManyOptions<Task>): Promise<Task[]> {
+	public readAll(options: FindManyOptions<Task>): Promise<Task[]> {
 		try {
 			return this.repo.find({
 				relations: this.defaultRelations,
@@ -45,7 +45,7 @@ export class TaskService implements IComponentService<Task> {
 	 * @returns Returns a single task
 	 */
 	@bind
-	public readTask(options: FindOneOptions<Task>): Promise<Task | undefined> {
+	public read(options: FindOneOptions<Task>): Promise<Task | undefined> {
 		try {
 			return this.repo.findOne({
 				relations: this.defaultRelations,
@@ -63,7 +63,7 @@ export class TaskService implements IComponentService<Task> {
 	 * @returns Returns saved task
 	 */
 	@bind
-	public saveTask(task: Task): Promise<Task> {
+	public save(task: Task): Promise<Task> {
 		try {
 			return this.repo.save(task);
 		} catch (err) {
@@ -78,7 +78,7 @@ export class TaskService implements IComponentService<Task> {
 	 * @returns Returns deleted task
 	 */
 	@bind
-	public async deleteTask(task: Task): Promise<Task> {
+	public async delete(task: Task): Promise<Task> {
 		try {
 			return this.repo.remove(task);
 		} catch (err) {

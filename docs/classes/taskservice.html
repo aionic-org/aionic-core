@@ -77,7 +77,7 @@
 			<section class="tsd-panel">
 				<h3>Implements</h3>
 				<ul class="tsd-hierarchy">
-					<li><a href="../interfaces/icomponentservice.html" class="tsd-signature-type">IComponentService</a><span class="tsd-signature-symbol">&lt;</span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&gt;</span></li>
+					<li><a href="../interfaces/icomponentservicestrict.html" class="tsd-signature-type">IComponentServiceStrict</a><span class="tsd-signature-symbol">&lt;</span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -94,10 +94,10 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="taskservice.html#deletetask" class="tsd-kind-icon">delete<wbr>Task</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="taskservice.html#readtask" class="tsd-kind-icon">read<wbr>Task</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="taskservice.html#readtasks" class="tsd-kind-icon">read<wbr>Tasks</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="taskservice.html#savetask" class="tsd-kind-icon">save<wbr>Task</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="taskservice.html#delete" class="tsd-kind-icon">delete</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="taskservice.html#read" class="tsd-kind-icon">read</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="taskservice.html#readall" class="tsd-kind-icon">read<wbr>All</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="taskservice.html#save" class="tsd-kind-icon">save</a></li>
 							</ul>
 						</section>
 					</div>
@@ -110,9 +110,9 @@
 					<h3>default<wbr>Relations</h3>
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Relations<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[&#x27;author&#x27;,&#x27;assignee&#x27;,&#x27;status&#x27;,&#x27;priority&#x27;,&#x27;project&#x27;,&#x27;repository&#x27;,&#x27;organization&#x27;,&#x27;links&#x27;,&#x27;links.author&#x27;]</span></div>
 					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/icomponentservice.html">IComponentService</a>.<a href="../interfaces/icomponentservice.html#defaultrelations">defaultRelations</a></p>
+						<p>Implementation of <a href="../interfaces/icomponentservicestrict.html">IComponentServiceStrict</a>.<a href="../interfaces/icomponentservicestrict.html#defaultrelations">defaultRelations</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/api/components/milestone/task/service.ts#L9">api/components/milestone/task/service.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/api/components/milestone/task/service.ts#L9">api/components/milestone/task/service.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -121,9 +121,9 @@
 					<h3>repo</h3>
 					<div class="tsd-signature tsd-kind-icon">repo<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Repository</span><span class="tsd-signature-symbol">&lt;</span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;getManager().getRepository(Task)</span></div>
 					<aside class="tsd-sources">
-						<p>Implementation of <a href="../interfaces/icomponentservice.html">IComponentService</a>.<a href="../interfaces/icomponentservice.html#repo">repo</a></p>
+						<p>Implementation of <a href="../interfaces/icomponentservicestrict.html">IComponentServiceStrict</a>.<a href="../interfaces/icomponentservicestrict.html#repo">repo</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/api/components/milestone/task/service.ts#L21">api/components/milestone/task/service.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/api/components/milestone/task/service.ts#L21">api/components/milestone/task/service.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -131,16 +131,16 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="deletetask" class="tsd-anchor"></a>
-					<h3>delete<wbr>Task</h3>
+					<a name="delete" class="tsd-anchor"></a>
+					<h3>delete</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">delete<wbr>Task<span class="tsd-signature-symbol">(</span>task<span class="tsd-signature-symbol">: </span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span>task<span class="tsd-signature-symbol">: </span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/api/components/milestone/task/service.ts#L81">api/components/milestone/task/service.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/api/components/milestone/task/service.ts#L81">api/components/milestone/task/service.ts:81</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -163,16 +163,17 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="readtask" class="tsd-anchor"></a>
-					<h3>read<wbr>Task</h3>
+					<a name="read" class="tsd-anchor"></a>
+					<h3>read</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">read<wbr>Task<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FindOneOptions</span><span class="tsd-signature-symbol">&lt;</span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FindOneOptions</span><span class="tsd-signature-symbol">&lt;</span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/icomponentservicestrict.html">IComponentServiceStrict</a>.<a href="../interfaces/icomponentservicestrict.html#read">read</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/api/components/milestone/task/service.ts#L48">api/components/milestone/task/service.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/api/components/milestone/task/service.ts#L48">api/components/milestone/task/service.ts:48</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -195,16 +196,16 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="readtasks" class="tsd-anchor"></a>
-					<h3>read<wbr>Tasks</h3>
+					<a name="readall" class="tsd-anchor"></a>
+					<h3>read<wbr>All</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">read<wbr>Tasks<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FindManyOptions</span><span class="tsd-signature-symbol">&lt;</span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">read<wbr>All<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FindManyOptions</span><span class="tsd-signature-symbol">&lt;</span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/api/components/milestone/task/service.ts#L30">api/components/milestone/task/service.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/api/components/milestone/task/service.ts#L30">api/components/milestone/task/service.ts:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -227,16 +228,16 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="savetask" class="tsd-anchor"></a>
-					<h3>save<wbr>Task</h3>
+					<a name="save" class="tsd-anchor"></a>
+					<h3>save</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">save<wbr>Task<span class="tsd-signature-symbol">(</span>task<span class="tsd-signature-symbol">: </span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">save<span class="tsd-signature-symbol">(</span>task<span class="tsd-signature-symbol">: </span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/ef8e858/src/api/components/milestone/task/service.ts#L66">api/components/milestone/task/service.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/Aionic-Apps/aionic-core/blob/f3f188e/src/api/components/milestone/task/service.ts#L66">api/components/milestone/task/service.ts:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -282,16 +283,16 @@
 								<a href="taskservice.html#repo" class="tsd-kind-icon">repo</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="taskservice.html#deletetask" class="tsd-kind-icon">delete<wbr>Task</a>
+								<a href="taskservice.html#delete" class="tsd-kind-icon">delete</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="taskservice.html#readtask" class="tsd-kind-icon">read<wbr>Task</a>
+								<a href="taskservice.html#read" class="tsd-kind-icon">read</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="taskservice.html#readtasks" class="tsd-kind-icon">read<wbr>Tasks</a>
+								<a href="taskservice.html#readall" class="tsd-kind-icon">read<wbr>All</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="taskservice.html#savetask" class="tsd-kind-icon">save<wbr>Task</a>
+								<a href="taskservice.html#save" class="tsd-kind-icon">save</a>
 							</li>
 						</ul>
 					</li>

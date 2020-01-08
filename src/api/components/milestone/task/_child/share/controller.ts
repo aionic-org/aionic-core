@@ -32,7 +32,7 @@ export class TaskShareController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const taskToShare: Task | undefined = await this.taskService.readTask({
+			const taskToShare: Task | undefined = await this.taskService.read({
 				where: {
 					id: taskID
 				}
@@ -45,7 +45,7 @@ export class TaskShareController {
 			const users: User[] = [];
 
 			for (const userID of userIDs) {
-				const user: User | undefined = await this.userService.readUser({
+				const user: User | undefined = await this.userService.read({
 					where: { id: userID }
 				});
 

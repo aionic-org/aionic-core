@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { Repository, FindManyOptions, FindOneOptions } from 'typeorm';
 import { Router } from 'express';
 
 import { registerGlobalRoutes } from './global/routes';
@@ -11,6 +11,13 @@ export interface IComponentService<T> {
 	readonly repo: Repository<T>;
 	readonly cacheService?: CacheService;
 	readonly defaultRelations?: string[];
+}
+
+export interface IComponentServiceStrict<T> extends IComponentService<T> {
+	readAll(options: FindManyOptions<T>, cached?: boolean): Promise<T[]>;
+	read(options: FindOneOptions<T>): Promise<T | undefined>;
+	save(entity: T): Promise<T>;
+	delete(entity: T): Promise<T>;
 }
 
 export interface IComponentRoutes<T> {

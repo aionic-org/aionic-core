@@ -1,11 +1,11 @@
 import { bind } from 'decko';
 import { Repository, FindManyOptions, FindOneOptions, getManager } from 'typeorm';
 
-import { IComponentService } from '../../index';
+import { IComponentServiceStrict } from '../../index';
 
 import { Announcement } from './model';
 
-export class AnnouncementService implements IComponentService<Announcement> {
+export class AnnouncementService implements IComponentServiceStrict<Announcement> {
 	readonly defaultRelations: string[] = ['author'];
 
 	readonly repo: Repository<Announcement> = getManager().getRepository(Announcement);
@@ -17,7 +17,7 @@ export class AnnouncementService implements IComponentService<Announcement> {
 	 * @returns Returns an array of announcements
 	 */
 	@bind
-	public readAnnouncements(options: FindManyOptions<Announcement> = {}): Promise<Announcement[]> {
+	public readAll(options: FindManyOptions<Announcement> = {}): Promise<Announcement[]> {
 		try {
 			return this.repo.find({
 				relations: this.defaultRelations,
@@ -35,7 +35,7 @@ export class AnnouncementService implements IComponentService<Announcement> {
 	 * @returns Returns a single announcement
 	 */
 	@bind
-	public readAnnouncement(options: FindOneOptions<Announcement>): Promise<Announcement | undefined> {
+	public read(options: FindOneOptions<Announcement>): Promise<Announcement | undefined> {
 		try {
 			return this.repo.findOne({
 				relations: this.defaultRelations,
@@ -53,7 +53,7 @@ export class AnnouncementService implements IComponentService<Announcement> {
 	 * @returns Returns saved announcement
 	 */
 	@bind
-	public saveAnnouncement(announcement: Announcement): Promise<Announcement> {
+	public save(announcement: Announcement): Promise<Announcement> {
 		try {
 			return this.repo.save(announcement);
 		} catch (err) {
@@ -68,7 +68,7 @@ export class AnnouncementService implements IComponentService<Announcement> {
 	 * @returns Returns deleted announcement
 	 */
 	@bind
-	public async deleteAnnouncement(announcement: Announcement): Promise<Announcement> {
+	public async delete(announcement: Announcement): Promise<Announcement> {
 		try {
 			return this.repo.remove(announcement);
 		} catch (err) {

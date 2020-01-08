@@ -18,7 +18,7 @@ export class AnnouncementController {
 	@bind
 	public async readAnnouncements(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const announcements: Announcement[] = await this.service.readAnnouncements();
+			const announcements: Announcement[] = await this.service.readAll();
 
 			return res.json({ status: res.statusCode, data: announcements });
 		} catch (err) {
@@ -43,7 +43,7 @@ export class AnnouncementController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const announcement: Announcement | undefined = await this.service.readAnnouncement({
+			const announcement: Announcement | undefined = await this.service.read({
 				where: {
 					id: announcementID
 				}
@@ -70,7 +70,7 @@ export class AnnouncementController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const newAnnouncement: Announcement = await this.service.saveAnnouncement(req.body.announcement);
+			const newAnnouncement: Announcement = await this.service.save(req.body.announcement);
 
 			return res.json({ status: res.statusCode, data: newAnnouncement });
 		} catch (err) {
@@ -95,7 +95,7 @@ export class AnnouncementController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const announcement: Announcement | undefined = await this.service.readAnnouncement({
+			const announcement: Announcement | undefined = await this.service.read({
 				where: {
 					id: announcementID
 				}
@@ -105,7 +105,7 @@ export class AnnouncementController {
 				return res.status(404).json({ status: 404, error: 'Announcement not found' });
 			}
 
-			await this.service.deleteAnnouncement(announcement);
+			await this.service.delete(announcement);
 
 			return res.status(204).send();
 		} catch (err) {

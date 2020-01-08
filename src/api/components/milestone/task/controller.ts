@@ -55,7 +55,7 @@ export class TaskController {
 				where = { ...where, branch };
 			}
 
-			const tasks: Task[] = await this.service.readTasks({
+			const tasks: Task[] = await this.service.readAll({
 				where,
 				relations: ['author', 'assignee', 'status', 'priority', 'repository']
 			});
@@ -83,7 +83,7 @@ export class TaskController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const task: Task | undefined = await this.service.readTask({
+			const task: Task | undefined = await this.service.read({
 				where: {
 					id: taskID
 				}
@@ -110,7 +110,7 @@ export class TaskController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const newTask: Task = await this.service.saveTask(req.body.task);
+			const newTask: Task = await this.service.save(req.body.task);
 
 			return res.json({ status: res.statusCode, data: newTask });
 		} catch (err) {
@@ -135,7 +135,7 @@ export class TaskController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const task: Task | undefined = await this.service.readTask({
+			const task: Task | undefined = await this.service.read({
 				where: {
 					id: taskID
 				}
@@ -145,14 +145,14 @@ export class TaskController {
 				return res.status(404).json({ status: 404, error: 'Task not found' });
 			}
 
-			await this.service.saveTask(req.body.task);
+			await this.service.save(req.body.task);
 
 			/**
 			 * We have to reload the model again since .save()
 			 * does not return all columns on updates
 			 */
 
-			const updatedTask: Task | undefined = await this.service.readTask({
+			const updatedTask: Task | undefined = await this.service.read({
 				where: {
 					id: taskID
 				}
@@ -181,7 +181,7 @@ export class TaskController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const task: Task | undefined = await this.service.readTask({
+			const task: Task | undefined = await this.service.read({
 				where: {
 					id: taskID
 				}
@@ -191,7 +191,7 @@ export class TaskController {
 				return res.status(404).json({ status: 404, error: 'Task not found' });
 			}
 
-			await this.service.deleteTask(task);
+			await this.service.delete(task);
 
 			return res.status(204).send();
 		} catch (err) {

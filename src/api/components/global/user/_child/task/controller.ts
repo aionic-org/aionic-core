@@ -24,7 +24,7 @@ export class UserTaskController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const tasks: Task[] = await this.taskService.readTasks({
+			const tasks: Task[] = await this.taskService.readAll({
 				order: {
 					priority: 'DESC'
 				},

@@ -1,13 +1,13 @@
 import { bind } from 'decko';
 import { Like, Repository, FindConditions, getManager, FindManyOptions, FindOneOptions } from 'typeorm';
 
-import { IComponentService } from '../../index';
+import { IComponentServiceStrict } from '../../index';
 
 import { CacheService } from '@services/cache';
 
 import { User } from './model';
 
-export class UserService implements IComponentService<User> {
+export class UserService implements IComponentServiceStrict<User> {
 	readonly defaultRelations: string[] = ['userRole', 'assignee', 'tasksWatched'];
 
 	readonly cacheService: CacheService = new CacheService();
@@ -22,7 +22,7 @@ export class UserService implements IComponentService<User> {
 	 * @returns Returns an array of users
 	 */
 	@bind
-	public readUsers(options: FindManyOptions<User> = {}, cached: boolean = false): Promise<User[]> {
+	public readAll(options: FindManyOptions<User> = {}, cached: boolean = false): Promise<User[]> {
 		try {
 			if (Object.keys(options).length) {
 				return this.repo.find({
@@ -32,7 +32,7 @@ export class UserService implements IComponentService<User> {
 			}
 
 			if (cached) {
-				return this.cacheService.get('user', this.readUsers);
+				return this.cacheService.get('user', this.readAll);
 			}
 
 			return this.repo.find({
@@ -66,7 +66,7 @@ export class UserService implements IComponentService<User> {
 				}
 			}
 
-			return this.readUsers({ where });
+			return this.readAll({ where });
 		} catch (err) {
 			throw new Error(err);
 		}
@@ -79,7 +79,7 @@ export class UserService implements IComponentService<User> {
 	 * @returns Returns a single user
 	 */
 	@bind
-	public readUser(options: FindOneOptions<User> = {}): Promise<User | undefined> {
+	public read(options: FindOneOptions<User> = {}): Promise<User | undefined> {
 		try {
 			return this.repo.findOne({
 				relations: this.defaultRelations,
@@ -97,7 +97,7 @@ export class UserService implements IComponentService<User> {
 	 * @returns Returns saved user
 	 */
 	@bind
-	public async saveUser(user: User): Promise<User> {
+	public async save(user: User): Promise<User> {
 		try {
 			const newUser: User = await this.repo.save(user);
 
@@ -117,7 +117,7 @@ export class UserService implements IComponentService<User> {
 	 * @returns Returns deleted user
 	 */
 	@bind
-	public async deleteUser(user: User): Promise<User> {
+	public async delete(user: User): Promise<User> {
 		try {
 			const deletedUser = await this.repo.remove(user);
 

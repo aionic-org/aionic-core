@@ -20,7 +20,7 @@ export class UserController {
 	@bind
 	public async readUsers(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const users: User[] = await this.userService.readUsers({}, true);
+			const users: User[] = await this.userService.readAll({}, true);
 
 			return res.json({ status: res.statusCode, data: users });
 		} catch (err) {
@@ -66,7 +66,7 @@ export class UserController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userService.readUser({
+			const user: User | undefined = await this.userService.read({
 				where: {
 					id: parseInt(userID, 10)
 				}
@@ -95,7 +95,7 @@ export class UserController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const existingUser: User | undefined = await this.userService.readUser({
+			const existingUser: User | undefined = await this.userService.read({
 				where: {
 					email: user.email
 				}
@@ -106,7 +106,7 @@ export class UserController {
 				return res.status(400).json({ status: 400, error: 'Email is already taken' });
 			}
 
-			const newUser: User = await this.userService.saveUser({
+			const newUser: User = await this.userService.save({
 				...user,
 				password: await UtilityService.hashPassword(user.password)
 			});
@@ -135,7 +135,7 @@ export class UserController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const existingUser: User | undefined = await this.userService.readUser({
+			const existingUser: User | undefined = await this.userService.read({
 				where: {
 					id: parseInt(userID, 10)
 				}
@@ -152,7 +152,7 @@ export class UserController {
 				};
 			}
 
-			const updatedUser: User = await this.userService.saveUser(user);
+			const updatedUser: User = await this.userService.save(user);
 
 			return res.json({ status: res.statusCode, data: updatedUser });
 		} catch (err) {
@@ -177,7 +177,7 @@ export class UserController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userService.readUser({
+			const user: User | undefined = await this.userService.read({
 				where: {
 					id: parseInt(userID, 10)
 				}
@@ -187,7 +187,7 @@ export class UserController {
 				return res.status(404).json({ status: 404, error: 'User not found' });
 			}
 
-			await this.userService.deleteUser(user);
+			await this.userService.delete(user);
 
 			return res.status(204).send();
 		} catch (err) {

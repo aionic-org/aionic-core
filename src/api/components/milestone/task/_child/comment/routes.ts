@@ -1,24 +1,22 @@
 import { Router } from 'express';
 
+import { IComponentRoutes } from '../../../../index';
+
 import { AuthService, PassportStrategy } from '@services/auth';
 
 import { TaskCommentController } from './controller';
 
-export class TaskCommentRoutes {
-	protected readonly controller: TaskCommentController = new TaskCommentController();
-	protected authSerivce: AuthService;
-	private _router: Router = Router({ mergeParams: true });
+export class TaskCommentRoutes implements IComponentRoutes<TaskCommentController> {
+	readonly controller: TaskCommentController = new TaskCommentController();
+	readonly router: Router = Router({ mergeParams: true });
+	authSerivce: AuthService;
 
 	public constructor(defaultStrategy?: PassportStrategy) {
 		this.authSerivce = new AuthService(defaultStrategy);
 		this.initRoutes();
 	}
 
-	public get router(): Router {
-		return this._router;
-	}
-
-	private initRoutes(): void {
+	initRoutes(): void {
 		this.router.get(
 			'/comments',
 			this.authSerivce.isAuthorized(),
