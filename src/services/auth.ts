@@ -72,7 +72,7 @@ export class AuthService {
 	public hasPermission(resource: string, action: string): Handler {
 		return async (req: Request, res: Response, next: NextFunction) => {
 			try {
-				if (env.NODE_ENV === 'production') {
+				if (env.NODE_ENV !== 'test') {
 					const { id } = req.user as User;
 					const access: boolean = await permissions.isAllowed(id, resource, action);
 
@@ -111,7 +111,7 @@ export class AuthService {
 	public isAuthorized(strategy?: PassportStrategy): Handler {
 		return (req: Request, res: Response, next: NextFunction) => {
 			try {
-				if (env.NODE_ENV === 'production') {
+				if (env.NODE_ENV !== 'test') {
 					// if no strategy is provided use default strategy
 					const tempStrategy: PassportStrategy = strategy || this.defaultStrategy;
 					return this.doAuthentication(req, res, next, tempStrategy);
