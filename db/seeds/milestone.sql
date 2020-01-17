@@ -1,21 +1,11 @@
 /*
 
-  ##### Aionic database seeding #####
+  ##### Global database seeding #####
 
   Run the following command after all tables were created:
-  'yarn run seed'
+  'yarn run seed --milestone'
 
 */
-
-
-/* Insert user roles */
-INSERT INTO user_role (name)
-VALUES	('Admin'),
-				('User');
-
-/* Insert admin account */
-INSERT INTO user (email, firstname, lastname, password, userRoleId)
-VALUES	('admin@aionic-core.com', 'Admin', 'Admin', ?, 1);
 
 /* Insert task status */
 INSERT INTO task_status (title, sort)
