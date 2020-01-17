@@ -62,7 +62,7 @@ yarn start
 Last but not least run the following command for SQL data seeding:
 
 ```
-yarn run seed
+yarn seed global
 ```
 
 NOTE: You can also use [npm](https://www.npmjs.com/).
