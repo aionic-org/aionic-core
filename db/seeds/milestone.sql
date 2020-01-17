@@ -3,7 +3,7 @@
   ##### Global database seeding #####
 
   Run the following command after all tables were created:
-  'yarn run seed --milestone'
+  'yarn seed milestone'
 
 */
 
