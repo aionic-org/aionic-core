@@ -8,7 +8,7 @@ import { AuthService } from '@services/auth';
 import { UtilityService } from '@services/helper/utility';
 
 import { logger } from '@config/logger';
-import { env } from '@config/globals';
+import { env, Clients } from '@config/globals';
 
 /**
  * Init Express middleware
@@ -24,6 +24,16 @@ export function registerMiddleware(router: Router): void {
 	} else {
 		router.use(cors({ origin: ['http://localhost:4200'] }));
 	}
+
+	router.use((req: Request, res: Response, next: NextFunction) => {
+		req.client = Clients[req.get('Client') as keyof typeof Clients];
+
+		if (env.NODE_ENV === 'production' && req.client === undefined) {
+			return res.status(401).send('Unknown client');
+		}
+
+		return next();
+	});
 
 	router.use(json());
 	router.use(compression());

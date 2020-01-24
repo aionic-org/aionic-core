@@ -20,6 +20,11 @@ export const env = {
 	}
 };
 
+export enum Clients {
+	milestone,
+	manager
+}
+
 // Aionic application details
 export const apps = {
 	core: {
@@ -27,7 +32,8 @@ export const apps = {
 		email: 'core@aionic-apps.com',
 		domain: process.env.AIC_CORE_DOMAIN
 	},
-	milestone: {
+
+	[Clients.milestone]: {
 		name: 'Aionic Milestone',
 		email: 'milestone@aionic-apps.com',
 		domain: process.env.AIC_MILESTONE_DOMAIN

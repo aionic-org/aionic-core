@@ -1,7 +1,7 @@
 import { bind } from 'decko';
 import { SendMailOptions } from 'nodemailer';
 
-import { apps } from '@config/globals';
+import { apps, Clients } from '@config/globals';
 
 import { MailService } from '@services/mail';
 
@@ -30,14 +30,14 @@ export class ProjectShareService {
 				const templateParams = {
 					userFirstname: user.firstname,
 					authorFirstname: author.firstname,
-					projectUrl: `${apps.milestone.domain}/projects/${project.id}`,
+					projectUrl: `${apps[Clients.milestone].domain}/projects/${project.id}`,
 					projectName: project.title
 				};
 
 				const mailTemplate = await this.mailService.renderMailTemplate(mailTemplateUrl, templateParams);
 
 				const mail: SendMailOptions = {
-					from: apps.milestone.email,
+					from: apps[Clients.milestone].email,
 					html: mailTemplate,
 					subject: mailSubject,
 					to: user.email
