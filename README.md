@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/Aionic-Apps/aionic-core.svg?branch=master)](https://travis-ci.org/Aionic-Apps/aionic-core)
 
-Aionic offers open source applications for project management and collaboration. Our focus is on simplifying and accelerating the workflow for agile teams.
+Aionic offers open source applications for project management and collaboration. Our focus is on simplifying and accelerating the workflow of agile teams.
 
 ## Description
 
@@ -62,7 +62,7 @@ yarn start
 Last but not least run the following command for SQL data seeding:
 
 ```
-yarn run seed
+yarn seed global
 ```
 
 NOTE: You can also use [npm](https://www.npmjs.com/).

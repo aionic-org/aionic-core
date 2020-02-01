@@ -1,9 +1,9 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
 import { parse, stringify } from 'querystring';
-import { isEmail } from 'validator';
+import validator from 'validator';
 
-import { env } from '@config/globals';
+import { env, Clients } from '@config/globals';
 
 import { AuthService } from '@services/auth';
 import { CacheService } from '@services/cache';
@@ -16,6 +16,9 @@ import { UserInvitation } from '@global/user-invitation/model';
 import { User } from '@global/user/model';
 import { UserService } from '@global/user/service';
 import { UserInvitationService } from '@global/user-invitation/service';
+
+import { TaskStatusService } from '@milestone/task-status/service';
+import { TaskPriorityService } from '@milestone/task-priority/service';
 
 export class AuthController {
 	private readonly authService: AuthService = new AuthService();
@@ -60,7 +63,10 @@ export class AuthController {
 			// Don't send user password in response
 			delete user.password;
 
-			return res.json({ status: res.statusCode, data: { user, token } });
+			// Get config for client
+			const config: object = await this.getClientConfig(req.client);
+
+			return res.json({ status: res.statusCode, data: { config, token, user } });
 		} catch (err) {
 			return next(err);
 		}
@@ -163,7 +169,7 @@ export class AuthController {
 		try {
 			const { email } = req.body;
 
-			if (!email || !isEmail(email)) {
+			if (!email || !validator.isEmail(email)) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
@@ -299,6 +305,32 @@ export class AuthController {
 	private async getUserInvitation(hash: string, email?: string): Promise<UserInvitation | undefined> {
 		try {
 			return this.userInvService.readUserInvitation(email === undefined ? { hash } : { hash, email });
+		} catch (err) {
+			throw err;
+		}
+	}
+
+	/**
+	 * Get config data for given app client
+	 *
+	 * @param client
+	 * @returns Returns config object for client
+	 */
+	@bind
+	private async getClientConfig(client: Clients): Promise<object> {
+		try {
+			let config: object = {};
+
+			switch (client) {
+				case Clients.milestone:
+					config = {
+						taskStatus: await new TaskStatusService().readTaskStatus(),
+						taskPriorities: await new TaskPriorityService().readTaskPriorities()
+					};
+					break;
+			}
+
+			return config;
 		} catch (err) {
 			throw err;
 		}

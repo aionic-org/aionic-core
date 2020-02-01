@@ -8,7 +8,13 @@ import { CacheService } from '@services/cache';
 import { User } from './model';
 
 export class UserService implements IComponentServiceStrict<User> {
-	readonly defaultRelations: string[] = ['userRole', 'assignee', 'tasksWatched'];
+	readonly defaultRelations: string[] = [
+		'userRole',
+		'assignee',
+		'tasksWatched',
+		'tasksWatched.assignee',
+		'tasksWatched.status'
+	];
 
 	readonly cacheService: CacheService = new CacheService();
 
