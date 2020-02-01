@@ -1,7 +1,7 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
 import { parse, stringify } from 'querystring';
-import { isEmail } from 'validator';
+import validator from 'validator';
 
 import { env, Clients } from '@config/globals';
 
@@ -169,7 +169,7 @@ export class AuthController {
 		try {
 			const { email } = req.body;
 
-			if (!email || !isEmail(email)) {
+			if (!email || !validator.isEmail(email)) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
