@@ -13,7 +13,8 @@ export class UserService implements IComponentServiceStrict<User> {
 		'assignee',
 		'tasksWatched',
 		'tasksWatched.assignee',
-		'tasksWatched.status'
+		'tasksWatched.status',
+		'projectsWatched'
 	];
 
 	readonly cacheService: CacheService = new CacheService();
