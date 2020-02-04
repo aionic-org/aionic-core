@@ -18,6 +18,7 @@ import { TaskComment } from '@milestone/task/_child/comment/model';
 import { TaskScratchpad } from '@milestone/task/_child/scratchpad/model';
 import { Task } from '@milestone/task/model';
 import { UtilityService } from '@services/helper/utility';
+import { Project } from '@milestone/project/model';
 
 @Entity()
 export class User {
@@ -113,6 +114,10 @@ export class User {
 	@ManyToMany((type) => Task)
 	@JoinTable()
 	public tasksWatched: Task[];
+
+	@ManyToMany((type) => Project)
+	@JoinTable()
+	public projectsWatched: Project[];
 
 	public static mockTestUser(): User {
 		const user = new User();

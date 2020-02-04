@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Synchronize with head
+# Synchronize with remote master
 
 git fetch
 git checkout master

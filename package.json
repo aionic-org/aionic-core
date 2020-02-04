@@ -1,7 +1,7 @@
 {
 	"name": "aionic-core",
 	"version": "0.0.1",
-	"description": "Aionic Core - Core API for Aionic applications",
+	"description": "Core API for Aionic applications",
 	"main": "./dist/index.js",
 	"author": "Lars Wächter <lars97.waechter@gmail.com>",
 	"private": true,
