@@ -79,6 +79,9 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+# Ideas
+./idea
+
 # Compiled output
 dist
 

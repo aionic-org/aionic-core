@@ -1,13 +1,13 @@
 {
 	"name": "aionic-core",
 	"version": "0.0.1",
-	"description": "Core API for Aionic applications",
+	"description": "The core API required for all other Aionic applications",
 	"main": "./dist/index.js",
 	"author": "Lars Wächter <lars97.waechter@gmail.com>",
 	"private": true,
-	"repository": "https://github.com/Aionic-Apps/aionic-core",
+	"repository": "https://github.com/aionic-org/aionic-core",
 	"license": "MIT",
-	"homepage": "https://aionic-apps.com",
+	"homepage": "https://aionic.org",
 	"scripts": {
 		"start": "node ./dist/index.js",
 		"build": "rm -rf dist && tsc -p tsconfig.json && gulp copy && gulp merge",
