@@ -17,7 +17,7 @@ import supertest from 'supertest';
 
 import { env } from '@config/globals';
 
-import { ExpressServer } from '../Server/express';
+import { ExpressServer } from '../server/express';
 
 /**
  * TestFactory
