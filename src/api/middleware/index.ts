@@ -2,13 +2,13 @@ import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
 
-import { json, NextFunction, Request, Response, Router } from 'express';
+import { json, static as eStatic, NextFunction, Request, Response, Router } from 'express';
 
 import { AuthService } from '@services/auth';
 import { UtilityService } from '@services/helper/utility';
 
-import { logger } from '@config/logger';
-import { env, Clients } from '@config/globals';
+import { logger } from '@util/logger';
+import { env, ApplicationSymbols } from '@config/globals';
 
 /**
  * Init Express middleware
@@ -26,7 +26,7 @@ export function registerMiddleware(router: Router): void {
 	}
 
 	router.use((req: Request, res: Response, next: NextFunction) => {
-		req.client = Clients[req.get('Client') as keyof typeof Clients];
+		req.client = ApplicationSymbols[req.get('Client') as keyof typeof ApplicationSymbols];
 
 		if (env.NODE_ENV === 'production' && req.client === undefined) {
 			return res.status(401).send('Unknown client');
@@ -37,6 +37,9 @@ export function registerMiddleware(router: Router): void {
 
 	router.use(json());
 	router.use(compression());
+
+	// Static files
+	router.use(eStatic('public'));
 
 	// Log incoming requests
 	router.use((req: Request, res: Response, next: NextFunction) => {

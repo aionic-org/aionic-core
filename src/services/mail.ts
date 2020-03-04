@@ -3,7 +3,7 @@ import { createTransport, SendMailOptions, SentMessageInfo, Transporter, Transpo
 import { resolve } from 'path';
 
 import { env } from '@config/globals';
-import { logger } from '@config/logger';
+import { logger } from '@util/logger';
 
 /**
  * MailService

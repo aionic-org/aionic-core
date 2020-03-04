@@ -1,0 +1,28 @@
+{
+	"company": {
+		"email": "support@dummy-company.com",
+		"name": "Dummy Company Inc.",
+		"website": "https://dummy-company.com"
+	},
+	"aionic": {
+		"email": "project@aionic.org",
+		"website": "https://aionic.org",
+		"applications": {
+			"aionic-backend": {
+				"domain": "https://aionic-backend.dummy-company.com",
+				"email": "aionic-backend@dummy-company.com",
+				"name": "Aionic Backend"
+			},
+			"aionic-core": {
+				"domain": "https://aionic-core.dummy-company.com",
+				"email": "aionic-core@dummy-company.com",
+				"name": "Aionic Core"
+			},
+			"aionic-milestone": {
+				"domain": "https://aionic-milestone.dummy-company.com",
+				"email": "aionic-milestone@dummy-company.com",
+				"name": "Aionic Milestone"
+			}
+		}
+	}
+}

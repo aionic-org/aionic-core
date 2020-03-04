@@ -2,7 +2,7 @@ import { existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 import { createLogger, format, transports } from 'winston';
 
-import { env } from './globals';
+import { env } from '@config/globals';
 
 const logDir = 'logs';
 

@@ -1,12 +1,12 @@
 import express from 'express';
 
-import { initRestRoutes } from './routes';
+import { registerApiRoutes } from '../api/routes';
 
-export class Server {
+export class ExpressServer {
 	private readonly _app: express.Application = express();
 
 	public constructor() {
-		initRestRoutes(this._app);
+		registerApiRoutes(this._app);
 	}
 
 	/**

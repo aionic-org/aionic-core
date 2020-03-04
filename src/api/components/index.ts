@@ -4,12 +4,12 @@ import { Router } from 'express';
 import { registerGlobalRoutes } from './global/routes';
 import { registerMilestoneRoutes } from './milestone/routes';
 
-import { CacheService } from '@services/cache';
 import { AuthService } from '@services/auth';
+import { NodeCacheService } from '@services/cache/node-cache';
 
 export interface IComponentService<T> {
 	readonly repo: Repository<T>;
-	readonly cacheService?: CacheService;
+	readonly cacheService?: NodeCacheService;
 	readonly defaultRelations?: string[];
 }
 
@@ -36,7 +36,7 @@ export interface IComponentRoutes<T> {
  * @param {string} prefix
  * @returns {void}
  */
-export function registerApiRoutes(router: Router, prefix: string = ''): void {
+export function registerComponentRoutes(router: Router, prefix: string = ''): void {
 	registerGlobalRoutes(router, prefix);
 	registerMilestoneRoutes(router, prefix);
 }

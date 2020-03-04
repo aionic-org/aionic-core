@@ -17,7 +17,7 @@ import supertest from 'supertest';
 
 import { env } from '@config/globals';
 
-import { Server } from '../api/server';
+import { ExpressServer } from '../Server/express';
 
 /**
  * TestFactory
@@ -70,7 +70,7 @@ export class TestFactory {
 	 */
 	private async startup(): Promise<void> {
 		this._connection = await createConnection(this.options);
-		this._app = new Server().app;
+		this._app = new ExpressServer().app;
 		this._server = createServer(this._app).listen(env.NODE_PORT);
 	}
 }

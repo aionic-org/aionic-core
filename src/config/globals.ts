@@ -1,4 +1,8 @@
-// Environment variables imported from .env file
+import { readFileSync } from 'fs';
+
+const config = JSON.parse(readFileSync('./aionic-config.json', 'utf-8'));
+
+// Environment variables & sensitive data imported from .env file
 export const env = {
 	CACHE_TTL: 3600,
 	GITHUB: {
@@ -6,41 +10,54 @@ export const env = {
 		secret: process.env.GH_CLIENT_SECRET
 	},
 	NODE_ENV: process.env.NODE_ENV || 'development',
-	NODE_PORT: process.env.NODE_PORT || process.env.PORT || 3000,
+	NODE_PORT: process.env.NODE_PORT || 3000,
+	REDIS: {
+		host: process.env.REDIS_HOST,
+		pass: process.env.REDIS_PASS
+	},
 	SMTP: {
 		auth: {
 			pass: process.env.SMTP_PASSWORD || '',
 			user: process.env.SMTP_USERNAME || ''
 		},
 		host: process.env.SMTP_HOST || '',
-		port: process.env.SMTP_PORT || '',
+		port: process.env.SMTP_PORT || 587,
 		tls: {
 			rejectUnauthorized: false
 		}
 	}
 };
 
-export enum Clients {
-	milestone,
-	manager
+export enum ApplicationSymbols {
+	backend,
+	core,
+	milestone
 }
 
-// Aionic application details
-export const apps = {
-	core: {
-		name: 'Aionic Core',
-		email: 'core@aionic-apps.com',
-		domain: process.env.AIC_CORE_DOMAIN
-	},
-
-	[Clients.milestone]: {
-		name: 'Aionic Milestone',
-		email: 'milestone@aionic-apps.com',
-		domain: process.env.AIC_MILESTONE_DOMAIN
-	}
+// Company configuration
+export const company = {
+	email: config.company['email'],
+	name: config.company['name'],
+	website: config.company['website']
 };
 
-// Mail addresses
-export const mails = {
-	service: 'service@aionic-apps.com'
+// Aionic configuration
+export const applications = {
+	[ApplicationSymbols.backend]: {
+		domain: process.env.AIONIC_BACKEND_DOMAIN || config.aionic.applications['aionic-backend']['domain'],
+		email: config.aionic.applications['aionic-backend']['email'],
+		name: config.aionic.applications['aionic-backend']['name']
+	},
+
+	[ApplicationSymbols.core]: {
+		domain: process.env.AIONIC_CORE_DOMAIN || config.aionic.applications['aionic-core']['domain'],
+		email: config.aionic.applications['aionic-core']['email'],
+		name: config.aionic.applications['aionic-core']['name']
+	},
+
+	[ApplicationSymbols.milestone]: {
+		domain: process.env.AIONIC_MILESTONE_DOMAIN || config.aionic.applications['aionic-milestone']['domain'],
+		email: config.aionic.applications['aionic-milestone']['email'],
+		name: config.aionic.applications['aionic-milestone']['name']
+	}
 };

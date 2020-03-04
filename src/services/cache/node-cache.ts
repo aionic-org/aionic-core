@@ -6,7 +6,7 @@ import { env } from '@config/globals';
  * TODO: Refactor
  */
 
-export class CacheService {
+export class NodeCacheService {
 	private static cache: nodeCache = new nodeCache({ stdTTL: env.CACHE_TTL });
 
 	/**
@@ -22,35 +22,35 @@ export class CacheService {
 		storeFunction: Function = () => Promise.resolve(),
 		storeFunctionArgs: any[] = []
 	): Promise<any> {
-		const value = CacheService.cache.get(key);
+		const value = NodeCacheService.cache.get(key);
 
 		if (value) {
 			return Promise.resolve(value);
 		}
 
 		return storeFunction(...storeFunctionArgs).then((res: any) => {
-			CacheService.cache.set(key, res);
+			NodeCacheService.cache.set(key, res);
 			return res;
 		});
 	}
 
 	public set(key: string | number, data: any) {
-		CacheService.cache.set(key, data);
+		NodeCacheService.cache.set(key, data);
 	}
 
 	public delete(keys: string | number) {
-		CacheService.cache.del(keys);
+		NodeCacheService.cache.del(keys);
 	}
 
 	public getStats() {
-		return CacheService.cache.getStats();
+		return NodeCacheService.cache.getStats();
 	}
 
 	public getKeys() {
-		return CacheService.cache.keys();
+		return NodeCacheService.cache.keys();
 	}
 
 	public flush() {
-		CacheService.cache.flushAll();
+		NodeCacheService.cache.flushAll();
 	}
 }

@@ -1,7 +1,7 @@
 import { readFile, unlink, readdir, stat } from 'fs';
 import { resolve } from 'path';
 
-import { logger } from '@config/logger';
+import { logger } from '@util/logger';
 
 /**
  * FilesystemService

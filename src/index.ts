@@ -14,9 +14,9 @@ import { createServer, Server as HttpServer } from 'http';
 import { createConnection, Connection } from 'typeorm';
 
 import { env } from '@config/globals';
-import { logger } from '@config/logger';
+import { logger } from '@util/logger';
 
-import { Server } from './api/server';
+import { ExpressServer } from './server/express';
 
 // Startup
 (async function main() {
@@ -25,7 +25,7 @@ import { Server } from './api/server';
 		const connection: Connection = await createConnection();
 
 		// Init express server
-		const app: express.Application = new Server().app;
+		const app: express.Application = new ExpressServer().app;
 		const server: HttpServer = createServer(app);
 
 		// Start express server

@@ -1,6 +1,6 @@
 import { SendMailOptions, SentMessageInfo } from 'nodemailer';
 
-import { apps, Clients } from '@config/globals';
+import { applications, ApplicationSymbols } from '@config/globals';
 
 import { MailService } from '@services/mail';
 
@@ -14,7 +14,7 @@ export class AuthMailService extends MailService {
 	 */
 	public async sendUserInvitation(email: string, uuid: string): Promise<SentMessageInfo> {
 		const templateParams = {
-			confirmUrl: `${apps[Clients.milestone].domain}/register/${uuid}?email=${email}`
+			confirmUrl: `${applications[ApplicationSymbols.milestone].domain}/register/${uuid}?email=${email}`
 		};
 
 		const mailTemplate = await this.renderMailTemplate(
@@ -23,7 +23,7 @@ export class AuthMailService extends MailService {
 		);
 
 		const mail: SendMailOptions = {
-			from: apps[Clients.milestone].email,
+			from: applications[ApplicationSymbols.milestone].email,
 			html: mailTemplate,
 			subject: 'You were invited to join Aionic',
 			to: email

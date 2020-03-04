@@ -5,14 +5,19 @@
 	"main": "./dist/index.js",
 	"author": "Lars Wächter <lars97.waechter@gmail.com>",
 	"private": true,
-	"repository": "https://github.com/aionic-org/aionic-core",
-	"license": "MIT",
 	"homepage": "https://aionic.org",
+	"repository": {
+		"url": "https://github.com/aionic-org/aionic-core"
+	},
+	"bugs": {
+		"url": "https://github.com/aionic-org/aionic-core/issues"
+	},
+	"license": "MIT",
 	"scripts": {
 		"start": "node ./dist/index.js",
+		"start:prod": "pm2 start ./src/index.js --name aionic-core",
 		"build": "rm -rf dist && tsc -p tsconfig.json && gulp copy && gulp merge",
 		"watch": "nodemon --exec \"npm run build && npm run start\" --watch src --ext ts",
-		"watch-dirty": "nodemon --exec \"tsc -p tsconfig.json && npm run start\" --watch src --ext ts",
 		"test": "npm run build && mocha",
 		"seed": "node db/index.js",
 		"lint": "tslint -p tsconfig.json",
@@ -20,10 +25,11 @@
 		"docs": "typedoc --mode file --out docs --readme README.md --module commonjs"
 	},
 	"_moduleAliases": {
+		"@config": "dist/config",
 		"@global": "dist/api/components/global",
 		"@milestone": "dist/api/components/milestone",
-		"@config": "dist/config",
-		"@services": "dist/services"
+		"@services": "dist/services",
+		"@util": "dist/util"
 	},
 	"devDependencies": {
 		"@types/acl": "^0.4.37",
@@ -42,6 +48,7 @@
 		"@types/passport": "^1.0.2",
 		"@types/passport-http": "^0.3.8",
 		"@types/passport-jwt": "^3.0.3",
+		"@types/redis": "^2.8.16",
 		"@types/supertest": "^2.0.8",
 		"@types/uuid": "^3.4.7",
 		"@types/validator": "^12.0.1",
@@ -81,6 +88,8 @@
 		"passport": "^0.4.1",
 		"passport-http": "^0.3.0",
 		"passport-jwt": "^4.0.0",
+		"pm2": "^4.2.3",
+		"redis": "^3.0.2",
 		"typeorm": "^0.2.22",
 		"uuid": "^3.4.0",
 		"validator": "^12.2.0",

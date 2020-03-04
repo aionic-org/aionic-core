@@ -1,9 +1,9 @@
-import { Clients } from '@config/globals';
+import { ApplicationSymbols } from '@config/globals';
 
 declare global {
 	namespace Express {
 		export interface Request {
-			client: Clients;
+			client: ApplicationSymbols;
 		}
 	}
 }

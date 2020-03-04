@@ -3,9 +3,10 @@ import { Like, Repository, FindConditions, getManager, FindManyOptions, FindOneO
 
 import { IComponentServiceStrict } from '../../index';
 
-import { CacheService } from '@services/cache';
+import { NodeCacheService } from '@services/cache/node-cache';
 
 import { User } from './model';
+import { ApplicationSymbols } from '@config/globals';
 
 export class UserService implements IComponentServiceStrict<User> {
 	readonly defaultRelations: string[] = [
@@ -17,7 +18,7 @@ export class UserService implements IComponentServiceStrict<User> {
 		'projectsWatched'
 	];
 
-	readonly cacheService: CacheService = new CacheService();
+	readonly cacheService: NodeCacheService = new NodeCacheService();
 
 	readonly repo: Repository<User> = getManager().getRepository(User);
 
@@ -39,41 +40,12 @@ export class UserService implements IComponentServiceStrict<User> {
 			}
 
 			if (cached) {
-				return this.cacheService.get('user', this.readAll);
+				return this.cacheService.get('users', this.readAll);
 			}
 
 			return this.repo.find({
 				relations: this.defaultRelations
 			});
-		} catch (err) {
-			throw new Error(err);
-		}
-	}
-
-	/**
-	 * Read users from db by username
-	 *
-	 * @param username Username to search for
-	 * @returns Returns an array of users
-	 */
-	@bind
-	public readUsersByUsername(username: string): Promise<User[]> {
-		try {
-			let where: FindConditions<User> = {};
-
-			if (username) {
-				const [firstname, lastname] = username.split(' ');
-
-				if (firstname) {
-					where = { ...where, firstname: Like(`%${firstname}%`) };
-				}
-
-				if (lastname) {
-					where = { ...where, lastname: Like(`%${lastname}%`) };
-				}
-			}
-
-			return this.readAll({ where });
 		} catch (err) {
 			throw new Error(err);
 		}
@@ -109,7 +81,7 @@ export class UserService implements IComponentServiceStrict<User> {
 			const newUser: User = await this.repo.save(user);
 
 			// Clear user cache
-			this.cacheService.delete('user');
+			this.cacheService.delete('users');
 
 			return newUser;
 		} catch (err) {
@@ -129,9 +101,81 @@ export class UserService implements IComponentServiceStrict<User> {
 			const deletedUser = await this.repo.remove(user);
 
 			// Clear user cache
-			this.cacheService.delete('user');
+			this.cacheService.delete('users');
 
 			return deletedUser;
+		} catch (err) {
+			throw new Error(err);
+		}
+	}
+
+	/**
+	 * Read user for signin
+	 *
+	 * @param client Client application
+	 * @param email User email
+	 * @returns Returns user
+	 */
+	@bind
+	public readSigninUser(client: ApplicationSymbols, email: string): Promise<User | undefined> {
+		try {
+			let relations: string[] = [];
+
+			switch (client) {
+				case ApplicationSymbols.milestone:
+					relations = [
+						'userRole',
+						'assignee',
+						'tasksWatched',
+						'tasksWatched.assignee',
+						'tasksWatched.status',
+						'projectsWatched'
+					];
+					break;
+				default:
+					relations = ['userRole'];
+					break;
+			}
+
+			const options: FindOneOptions<User> = {
+				relations,
+				select: ['id', 'email', 'firstname', 'lastname', 'password'],
+				where: {
+					email,
+					active: true
+				}
+			};
+
+			return this.read(options);
+		} catch (err) {
+			throw new Error(err);
+		}
+	}
+
+	/**
+	 * Read users from db by username
+	 *
+	 * @param username Username to search for
+	 * @returns Returns an array of users
+	 */
+	@bind
+	public readUsersByUsername(username: string): Promise<User[]> {
+		try {
+			let where: FindConditions<User> = {};
+
+			if (username) {
+				const [firstname, lastname] = username.split(' ');
+
+				if (firstname) {
+					where = { ...where, firstname: Like(`%${firstname}%`) };
+				}
+
+				if (lastname) {
+					where = { ...where, lastname: Like(`%${lastname}%`) };
+				}
+			}
+
+			return this.readAll({ where });
 		} catch (err) {
 			throw new Error(err);
 		}

@@ -7,7 +7,7 @@ import { ExtractJwt, StrategyOptions } from 'passport-jwt';
 import { env } from '@config/globals';
 import { permissions } from '@config/permissions';
 
-import { BasicAuthStrategy } from '@global/auth/strategies/basicAuth';
+import { BasicAuthStrategy } from '@global/auth/strategies/basic-auth';
 import { JwtStrategy } from '@global/auth/strategies/jwt';
 import { User } from '@global/user/model';
 
@@ -53,7 +53,7 @@ export class AuthService {
 	}
 
 	/**
-	 * Create JWT
+	 * Create jsonwebtoken
 	 *
 	 * @param userID Used for JWT payload
 	 * @returns Returns JWT

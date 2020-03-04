@@ -1,4 +1,4 @@
-import { registerApiRoutes } from './components';
+import { registerComponentRoutes } from './components';
 import { registerErrorHandler, registerMiddleware } from './middleware';
 
 import { Router } from 'express';
@@ -9,10 +9,10 @@ import { Router } from 'express';
  * @param {Router} router
  * @returns {void}
  */
-export function initRestRoutes(router: Router): void {
+export function registerApiRoutes(router: Router): void {
 	const prefix: string = '/api/v1';
 
 	registerMiddleware(router);
-	registerApiRoutes(router, prefix);
+	registerComponentRoutes(router, prefix);
 	registerErrorHandler(router);
 }

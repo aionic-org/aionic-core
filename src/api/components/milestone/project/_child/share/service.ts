@@ -1,7 +1,7 @@
 import { bind } from 'decko';
 import { SendMailOptions } from 'nodemailer';
 
-import { apps, Clients } from '@config/globals';
+import { applications, ApplicationSymbols } from '@config/globals';
 
 import { MailService } from '@services/mail';
 
@@ -23,21 +23,23 @@ export class ProjectShareService {
 	public async shareProject(author: User, users: User[], project: Project): Promise<void> {
 		try {
 			const mailTemplateUrl = './dist/api/components/milestone/project/templates/project-share.html';
-			const mailSubject = `[Aionic-Milestone] ${author.firstname} shared a project with you!`;
+			const mailSubject = `[${applications[ApplicationSymbols.milestone].name}] ${
+				author.firstname
+			} shared a project with you!`;
 
 			for (const user of users) {
 				// Set mail parameters
 				const templateParams = {
 					userFirstname: user.firstname,
 					authorFirstname: author.firstname,
-					projectUrl: `${apps[Clients.milestone].domain}/projects/${project.id}`,
+					projectUrl: `${applications[ApplicationSymbols.milestone].domain}/projects/${project.id}`,
 					projectName: project.title
 				};
 
 				const mailTemplate = await this.mailService.renderMailTemplate(mailTemplateUrl, templateParams);
 
 				const mail: SendMailOptions = {
-					from: apps[Clients.milestone].email,
+					from: applications[ApplicationSymbols.milestone].email,
 					html: mailTemplate,
 					subject: mailSubject,
 					to: user.email

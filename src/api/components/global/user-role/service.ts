@@ -1,14 +1,14 @@
 import { bind } from 'decko';
-import { Repository, FindConditions, getManager } from 'typeorm';
+import { Repository, FindConditions, getManager, FindOneOptions } from 'typeorm';
 
 import { IComponentService } from '../../index';
 
-import { CacheService } from '@services/cache';
+import { NodeCacheService } from '@services/cache/node-cache';
 
 import { UserRole } from './model';
 
 export class UserRoleService implements IComponentService<UserRole> {
-	readonly cacheService: CacheService = new CacheService();
+	readonly cacheService: NodeCacheService = new NodeCacheService();
 
 	readonly repo: Repository<UserRole> = getManager().getRepository(UserRole);
 
@@ -20,7 +20,7 @@ export class UserRoleService implements IComponentService<UserRole> {
 	 * @returns Returns an array of user roles
 	 */
 	@bind
-	public readUserRoles(where: FindConditions<UserRole> = {}, cached: boolean = false): Promise<UserRole[]> {
+	public readAll(where: FindConditions<UserRole> = {}, cached: boolean = false): Promise<UserRole[]> {
 		try {
 			if (Object.keys(where).length) {
 				return this.repo.find({
@@ -29,10 +29,25 @@ export class UserRoleService implements IComponentService<UserRole> {
 			}
 
 			if (cached) {
-				return this.cacheService.get('user-role', this.readUserRoles);
+				return this.cacheService.get('user-roles', this.readAll);
 			}
 
 			return this.repo.find();
+		} catch (err) {
+			throw new Error(err);
+		}
+	}
+
+	/**
+	 * Read a certain user from db
+	 *
+	 * @param options Find options
+	 * @returns Returns a single user
+	 */
+	@bind
+	public read(options: FindOneOptions<UserRole> = {}): Promise<UserRole | undefined> {
+		try {
+			return this.repo.findOne(options);
 		} catch (err) {
 			throw new Error(err);
 		}
@@ -45,14 +60,50 @@ export class UserRoleService implements IComponentService<UserRole> {
 	 * @returns Returns saved user-role
 	 */
 	@bind
-	public async saveUserRole(userRole: UserRole): Promise<UserRole> {
+	public async save(userRole: UserRole): Promise<UserRole> {
 		try {
 			const newUserRole: UserRole = await this.repo.save(userRole);
 
 			// Clear user cache
-			this.cacheService.delete('user-role');
+			this.cacheService.delete('user-roles');
 
 			return newUserRole;
+		} catch (err) {
+			throw new Error(err);
+		}
+	}
+
+	/**
+	 * Read admin user-role from from db
+	 *
+	 * @returns Returns admin user-role
+	 */
+	@bind
+	public readAdminUserRole(): Promise<UserRole | undefined> {
+		try {
+			return this.repo.findOne({
+				where: {
+					name: 'Admin'
+				}
+			});
+		} catch (err) {
+			throw new Error(err);
+		}
+	}
+
+	/**
+	 * Read user user-role from from db
+	 *
+	 * @returns Returns user user-role
+	 */
+	@bind
+	public readUserUserRole(): Promise<UserRole | undefined> {
+		try {
+			return this.repo.findOne({
+				where: {
+					name: 'User'
+				}
+			});
 		} catch (err) {
 			throw new Error(err);
 		}

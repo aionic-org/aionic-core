@@ -56,12 +56,14 @@ First of all, create a new database on your MySQL server:
 CREATE DATABASE aionic;
 ```
 
-Afterwards, copy the environment and configuration files and enter your secret information:
+Copy the environment and orm-configuration files and enter your sensitive data:
 
 ```bash
 cp .env.example .env
 cp .ormconfig.json.example .ormconfig.json
 ```
+
+Afterwards, enter your public information in `aionic-config.json`.
 
 Now, run the following commands to install the node modules and start the webserver:
 
@@ -77,7 +79,7 @@ Last but not least run the following command for SQL data seeding:
 yarn seed global
 ```
 
-This should create a dummy admin account and outputs the it's password to the console.
+This should create a dummy admin account and outputs it's password to the console.
 
 ## User Guide
 

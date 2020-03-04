@@ -18,7 +18,7 @@ export class UserRoleController {
 	@bind
 	public async readUserRoles(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const userRoles: UserRole[] = await this.service.readUserRoles({}, true);
+			const userRoles: UserRole[] = await this.service.readAll({}, true);
 
 			return res.json({ status: res.statusCode, data: userRoles });
 		} catch (err) {
@@ -43,7 +43,7 @@ export class UserRoleController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const newUserRole: UserRole = await this.service.saveUserRole(userRole);
+			const newUserRole: UserRole = await this.service.save(userRole);
 
 			return res.json({ status: res.statusCode, data: newUserRole });
 		} catch (err) {

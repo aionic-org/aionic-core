@@ -3,30 +3,32 @@ import { NextFunction, Request, Response } from 'express';
 import { parse, stringify } from 'querystring';
 import validator from 'validator';
 
-import { env, Clients } from '@config/globals';
+import { env, ApplicationSymbols } from '@config/globals';
 
 import { AuthService } from '@services/auth';
-import { CacheService } from '@services/cache';
+import { NodeCacheService } from '@services/cache/node-cache';
 import { HttpService } from '@services/helper/http';
 import { UtilityService } from '@services/helper/utility';
 
-import { AuthMailService } from './services/mail';
-
-import { UserInvitation } from '@global/user-invitation/model';
 import { User } from '@global/user/model';
 import { UserService } from '@global/user/service';
+import { UserRoleService } from '@global/user-role/service';
+import { UserInvitation } from '@global/user-invitation/model';
 import { UserInvitationService } from '@global/user-invitation/service';
 
 import { TaskStatusService } from '@milestone/task-status/service';
 import { TaskPriorityService } from '@milestone/task-priority/service';
 
+import { AuthMailService } from './services/mail';
+
 export class AuthController {
 	private readonly authService: AuthService = new AuthService();
 	private readonly authMailService: AuthMailService = new AuthMailService();
-	private readonly cacheService: CacheService = new CacheService();
+	private readonly cacheService: NodeCacheService = new NodeCacheService();
 	private readonly httpService: HttpService = new HttpService();
 
 	private readonly userService: UserService = new UserService();
+	private readonly userRoleService: UserRoleService = new UserRoleService();
 	private readonly userInvService: UserInvitationService = new UserInvitationService();
 
 	/**
@@ -38,19 +40,13 @@ export class AuthController {
 	@bind
 	public async signinUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { email, password } = req.body.user;
+			const { email, password } = req.body;
 
 			if (!email || !password) {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const user: User | undefined = await this.userService.read({
-				select: ['id', 'email', 'firstname', 'lastname', 'password'],
-				where: {
-					email,
-					active: true
-				}
-			});
+			const user: User | undefined = await this.userService.readSigninUser(req.client, email);
 
 			// Wrong email or password
 			if (!user || !(await UtilityService.verifyPassword(password, user.password))) {
@@ -63,34 +59,10 @@ export class AuthController {
 			// Don't send user password in response
 			delete user.password;
 
-			// Get config for client
+			// Get config for client application
 			const config: object = await this.getClientConfig(req.client);
 
 			return res.json({ status: res.statusCode, data: { config, token, user } });
-		} catch (err) {
-			return next(err);
-		}
-	}
-
-	/**
-	 * Validate hash required for registration
-	 *
-	 * @param req Express request
-	 * @param res Express response
-	 * @param next Express next
-	 * @returns Returns HTTP response
-	 */
-	@bind
-	public async validateRegistrationHash(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
-		try {
-			const { hash } = req.params;
-
-			if (!hash) {
-				return res.status(400).json({ status: 400, error: 'Invalid request' });
-			}
-
-			const invitation = await this.getUserInvitation(hash);
-			return invitation ? res.status(204).send() : res.status(403).json({ status: 403, error: 'Invalid hash' });
 		} catch (err) {
 			return next(err);
 		}
@@ -114,7 +86,7 @@ export class AuthController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const invitation: UserInvitation | undefined = await this.getUserInvitation(hash, email);
+			const invitation: UserInvitation | undefined = await this.userInvService.readUserInvitation({ hash, email });
 
 			// Invalid registration hash
 			if (!invitation) {
@@ -135,14 +107,11 @@ export class AuthController {
 			const newUser: User = await this.userService.save({
 				...req.body.user,
 				password: await UtilityService.hashPassword(password),
-				userRole: {
-					id: 1,
-					name: 'User'
-				}
+				userRole: await this.userRoleService.readUserUserRole()
 			});
 
 			// Clear user cache
-			this.cacheService.delete('user');
+			this.cacheService.delete('users');
 
 			// Don't send user password in response
 			delete newUser.password;
@@ -165,7 +134,7 @@ export class AuthController {
 	 * @returns Returns HTTP response
 	 */
 	@bind
-	public async createUserInvitation(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+	public async generateUserInvitation(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
 			const { email } = req.body;
 
@@ -187,11 +156,13 @@ export class AuthController {
 			// UUID for registration link
 			const hash = UtilityService.generateUuid();
 
-			await this.userInvService.saveUserInvitation({
-				email,
-				hash
-			} as UserInvitation);
+			// Create user invitation
+			const invitation = new UserInvitation();
+			invitation.email = email;
+			invitation.hash = hash;
 
+			// Save and send invitation mail
+			await this.userInvService.saveUserInvitation(invitation);
 			await this.authMailService.sendUserInvitation(req.body.email, hash);
 
 			return res.status(204).send();
@@ -231,7 +202,7 @@ export class AuthController {
 			await this.userService.delete(user);
 
 			// Clear user cache
-			this.cacheService.delete('user');
+			this.cacheService.delete('users');
 
 			return res.status(204).send();
 		} catch (err) {
@@ -297,32 +268,18 @@ export class AuthController {
 	}
 
 	/**
-	 * @param hash
-	 * @param email
-	 * @returns Returns user invitation
-	 */
-	@bind
-	private async getUserInvitation(hash: string, email?: string): Promise<UserInvitation | undefined> {
-		try {
-			return this.userInvService.readUserInvitation(email === undefined ? { hash } : { hash, email });
-		} catch (err) {
-			throw err;
-		}
-	}
-
-	/**
 	 * Get config data for given app client
 	 *
-	 * @param client
+	 * @param client Client application
 	 * @returns Returns config object for client
 	 */
 	@bind
-	private async getClientConfig(client: Clients): Promise<object> {
+	private async getClientConfig(client: ApplicationSymbols): Promise<object> {
 		try {
 			let config: object = {};
 
 			switch (client) {
-				case Clients.milestone:
+				case ApplicationSymbols.milestone:
 					config = {
 						taskStatus: await new TaskStatusService().readTaskStatus(),
 						taskPriorities: await new TaskPriorityService().readTaskPriorities()

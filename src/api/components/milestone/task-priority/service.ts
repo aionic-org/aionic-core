@@ -3,12 +3,12 @@ import { Repository, FindConditions, getManager } from 'typeorm';
 
 import { IComponentService } from '../../index';
 
-import { CacheService } from '@services/cache';
+import { NodeCacheService } from '@services/cache/node-cache';
 
 import { TaskPriority } from './model';
 
 export class TaskPriorityService implements IComponentService<TaskPriority> {
-	readonly cacheService: CacheService = new CacheService();
+	readonly cacheService: NodeCacheService = new NodeCacheService();
 
 	readonly repo: Repository<TaskPriority> = getManager().getRepository(TaskPriority);
 

@@ -2,11 +2,11 @@ import { bind } from 'decko';
 import { resolve } from 'path';
 import { NextFunction, Request, Response } from 'express';
 
-import { CacheService } from '@services/cache';
+import { NodeCacheService } from '@services/cache/node-cache';
 import { FilesystemService } from '@services/helper/filesystem';
 
 export class ConfigController {
-	private readonly cacheService: CacheService = new CacheService();
+	private readonly cacheService: NodeCacheService = new NodeCacheService();
 
 	/**
 	 * Caches

@@ -18,9 +18,8 @@ export class AuthRoutes implements IComponentRoutes<AuthController> {
 
 	initRoutes(): void {
 		this.router.post('/signin', this.controller.signinUser);
-		this.router.get('/register/:hash', this.controller.validateRegistrationHash);
 		this.router.post('/register/:hash', this.controller.registerUser);
-		this.router.post('/invitation', this.controller.createUserInvitation);
+		this.router.post('/invitation', this.authSerivce.isAuthorized(), this.controller.generateUserInvitation);
 		this.router.get('/github', this.controller.handleGitHubAuth);
 		this.router.get('/github/cb', this.controller.handleGitHubAuthCallback);
 		this.router.post('/unregister', this.authSerivce.isAuthorized(), this.controller.unregisterUser);
