@@ -1,5 +1,5 @@
 import { bind } from 'decko';
-import { Repository, FindManyOptions, FindOneOptions, getManager } from 'typeorm';
+import { Repository, FindManyOptions, FindOneOptions, getManager, In } from 'typeorm';
 
 import { IComponentServiceStrict } from '../../index';
 

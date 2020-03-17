@@ -7,6 +7,8 @@ import { NodeCacheService } from '@services/cache/node-cache';
 
 import { User } from './model';
 import { ApplicationSymbols } from '@config/globals';
+import { Task } from '@milestone/task/model';
+import { TaskService } from '@milestone/task/service';
 
 export class UserService implements IComponentServiceStrict<User> {
 	readonly defaultRelations: string[] = [
@@ -21,6 +23,8 @@ export class UserService implements IComponentServiceStrict<User> {
 	readonly cacheService: NodeCacheService = new NodeCacheService();
 
 	readonly repo: Repository<User> = getManager().getRepository(User);
+
+	readonly taskService: TaskService = new TaskService();
 
 	/**
 	 * Read all users from db
@@ -176,6 +180,29 @@ export class UserService implements IComponentServiceStrict<User> {
 			}
 
 			return this.readAll({ where });
+		} catch (err) {
+			throw new Error(err);
+		}
+	}
+
+	/**
+	 * Read a certain user from db
+	 *
+	 * @param options Find options
+	 * @returns Returns a single user
+	 */
+	@bind
+	public readUserTasks(user: User): Promise<Task[]> {
+		try {
+			return this.taskService.readAll({
+				order: {
+					priority: 'DESC'
+				},
+				where: {
+					assignee: user,
+					completed: false
+				}
+			});
 		} catch (err) {
 			throw new Error(err);
 		}

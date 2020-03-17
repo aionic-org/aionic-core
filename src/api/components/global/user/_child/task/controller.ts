@@ -1,11 +1,12 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
 
-import { TaskService } from '@milestone/task/service';
 import { Task } from '@milestone/task/model';
+import { UserTaskService } from '@global/user/_child/task/service';
+import { User } from '@global/user/model';
 
 export class UserTaskController {
-	private readonly taskService: TaskService = new TaskService();
+	readonly userService: UserTaskService = new UserTaskService();
 
 	/**
 	 * Read tasks from user
@@ -24,15 +25,17 @@ export class UserTaskController {
 				return res.status(400).json({ status: 400, error: 'Invalid request' });
 			}
 
-			const tasks: Task[] = await this.taskService.readAll({
-				order: {
-					priority: 'DESC'
-				},
+			const user: User | undefined = await this.userService.read({
 				where: {
-					assignee: { id: userID },
-					completed: false
+					id: userID
 				}
 			});
+
+			if (!user) {
+				return res.status(404).json({ status: 404, error: 'User not found' });
+			}
+
+			const tasks: Task[] = await this.userService.readUserTasks(user);
 
 			return res.json({ status: res.statusCode, data: tasks });
 		} catch (err) {

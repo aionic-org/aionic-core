@@ -7,6 +7,7 @@
 	"aionic": {
 		"email": "project@aionic.org",
 		"website": "https://aionic.org",
+		"github": "https://github.com/aionic-org",
 		"applications": {
 			"aionic-backend": {
 				"domain": "https://aionic-backend.dummy-company.com",

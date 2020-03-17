@@ -80,7 +80,7 @@ typings/
 .dynamodb/
 
 # Ideas
-./idea
+.idea/
 
 # Compiled output
 dist

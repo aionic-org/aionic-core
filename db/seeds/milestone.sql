@@ -8,13 +8,13 @@
 */
 
 /* Insert task status */
-INSERT INTO task_status (title, sort)
-VALUES	('To Do', 1),
-				('In Progress', 2),
-				('Testing', 3),
-				('Bugfix', 4),
-				('In Review', 5),
-				('Done', 6);
+INSERT INTO task_status (title, sort, max, color)
+VALUES	('Open', 1, 0, '#0984e3'),
+				('Working', 2, 14, '#00b894'),
+				('Testing', 3, 10, '#fdcb6e'),
+				('Bugfix', 4, 8, '#d63031'),
+				('Review', 5, 5, '#e17055'),
+				('Done', 6, 0, '#636e72');
 
 /* Insert task priorities */
 INSERT INTO task_priority (title, value)

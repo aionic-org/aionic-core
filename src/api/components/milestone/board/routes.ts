@@ -2,13 +2,16 @@ import { Router } from 'express';
 
 import { AuthService, PassportStrategy } from '@services/auth';
 
+import { IComponentRoutes } from '../../index';
+
 import { BoardController } from './controller';
 import { BoardShareRoutes } from './_child/share/routes';
+import { BoardTaskRoutes } from './_child/tasks/routes';
 
-export class BoardRoutes {
-	private readonly controller: BoardController = new BoardController();
-	private authSerivce: AuthService;
-	private _router: Router = Router();
+export class BoardRoutes implements IComponentRoutes<BoardController> {
+	readonly controller: BoardController = new BoardController();
+	readonly authSerivce: AuthService;
+	_router: Router = Router();
 
 	public constructor(defaultStrategy?: PassportStrategy) {
 		this.authSerivce = new AuthService(defaultStrategy);
@@ -21,7 +24,7 @@ export class BoardRoutes {
 		return this._router;
 	}
 
-	private initRoutes(): void {
+	initRoutes(): void {
 		this.router.get(
 			'/',
 			this.authSerivce.isAuthorized(),
@@ -58,7 +61,8 @@ export class BoardRoutes {
 		);
 	}
 
-	private initChildRoutes(defaultStrategy?: PassportStrategy): void {
+	initChildRoutes(defaultStrategy?: PassportStrategy): void {
 		this.router.use('/:boardID', new BoardShareRoutes(defaultStrategy).router);
+		this.router.use('/:boardID', new BoardTaskRoutes(defaultStrategy).router);
 	}
 }

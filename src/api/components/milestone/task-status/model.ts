@@ -14,6 +14,12 @@ export class TaskStatus {
 	@Column()
 	public sort: number;
 
+	@Column()
+	public max: number;
+
+	@Column()
+	public color: string;
+
 	/***** relations *****/
 	@OneToMany(
 		(type) => Task,

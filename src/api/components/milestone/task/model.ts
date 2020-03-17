@@ -44,11 +44,6 @@ export class Task {
 	public branch: string;
 
 	@Column({
-		default: null
-	})
-	public label: string;
-
-	@Column({
 		default: null,
 		type: 'text'
 	})
