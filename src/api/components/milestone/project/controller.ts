@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { Project } from './model';
 import { ProjectService } from './service';
-import { FindConditions, OrderByCondition } from 'typeorm';
+import { FindConditions, OrderByCondition, In } from 'typeorm';
 
 export class ProjectController {
 	private readonly service: ProjectService = new ProjectService();
@@ -19,7 +19,7 @@ export class ProjectController {
 	@bind
 	public async readProjects(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { completed, orderby, orderdir, limit } = req.query;
+			const { completed, orderby, orderdir, limit, ids } = req.query;
 
 			let where: FindConditions<Project> = {};
 			let order: OrderByCondition = { completed: 'ASC' };
@@ -35,6 +35,10 @@ export class ProjectController {
 
 			if (limit) {
 				take = limit;
+			}
+
+			if (ids && ids.length) {
+				where = { ...where, id: In(ids.split(',')) };
 			}
 
 			const projects: Project[] = await this.service.readAll({

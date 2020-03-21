@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { Board } from './model';
 import { BoardService } from './service';
+import { FindConditions, In } from 'typeorm';
 
 export class BoardController {
 	private readonly service: BoardService = new BoardService();
@@ -18,22 +19,28 @@ export class BoardController {
 	@bind
 	public async readBoards(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { orderby, orderdir, limit } = req.query;
+			const { orderby, orderdir, limit, ids } = req.query;
 
+			let where: FindConditions<Board> = {};
 			let order = {};
-			let take: object = {};
+			let take: number = 0;
 
 			if (orderby || orderdir) {
 				order = { order: { [orderby || 'id']: orderdir || 'ASC' } };
 			}
 
 			if (limit) {
-				take = { take: limit };
+				take = limit;
+			}
+
+			if (ids && ids.length) {
+				where = { ...where, id: In(ids.split(',')) };
 			}
 
 			const boards: Board[] = await this.service.readAll({
-				...order,
-				...take
+				order,
+				take,
+				where
 			});
 
 			return res.json({ status: res.statusCode, data: boards });

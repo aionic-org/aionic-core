@@ -11,16 +11,10 @@ import { Task } from '@milestone/task/model';
 import { TaskService } from '@milestone/task/service';
 
 export class UserService implements IComponentServiceStrict<User> {
-	readonly defaultRelations: string[] = [
-		'userRole',
-		'assignee',
-		'tasksWatched',
-		'tasksWatched.assignee',
-		'tasksWatched.status',
-		'projectsWatched'
-	];
+	readonly defaultRelations: string[] = ['userRole', 'assignee'];
 
 	readonly cacheService: NodeCacheService = new NodeCacheService();
+	readonly cacheName: string = 'users';
 
 	readonly repo: Repository<User> = getManager().getRepository(User);
 
@@ -44,7 +38,7 @@ export class UserService implements IComponentServiceStrict<User> {
 			}
 
 			if (cached) {
-				return this.cacheService.get('users', this.readAll);
+				return this.cacheService.get(this.cacheName, this.readAll);
 			}
 
 			return this.repo.find({
@@ -85,7 +79,7 @@ export class UserService implements IComponentServiceStrict<User> {
 			const newUser: User = await this.repo.save(user);
 
 			// Clear user cache
-			this.cacheService.delete('users');
+			this.cacheService.delete(this.cacheName);
 
 			return newUser;
 		} catch (err) {
@@ -105,7 +99,7 @@ export class UserService implements IComponentServiceStrict<User> {
 			const deletedUser = await this.repo.remove(user);
 
 			// Clear user cache
-			this.cacheService.delete('users');
+			this.cacheService.delete(this.cacheName);
 
 			return deletedUser;
 		} catch (err) {
@@ -127,14 +121,7 @@ export class UserService implements IComponentServiceStrict<User> {
 
 			switch (client) {
 				case ApplicationSymbols.milestone:
-					relations = [
-						'userRole',
-						'assignee',
-						'tasksWatched',
-						'tasksWatched.assignee',
-						'tasksWatched.status',
-						'projectsWatched'
-					];
+					relations = ['userRole', 'assignee'];
 					break;
 				default:
 					relations = ['userRole'];

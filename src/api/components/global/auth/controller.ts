@@ -281,7 +281,7 @@ export class AuthController {
 			switch (client) {
 				case ApplicationSymbols.milestone:
 					config = {
-						taskStatus: await new TaskStatusService().readTaskStatus(),
+						taskStatus: await new TaskStatusService().readAll(),
 						taskPriorities: await new TaskPriorityService().readTaskPriorities()
 					};
 					break;

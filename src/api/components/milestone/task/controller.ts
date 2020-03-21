@@ -19,7 +19,7 @@ export class TaskController {
 	@bind
 	public async readTasks(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { title, term, status, assignee, author, tag, organization, branch } = req.query;
+			const { title, term, status, assignee, author, tag, completed, organization, branch } = req.query;
 
 			let where: FindConditions<Task> = {};
 
@@ -45,6 +45,10 @@ export class TaskController {
 
 			if (tag && tag.length) {
 				where = { ...where, tags: Like(`%${tag}%`) };
+			}
+
+			if (completed) {
+				where = { ...where, completed };
 			}
 
 			if (organization) {

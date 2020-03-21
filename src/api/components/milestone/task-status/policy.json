@@ -1,4 +1,4 @@
 {
-  "Admin": [{"resources": "taskStatus", "permissions": "*"}],
-  "User": [{"resources": "taskStatus", "permissions": ["read"]}]
+	"Admin": [{ "resources": "task-status", "permissions": "*" }],
+	"User": [{ "resources": "task-status", "permissions": ["read"] }]
 }

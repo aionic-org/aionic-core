@@ -10,6 +10,7 @@ import { NodeCacheService } from '@services/cache/node-cache';
 export interface IComponentService<T> {
 	readonly repo: Repository<T>;
 	readonly cacheService?: NodeCacheService;
+	readonly cacheName?: string;
 	readonly defaultRelations?: string[];
 }
 
@@ -23,6 +24,7 @@ export interface IComponentServiceStrict<T> extends IComponentService<T> {
 export interface IComponentRoutes<T> {
 	readonly controller: T;
 	readonly router: Router;
+
 	authSerivce: AuthService;
 
 	initRoutes(): void;

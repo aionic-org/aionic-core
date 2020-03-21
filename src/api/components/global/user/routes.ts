@@ -35,18 +35,18 @@ export class UserRoutes implements IComponentRoutes<UserController> {
 			this.controller.readUsersByUsername
 		);
 
-		this.router.post(
-			'/',
-			this.authSerivce.isAuthorized(),
-			this.authSerivce.hasPermission('user', 'create'),
-			this.controller.createUser
-		);
-
 		this.router.get(
 			'/:userID',
 			this.authSerivce.isAuthorized(),
 			this.authSerivce.hasPermission('user', 'read'),
 			this.controller.readUser
+		);
+
+		this.router.post(
+			'/',
+			this.authSerivce.isAuthorized(),
+			this.authSerivce.hasPermission('user', 'create'),
+			this.controller.createUser
 		);
 
 		this.router.put(

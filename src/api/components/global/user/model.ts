@@ -111,14 +111,6 @@ export class User {
 	)
 	public boards: Board[];
 
-	@ManyToMany((type) => Task)
-	@JoinTable()
-	public tasksWatched: Task[];
-
-	@ManyToMany((type) => Project)
-	@JoinTable()
-	public projectsWatched: Project[];
-
 	public static mockTestUser(): User {
 		const user = new User();
 

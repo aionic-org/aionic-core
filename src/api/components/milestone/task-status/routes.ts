@@ -21,8 +21,36 @@ export class TaskStatusRoutes {
 		this.router.get(
 			'/',
 			this.authSerivce.isAuthorized(),
-			this.authSerivce.hasPermission('taskStatus', 'read'),
+			this.authSerivce.hasPermission('task-status', 'read'),
 			this.controller.readTaskStatus
+		);
+
+		this.router.get(
+			'/:taskStatusID',
+			this.authSerivce.isAuthorized(),
+			this.authSerivce.hasPermission('task-status', 'read'),
+			this.controller.readSingleTaskStatus
+		);
+
+		this.router.post(
+			'/',
+			this.authSerivce.isAuthorized(),
+			this.authSerivce.hasPermission('task-status', 'create'),
+			this.controller.createTaskStatus
+		);
+
+		this.router.put(
+			'/:taskStatusID',
+			this.authSerivce.isAuthorized(),
+			this.authSerivce.hasPermission('task-status', 'update'),
+			this.controller.updateTaskStatus
+		);
+
+		this.router.delete(
+			'/:taskStatusID',
+			this.authSerivce.isAuthorized(),
+			this.authSerivce.hasPermission('task-status', 'delete'),
+			this.controller.deleteTaskStatus
 		);
 	}
 }
