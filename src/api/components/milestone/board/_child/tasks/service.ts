@@ -11,17 +11,17 @@ export class BoardTasksService extends BoardService {
 	readonly taskService: TaskService = new TaskService();
 
 	/**
-	 * Read tasks with board users from db
+	 * Read tasks with board members from db
 	 *
-	 * @param board Board to delete
-	 * @returns Returns deleted board
+	 * @param board Board to read tasks from
+	 * @returns Returns board tasks
 	 */
 	@bind
 	public async readBoardTasks(board: Board): Promise<Task[]> {
 		try {
 			return this.taskService.readAll({
 				where: {
-					assigneeId: In(board.users),
+					assigneeId: In(board.members),
 					completed: false
 				}
 			});

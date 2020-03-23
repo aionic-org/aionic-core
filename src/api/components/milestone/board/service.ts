@@ -6,7 +6,7 @@ import { IComponentServiceStrict } from '../../index';
 import { Board } from './model';
 
 export class BoardService implements IComponentServiceStrict<Board> {
-	readonly defaultRelations: string[] = ['author', 'users'];
+	readonly defaultRelations: string[] = ['author', 'members'];
 
 	readonly repo: Repository<Board> = getManager().getRepository(Board);
 

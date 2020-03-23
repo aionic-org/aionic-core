@@ -107,7 +107,7 @@ export class User {
 
 	@ManyToMany(
 		(type) => Board,
-		(board) => board.users
+		(board) => board.members
 	)
 	public boards: Board[];
 

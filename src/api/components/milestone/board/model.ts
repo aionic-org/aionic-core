@@ -47,7 +47,7 @@ export class Board {
 		(user) => user.boards
 	)
 	@JoinTable()
-	public users: User[];
+	public members: User[];
 
 	public static mockTestBoard(): Board {
 		const board: Board = new Board();

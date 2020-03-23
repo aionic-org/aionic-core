@@ -1,6 +1,6 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
-import { Like, FindConditions } from 'typeorm';
+import { Like, FindConditions, In } from 'typeorm';
 
 import { Task } from './model';
 import { TaskService } from './service';
@@ -19,7 +19,7 @@ export class TaskController {
 	@bind
 	public async readTasks(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
 		try {
-			const { title, term, status, assignee, author, tag, completed, organization, branch } = req.query;
+			const { title, term, status, assignee, author, tag, completed, ids, organization, branch } = req.query;
 
 			let where: FindConditions<Task> = {};
 
@@ -49,6 +49,10 @@ export class TaskController {
 
 			if (completed) {
 				where = { ...where, completed };
+			}
+
+			if (ids && ids.length) {
+				where = { ...where, id: In(ids.split(',')) };
 			}
 
 			if (organization) {
