@@ -120,7 +120,18 @@ export class TaskController {
 
 			const newTask: Task = await this.service.save(req.body.task);
 
-			return res.json({ status: res.statusCode, data: newTask });
+			/**
+			 * We have to reload the model again since .save()
+			 * does not return all columns on updates
+			 */
+
+			const updatedTask: Task | undefined = await this.service.read({
+				where: {
+					id: newTask.id
+				}
+			});
+
+			return res.json({ status: res.statusCode, data: updatedTask });
 		} catch (err) {
 			return next(err);
 		}
