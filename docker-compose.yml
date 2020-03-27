@@ -9,7 +9,7 @@ services:
       - mysql
       - redis
     ports:
-      - "3000"
+      - "3000:3000"
     links:
       - mysql
       - redis
