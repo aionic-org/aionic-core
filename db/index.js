@@ -2,10 +2,11 @@ const mysql = require('mysql');
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
 
-// Check CL arguments
+// Check command line arguments
 if (process.argv.length > 2) {
 	const type = process.argv.slice(2, 3)[0];
 	let seedQuery;
+	const seedQueryArgs = [];
 
 	// Read SQL seed
 	switch (type) {
@@ -13,12 +14,21 @@ if (process.argv.length > 2) {
 			seedQuery = fs.readFileSync('db/seeds/global.sql', {
 				encoding: 'utf-8'
 			});
+
+			// Generate random password for initial admin account
+			const psw = Math.random()
+				.toString(36)
+				.substring(7);
+			const hash = bcrypt.hashSync(psw, 10);
+			seedQueryArgs.push(hash);
 			break;
+
 		case 'milestone':
 			seedQuery = fs.readFileSync('db/seeds/milestone.sql', {
 				encoding: 'utf-8'
 			});
 			break;
+
 		default:
 			throw new Error('Unknow project seeding for: ' + type);
 	}
@@ -41,24 +51,17 @@ if (process.argv.length > 2) {
 
 	connection.connect();
 
-	// Generate random password for initial admin account
-	const psw = Math.random()
-		.toString(36)
-		.substring(7);
-	const hash = bcrypt.hashSync(psw, 10);
-
-	// Query arguments
-	const queryArgs = [hash];
-
-	console.log('Running SQL seed...');
-
 	// Run seed query
-	connection.query(seedQuery, queryArgs, (err) => {
+	connection.query(seedQuery, seedQueryArgs, (err) => {
 		if (err) {
 			throw err;
 		}
 
-		console.log('SQL seed completed! Password for initial admin account: ' + psw);
+		console.log(`SQL ${type} seed completed!`);
+
+		if (type === 'global') {
+			console.log(`Initial admin password: ` + seedQueryArgs[0]);
+		}
 	});
 
 	connection.end();

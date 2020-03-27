@@ -14,4 +14,4 @@ VALUES	('Admin'),
 
 /* Insert admin account */
 INSERT INTO user (email, firstname, lastname, password, userRoleId)
-VALUES	('admin@aionic-core.com', 'Admin', 'Admin', ?, 1);
+VALUES	('admin@aionic-core.org', 'Admin', 'Admin', ?, 1);

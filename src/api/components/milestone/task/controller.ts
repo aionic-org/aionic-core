@@ -65,7 +65,7 @@ export class TaskController {
 
 			const tasks: Task[] = await this.service.readAll({
 				where,
-				relations: ['author', 'assignee', 'status', 'priority', 'repository']
+				relations: ['author', 'assignee', 'status', 'priority', 'project', 'organization', 'repository']
 			});
 
 			return res.json({ status: res.statusCode, data: tasks });

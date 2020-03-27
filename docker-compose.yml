@@ -1,15 +1,13 @@
-version: "3"
+version: '3'
 services:
   server:
     build: .
     container_name: aionic-core
-    #volumes:
-    #  - .:/usr/src/app/
     depends_on:
       - mysql
       - redis
     ports:
-      - "3000:3000"
+      - '3000:3000'
     links:
       - mysql
       - redis
@@ -26,4 +24,4 @@ services:
   redis:
     image: redis
     expose:
-      - "6379"
+      - '6379'
