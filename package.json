@@ -17,6 +17,7 @@
 		"start": "node ./dist/index.js",
 		"start:prod": "pm2 start ./src/index.js --name aionic-core",
 		"build": "rm -rf dist && tsc -p tsconfig.json && gulp copy && gulp merge",
+		"build-start": "npm run build && npm start",
 		"watch": "nodemon --exec \"npm run build && npm run start\" --watch src --ext ts",
 		"test": "npm run build && mocha",
 		"seed": "node db/index.js",

@@ -1,0 +1,29 @@
+version: "3"
+services:
+  server:
+    build: .
+    container_name: aionic-core
+    #volumes:
+    #  - .:/usr/src/app/
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - "3000"
+    links:
+      - mysql
+      - redis
+    env_file:
+      - .env
+    command: npm run build-start
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: aionic
+  redis:
+    image: redis
+    expose:
+      - "6379"
