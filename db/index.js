@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 if (process.argv.length > 2) {
 	const type = process.argv.slice(2, 3)[0];
 	let seedQuery;
+	let initialPassword;
 	const seedQueryArgs = [];
 
 	// Read SQL seed
@@ -16,10 +17,10 @@ if (process.argv.length > 2) {
 			});
 
 			// Generate random password for initial admin account
-			const psw = Math.random()
+			initialPassword = Math.random()
 				.toString(36)
 				.substring(7);
-			const hash = bcrypt.hashSync(psw, 10);
+			const hash = bcrypt.hashSync(initialPassword, 10);
 			seedQueryArgs.push(hash);
 			break;
 
@@ -60,7 +61,7 @@ if (process.argv.length > 2) {
 		console.log(`SQL ${type} seed completed!`);
 
 		if (type === 'global') {
-			console.log(`Initial admin password: ` + seedQueryArgs[0]);
+			console.log(`Initial admin password: ` + initialPassword);
 		}
 	});
 
